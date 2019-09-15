@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{ca0ab5b2-86f0-49a4-8f7d-3d079547e2a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scenes">
+      <UniqueIdentifier>{8bd0893c-ba44-4f9a-8723-e176fa7fa62d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObjects">
+      <UniqueIdentifier>{b2a5189b-dde6-44c8-a962-24004cf0d361}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObjects\Enemies">
+      <UniqueIdentifier>{c2ce11a1-63da-45f4-8f7a-a52ff13efe70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObjects\Weapons">
+      <UniqueIdentifier>{abfb47d0-a87a-4b2a-9825-be9e4fc8c124}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObjects\Players">
+      <UniqueIdentifier>{979c4ec3-018e-4a0e-9d7b-1e886321e39f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Game\GameObjects\Map">
+      <UniqueIdentifier>{b44d7abc-72e9-43e5-8e1e-49235c75a678}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Define.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadResources.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MyGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Game\GameObjects\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Goomba.cpp">
+      <Filter>Game\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Mario.cpp">
+      <Filter>Game\GameObjects\Players</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="LoadResources.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MyGame.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Game\GameObjects\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Goomba.h">
+      <Filter>Game\GameObjects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Mario.h">
+      <Filter>Game\GameObjects\Players</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

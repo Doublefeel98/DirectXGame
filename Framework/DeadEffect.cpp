@@ -2,16 +2,16 @@
 
 
 
-void DeadEffect::Render(Camera * camera)
+void DeadEffect::Render()
 {
 	if (isEnable)
-		animation[0]->Render(camera, x, y);
+		animation[0]->Render(x, y);
 }
 
-void DeadEffect::Render(Camera * camera, D3DXVECTOR3 &pos)
+void DeadEffect::Render(D3DXVECTOR3 &pos)
 {
 	if (isEnable)
-		animation[0]->Render(camera,pos.x,pos.y);
+		animation[0]->Render(pos.x,pos.y);
 }
 
 void DeadEffect::Update(DWORD dt)

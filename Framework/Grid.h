@@ -17,6 +17,6 @@ public:
 	Grid(int widthmap, int heightmap,int cellsizex,int cellsizey);
 	~Grid();
 	void Add(vector <LPGAMEOBJECT> *listObject);
-	void GetListOfObjects(vector<LPGAMEOBJECT> *list_object, Camera *camera, int SCREEN_WIDTH, int SCREEN_HEIGHT);
+	void GetListOfObjects(vector<LPGAMEOBJECT> *list_object, int SCREEN_WIDTH, int SCREEN_HEIGHT);
 };
 

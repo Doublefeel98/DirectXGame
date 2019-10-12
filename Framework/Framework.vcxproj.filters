@@ -40,6 +40,9 @@
     <Filter Include="Source Files\Effect">
       <UniqueIdentifier>{15dc3df6-a1be-45e2-a423-23cdcb7366bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Resoucre">
+      <UniqueIdentifier>{0e38e217-feee-4d44-8128-c34639063510}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sprites.cpp">
@@ -84,6 +87,15 @@
     <ClCompile Include="DeadEffect.cpp">
       <Filter>Source Files\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Resoucres.cpp">
+      <Filter>Source Files\Resoucre</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sprites.h">
@@ -127,6 +139,15 @@
     </ClInclude>
     <ClInclude Include="DeadEffect.h">
       <Filter>Source Files\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Resoucres.h">
+      <Filter>Source Files\Resoucre</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Source Files\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Source Files\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

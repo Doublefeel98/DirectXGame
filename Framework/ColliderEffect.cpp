@@ -2,10 +2,10 @@
 
 
 
-void ColliderEffect::Render(Camera * camera)
+void ColliderEffect::Render()
 {
 	if (isEnable)
-		animation[0]->Render(camera, x, y);
+		animation[0]->Render(x, y);
 }
 
 void ColliderEffect::Update(DWORD dt)

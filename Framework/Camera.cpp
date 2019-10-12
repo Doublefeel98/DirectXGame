@@ -1,7 +1,15 @@
 #include "Camera.h"
 
+CCamera* CCamera::__instance = NULL;
 
-Camera::Camera(float x, float y)
+CCamera* CCamera::GetInstance()
+{
+	if (__instance == NULL) __instance = new CCamera(0, 0);
+	return __instance;
+}
+
+
+CCamera::CCamera(float x, float y)
 {
 	this->cameraPosition.x = x;
 	this->cameraPosition.y = y;
@@ -9,11 +17,11 @@ Camera::Camera(float x, float y)
 }
 
 
-Camera::~Camera()
+CCamera::~CCamera()
 {
 }
 
-D3DXVECTOR3 Camera::SetPositionInCamera(D3DXVECTOR3 position)
+D3DXVECTOR3 CCamera::SetPositionInCamera(D3DXVECTOR3 position)
 {
 	D3DXVECTOR3 pos;
 	pos.x = position.x - this->cameraPosition.x;
@@ -21,13 +29,13 @@ D3DXVECTOR3 Camera::SetPositionInCamera(D3DXVECTOR3 position)
 	return D3DXVECTOR3(pos.x, pos.y, 0);
 }
 
-void Camera::SetCameraPosition(float x, float y)
+void CCamera::SetCameraPosition(float x, float y)
 {
 	this->cameraPosition.x = x;
 	this->cameraPosition.y = y;
 }
 
-D3DXVECTOR3 Camera::GetCameraPosition()
+D3DXVECTOR3 CCamera::GetCameraPosition()
 {
 	return this->cameraPosition;
 }

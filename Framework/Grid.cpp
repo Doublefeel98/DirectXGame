@@ -51,8 +51,9 @@ void Grid::Add(vector <LPGAMEOBJECT> *listObject)
 	}
 }
 
-void Grid::GetListOfObjects(vector<LPGAMEOBJECT>* list_object, Camera * camera, int SCREEN_WIDTH, int SCREEN_HEIGHT)
+void Grid::GetListOfObjects(vector<LPGAMEOBJECT>* list_object, int SCREEN_WIDTH, int SCREEN_HEIGHT)
 {
+	CCamera* camera = CCamera::GetInstance();
 	list_object->clear();
 	int xs, ys;
 	int xe, ye;

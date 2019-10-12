@@ -9,8 +9,8 @@ class DeadEffect
 	bool isEnable;
 	vector<LPANIMATION> animation;
 public:
-	void Render(Camera *camera);
-	void Render(Camera * camera, D3DXVECTOR3 &pos);
+	void Render();
+	void Render(D3DXVECTOR3 &pos);
 	void Update(DWORD dt);
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetEnable(bool isenable) { isEnable = isenable; }

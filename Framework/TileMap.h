@@ -23,6 +23,6 @@ public:
 	TileMap(float _width, float _height, CSprite *_sprite, float _frameWidth, float _frameHeight);
 	~TileMap();
 	void LoadListTileFromFile(const char* file);
-	void Render(Camera *camera, int SCREEN_WIDTH, int SCREEN_HEIGHT);
+	void Render(int SCREEN_WIDTH, int SCREEN_HEIGHT);
 };
 

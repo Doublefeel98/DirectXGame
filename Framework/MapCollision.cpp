@@ -9,11 +9,11 @@ MapCollision::MapCollision()
 	textures->Add(ID_TEX_BBOX, L"textures\\black.png", D3DCOLOR_XRGB(0 ,0 ,0));
 }
 
-void MapCollision::Render(Camera * camera)
+void MapCollision::Render()
 {
 	CSprites * sprites = CSprites::GetInstance();
 	sprite = sprites->Get(ID_TEX_TRANSPARENT);
-	sprite->Draw(camera, x,y);
+	sprite->Draw(x,y);
 }
 
 

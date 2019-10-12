@@ -77,11 +77,12 @@ void TileMap::LoadListTileFromFile(const char *file)
 	}
 }
 
-void TileMap::Render(Camera *camera, int SCREEN_WIDTH, int SCREEN_HEIGHT)
+void TileMap::Render(int SCREEN_WIDTH, int SCREEN_HEIGHT)
 {
 	RECT rect;
 	D3DXVECTOR3 pos;
 
+	CCamera* camera = CCamera::GetInstance();
 	D3DXVECTOR3 cameraPosition = camera->GetCameraPosition();
 	int rowStart;
 	int rowEnd;

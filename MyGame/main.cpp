@@ -304,6 +304,7 @@ void Update(DWORD dt)
 	cy -= SCREEN_HEIGHT / 2;
 
 	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+	CCamera::GetInstance()->SetCameraPosition(cx, 0.0f /*cy*/);
 }
 
 /*

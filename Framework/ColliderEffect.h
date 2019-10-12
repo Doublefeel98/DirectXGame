@@ -10,7 +10,7 @@ class ColliderEffect
 	bool isEnable;
 	vector<LPANIMATION> animation;
 public:
-	void Render(Camera *camera);
+	void Render();
 	void Update(DWORD dt);
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetEnable(bool isenable) { isEnable = isenable; }

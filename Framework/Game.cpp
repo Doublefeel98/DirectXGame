@@ -52,25 +52,29 @@ void CGame::Init(HWND hWnd)
 	OutputDebugString(L"[INFO] InitGame done;\n");
 }
 
-/*
-	Utility function to wrap LPD3DXSPRITE::Draw 
-*/
-void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
-{
-	D3DXVECTOR3 p(x, y, 0);
-	RECT r; 
-	r.left = left;
-	r.top = top;
-	r.right = right;
-	r.bottom = bottom; 
-	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
-}
+///*
+//	Utility function to wrap LPD3DXSPRITE::Draw 
+//*/
+//void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
+//{
+//	//D3DXVECTOR3 p(floor(x), floor(y), 0); // https://docs.microsoft.com/vi-vn/windows/desktop/direct3d9/directly-mapping-texels-to-pixels
+//// Try removing floor() to see blurry Mario
+//	D3DXVECTOR3 p(floor(x - cam_x), floor(y - cam_y), 0);
+//	RECT r;
+//	r.left = left;
+//	r.top = top;
+//	r.right = right;
+//	r.bottom = bottom;
+//	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+//}
+
 void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, RECT & r, int alpha)
 {
 	D3DXVECTOR3 p(x, y, 0);
 	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 }
-void CGame::Draw(Camera *camera,float x,float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
+
+void CGame::Draw(float x,float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
 {
 	D3DXVECTOR3 p(x, y, 0);
 	RECT r;
@@ -78,6 +82,11 @@ void CGame::Draw(Camera *camera,float x,float y, LPDIRECT3DTEXTURE9 texture, int
 	r.top = top;
 	r.right = right;
 	r.bottom = bottom;
+	CCamera* camera = CCamera::GetInstance();
+
+	D3DXVECTOR3 position = camera->GetCameraPosition();
+	DebugOut(L"[INFO] Camera Position: %d : %d \n", position.x, position.y);
+
 	spriteHandler->Draw(texture, &r, NULL, &camera->SetPositionInCamera(p), D3DCOLOR_ARGB(alpha, 255, 255, 255));
 }
 
@@ -94,8 +103,9 @@ void CGame::Draw(LPDIRECT3DTEXTURE9 texture, D3DXVECTOR3 &pos, RECT &r, int alph
 	spriteHandler->Draw(texture, &r, NULL, &pos, D3DCOLOR_ARGB(alpha, 255, 255, 255));// D3DCOLOR_ARGB(alpha, 255, 255, 255));
 }
 
-void CGame::Draw(Camera* camera,LPDIRECT3DTEXTURE9 texture, D3DXVECTOR3 &pos, int alpha)
+void CGame::Draw(LPDIRECT3DTEXTURE9 texture, D3DXVECTOR3 &pos, int alpha)
 {
+	CCamera * camera = CCamera::GetInstance();
 	spriteHandler->Draw(texture, NULL, NULL, &camera->SetPositionInCamera(pos), D3DCOLOR_ARGB(alpha, 255, 255, 255));// D3DCOLOR_ARGB(alpha, 255, 255, 255));
 }
 

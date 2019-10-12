@@ -51,8 +51,7 @@ public:
 	int type;
 	int state;
 	int id;
-	DWORD dt; 
-	Camera *camera;
+	DWORD dt;
 	vector<LPANIMATION> animations;
 	ColliderEffect *collider;
 	DeadEffect *deadeffect;
@@ -71,8 +70,6 @@ public:
 
 	void SetDead(bool _isDead) { isDead = _isDead; }
 	bool IsDead() { return isDead; }
-	void RenderBoundingBox(Camera* camera);
-
 	void RenderBoundingBox();
 
 	LPCOLLISIONEVENT SweptAABBEx(LPGAMEOBJECT coO);
@@ -91,8 +88,8 @@ public:
 
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
-	virtual void Render(Camera *camera);
-	virtual void Render() = 0;
+	virtual void Render();
+	//virtual void Render() = 0;
 	virtual void SetState(int state) { this->state = state; }
 	void SetId(int id) { this->id = id; }
 	int GetId() { return id; }

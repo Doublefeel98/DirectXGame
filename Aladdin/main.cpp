@@ -1,6 +1,6 @@
 /* =============================================================
 	INTRODUCTION TO GAME PROGRAMMING SE102
-	
+
 	SAMPLE 04 - COLLISION
 
 	This sample illustrates how to:
@@ -8,14 +8,14 @@
 		1/ Implement SweptAABB algorithm between moving objects
 		2/ Implement a simple (yet effective) collision frame work
 
-	Key functions: 
+	Key functions:
 		CGame::SweptAABB
 		CGameObject::SweptAABBEx
 		CGameObject::CalcPotentialCollisions
 		CGameObject::FilterCollision
 
 		CGameObject::GetBoundingBox
-		
+
 ================================================================ */
 
 #include <windows.h>
@@ -44,21 +44,23 @@
 #define ID_TEX_ENEMY 10
 #define ID_TEX_MISC 20
 
-CGame *game;
+#define ID_TEX_ALADDIN 0
 
-CMario *mario;
-CGoomba *goomba;
+CGame * game;
+
+CMario* mario;
+CGoomba* goomba;
 
 vector<LPGAMEOBJECT> objects;
 
-class CSampleKeyHander: public CKeyEventHandler
+class CSampleKeyHander : public CKeyEventHandler
 {
-	virtual void KeyState(BYTE *states);
+	virtual void KeyState(BYTE* states);
 	virtual void OnKeyDown(int KeyCode);
 	virtual void OnKeyUp(int KeyCode);
 };
 
-CSampleKeyHander * keyHandler; 
+CSampleKeyHander* keyHandler;
 
 void CSampleKeyHander::OnKeyDown(int KeyCode)
 {
@@ -71,7 +73,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	case DIK_A: // reset
 		mario->SetState(MARIO_STATE_IDLE);
 		mario->SetLevel(MARIO_LEVEL_BIG);
-		mario->SetPosition(50.0f,0.0f);
+		mario->SetPosition(50.0f, 0.0f);
 		mario->SetSpeed(0, 0);
 		break;
 	}
@@ -82,7 +84,7 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
 }
 
-void CSampleKeyHander::KeyState(BYTE *states)
+void CSampleKeyHander::KeyState(BYTE* states)
 {
 	// disable control key when Mario die 
 	if (mario->GetState() == MARIO_STATE_DIE) return;
@@ -108,33 +110,48 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 }
 
 /*
-	Load all game resources 
+	Load all game resources
 	In this example: load textures, sprites, animations and mario object
 
 	TO-DO: Improve this function by loading texture,sprite,animation,object from file
 */
 void LoadResources()
 {
-	CTextures * textures = CTextures::GetInstance();
+	CTextures* textures = CTextures::GetInstance();
 
-	textures->Add(ID_TEX_MARIO, L"textures\\mario.png",D3DCOLOR_XRGB(255, 255, 255));
+	textures->Add(ID_TEX_MARIO, L"textures\\mario.png", D3DCOLOR_XRGB(255, 255, 255));
 	textures->Add(ID_TEX_MISC, L"textures\\misc.png", D3DCOLOR_XRGB(176, 224, 248));
 	textures->Add(ID_TEX_ENEMY, L"textures\\enemies.png", D3DCOLOR_XRGB(3, 26, 110));
 
 
 	textures->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 
+	textures->Add(ID_TEX_ALADDIN, L"textures\\aladdin.png", D3DCOLOR_XRGB(255, 0, 255));
 
-	CSprites * sprites = CSprites::GetInstance();
-	CAnimations * animations = CAnimations::GetInstance();
-	
+
+	CSprites* sprites = CSprites::GetInstance();
+	CAnimations* animations = CAnimations::GetInstance();
+
 	LPDIRECT3DTEXTURE9 texMario = textures->Get(ID_TEX_MARIO);
 
-	// big
-	sprites->Add(10001, 246, 154, 260, 181, texMario);		// idle right
+	LPDIRECT3DTEXTURE9 texAladdin = textures->Get(ID_TEX_ALADDIN);
 
-	sprites->Add(10002, 275, 154, 290, 181, texMario);		// walk
-	sprites->Add(10003, 304, 154, 321, 181, texMario);
+	// big
+	sprites->Add(10001, 3, 9, 41, 57, texAladdin);		// idle right
+
+	sprites->Add(10002, 14, 1225, 53, 1222, texAladdin);		// walk	
+	sprites->Add(10003, 66, 1222, 108, 1272, texAladdin);
+	sprites->Add(10004, 120, 1220, 160, 1272, texAladdin);
+	sprites->Add(10005, 171, 1216, 211, 1272, texAladdin);
+	sprites->Add(10006, 220, 1216, 271, 1272, texAladdin);
+	sprites->Add(10007, 279, 1219, 324, 1273, texAladdin);
+	sprites->Add(10008, 334, 1215, 375, 1273, texAladdin);
+	sprites->Add(10009, 386, 1221, 426, 1273, texAladdin);
+	sprites->Add(10010, 440, 1219, 474, 1273, texAladdin);
+	sprites->Add(10011, 488, 1216, 536, 1273, texAladdin);
+	sprites->Add(10012, 547, 1215, 601, 1273, texAladdin);
+	sprites->Add(10013, 611, 1219, 665, 1273, texAladdin);
+	sprites->Add(10014, 679, 1218, 722, 1273, texAladdin);
 
 	sprites->Add(10011, 186, 154, 200, 181, texMario);		// idle left
 	sprites->Add(10012, 155, 154, 170, 181, texMario);		// walk
@@ -184,6 +201,17 @@ void LoadResources()
 	ani->Add(10001);
 	ani->Add(10002);
 	ani->Add(10003);
+	ani->Add(10004);
+	ani->Add(10005);
+	ani->Add(10006);
+	ani->Add(10007);
+	ani->Add(10008);
+	ani->Add(10009);
+	ani->Add(10010);
+	ani->Add(10011);
+	ani->Add(10012);
+	ani->Add(10013);
+	ani->Add(10014);
 	animations->Add(500, ani);
 
 	ani = new CAnimation(100);	// // walk left big
@@ -209,7 +237,7 @@ void LoadResources()
 	ani->Add(10099);
 	animations->Add(599, ani);
 
-	
+
 
 	ani = new CAnimation(100);		// brick
 	ani->Add(20001);
@@ -240,43 +268,43 @@ void LoadResources()
 	mario->SetPosition(50.0f, 0);
 	objects.push_back(mario);
 
-	for (int i = 0; i < 5; i++)
-	{
-		CBrick *brick = new CBrick();
-		brick->AddAnimation(601);
-		brick->SetPosition(100.0f + i*60.0f, 74.0f);
-		objects.push_back(brick);
+	//for (int i = 0; i < 5; i++)
+	//{
+	//	CBrick *brick = new CBrick();
+	//	brick->AddAnimation(601);
+	//	brick->SetPosition(100.0f + i*60.0f, 74.0f);
+	//	objects.push_back(brick);
 
-		brick = new CBrick();
-		brick->AddAnimation(601);
-		brick->SetPosition(100.0f + i*60.0f, 90.0f);
-		objects.push_back(brick);
+	//	brick = new CBrick();
+	//	brick->AddAnimation(601);
+	//	brick->SetPosition(100.0f + i*60.0f, 90.0f);
+	//	objects.push_back(brick);
 
-		brick = new CBrick();
-		brick->AddAnimation(601);
-		brick->SetPosition(84.0f + i*60.0f, 90.0f);
-		objects.push_back(brick);
-	}
+	//	brick = new CBrick();
+	//	brick->AddAnimation(601);
+	//	brick->SetPosition(84.0f + i*60.0f, 90.0f);
+	//	objects.push_back(brick);
+	//}
 
 
 	for (int i = 0; i < 30; i++)
 	{
-		CBrick *brick = new CBrick();
+		CBrick* brick = new CBrick();
 		brick->AddAnimation(601);
-		brick->SetPosition(0 + i*16.0f, 150);
+		brick->SetPosition(0 + i * 16.0f, 150);
 		objects.push_back(brick);
 	}
 
-	// and Goombas 
-	for (int i = 0; i < 4; i++)
-	{
-		goomba = new CGoomba();
-		goomba->AddAnimation(701);
-		goomba->AddAnimation(702);
-		goomba->SetPosition(200 + i*60, 135);
-		goomba->SetState(GOOMBA_STATE_WALKING);
-		objects.push_back(goomba);
-	}
+	//// and Goombas 
+	//for (int i = 0; i < 4; i++)
+	//{
+	//	goomba = new CGoomba();
+	//	goomba->AddAnimation(701);
+	//	goomba->AddAnimation(702);
+	//	goomba->SetPosition(200 + i*60, 135);
+	//	goomba->SetState(GOOMBA_STATE_WALKING);
+	//	objects.push_back(goomba);
+	//}
 
 }
 
@@ -297,7 +325,7 @@ void Update(DWORD dt)
 
 	for (int i = 0; i < objects.size(); i++)
 	{
-		objects[i]->Update(dt,&coObjects);
+		objects[i]->Update(dt, &coObjects);
 	}
 
 
@@ -312,7 +340,7 @@ void Update(DWORD dt)
 }
 
 /*
-	Render a frame 
+	Render a frame
 */
 void Render()
 {
@@ -372,7 +400,7 @@ HWND CreateGameWindow(HINSTANCE hInstance, int nCmdShow, int ScreenWidth, int Sc
 			hInstance,
 			NULL);
 
-	if (!hWnd) 
+	if (!hWnd)
 	{
 		OutputDebugString(L"[ERROR] CreateWindow failed");
 		DWORD ErrCode = GetLastError();
@@ -413,12 +441,12 @@ int Run()
 			frameStart = now;
 
 			game->ProcessKeyboard();
-			
+
 			Update(dt);
 			Render();
 		}
 		else
-			Sleep(tickPerFrame - dt);	
+			Sleep(tickPerFrame - dt);
 	}
 
 	return 1;
@@ -437,7 +465,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	LoadResources();
 
-	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH*2, SCREEN_HEIGHT*2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
+	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 
 	Run();
 

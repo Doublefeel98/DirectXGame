@@ -8,6 +8,31 @@
 #include "GameObject.h"
 #include "Sprites.h"
 
+#include <direct.h>
+#define GetCurrentDir _getcwd
+
+#include<iostream>
+using namespace std;
+
+std::string get_current_dir() {
+	char buff[FILENAME_MAX]; //create string buffer to hold path
+	GetCurrentDir(buff, FILENAME_MAX);
+	string current_working_dir(buff);
+	return current_working_dir;
+}
+
+
+
+LPCWSTR convertStringToWchar_t(std::string text)
+{
+	wstring wcstring;
+	for (int i = 0; i < text.length(); ++i)
+		wcstring += wchar_t(text[i]);
+
+	const wchar_t* result = wcstring.c_str();
+	return result;
+}
+
 CGameObject::CGameObject()
 {
 	/*textures->GetInstance();
@@ -22,7 +47,8 @@ CGameObject::CGameObject()
 	collider = new ColliderEffect();
 	deadeffect = new DeadEffect();
 	CTextures* textures = CTextures::GetInstance();
-	textures->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
+	DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", get_current_dir() + "textures\\bbox.png");
+	textures->Add(ID_TEX_BBOX, L"resources\\textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 }
 
 void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -161,7 +187,25 @@ void CGameObject::RenderBoundingBox()
 	rect.right = (int)r - (int)l;
 	rect.bottom = (int)b - (int)t;
 
-	CGame::GetInstance()->Draw(x, y, bbox, rect.left, rect.top, rect.right, rect.bottom, 255);
+	CGame::GetInstance()->Draw(x, y, bbox, rect.left, rect.top, rect.right, rect.bottom, 100);
+}
+
+void CGameObject::RenderBoundingBoxFlipOx()
+{
+	D3DXVECTOR3 p(x, y, 0);
+	RECT rect;
+
+	LPDIRECT3DTEXTURE9 bbox = CTextures::GetInstance()->Get(ID_TEX_BBOX);
+
+	float l, t, r, b;
+
+	GetBoundingBox(l, t, r, b);
+	rect.left = 0;
+	rect.top = 0;
+	rect.right = (int)r - (int)l;
+	rect.bottom = (int)b - (int)t;
+
+	CGame::GetInstance()->DrawFlipOx(x, y, bbox, rect.left, rect.top, rect.right, rect.bottom, 255);
 }
 
 void CGameObject::AddAnimation(int aniId)

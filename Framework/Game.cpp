@@ -1,4 +1,4 @@
-#include "Game.h"
+﻿#include "Game.h"
 #include "debug.h"
 
 CGame * CGame::__instance = NULL;
@@ -85,9 +85,38 @@ void CGame::Draw(float x,float y, LPDIRECT3DTEXTURE9 texture, int left, int top,
 	CCamera* camera = CCamera::GetInstance();
 
 	D3DXVECTOR3 position = camera->GetCameraPosition();
-	DebugOut(L"[INFO] Camera Position: %d : %d \n", position.x, position.y);
+	//DebugOut(L"[INFO] Camera Position: %d : %d \n", position.x, position.y);
 
 	spriteHandler->Draw(texture, &r, NULL, &camera->SetPositionInCamera(p), D3DCOLOR_ARGB(alpha, 255, 255, 255));
+}
+
+void CGame::DrawFlipOx(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
+{
+	D3DXVECTOR3 p(x, y, 0);
+	RECT r;
+	r.left = left;
+	r.top = top;
+	r.right = right;
+	r.bottom = bottom;
+	CCamera* camera = CCamera::GetInstance();
+
+	// lấy điểm chính giữa sprite
+	D3DXVECTOR3 center((right -left) / 2, (bottom - top) / 2, 0);
+
+	D3DXVECTOR3 position = camera->GetCameraPosition();
+	//DebugOut(L"[INFO] Camera Position: %d : %d \n", position.x, position.y);
+
+	D3DXMATRIX oldMatrix;
+	spriteHandler->GetTransform(&oldMatrix);
+
+	D3DXMATRIX newMatrix;
+	D3DXMatrixScaling(&newMatrix, -1.0f, 1.0f, .0f);
+	// Thực hiện việc chuyển đổi.
+	spriteHandler->SetTransform(&newMatrix);
+
+	spriteHandler->Draw(texture, &r, NULL, &camera->SetPositionInCamera(p), D3DCOLOR_ARGB(alpha, 255, 255, 255));
+
+	spriteHandler->SetTransform(&oldMatrix); // set lai matrix cu~ de Sprite chi ap dung transfrom voi class nay
 }
 
 void CGame::Draw(LPDIRECT3DTEXTURE9 texture, D3DXVECTOR3 &pos, RECT &r, int alpha )

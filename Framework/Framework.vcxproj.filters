@@ -43,6 +43,9 @@
     <Filter Include="Source Files\Resoucre">
       <UniqueIdentifier>{0e38e217-feee-4d44-8128-c34639063510}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{afe179fb-aaf7-46a8-b7a2-bb9062855722}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sprites.cpp">
@@ -95,6 +98,9 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Source Files\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Helper.cpp">
+      <Filter>Source Files\Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

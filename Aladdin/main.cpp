@@ -22,34 +22,19 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 
-#include "debug.h"
-#include "Game.h"
-#include "GameObject.h"
-#include "Textures.h"
+#include "../Framework/debug.h"
+#include "../Framework/Game.h"
+#include "../Framework/GameObject.h"
+#include "../Framework/Textures.h"
 
-#include "Mario.h"
+#include "Aladdin.h"
+#include "Define.h"
 #include "Brick.h"
-#include "Goomba.h"
 
-#define WINDOW_CLASS_NAME L"SampleWindow"
-#define MAIN_WINDOW_TITLE L"04 - Collision"
-
-#define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 255, 200)
-#define SCREEN_WIDTH 320
-#define SCREEN_HEIGHT 240
-
-#define MAX_FRAME_RATE 120
-
-#define ID_TEX_MARIO 0
-#define ID_TEX_ENEMY 10
-#define ID_TEX_MISC 20
-
-#define ID_TEX_ALADDIN 0
 
 CGame * game;
 
-CMario* mario;
-CGoomba* goomba;
+Aladdin* aladdin;
 
 vector<LPGAMEOBJECT> objects;
 
@@ -68,13 +53,12 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
-		mario->SetState(MARIO_STATE_JUMP);
+		aladdin->SetState(ALADDIN_STATE_JUMP);
 		break;
 	case DIK_A: // reset
-		mario->SetState(MARIO_STATE_IDLE);
-		mario->SetLevel(MARIO_LEVEL_BIG);
-		mario->SetPosition(50.0f, 0.0f);
-		mario->SetSpeed(0, 0);
+		aladdin->SetState(ALADDIN_STATE_IDLE);
+		aladdin->SetPosition(50.0f, 0.0f);
+		aladdin->SetSpeed(0, 0);
 		break;
 	}
 }
@@ -87,13 +71,13 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 void CSampleKeyHander::KeyState(BYTE* states)
 {
 	// disable control key when Mario die 
-	if (mario->GetState() == MARIO_STATE_DIE) return;
+	if (aladdin->GetState() == ALADDIN_STATE_DIE) return;
 	if (game->IsKeyDown(DIK_RIGHT))
-		mario->SetState(MARIO_STATE_WALKING_RIGHT);
+		aladdin->SetState(ALADDIN_STATE_WALKING_RIGHT);
 	else if (game->IsKeyDown(DIK_LEFT))
-		mario->SetState(MARIO_STATE_WALKING_LEFT);
+		aladdin->SetState(ALADDIN_STATE_WALKING_LEFT);
 	else
-		mario->SetState(MARIO_STATE_IDLE);
+		aladdin->SetState(ALADDIN_STATE_IDLE);
 }
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -111,7 +95,7 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 /*
 	Load all game resources
-	In this example: load textures, sprites, animations and mario object
+	In this example: load textures, sprites, animations and aladdin object
 
 	TO-DO: Improve this function by loading texture,sprite,animation,object from file
 */
@@ -119,173 +103,70 @@ void LoadResources()
 {
 	CTextures* textures = CTextures::GetInstance();
 
-	textures->Add(ID_TEX_MARIO, L"textures\\mario.png", D3DCOLOR_XRGB(255, 255, 255));
-	textures->Add(ID_TEX_MISC, L"textures\\misc.png", D3DCOLOR_XRGB(176, 224, 248));
-	textures->Add(ID_TEX_ENEMY, L"textures\\enemies.png", D3DCOLOR_XRGB(3, 26, 110));
-
-
-	textures->Add(ID_TEX_BBOX, L"textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
-
-	textures->Add(ID_TEX_ALADDIN, L"textures\\aladdin.png", D3DCOLOR_XRGB(255, 0, 255));
+	//textures->Add(ID_TEX_BBOX, L"resources\\textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
+	textures->Add(ID_TEX_MISC, L"resources\\textures\\misc.png", D3DCOLOR_XRGB(176, 224, 248));
+	textures->Add(ID_TEX_ALADDIN, L"resources\\textures\\aladdin.png", D3DCOLOR_XRGB(255, 0, 255));
 
 
 	CSprites* sprites = CSprites::GetInstance();
 	CAnimations* animations = CAnimations::GetInstance();
 
-	LPDIRECT3DTEXTURE9 texMario = textures->Get(ID_TEX_MARIO);
+	LPDIRECT3DTEXTURE9 texMario = textures->Get(ID_TEX_ALADDIN);
 
 	LPDIRECT3DTEXTURE9 texAladdin = textures->Get(ID_TEX_ALADDIN);
 
-	// big
 	sprites->Add(10001, 3, 9, 41, 57, texAladdin);		// idle right
 
-	sprites->Add(10002, 14, 1225, 53, 1222, texAladdin);		// walk	
-	sprites->Add(10003, 66, 1222, 108, 1272, texAladdin);
-	sprites->Add(10004, 120, 1220, 160, 1272, texAladdin);
-	sprites->Add(10005, 171, 1216, 211, 1272, texAladdin);
-	sprites->Add(10006, 220, 1216, 271, 1272, texAladdin);
-	sprites->Add(10007, 279, 1219, 324, 1273, texAladdin);
-	sprites->Add(10008, 334, 1215, 375, 1273, texAladdin);
-	sprites->Add(10009, 386, 1221, 426, 1273, texAladdin);
-	sprites->Add(10010, 440, 1219, 474, 1273, texAladdin);
-	sprites->Add(10011, 488, 1216, 536, 1273, texAladdin);
-	sprites->Add(10012, 547, 1215, 601, 1273, texAladdin);
-	sprites->Add(10013, 611, 1219, 665, 1273, texAladdin);
-	sprites->Add(10014, 679, 1218, 722, 1273, texAladdin);
-
-	sprites->Add(10011, 186, 154, 200, 181, texMario);		// idle left
-	sprites->Add(10012, 155, 154, 170, 181, texMario);		// walk
-	sprites->Add(10013, 125, 154, 140, 181, texMario);
-
-	sprites->Add(10099, 215, 120, 231, 135, texMario);		// die 
-
-	// small
-	sprites->Add(10021, 247, 0, 259, 15, texMario);			// idle small right
-	sprites->Add(10022, 275, 0, 291, 15, texMario);			// walk 
-	sprites->Add(10023, 306, 0, 320, 15, texMario);			// 
-
-	sprites->Add(10031, 187, 0, 198, 15, texMario);			// idle small left
-
-	sprites->Add(10032, 155, 0, 170, 15, texMario);			// walk
-	sprites->Add(10033, 125, 0, 139, 15, texMario);			// 
+	sprites->Add(10101, 14, 1225, 53, 1222, texAladdin);		// walk	right
+	sprites->Add(10102, 66, 1222, 108, 1272, texAladdin);
+	sprites->Add(10103, 120, 1220, 160, 1272, texAladdin);
+	sprites->Add(10104, 171, 1216, 211, 1272, texAladdin);
+	sprites->Add(10105, 220, 1216, 271, 1272, texAladdin);
+	sprites->Add(10106, 279, 1219, 324, 1273, texAladdin);
+	sprites->Add(10107, 334, 1215, 375, 1273, texAladdin);
+	sprites->Add(10108, 386, 1221, 426, 1273, texAladdin);
+	sprites->Add(10109, 440, 1219, 474, 1273, texAladdin);
+	sprites->Add(10110, 488, 1216, 536, 1273, texAladdin);
+	sprites->Add(10111, 547, 1215, 601, 1273, texAladdin);
+	sprites->Add(10112, 611, 1219, 665, 1273, texAladdin);
+	sprites->Add(10113, 679, 1218, 722, 1273, texAladdin);
 
 
 	LPDIRECT3DTEXTURE9 texMisc = textures->Get(ID_TEX_MISC);
 	sprites->Add(20001, 408, 225, 424, 241, texMisc);
 
-	LPDIRECT3DTEXTURE9 texEnemy = textures->Get(ID_TEX_ENEMY);
-	sprites->Add(30001, 5, 14, 21, 29, texEnemy);
-	sprites->Add(30002, 25, 14, 41, 29, texEnemy);
-
-	sprites->Add(30003, 45, 21, 61, 29, texEnemy); // die sprite
-
 	LPANIMATION ani;
 
 	ani = new CAnimation(100);	// idle big right
 	ani->Add(10001);
-	animations->Add(400, ani);
-
-	ani = new CAnimation(100);	// idle big left
-	ani->Add(10011);
-	animations->Add(401, ani);
-
-	ani = new CAnimation(100);	// idle small right
-	ani->Add(10021);
-	animations->Add(402, ani);
-
-	ani = new CAnimation(100);	// idle small left
-	ani->Add(10031);
-	animations->Add(403, ani);
+	animations->Add(100, ani);
 
 	ani = new CAnimation(100);	// walk right big
-	ani->Add(10001);
-	ani->Add(10002);
-	ani->Add(10003);
-	ani->Add(10004);
-	ani->Add(10005);
-	ani->Add(10006);
-	ani->Add(10007);
-	ani->Add(10008);
-	ani->Add(10009);
-	ani->Add(10010);
-	ani->Add(10011);
-	ani->Add(10012);
-	ani->Add(10013);
-	ani->Add(10014);
-	animations->Add(500, ani);
+	ani->Add(10101);
+	ani->Add(10102);
+	ani->Add(10103);
+	ani->Add(10104);
+	ani->Add(10105);
+	ani->Add(10106);
+	ani->Add(10107);
+	ani->Add(10108);
+	ani->Add(10109);
+	ani->Add(10110);
+	ani->Add(10111);
+	ani->Add(10112);
+	ani->Add(10113);
+	animations->Add(110, ani);
 
-	ani = new CAnimation(100);	// // walk left big
-	ani->Add(10011);
-	ani->Add(10012);
-	ani->Add(10013);
-	animations->Add(501, ani);
+	aladdin = new Aladdin();
+	aladdin->AddAnimation(100);		// idle
+	aladdin->AddAnimation(110);		// walking
 
-	ani = new CAnimation(100);	// walk right small
-	ani->Add(10021);
-	ani->Add(10022);
-	ani->Add(10023);
-	animations->Add(502, ani);
-
-	ani = new CAnimation(100);	// walk left small
-	ani->Add(10031);
-	ani->Add(10032);
-	ani->Add(10033);
-	animations->Add(503, ani);
-
-
-	ani = new CAnimation(100);		// Mario die
-	ani->Add(10099);
-	animations->Add(599, ani);
-
-
+	aladdin->SetPosition(50.0f, 0);
+	objects.push_back(aladdin);
 
 	ani = new CAnimation(100);		// brick
 	ani->Add(20001);
 	animations->Add(601, ani);
-
-	ani = new CAnimation(300);		// Goomba walk
-	ani->Add(30001);
-	ani->Add(30002);
-	animations->Add(701, ani);
-
-	ani = new CAnimation(1000);		// Goomba dead
-	ani->Add(30003);
-	animations->Add(702, ani);
-
-	mario = new CMario();
-	mario->AddAnimation(400);		// idle right big
-	mario->AddAnimation(401);		// idle left big
-	mario->AddAnimation(402);		// idle right small
-	mario->AddAnimation(403);		// idle left small
-
-	mario->AddAnimation(500);		// walk right big
-	mario->AddAnimation(501);		// walk left big
-	mario->AddAnimation(502);		// walk right small
-	mario->AddAnimation(503);		// walk left big
-
-	mario->AddAnimation(599);		// die
-
-	mario->SetPosition(50.0f, 0);
-	objects.push_back(mario);
-
-	//for (int i = 0; i < 5; i++)
-	//{
-	//	CBrick *brick = new CBrick();
-	//	brick->AddAnimation(601);
-	//	brick->SetPosition(100.0f + i*60.0f, 74.0f);
-	//	objects.push_back(brick);
-
-	//	brick = new CBrick();
-	//	brick->AddAnimation(601);
-	//	brick->SetPosition(100.0f + i*60.0f, 90.0f);
-	//	objects.push_back(brick);
-
-	//	brick = new CBrick();
-	//	brick->AddAnimation(601);
-	//	brick->SetPosition(84.0f + i*60.0f, 90.0f);
-	//	objects.push_back(brick);
-	//}
-
 
 	for (int i = 0; i < 30; i++)
 	{
@@ -294,18 +175,6 @@ void LoadResources()
 		brick->SetPosition(0 + i * 16.0f, 150);
 		objects.push_back(brick);
 	}
-
-	//// and Goombas 
-	//for (int i = 0; i < 4; i++)
-	//{
-	//	goomba = new CGoomba();
-	//	goomba->AddAnimation(701);
-	//	goomba->AddAnimation(702);
-	//	goomba->SetPosition(200 + i*60, 135);
-	//	goomba->SetState(GOOMBA_STATE_WALKING);
-	//	objects.push_back(goomba);
-	//}
-
 }
 
 /*
@@ -329,9 +198,9 @@ void Update(DWORD dt)
 	}
 
 
-	// Update camera to follow mario
+	// Update camera to follow aladdin
 	float cx, cy;
-	mario->GetPosition(cx, cy);
+	aladdin->GetPosition(cx, cy);
 
 	cx -= SCREEN_WIDTH / 2;
 	cy -= SCREEN_HEIGHT / 2;

@@ -122,25 +122,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Aladdin.h" />
     <ClInclude Include="Brick.h" />
-    <ClInclude Include="debug.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="Goomba.h" />
-    <ClInclude Include="Mario.h" />
-    <ClInclude Include="Sprites.h" />
-    <ClInclude Include="Textures.h" />
+    <ClInclude Include="Define.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Aladdin.cpp" />
     <ClCompile Include="Brick.cpp" />
-    <ClCompile Include="debug.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Mario.cpp" />
-    <ClCompile Include="Sprites.cpp" />
-    <ClCompile Include="Textures.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Framework\Framework.vcxproj">
+      <Project>{b63d03e5-1dbf-43ab-8afc-2cba830bb4e2}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

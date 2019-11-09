@@ -57,6 +57,7 @@ public:
 	DeadEffect *deadeffect;
 	bool isEnable;
 	bool isDead;
+	bool isFlip;
 public: 
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
@@ -71,6 +72,7 @@ public:
 	void SetDead(bool _isDead) { isDead = _isDead; }
 	bool IsDead() { return isDead; }
 	void RenderBoundingBox();
+	void RenderBoundingBoxFlipOx();
 
 	LPCOLLISIONEVENT SweptAABBEx(LPGAMEOBJECT coO);
 	void CalcPotentialCollisions(vector<LPGAMEOBJECT> *coObjects, vector<LPCOLLISIONEVENT> &coEvents);

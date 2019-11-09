@@ -28,6 +28,12 @@ void CSprite::Draw(float x, float y, int alpha)
 	game->Draw(x, y, texture, left, top, right, bottom, alpha);
 }
 
+void CSprite::DrawFlipOx(float x, float y, int alpha)
+{
+	CGame* game = CGame::GetInstance();
+	game->DrawFlipOx(x, y, texture, left, top, right, bottom, alpha);
+}
+
 //
 //void CSprite::Draw(float x ,float y, int alpha)
 //{
@@ -42,13 +48,11 @@ void CSprite::Draw(D3DXVECTOR3 &pos, RECT &rect, int alpha)
 }
 
 
-
 void CSprite::Draw(D3DXVECTOR3 &pos, int alpha)
 {
 	CGame * game = CGame::GetInstance();
 	game->Draw(texture, pos, alpha);
 }
-
 
 
 void CSprites::Add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
@@ -119,6 +123,30 @@ void CAnimation::Render(float x, float y, int alpha)
 
 	frames[currentFrame]->GetSprite()->Draw(x, y, alpha);
 }
+
+void CAnimation::RenderFlipOx(float x, float y, int alpha)
+{
+	DWORD now = GetTickCount();
+	if (currentFrame == -1)
+	{
+		currentFrame = 0;
+		lastFrameTime = now;
+	}
+	else
+	{
+		DWORD t = frames[currentFrame]->GetTime();
+		if (now - lastFrameTime > t)
+		{
+			currentFrame++;
+			lastFrameTime = now;
+			if (currentFrame == frames.size()) currentFrame = 0;
+		}
+
+	}
+
+	frames[currentFrame]->GetSprite()->DrawFlipOx(x, y, alpha);
+}
+
 
 
 CAnimations * CAnimations::__instance = NULL;

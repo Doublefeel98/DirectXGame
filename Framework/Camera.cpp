@@ -25,7 +25,7 @@ D3DXVECTOR3 CCamera::SetPositionInCamera(D3DXVECTOR3 position)
 {
 	D3DXVECTOR3 pos;
 	pos.x = position.x - this->cameraPosition.x;
-	pos.y = position.y -this->cameraPosition.y;
+	pos.y = position.y - this->cameraPosition.y;
 	return D3DXVECTOR3(pos.x, pos.y, 0);
 }
 

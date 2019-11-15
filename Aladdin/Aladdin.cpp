@@ -89,6 +89,43 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
+//void Aladdin::Render()
+//{
+//	int ani;
+//	if (state == ALADDIN_STATE_DIE)
+//		ani = ALADDIN_ANI_DIE;
+//	else
+//	{
+//		if (vx == 0)
+//		{
+//			ani = ALADDIN_ANI_IDLE_RIGHT;
+//			if (nx > 0) isFlip = false;
+//			else isFlip = true;
+//			//ani = ALADDIN_ANI_IDLE_STANDING_LEFT;
+//			//if (nx > 0) isFlip = false;
+//			//else isFlip = true;
+//		}
+//		else {
+//			ani = ALADDIN_ANI_WALKING_RIGHT;
+//			if(vx > 0)
+//				isFlip = false;
+//			else isFlip = true;
+//		}
+//	}
+//
+//	int alpha = 255;
+//	if (untouchable) alpha = 128;
+//	if (isFlip)
+//	{
+//		animations[ani]->RenderFlipOx(x, y, alpha);
+//	}
+//	else {
+//		animations[ani]->Render(x, y, alpha);
+//	}
+//	
+//	RenderBoundingBox();
+//}
+
 void Aladdin::Render()
 {
 	int ani;
@@ -98,28 +135,19 @@ void Aladdin::Render()
 	{
 		if (vx == 0)
 		{
-			ani = ALADDIN_ANI_IDLE;
-			if (nx > 0) isFlip = false;
-			else isFlip = true;
+			if (nx > 0)
+				ani = ALADDIN_ANI_IDLE_RIGHT;
+			else
+				ani = ALADDIN_ANI_IDLE_LEFT;
 		}
-		else {
-			ani = ALADDIN_ANI_WALKING;
-			if(vx > 0)
-				isFlip = false;
-			else isFlip = true;
-		}
+		else if (vx > 0)
+			ani = ALADDIN_ANI_WALKING_RIGHT;
+		else ani = ALADDIN_ANI_WALKING_LEFT;
 	}
-
 	int alpha = 255;
 	if (untouchable) alpha = 128;
-	if (isFlip)
-	{
-		animations[ani]->RenderFlipOx(x, y, alpha);
-	}
-	else {
-		animations[ani]->Render(x, y, alpha);
-	}
-	
+	animations[ani]->Render(x, y, alpha);
+
 	RenderBoundingBox();
 }
 
@@ -145,6 +173,8 @@ void Aladdin::SetState(int state)
 	case ALADDIN_STATE_DIE:
 		vy = -ALADDIN_DIE_DEFLECT_SPEED;
 		break;
+	case ALADDIN_STATE_STANDING:
+		vx = 0;
 	}
 }
 

@@ -79,6 +79,8 @@ void CSampleKeyHander::KeyState(BYTE* states)
 		aladdin->SetState(ALADDIN_STATE_WALKING_RIGHT);
 	else if (game->IsKeyDown(DIK_LEFT))
 		aladdin->SetState(ALADDIN_STATE_WALKING_LEFT);
+	else if (game->IsKeyDown(DIK_DOWN))
+		aladdin->SetState(ALADDIN_STATE_SIT_DOWN);
 	else {
 		aladdin->SetState(ALADDIN_STATE_IDLE);
 	}	
@@ -181,6 +183,16 @@ void LoadResources()
 	sprites->Add(10209, 504, 810, 538, 903, texAladdinGoRight);
 	sprites->Add(10210, 564, 812, 598, 905, texAladdinGoRight);
 
+	sprites->Add(10221, 10, 705, 51, 747, texAladdinGoRight);		// run jump	right
+	sprites->Add(10222, 66, 683, 111, 759, texAladdinGoRight);
+	sprites->Add(10223, 124, 686, 181, 743, texAladdinGoRight);
+	sprites->Add(10224, 199, 698, 257, 740, texAladdinGoRight);
+	sprites->Add(10225, 273, 696, 334, 744, texAladdinGoRight);
+	sprites->Add(10226, 350, 692, 408, 745, texAladdinGoRight);
+	sprites->Add(10227, 419, 688, 472, 746, texAladdinGoRight);
+	sprites->Add(10228, 491, 680, 541, 765, texAladdinGoRight);
+	sprites->Add(10229, 560, 719, 719, 763, texAladdinGoRight);
+
 	sprites->Add(10301, 5, 337, 50, 388, texAladdinGoRight);		// standing slash right
 	sprites->Add(10302, 54, 326, 105, 388, texAladdinGoRight);
 	sprites->Add(10303, 115, 314, 160, 388, texAladdinGoRight);
@@ -208,6 +220,13 @@ void LoadResources()
 	sprites->Add(10331, 644, 415, 697, 472, texAladdinGoRight);
 	sprites->Add(10332, 704, 418, 750, 472, texAladdinGoRight);
 
+	sprites->Add(10341, 13, 1077, 65, 1131, texAladdinGoRight);		// jumping slash right right
+	sprites->Add(10342, 75, 1075, 125, 1127, texAladdinGoRight);
+	sprites->Add(10343, 140, 1067, 187, 1133, texAladdinGoRight);
+	sprites->Add(10344, 199, 1078, 151, 1134, texAladdinGoRight);
+	sprites->Add(10345, 266, 1079, 349, 1130, texAladdinGoRight);
+	sprites->Add(10346, 361, 1087, 408, 1142, texAladdinGoRight);
+	
 	sprites->Add(10401, 7, 235, 50, 291, texAladdinGoRight);		// throw apple right
 	sprites->Add(10402, 57, 232, 98, 291, texAladdinGoRight);
 	sprites->Add(10403, 109, 233, 147, 291, texAladdinGoRight);
@@ -226,6 +245,48 @@ void LoadResources()
 	sprites->Add(10423, 132, 1008, 171, 1061, texAladdinGoRight);
 	sprites->Add(10424, 185, 1008, 237, 1061, texAladdinGoRight);
 	sprites->Add(10425, 253, 1012, 293, 1064, texAladdinGoRight);
+
+	sprites->Add(10501, 11, 1362, 40, 1448, texAladdinGoRight);		// climbing
+	sprites->Add(10502, 53, 1361, 81, 1450, texAladdinGoRight);
+	sprites->Add(10503, 94, 1374, 122, 1448, texAladdinGoRight);
+	sprites->Add(10504, 133, 1377, 175, 239, texAladdinGoRight);
+	sprites->Add(10505, 186, 1363, 217, 1439, texAladdinGoRight);
+	sprites->Add(10506, 231, 1358, 260, 1444, texAladdinGoRight);
+	sprites->Add(10507, 274, 1367, 302, 1446, texAladdinGoRight);
+	sprites->Add(10508, 314, 1377, 346, 1440, texAladdinGoRight);
+	sprites->Add(10509, 356, 1377, 398, 1439, texAladdinGoRight);
+	sprites->Add(10510, 406, 1362, 434, 1443, texAladdinGoRight);
+
+	sprites->Add(10521, 10, 1870, 44, 1943, texAladdinGoRight);	// falling after climbing
+	sprites->Add(10522, 65, 1873, 90, 1950, texAladdinGoRight);
+	sprites->Add(10523, 100, 1874, 136, 1945, texAladdinGoRight);
+	sprites->Add(10524, 144, 1874, 192, 1938, texAladdinGoRight);
+	sprites->Add(10525, 204, 1875, 263, 1929, texAladdinGoRight);
+	sprites->Add(10526, 281, 1876, 340, 1917, texAladdinGoRight);
+	sprites->Add(10527, 354, 1869, 406, 1923, texAladdinGoRight);
+	sprites->Add(10528, 422, 1871, 469, 1938, texAladdinGoRight);
+	sprites->Add(10529, 482, 1866, 527, 1941, texAladdinGoRight);
+
+	sprites->Add(10531, 1058, 1769, 1106, 1856, texAladdinGoLeft);	// climbing slash right
+	sprites->Add(10532, 988, 1769, 1040, 1858, texAladdinGoLeft);
+	sprites->Add(10533, 914, 1769, 975, 1862, texAladdinGoLeft);
+	sprites->Add(10534, 821, 1773, 874, 1863, texAladdinGoLeft);
+	sprites->Add(10535, 739, 1773, 794, 1862, texAladdinGoLeft);
+	sprites->Add(10536, 646, 1775, 718, 1864, texAladdinGoLeft);
+	sprites->Add(10537, 574, 1775, 622, 1862, texAladdinGoLeft);
+
+	sprites->Add(10541, 1071, 1666, 1108, 1753, texAladdinGoLeft);	// climbing throw apple right
+	sprites->Add(10542, 1015, 1666, 1056, 1753, texAladdinGoLeft);
+	sprites->Add(10543, 945, 1665, 996, 1753, texAladdinGoLeft);
+	sprites->Add(10544, 898, 1664, 929, 1753, texAladdinGoLeft);
+	sprites->Add(10545, 828, 1664, 885, 1753, texAladdinGoLeft);
+
+	sprites->Add(10601, 9, 2111, 61, 2149, texAladdinGoRight);	// ride the carpet right
+	sprites->Add(10602, 68, 2110, 120, 2149, texAladdinGoRight);
+	sprites->Add(10603, 129, 2110, 181, 2149, texAladdinGoRight);
+	sprites->Add(10604, 190, 2111, 242, 2149, texAladdinGoRight);
+	sprites->Add(10605, 259, 2126, 63, 2146, texAladdinGoRight);
+	sprites->Add(10606, 333, 2107, 388, 2149, texAladdinGoRight);
 
 	sprites->Add(11001, 1081, 9, 1118, 59, texAladdinGoLeft);	// idle left	
 	
@@ -289,6 +350,16 @@ void LoadResources()
 	sprites->Add(11209, 583, 810, 617, 903, texAladdinGoLeft);
 	sprites->Add(11210, 523, 812, 557, 905, texAladdinGoLeft);
 
+	sprites->Add(11221, 1070, 705, 1111, 747, texAladdinGoLeft);		// run jump	left
+	sprites->Add(11222, 1010, 683, 1055, 759, texAladdinGoLeft);
+	sprites->Add(11223, 940, 686, 957, 743, texAladdinGoLeft);
+	sprites->Add(11224, 864, 698, 922, 740, texAladdinGoLeft);
+	sprites->Add(11225, 787, 696, 848, 744, texAladdinGoLeft);
+	sprites->Add(11226, 713, 692, 771, 745, texAladdinGoLeft);
+	sprites->Add(11227, 649, 688, 702, 746, texAladdinGoLeft);
+	sprites->Add(11228, 580, 680, 630, 765, texAladdinGoLeft);
+	sprites->Add(11229, 502, 719, 561, 763, texAladdinGoLeft);
+
 	sprites->Add(11301, 1071, 337, 1116, 388, texAladdinGoLeft);		// standing slash left
 	sprites->Add(11302, 1016, 326, 1067, 388, texAladdinGoLeft);
 	sprites->Add(11303, 961, 314, 1006, 388, texAladdinGoLeft);
@@ -316,6 +387,13 @@ void LoadResources()
 	sprites->Add(11331, 424, 415, 477, 472, texAladdinGoLeft);
 	sprites->Add(11332, 371, 418, 417, 472, texAladdinGoLeft);
 
+	sprites->Add(11341, 1056, 1077, 1108, 1131, texAladdinGoLeft);		// jumping slash left
+	sprites->Add(11342, 996, 1075, 1046, 1127, texAladdinGoLeft);
+	sprites->Add(11343, 934, 1067, 981, 1133, texAladdinGoLeft);
+	sprites->Add(11344, 870, 1078, 922, 1134, texAladdinGoLeft);
+	sprites->Add(11345, 772, 1079, 855, 1130, texAladdinGoLeft);
+	sprites->Add(11346, 713, 1087, 760, 1142, texAladdinGoLeft);
+
 	sprites->Add(11401, 1071, 235, 1114, 291, texAladdinGoLeft);		// throw apple left
 	sprites->Add(11402, 1023, 232, 1064, 291, texAladdinGoLeft);
 	sprites->Add(11403, 974, 233, 1012, 291, texAladdinGoLeft);
@@ -323,11 +401,38 @@ void LoadResources()
 	sprites->Add(114015, 863, 233, 900, 291, texAladdinGoLeft);
 	sprites->Add(11406, 814, 239, 853, 291, texAladdinGoLeft);
 
-	sprites->Add(10411, 1075, 571, 112, 615, texAladdinGoLeft);		// sitting throw apple left
-	sprites->Add(10412, 1026, 567, 1063, 615, texAladdinGoLeft);
-	sprites->Add(10413, 964, 571, 1014, 619, texAladdinGoLeft);
-	sprites->Add(10414, 875, 578, 957, 615, texAladdinGoLeft);
-	sprites->Add(10415, 808, 579, 865, 616, texAladdinGoLeft);
+	sprites->Add(11411, 1075, 571, 112, 615, texAladdinGoLeft);		// sitting throw apple left
+	sprites->Add(11412, 1026, 567, 1063, 615, texAladdinGoLeft);
+	sprites->Add(11413, 964, 571, 1014, 619, texAladdinGoLeft);
+	sprites->Add(11414, 875, 578, 957, 615, texAladdinGoLeft);
+	sprites->Add(11415, 808, 579, 865, 616, texAladdinGoLeft);
+
+	sprites->Add(11421, 1053, 1005, 1102, 1060, texAladdinGoLeft);		// jumping throw apple left
+	sprites->Add(11422, 1001, 1007, 1044, 1059, texAladdinGoLeft);
+	sprites->Add(11423, 950, 1008, 989, 1061, texAladdinGoLeft);
+	sprites->Add(11424, 884, 1008, 936, 1061, texAladdinGoLeft);
+	sprites->Add(11425, 828, 1012, 868, 1064, texAladdinGoLeft);
+
+	sprites->Add(11531, 15, 1769, 63, 1856, texAladdinGoRight);	// climbing slash left
+	sprites->Add(11532, 81, 1769, 133, 1858, texAladdinGoRight);
+	sprites->Add(11533, 146, 1769, 207, 1862, texAladdinGoRight);
+	sprites->Add(11534, 247, 1773, 300, 1863, texAladdinGoRight);
+	sprites->Add(11535, 327, 1773, 382, 1862, texAladdinGoRight);
+	sprites->Add(11536, 403, 1775, 475, 1864, texAladdinGoRight);
+	sprites->Add(11537, 499, 1775, 547, 1862, texAladdinGoRight);
+
+	sprites->Add(11541, 13, 1666, 50, 1753, texAladdinGoRight);	// climbing throw apple left
+	sprites->Add(11542, 65, 1666, 106, 1753, texAladdinGoRight);
+	sprites->Add(11543, 125, 1665, 176, 1753, texAladdinGoRight);
+	sprites->Add(11544, 192, 1664, 223, 1753, texAladdinGoRight);
+	sprites->Add(11545, 236, 1664, 293, 1753, texAladdinGoRight);
+
+	sprites->Add(11601, 1060, 2111, 1112, 2149, texAladdinGoRight);	// ride the carpet left
+	sprites->Add(11602, 1001, 2110, 1053, 2149, texAladdinGoRight);
+	sprites->Add(11603, 940, 2110, 992, 2149, texAladdinGoRight);
+	sprites->Add(11604, 879, 2111, 931, 2149, texAladdinGoRight);
+	sprites->Add(11605, 799, 2126, 862, 2146, texAladdinGoRight);
+	sprites->Add(11606, 733, 2107, 788, 2149, texAladdinGoRight);
 
 	LPDIRECT3DTEXTURE9 texMisc = textures->Get(ID_TEX_MISC);
 	sprites->Add(20001, 408, 225, 424, 241, texMisc);
@@ -342,41 +447,41 @@ void LoadResources()
 	ani->Add(11001);
 	animations->Add(101, ani);	//idle left
 
-	//ani = new CAnimation(100);	// standing right
-	//ani->Add(10002);
-	//ani->Add(10003);
-	//ani->Add(10004);
-	//ani->Add(10005);
-	//ani->Add(10006);
-	//ani->Add(10007);
-	//ani->Add(10008);
-	//ani->Add(10009);
-	//ani->Add(10010);
-	//ani->Add(10011);
-	//ani->Add(10012);
-	//ani->Add(10013);
-	//ani->Add(10014);
-	//ani->Add(10015);
-	//ani->Add(10016);
-	//animations->Add(102, ani);
+	ani = new CAnimation(100);	// standing right
+	ani->Add(10002);
+	ani->Add(10003);
+	ani->Add(10004);
+	ani->Add(10005);
+	ani->Add(10006);
+	ani->Add(10007);
+	ani->Add(10008);
+	ani->Add(10009);
+	ani->Add(10010);
+	ani->Add(10011);
+	ani->Add(10012);
+	ani->Add(10013);
+	ani->Add(10014);
+	ani->Add(10015);
+	ani->Add(10016);
+	animations->Add(102, ani);
 
-	//ani = new CAnimation(100);	// standing left
-	//ani->Add(11002);
-	//ani->Add(11003);
-	//ani->Add(11004);
-	//ani->Add(11005);
-	//ani->Add(11006);
-	//ani->Add(11007);
-	//ani->Add(11008);
-	//ani->Add(11009);
-	//ani->Add(11010);
-	//ani->Add(11011);
-	//ani->Add(11012);
-	//ani->Add(11013);
-	//ani->Add(11014);
-	//ani->Add(11015);
-	//ani->Add(11016);
-	//animations->Add(103, ani);
+	ani = new CAnimation(100);	// standing left
+	ani->Add(11002);
+	ani->Add(11003);
+	ani->Add(11004);
+	ani->Add(11005);
+	ani->Add(11006);
+	ani->Add(11007);
+	ani->Add(11008);
+	ani->Add(11009);
+	ani->Add(11010);
+	ani->Add(11011);
+	ani->Add(11012);
+	ani->Add(11013);
+	ani->Add(11014);
+	ani->Add(11015);
+	ani->Add(11016);
+	animations->Add(103, ani);
 
 	ani = new CAnimation(100);	// sitting down right
 	ani->Add(10021);
@@ -486,6 +591,30 @@ void LoadResources()
 	ani->Add(11210);
 	animations->Add(121, ani);
 
+	ani = new CAnimation(100);	// run jump right
+	ani->Add(10221);
+	ani->Add(10222);
+	ani->Add(10223);
+	ani->Add(10224);
+	ani->Add(10225);
+	ani->Add(10226);
+	ani->Add(10227);
+	ani->Add(10228);
+	ani->Add(10229);
+	animations->Add(122, ani);
+
+	ani = new CAnimation(100);	// run jump left
+	ani->Add(11221);
+	ani->Add(11222);
+	ani->Add(11223);
+	ani->Add(11224);
+	ani->Add(11225);
+	ani->Add(11226);
+	ani->Add(11227);
+	ani->Add(11228);
+	ani->Add(11229);
+	animations->Add(123, ani);
+
 	ani = new CAnimation(100);	// standing slash right
 	ani->Add(10301);
 	ani->Add(10302);
@@ -556,6 +685,24 @@ void LoadResources()
 	ani->Add(11332);
 	animations->Add(136, ani);
 
+	ani = new CAnimation(100);	// jumping slash right
+	ani->Add(10341);
+	ani->Add(10342);
+	ani->Add(10343);
+	ani->Add(10344);
+	ani->Add(10345);
+	ani->Add(10346);
+	animations->Add(137, ani);
+
+	ani = new CAnimation(100);	// jumping slash left
+	ani->Add(11341);
+	ani->Add(11342);
+	ani->Add(11343);
+	ani->Add(11344);
+	ani->Add(11345);
+	ani->Add(11346);
+	animations->Add(138, ani);
+
 	ani = new CAnimation(100);	// throw apple right
 	ani->Add(10401);
 	ani->Add(10402);
@@ -590,15 +737,110 @@ void LoadResources()
 	ani->Add(11415);
 	animations->Add(143, ani);
 
+	ani = new CAnimation(100);	// jumping throw apple right
+	ani->Add(10421);
+	ani->Add(10422);
+	ani->Add(10423);
+	ani->Add(10424);
+	ani->Add(10425);
+	animations->Add(144, ani);
+
+	ani = new CAnimation(100);	// jumping throw apple left
+	ani->Add(11421);
+	ani->Add(11422);
+	ani->Add(11423);
+	ani->Add(11424);
+	ani->Add(11425);
+	animations->Add(145, ani);
+
+	ani = new CAnimation(100);	// climbing
+	ani->Add(10501);
+	ani->Add(10502);
+	ani->Add(10503);
+	ani->Add(10504);
+	ani->Add(10505);
+	ani->Add(10506);
+	ani->Add(10507);
+	ani->Add(10508);
+	ani->Add(10509);
+	ani->Add(10510);
+	animations->Add(150, ani);
+
+	ani = new CAnimation(100);	// falling after climbing
+	ani->Add(10521);
+	ani->Add(10522);
+	ani->Add(10523);
+	ani->Add(10524);
+	ani->Add(10525);
+	ani->Add(10526);
+	ani->Add(10527);
+	ani->Add(10528);
+	ani->Add(10529);
+	animations->Add(151, ani);
+
+	ani = new CAnimation(100);	// climbing slash right
+	ani->Add(10531);
+	ani->Add(10532);
+	ani->Add(10533);
+	ani->Add(10534);
+	ani->Add(10535);
+	ani->Add(10536);
+	ani->Add(10537);
+	animations->Add(152, ani);
+
+	ani = new CAnimation(100);	// climbing slash left
+	ani->Add(11531);
+	ani->Add(11532);
+	ani->Add(11533);
+	ani->Add(11534);
+	ani->Add(11535);
+	ani->Add(11536);
+	ani->Add(11537);
+	animations->Add(153, ani);
+
+	ani = new CAnimation(100);	// climbing throw apple right
+	ani->Add(10541);
+	ani->Add(10542);
+	ani->Add(10543);
+	ani->Add(10544);
+	ani->Add(10545);
+	animations->Add(154, ani);
+
+	ani = new CAnimation(100);	// climbing throw apple left
+	ani->Add(11541);
+	ani->Add(11542);
+	ani->Add(11543);
+	ani->Add(11544);
+	ani->Add(11545);
+	animations->Add(155, ani);
+
+	ani = new CAnimation(100);	// ride the carpet right
+	ani->Add(10601);
+	ani->Add(10602);
+	ani->Add(10603);
+	ani->Add(10604);
+	ani->Add(10605);
+	ani->Add(10606);
+	animations->Add(161, ani);
+
+	ani = new CAnimation(100);	// ride the carpet left
+	ani->Add(11601);
+	ani->Add(11602);
+	ani->Add(11603);
+	ani->Add(11604);
+	ani->Add(11605);
+	ani->Add(11606);
+	animations->Add(162, ani);
+
 	aladdin = new Aladdin();
 	aladdin->AddAnimation(100);		// idle right
 	aladdin->AddAnimation(101);		//idle left
 
-	//aladdin->AddAnimation(102);		// standing right
-	//aladdin->AddAnimation(103);		// standing left
-
 	aladdin->AddAnimation(104);		// sitting down right
 	aladdin->AddAnimation(105);		// sitting down left
+
+	aladdin->AddAnimation(102);		// standing right
+	aladdin->AddAnimation(103);		// standing left
 
 	aladdin->AddAnimation(106);		// looking up right
 	aladdin->AddAnimation(107);		// looking up right
@@ -609,7 +851,9 @@ void LoadResources()
 	aladdin->AddAnimation(113);		// stop left
 
 	aladdin->AddAnimation(120);		// jump right
-	aladdin->AddAnimation(121);		//jump left
+	aladdin->AddAnimation(121);		// jump left
+	aladdin->AddAnimation(122);		// run jump right
+	aladdin->AddAnimation(123);		// run jump left
 
 	aladdin->AddAnimation(131);		// standing slash right
 	aladdin->AddAnimation(132);		// standing slash left
@@ -617,11 +861,25 @@ void LoadResources()
 	aladdin->AddAnimation(134);		// sitting slash left
 	aladdin->AddAnimation(135);		// looking up slash right
 	aladdin->AddAnimation(136);		// looking up slash left
+	aladdin->AddAnimation(137);		// jumping slash right
+	aladdin->AddAnimation(138);		// jumping slash left
 
 	aladdin->AddAnimation(140);		//throw apple right
 	aladdin->AddAnimation(141);		//throw apple left
 	aladdin->AddAnimation(142);		//sitting throw apple right
 	aladdin->AddAnimation(143);		//sitting throw apple left
+	aladdin->AddAnimation(144);		//jumping throw apple right
+	aladdin->AddAnimation(145);		//jumping throw apple left
+
+	aladdin->AddAnimation(150);		//climbing
+	aladdin->AddAnimation(151);		//falling after climbing
+	aladdin->AddAnimation(152);		//climbing slash right
+	aladdin->AddAnimation(153);		//climbing slash left
+	aladdin->AddAnimation(154);		//climbing throw apple right
+	aladdin->AddAnimation(155);		//climbing throw apple left
+
+	aladdin->AddAnimation(161);		//ride the carpet right
+	aladdin->AddAnimation(162);		//ride the carpet left
 
 	aladdin->SetPosition(50.0f, 0);
 	objects.push_back(aladdin);

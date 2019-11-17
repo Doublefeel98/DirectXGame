@@ -39,6 +39,54 @@
     <ClInclude Include="Brick.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Bat.h">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplodingSkeleton.h">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Iago.h">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Jafar.h">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="FatPalaceGuard.h">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="MusclePalaceGuard.h">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="ThinPalaceGuard.h">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Peddler.h">
+      <Filter>Source Files\Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="GenieBonusLevel.h">
+      <Filter>Source Files\Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Up.h">
+      <Filter>Source Files\Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="RestartPoint.h">
+      <Filter>Source Files\Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="SpendThese.h">
+      <Filter>Source Files\Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ThrowApples.h">
+      <Filter>Source Files\Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthMeter.h">
+      <Filter>Source Files\Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtraHealth.h">
+      <Filter>Source Files\Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="MagicCarpet.h">
+      <Filter>Source Files\Objects\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -49,6 +97,54 @@
     </ClCompile>
     <ClCompile Include="Brick.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Bat.cpp">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplodingSkeleton.cpp">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Iago.cpp">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Jafar.cpp">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="FatPalaceGuard.cpp">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="MusclePalaceGuard.cpp">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="ThinPalaceGuard.cpp">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Peddler.cpp">
+      <Filter>Source Files\Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="GenieBonusLevel.cpp">
+      <Filter>Source Files\Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Up.cpp">
+      <Filter>Source Files\Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="RestartPoint.cpp">
+      <Filter>Source Files\Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="SpendThese.cpp">
+      <Filter>Source Files\Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="ThrowApples.cpp">
+      <Filter>Source Files\Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthMeter.cpp">
+      <Filter>Source Files\Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtraHealth.cpp">
+      <Filter>Source Files\Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="MagicCarpet.cpp">
+      <Filter>Source Files\Objects\Player</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

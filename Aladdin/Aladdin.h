@@ -8,7 +8,11 @@ class Aladdin : public CGameObject
 	int untouchable;
 	DWORD untouchable_start;
 public:
-	Aladdin() : CGameObject()
+	Aladdin();
+	bool IsSit;
+	bool IsJump;
+	bool IsGround;
+	Aladdin(): CGameObject()
 	{
 		untouchable = 0;
 	}
@@ -17,6 +21,8 @@ public:
 	void SetState(int state);
 	void SetLevel(int l) { level = l; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
+	void ResetAnimation();
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	~Aladdin();
 };

@@ -122,14 +122,46 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ExtraHealth.h" />
+    <ClInclude Include="HealthMeter.h" />
+    <ClInclude Include="MagicCarpet.h" />
+    <ClInclude Include="RestartPoint.h" />
+    <ClInclude Include="SpendThese.h" />
+    <ClInclude Include="ThrowApples.h" />
+    <ClInclude Include="Up.h" />
     <ClInclude Include="Aladdin.h" />
+    <ClInclude Include="Bat.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Define.h" />
+    <ClInclude Include="ExplodingSkeleton.h" />
+    <ClInclude Include="Iago.h" />
+    <ClInclude Include="GenieBonusLevel.h" />
+    <ClInclude Include="Jafar.h" />
+    <ClInclude Include="FatPalaceGuard.h" />
+    <ClInclude Include="MusclePalaceGuard.h" />
+    <ClInclude Include="Peddler.h" />
+    <ClInclude Include="ThinPalaceGuard.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ExtraHealth.cpp" />
+    <ClCompile Include="HealthMeter.cpp" />
+    <ClCompile Include="MagicCarpet.cpp" />
+    <ClCompile Include="RestartPoint.cpp" />
+    <ClCompile Include="SpendThese.cpp" />
+    <ClCompile Include="ThrowApples.cpp" />
+    <ClCompile Include="Up.cpp" />
     <ClCompile Include="Aladdin.cpp" />
+    <ClCompile Include="Bat.cpp" />
     <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="ExplodingSkeleton.cpp" />
+    <ClCompile Include="GenieBonusLevel.cpp" />
+    <ClCompile Include="Iago.cpp" />
+    <ClCompile Include="Jafar.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="FatPalaceGuard.cpp" />
+    <ClCompile Include="MusclePalaceGuard.cpp" />
+    <ClCompile Include="Peddler.cpp" />
+    <ClCompile Include="ThinPalaceGuard.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Framework\Framework.vcxproj">

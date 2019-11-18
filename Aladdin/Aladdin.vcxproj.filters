@@ -1,87 +1,174 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Source Files\Objects">
-      <UniqueIdentifier>{c0e43640-c645-4133-9594-841b874d17ee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Objects\Player">
-      <UniqueIdentifier>{5d5c3bbb-fe4e-4842-8acd-ffcf0c18fc35}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Objects\Enemies">
-      <UniqueIdentifier>{7a94bd0d-0307-4b2a-8282-5f8fc17b0e64}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Objects\Items">
-      <UniqueIdentifier>{ee9738df-5997-4e86-b708-ad7de55a720d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Scenes">
-      <UniqueIdentifier>{1136b89a-07b4-4de9-ba52-bb5082a6c6ff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Rescourses">
-      <UniqueIdentifier>{745c718e-4aca-432a-bcad-aa9afe5a8af5}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Define.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Aladdin.h">
-      <Filter>Source Files\Objects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneOne.h">
-      <Filter>Source Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneBoss.h">
-      <Filter>Source Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="ScoreBoard.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AladdinResources.h">
-      <Filter>Source Files\Rescourses</Filter>
-    </ClInclude>
-    <ClInclude Include="Ground.h">
-      <Filter>Source Files\Objects</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Aladdin.cpp">
-      <Filter>Source Files\Objects\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneOne.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneBoss.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="ScoreBoard.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source\Object\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="AladdinResources.cpp">
-      <Filter>Source Files\Rescourses</Filter>
+      <Filter>Source\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Bat.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplodingSkeleton.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtraHealth.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="FatPalaceGuard.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GenieBonusLevel.cpp">
+      <Filter>Source\Object</Filter>
     </ClCompile>
     <ClCompile Include="Ground.cpp">
-      <Filter>Source Files\Objects</Filter>
+      <Filter>Source\Object</Filter>
     </ClCompile>
+    <ClCompile Include="HealthMeter.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Iago.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Jafar.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="MagicCarpet.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="MusclePalaceGuard.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Peddler.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="RestartPoint.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SpendThese.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ThinPalaceGuard.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ThrowApples.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Up.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneOne.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneBoss.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreBoard.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Aladdin.h">
+      <Filter>Source\Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinResources.h">
+      <Filter>Source\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Bat.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplodingSkeleton.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtraHealth.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="FatPalaceGuard.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Up.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GenieBonusLevel.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthMeter.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Iago.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Jafar.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="MagicCarpet.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="MusclePalaceGuard.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Peddler.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="RestartPoint.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SpendThese.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ThinPalaceGuard.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ThrowApples.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneOne.h">
+      <Filter>Source\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneBoss.h">
+      <Filter>Source\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreBoard.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{367dc7ef-0ce5-4194-88bc-9f72857a5ab1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Object">
+      <UniqueIdentifier>{7e12920b-7cb0-48f0-ad36-a73029b21848}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Object\Items">
+      <UniqueIdentifier>{aa0f0f7a-a34f-4ab3-ae4b-3f64c83ec7ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Object\Enemies">
+      <UniqueIdentifier>{3c77ded3-bde6-4582-a927-93f25f230562}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scenes">
+      <UniqueIdentifier>{d07cdbd4-56bd-48a6-862a-2bb4f87b9992}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Resources">
+      <UniqueIdentifier>{09f62cb4-f112-43b2-b828-8985a6ef9d3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Object\Player">
+      <UniqueIdentifier>{17024440-30dc-4da2-ad33-96fe547159ae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

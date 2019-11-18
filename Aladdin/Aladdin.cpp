@@ -89,6 +89,43 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
+//void Aladdin::Render()
+//{
+//	int ani;
+//	if (state == ALADDIN_STATE_DIE)
+//		ani = ALADDIN_ANI_DIE;
+//	else
+//	{
+//		if (vx == 0)
+//		{
+//			ani = ALADDIN_ANI_IDLE_RIGHT;
+//			if (nx > 0) isFlip = false;
+//			else isFlip = true;
+//			//ani = ALADDIN_ANI_IDLE_STANDING_LEFT;
+//			//if (nx > 0) isFlip = false;
+//			//else isFlip = true;
+//		}
+//		else {
+//			ani = ALADDIN_ANI_WALKING_RIGHT;
+//			if(vx > 0)
+//				isFlip = false;
+//			else isFlip = true;
+//		}
+//	}
+//
+//	int alpha = 255;
+//	if (untouchable) alpha = 128;
+//	if (isFlip)
+//	{
+//		animations[ani]->RenderFlipOx(x, y, alpha);
+//	}
+//	else {
+//		animations[ani]->Render(x, y, alpha);
+//	}
+//	
+//	RenderBoundingBox();
+//}
+
 void Aladdin::Render()
 {
 	int ani;
@@ -98,28 +135,32 @@ void Aladdin::Render()
 	{
 		if (vx == 0)
 		{
-			ani = ALADDIN_ANI_IDLE;
-			if (nx > 0) isFlip = false;
-			else isFlip = true;
+			if (nx > 0)
+				ani = ALADDIN_ANI_IDLE_RIGHT;
+			else
+				ani = ALADDIN_ANI_IDLE_LEFT;
 		}
-		else {
-			ani = ALADDIN_ANI_WALKING;
-			if(vx > 0)
-				isFlip = false;
-			else isFlip = true;
+		else if (vx > 0)
+			ani = ALADDIN_ANI_WALKING_RIGHT;
+		else ani = ALADDIN_ANI_WALKING_LEFT;
+		if (IsSit == true)
+		{
+			if (nx > 0)
+				ani = ALADDIN_ANI_SIT_DOWN_RIGHT;
+			else
+				ani = ALADDIN_ANI_SIT_DOWN_LEFT;
 		}
-	}
-
+		if (IsJump == true) {
+			if (nx > 0)
+				ani = ALADDIN_ANI_JUMPING_RIGHT;
+			else
+				ani = ALADDIN_ANI_JUMPING_LEFT;
+		}
+	}		
 	int alpha = 255;
 	if (untouchable) alpha = 128;
-	if (isFlip)
-	{
-		animations[ani]->RenderFlipOx(x, y, alpha);
-	}
-	else {
-		animations[ani]->Render(x, y, alpha);
-	}
-	
+	animations[ani]->Render(x, y, alpha);
+
 	RenderBoundingBox();
 }
 
@@ -138,6 +179,8 @@ void Aladdin::SetState(int state)
 		nx = -1;
 		break;
 	case ALADDIN_STATE_JUMP:
+		IsJump = true;
+		IsGround = false;
 		vy = -ALADDIN_JUMP_SPEED_Y;
 	case ALADDIN_STATE_IDLE:
 		vx = 0;
@@ -145,24 +188,44 @@ void Aladdin::SetState(int state)
 	case ALADDIN_STATE_DIE:
 		vy = -ALADDIN_DIE_DEFLECT_SPEED;
 		break;
+	case ALADDIN_STATE_STANDING:
+		vx = 0;
+		break;
+	case ALADDIN_STATE_SIT_DOWN:
+		vx = 0;
+		IsSit = true;
+		break;
 	}
+}
+
+void Aladdin::ResetAnimation()
+{
+	resetAni(ALADDIN_ANI_SIT_DOWN_RIGHT);
+	resetAni(ALADDIN_ANI_SIT_DOWN_LEFT);
 }
 
 void Aladdin::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (isFlip)
+	left = x + ALADDIN_BBOX_WIDTH / 4;
+	top = y + 4;
+	right = left + ALADDIN_BBOX_WIDTH / 2;
+	bottom = top + 55;
+	if (IsJump == true)
 	{
-		right = x;
-		top = y;
-		left = x - ALADDIN_BBOX_WIDTH;
-		bottom = y + ALADDIN_BBOX_HEIGHT;
+		top = y + 20;
+		bottom = top + 44;
 	}
-	else {
-		left = x;
-		top = y;
-		right = x + ALADDIN_BBOX_WIDTH;
-		bottom = y + ALADDIN_BBOX_HEIGHT;
-	}
-	
+}
+
+Aladdin::Aladdin() : CGameObject()
+{
+	IsJump = false;
+	IsSit = false;
+	untouchable = 0;
+}
+
+Aladdin::~Aladdin()
+{
+
 }
 

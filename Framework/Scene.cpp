@@ -12,9 +12,11 @@ void CScene::Update(DWORD dt)
 }
 void CScene::LoadResources()
 {
-	tilemap->LoadListTileFromFile(fileMap);
-	resoucres = new CResoucres();
-	resoucres->Load(fileResoucre, &listObject);
-	for (int i = 0; i < listObject.size(); i++)
-		coObjects.push_back(listObject[i]);
+	//tilemap = new TileMap(widthMap, heightMap, spriteMap, 16.0f, 16.0f);
+	//tilemap->LoadListTileFromFile(fileMap);
+
+	//resoucres->Load(fileResoucre, &listObject);
+	//for (int i = 0; i < listObject.size(); i++)
+	//	coObjects.push_back(listObject[i]);
+
 }

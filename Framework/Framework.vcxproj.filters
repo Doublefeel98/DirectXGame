@@ -99,7 +99,7 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Helper.cpp">
+    <ClCompile Include="Helper.h">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
   </ItemGroup>

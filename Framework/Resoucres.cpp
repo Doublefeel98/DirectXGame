@@ -31,7 +31,10 @@ void CResoucres::Load(string file, vector<LPGAMEOBJECT>* listObject)
 	}
 }
 
-void CResoucres::LoadObject(int id, int type, float x, float y, int width, int height, vector<LPGAMEOBJECT>* listObject)
+CResoucres::CResoucres()
 {
-	
+}
+
+CResoucres::~CResoucres()
+{
 }

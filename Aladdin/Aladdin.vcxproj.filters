@@ -28,6 +28,9 @@
     <Filter Include="Source Files\Scenes">
       <UniqueIdentifier>{1136b89a-07b4-4de9-ba52-bb5082a6c6ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Rescourses">
+      <UniqueIdentifier>{745c718e-4aca-432a-bcad-aa9afe5a8af5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Define.h">
@@ -39,6 +42,21 @@
     <ClInclude Include="Brick.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="SceneOne.h">
+      <Filter>Source Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneBoss.h">
+      <Filter>Source Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreBoard.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinResources.h">
+      <Filter>Source Files\Rescourses</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>Source Files\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -49,6 +67,21 @@
     </ClCompile>
     <ClCompile Include="Brick.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneOne.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneBoss.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreBoard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinResources.cpp">
+      <Filter>Source Files\Rescourses</Filter>
+    </ClCompile>
+    <ClCompile Include="Ground.cpp">
+      <Filter>Source Files\Objects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

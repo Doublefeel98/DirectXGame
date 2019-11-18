@@ -30,6 +30,8 @@
 #include "Aladdin.h"
 #include "Define.h"
 #include "Brick.h"
+#include "../Framework/SceneManager.h"
+#include "SceneOne.h"
 
 
 CGame * game;
@@ -71,13 +73,22 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 void CSampleKeyHander::KeyState(BYTE* states)
 {
 	// disable control key when Mario die 
-	if (aladdin->GetState() == ALADDIN_STATE_DIE) return;
+	/*if (aladdin->GetState() == ALADDIN_STATE_DIE) return;
 	if (game->IsKeyDown(DIK_RIGHT))
 		aladdin->SetState(ALADDIN_STATE_WALKING_RIGHT);
 	else if (game->IsKeyDown(DIK_LEFT))
 		aladdin->SetState(ALADDIN_STATE_WALKING_LEFT);
 	else
-		aladdin->SetState(ALADDIN_STATE_IDLE);
+		aladdin->SetState(ALADDIN_STATE_IDLE);*/
+	CCamera* camera = CCamera::GetInstance();
+	if (game->IsKeyDown(DIK_RIGHT))
+		camera->SetCameraPosition(camera->GetCameraPosition().x + 10, camera->GetCameraPosition().y);
+	else if (game->IsKeyDown(DIK_LEFT))
+		camera->SetCameraPosition(camera->GetCameraPosition().x - 10, camera->GetCameraPosition().y);
+	else if (game->IsKeyDown(DIK_UP))
+		camera->SetCameraPosition(camera->GetCameraPosition().x, camera->GetCameraPosition().y - 10);
+	else if (game->IsKeyDown(DIK_DOWN))
+		camera->SetCameraPosition(camera->GetCameraPosition().x, camera->GetCameraPosition().y + 10);
 }
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -99,7 +110,8 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 	TO-DO: Improve this function by loading texture,sprite,animation,object from file
 */
-void LoadResources()
+
+void LoadTextures()
 {
 	CTextures* textures = CTextures::GetInstance();
 
@@ -107,10 +119,16 @@ void LoadResources()
 	textures->Add(ID_TEX_MISC, L"resources\\textures\\misc.png", D3DCOLOR_XRGB(176, 224, 248));
 	textures->Add(ID_TEX_ALADDIN, L"resources\\textures\\aladdin.png", D3DCOLOR_XRGB(255, 0, 255));
 
+	//map
+	textures->Add(ID_TEX_MAP_ONE, L"resources\\mapread\\lv1\\lv1.png", D3DCOLOR_XRGB(163, 73, 164));
+
+}
+
+void LoadSprites()
+{
+	CTextures* textures = CTextures::GetInstance();
 
 	CSprites* sprites = CSprites::GetInstance();
-	CAnimations* animations = CAnimations::GetInstance();
-
 	LPDIRECT3DTEXTURE9 texMario = textures->Get(ID_TEX_ALADDIN);
 
 	LPDIRECT3DTEXTURE9 texAladdin = textures->Get(ID_TEX_ALADDIN);
@@ -132,8 +150,20 @@ void LoadResources()
 	sprites->Add(10113, 679, 1218, 722, 1273, texAladdin);
 
 
-	LPDIRECT3DTEXTURE9 texMisc = textures->Get(ID_TEX_MISC);
-	sprites->Add(20001, 408, 225, 424, 241, texMisc);
+	/*LPDIRECT3DTEXTURE9 texMisc = textures->Get(ID_TEX_MISC);
+	sprites->Add(20001, 408, 225, 424, 241, texMisc);*/
+
+	LPDIRECT3DTEXTURE9 textMapOne = textures->Get(ID_TEX_MAP_ONE);
+	sprites->Add(ID_SPRITE_MAP_ONE, 0, 0, 2144, 1024, textMapOne);
+}
+
+void LoadAnimations()
+{
+	CTextures* textures = CTextures::GetInstance();
+
+	CSprites* sprites = CSprites::GetInstance();
+
+	CAnimations* animations = CAnimations::GetInstance();
 
 	LPANIMATION ani;
 
@@ -157,6 +187,16 @@ void LoadResources()
 	ani->Add(10113);
 	animations->Add(110, ani);
 
+	ani = new CAnimation(100);		// brick
+	ani->Add(20001);
+	animations->Add(601, ani);
+}
+void LoadResources()
+{
+	LoadTextures();
+	LoadSprites();
+	LoadAnimations();
+
 	aladdin = new Aladdin();
 	aladdin->AddAnimation(100);		// idle
 	aladdin->AddAnimation(110);		// walking
@@ -164,17 +204,13 @@ void LoadResources()
 	aladdin->SetPosition(50.0f, 0);
 	objects.push_back(aladdin);
 
-	ani = new CAnimation(100);		// brick
-	ani->Add(20001);
-	animations->Add(601, ani);
-
-	for (int i = 0; i < 30; i++)
-	{
-		CBrick* brick = new CBrick();
-		brick->AddAnimation(601);
-		brick->SetPosition(0 + i * 16.0f, 150);
-		objects.push_back(brick);
-	}
+	//for (int i = 0; i < 30; i++)
+	//{
+	//	CBrick* brick = new CBrick();
+	//	brick->AddAnimation(601);
+	//	brick->SetPosition(0 + i * 16.0f, 150);
+	//	objects.push_back(brick);
+	//}
 }
 
 /*
@@ -183,8 +219,10 @@ void LoadResources()
 */
 void Update(DWORD dt)
 {
-	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
-	// TO-DO: This is a "dirty" way, need a more organized way 
+	/* We know that Mario is the first object in the list hence we won't add him into the colliable object list
+	 TO-DO: This is a "dirty" way, need a more organized way */
+
+	CSceneManager::GetInstance()->GetCurrentScene()->Update(dt);
 
 	vector<LPGAMEOBJECT> coObjects;
 	for (int i = 1; i < objects.size(); i++)
@@ -198,14 +236,14 @@ void Update(DWORD dt)
 	}
 
 
-	// Update camera to follow aladdin
-	float cx, cy;
-	aladdin->GetPosition(cx, cy);
+	//// Update camera to follow aladdin
+	//float cx, cy;
+	//aladdin->GetPosition(cx, cy);
 
-	cx -= SCREEN_WIDTH / 2;
-	cy -= SCREEN_HEIGHT / 2;
+	//cx -= SCREEN_WIDTH / 2;
+	//cy -= SCREEN_HEIGHT / 2;
 
-	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+	//CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
 }
 
 /*
@@ -223,6 +261,8 @@ void Render()
 		d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+
+		CSceneManager::GetInstance()->GetCurrentScene()->Render();
 
 		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render();
@@ -331,10 +371,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	keyHandler = new CSampleKeyHander();
 	game->InitKeyboard(keyHandler);
 
-
 	LoadResources();
+	CSceneManager::GetInstance()->ChangeScene(new SceneOne());
 
-	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
+	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 
 	Run();
 

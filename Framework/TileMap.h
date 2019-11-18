@@ -15,14 +15,14 @@ private:
 	int cols;				
 	float width;			
 	float height;			
-	float frameWidth;		
-	float frameHeight;		
+	float tileWidth;		
+	float tileHeight;		
 	int spritePerRow;
 	CSprite *sprite;
 public:
 	TileMap(float _width, float _height, CSprite *_sprite, float _frameWidth, float _frameHeight);
 	~TileMap();
 	void LoadListTileFromFile(const char* file);
-	void Render(int SCREEN_WIDTH, int SCREEN_HEIGHT);
+	void Render(int screenWidth, int screenHeight);
 };
 

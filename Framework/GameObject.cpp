@@ -46,9 +46,9 @@ CGameObject::CGameObject()
 	isDead = false;
 	collider = new ColliderEffect();
 	deadeffect = new DeadEffect();
-	CTextures* textures = CTextures::GetInstance();
-	DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", get_current_dir() + "textures\\bbox.png");
-	textures->Add(ID_TEX_BBOX, L"resources\\textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
+	//CTextures* textures = CTextures::GetInstance();
+	//DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", get_current_dir() + "textures\\bbox.png");
+	//textures->Add(ID_TEX_BBOX, L"resources\\textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 }
 
 void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)

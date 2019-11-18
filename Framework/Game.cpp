@@ -128,8 +128,11 @@ void CGame::Draw(LPDIRECT3DTEXTURE9 texture, D3DXVECTOR3 &pos, RECT &r, int alph
 	//r.right = right;
 	//r.bottom = bottom;
 	//color = D3DCOLOR_ARGB(alpha, 255, 255, 255);
+	CCamera* camera = CCamera::GetInstance();
+	D3DXVECTOR3 position = camera->GetCameraPosition();
 
-	spriteHandler->Draw(texture, &r, NULL, &pos, D3DCOLOR_ARGB(alpha, 255, 255, 255));// D3DCOLOR_ARGB(alpha, 255, 255, 255));
+
+	spriteHandler->Draw(texture, &r, NULL, &camera->SetPositionInCamera(pos), D3DCOLOR_ARGB(alpha, 255, 255, 255));// D3DCOLOR_ARGB(alpha, 255, 255, 255));
 }
 
 void CGame::Draw(LPDIRECT3DTEXTURE9 texture, D3DXVECTOR3 &pos, int alpha)

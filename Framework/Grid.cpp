@@ -1,12 +1,12 @@
 #include "Grid.h"
 #include "debug.h"
 
-Grid::Grid(int widthmap,int heightmap, int cellsizex, int cellsizey)
+Grid::Grid(int widthmap,int heightmap, int screenWidth, int screenHeight)
 {
-	this->cellsizey = cellsizey;
-	this->cellsizex = cellsizex;
-	rows = heightmap / cellsizey;
-	columns = widthmap / cellsizex;
+	this->heightCell = screenHeight / 2;
+	this->widthCell = screenWidth / 2;
+	rows = heightmap / heightCell;
+	columns = widthmap / widthCell;
 	cells = new Cell*[rows];
 	for (int i = 0; i < rows; i++)
 		cells[i] = new Cell[columns];
@@ -20,14 +20,16 @@ Grid::~Grid()
 
 void Grid::Add(vector <LPGAMEOBJECT> *listObject)
 {
-	
+	LPGAMEOBJECT object;
+	float left, top, right, bottom;
 	for (int i = 0; i < listObject->size(); i++)
 	{
-		int cellY = (int)(listObject->at(i)->x / cellsizex);
-		int cellX = (int)(listObject->at(i)->y / cellsizey);
+		/*int cellY = (int)(listObject->at(i)->x / widthCell);
+		int cellX = (int)(listObject->at(i)->y / heightCell);
 
-		int cellY1 = (int)((listObject->at(i)->x+listObject->at(i)->GetWidth()) / cellsizex);
-		int cellX1 = (int)((listObject->at(i)->y+listObject->at(i)->GetHeight()) / cellsizey);
+		int cellY1 = (int)((listObject->at(i)->x + listObject->at(i)->GetWidth()) / widthCell);
+		int cellX1 = (int)((listObject->at(i)->y + listObject->at(i)->GetHeight()) / heightCell);
+
 		if (cellX == cellX1)
 		{
 			if(cellY!= cellY1)
@@ -47,6 +49,51 @@ void Grid::Add(vector <LPGAMEOBJECT> *listObject)
 				for (int j = cellX; j < cellX1; j++)
 					cells[j][cellY].Insert(listObject->at(i));
 			}
+		}*/
+
+		object = listObject->at(i);
+		float left, top, right, bottom;
+		left = object->x;
+		top = object->y;
+		right = left + object->GetWidth();
+		bottom = top + object->GetHeight();
+
+		int cellLeft = (int)(left / widthCell);
+		int cellRight = (int)(right / widthCell);
+		int cellTop = (int)(top / heightCell);
+		int cellBottom = (int)(bottom / heightCell);
+
+		if (cellLeft == cellRight)
+		{
+			if (cellTop == cellBottom)
+			{
+				cells[cellLeft][cellTop].Insert(object);
+			}
+			else {
+				for (int j = cellTop; j <= cellBottom; j++)
+				{
+					cells[cellLeft][j].Insert(object);
+				}
+			}
+		}
+		else {
+			if (cellTop == cellBottom)
+			{
+				for (int j = cellLeft; j <= cellRight; j++)
+				{
+					cells[j][cellTop].Insert(object);
+				}
+			}
+			else
+			{
+				for (int j = cellLeft; j <= cellRight; j++)
+				{
+					for (int k = cellTop; k <= cellBottom; k++)
+					{
+						cells[j][k].Insert(object);
+					}
+				}
+			}
 		}
 	}
 }
@@ -58,21 +105,21 @@ void Grid::GetListOfObjects(vector<LPGAMEOBJECT>* list_object, int SCREEN_WIDTH,
 	int xs, ys;
 	int xe, ye;
 	int i, j, k;
-	xs = (int)camera->GetCameraPosition().x / cellsizex;
-	ys = (int)camera->GetCameraPosition().y / cellsizey;
+	xs = (int)camera->GetCameraPosition().x / widthCell;
+	ys = (int)camera->GetCameraPosition().y / heightCell;
 
-	xe = (int)(camera->GetCameraPosition().x + SCREEN_WIDTH) / cellsizex;
-	ye = (int)(camera->GetCameraPosition().y + SCREEN_HEIGHT) / cellsizey;
+	xe = (int)(camera->GetCameraPosition().x + SCREEN_WIDTH) / widthCell;
+	ye = (int)(camera->GetCameraPosition().y + SCREEN_HEIGHT) / heightCell;
 	if (xe == columns-1)
 		xe += 1;
 	for (i = ys; i < ye; i++)
 	for (j = xs; j < xe; j++)
-		{
-			if (cells[i][j].GetListObjects().size() != 0)
-				for (k = 0; k < cells[i][j].GetListObjects().size(); k++)
-				{
-					LPGAMEOBJECT e = cells[i][j].GetListObjects()[k];
-					list_object->push_back(e);
-				}
-		}
+	{
+		if (cells[i][j].GetListObjects().size() != 0)
+			for (k = 0; k < cells[i][j].GetListObjects().size(); k++)
+			{
+				LPGAMEOBJECT e = cells[i][j].GetListObjects()[k];
+				list_object->push_back(e);
+			}
+	}
 }

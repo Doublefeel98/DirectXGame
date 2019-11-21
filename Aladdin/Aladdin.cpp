@@ -128,6 +128,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void Aladdin::Render()
 {
+	float posX = x, posY = y;
 	int ani;
 	if (state == ALADDIN_STATE_DIE)
 		ani = ALADDIN_ANI_DIE;
@@ -140,9 +141,15 @@ void Aladdin::Render()
 			else
 				ani = ALADDIN_ANI_IDLE_LEFT;
 		}
-		else if (vx > 0)
+		else if (vx > 0) {
+			posY = y - 7;
 			ani = ALADDIN_ANI_WALKING_RIGHT;
-		else ani = ALADDIN_ANI_WALKING_LEFT;
+		}	
+		else
+		{
+			posY = y - 7;
+			ani = ALADDIN_ANI_WALKING_LEFT;
+		}
 		if (IsSit == true)
 		{
 			if (nx > 0)
@@ -159,7 +166,7 @@ void Aladdin::Render()
 	}		
 	int alpha = 255;
 	if (untouchable) alpha = 128;
-	animations[ani]->Render(x, y, alpha);
+	animations[ani]->Render(posX, posY, alpha);
 
 	RenderBoundingBox();
 }
@@ -206,22 +213,68 @@ void Aladdin::ResetAnimation()
 
 void Aladdin::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	left = x + ALADDIN_BBOX_WIDTH / 4;
-	top = y + 4;
-	right = left + ALADDIN_BBOX_WIDTH / 2;
-	bottom = top + 55;
-	if (IsJump == true)
-	{
-		top = y + 20;
-		bottom = top + 44;
-	}
+	left = x;
+	top = y;
+	right = left + ALADDIN_BBOX_WIDTH;
+	bottom = top + ALADDIN_BBOX_HEIGHT;
 }
 
 Aladdin::Aladdin() : CGameObject()
 {
+	width = ALADDIN_BBOX_WIDTH;
+	height = ALADDIN_BBOX_HEIGHT;
+
 	IsJump = false;
 	IsSit = false;
 	untouchable = 0;
+
+	AddAnimation(100);		// idle right
+	AddAnimation(101);		//idle left
+
+	AddAnimation(104);		// sitting down right
+	AddAnimation(105);		// sitting down left
+
+	AddAnimation(102);		// standing right
+	AddAnimation(103);		// standing left
+
+	AddAnimation(106);		// looking up right
+	AddAnimation(107);		// looking up right
+
+	AddAnimation(110);		// walking right
+	AddAnimation(111);		// walking left
+	AddAnimation(112);		// stop right
+	AddAnimation(113);		// stop left
+
+	AddAnimation(120);		// jump right
+	AddAnimation(121);		// jump left
+	AddAnimation(122);		// run jump right
+	AddAnimation(123);		// run jump left
+
+	AddAnimation(131);		// standing slash right
+	AddAnimation(132);		// standing slash left
+	AddAnimation(133);		// sitting slash right
+	AddAnimation(134);		// sitting slash left
+	AddAnimation(135);		// looking up slash right
+	AddAnimation(136);		// looking up slash left
+	AddAnimation(137);		// jumping slash right
+	AddAnimation(138);		// jumping slash left
+
+	AddAnimation(140);		//throw apple right
+	AddAnimation(141);		//throw apple left
+	AddAnimation(142);		//sitting throw apple right
+	AddAnimation(143);		//sitting throw apple left
+	AddAnimation(144);		//jumping throw apple right
+	AddAnimation(145);		//jumping throw apple left
+
+	AddAnimation(150);		//climbing
+	AddAnimation(151);		//falling after climbing
+	AddAnimation(152);		//climbing slash right
+	AddAnimation(153);		//climbing slash left
+	AddAnimation(154);		//climbing throw apple right
+	AddAnimation(155);		//climbing throw apple left
+
+	AddAnimation(161);		//ride the carpet right
+	AddAnimation(162);		//ride the carpet left
 }
 
 Aladdin::~Aladdin()

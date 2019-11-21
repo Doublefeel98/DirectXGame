@@ -1,15 +1,15 @@
-#include "AladdinResources.h"
+#include "AladdinObjects.h"
 #include "Ground.h"
 
-AladdinResources::AladdinResources()
+AladdinObjects::AladdinObjects()
 {
 }
 
-AladdinResources::~AladdinResources()
+AladdinObjects::~AladdinObjects()
 {
 }
 
-void AladdinResources::Load(string file, vector<LPGAMEOBJECT>* listObject)
+void AladdinObjects::Load(string file, vector<LPGAMEOBJECT>* listObject)
 {
 	ifstream input;
 	input.open(file, ifstream::in);
@@ -40,7 +40,7 @@ void AladdinResources::Load(string file, vector<LPGAMEOBJECT>* listObject)
 	}
 }
 
-void AladdinResources::LoadObject(int id, int type, float x, float y, int width, int height, vector<LPGAMEOBJECT>* listObject)
+void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, int height, vector<LPGAMEOBJECT>* listObject)
 {
 	
 	if (type == OBJECT_GROUND)

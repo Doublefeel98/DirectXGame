@@ -1,12 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Aladdin.cpp">
-      <Filter>Source\Object\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="AladdinResources.cpp">
-      <Filter>Source\Resources</Filter>
-    </ClCompile>
     <ClCompile Include="Bat.cpp">
       <Filter>Source\Object</Filter>
     </ClCompile>
@@ -64,22 +58,28 @@
     <ClCompile Include="SceneOne.cpp">
       <Filter>Source\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="SceneBoss.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="ScoreBoard.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="SceneBoss.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinObjects.cpp">
+      <Filter>Source\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="AladdinResoucres.cpp">
+      <Filter>Source\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Aladdin.cpp">
+      <Filter>Source\Object\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aladdin.h">
       <Filter>Source\Object\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="AladdinResources.h">
-      <Filter>Source\Resources</Filter>
     </ClInclude>
     <ClInclude Include="Bat.h">
       <Filter>Source\Object</Filter>
@@ -146,6 +146,12 @@
     </ClInclude>
     <ClInclude Include="ScoreBoard.h">
       <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinObjects.h">
+      <Filter>Source\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="AladdinResoucres.h">
+      <Filter>Source\Resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

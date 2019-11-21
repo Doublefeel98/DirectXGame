@@ -1,11 +1,11 @@
 #include "../Framework/Scene.h";
 #include "ScoreBoard.h";
 #include "Define.h"
-#include "AladdinResources.h"
+#include "AladdinObjects.h"
 
 class SceneOne : public CScene
 {
-	AladdinResources *resoucres;
+	AladdinObjects *objects;
 	ScoreBoard* scoreboard;
 public:
 	SceneOne();

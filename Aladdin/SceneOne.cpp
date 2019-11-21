@@ -12,19 +12,20 @@ SceneOne::SceneOne()
 	screenWidth = SCREEN_WIDTH;
 	screenHeight = SCREEN_HEIGHT;
 
-	resoucres = new AladdinResources();
+	objects = new AladdinObjects();
 
 	tilemap = new TileMap(mapWidth, mapHeight, spriteMap, 16.0f, 16.0f);
 	tilemap->LoadListTileFromFile(fileMap);
 
-	resoucres->Load(fileResoucre, &listObject);
+	objects->Load(fileResoucre, &listObject);
 	for (int i = 0; i < listObject.size(); i++)
 		coObjects.push_back(listObject[i]);
 
 	grid = new Grid((int)mapWidth, (int)mapHeight, screenWidth, screenHeight);
 	grid->Add(&coObjects);
 
-	camera->SetCameraPosition(0, mapHeight - screenHeight + 22);
+	//camera->SetCameraPosition(0, 100);
+	//camera->SetCameraPosition(0, mapHeight - screenHeight + 22);
 }
 
 void SceneOne::Render()

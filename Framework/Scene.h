@@ -27,6 +27,8 @@ protected:
 	float tileWidth, tileHeight;
 public:
 	CScene();
+	float GetMapWidth() { return mapWidth; }
+	float GetMapHeight() { return mapHeight; }
 	virtual void LoadResources();
 	virtual void Render() = 0;
 	virtual void Update(DWORD dt);

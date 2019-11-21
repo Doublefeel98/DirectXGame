@@ -2,11 +2,11 @@
 #include "../Framework/Scene.h";
 #include "ScoreBoard.h";
 #include "Define.h"
-class AladdinResources
+class AladdinObjects
 {
 public:
-	AladdinResources();
-	~AladdinResources();
+	AladdinObjects();
+	~AladdinObjects();
 	void Load(string file, vector<LPGAMEOBJECT>* listObject);
 	void LoadObject(int id, int type, float x, float y, int width, int height, vector<LPGAMEOBJECT>* listObject);
 };

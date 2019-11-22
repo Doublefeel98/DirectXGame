@@ -17,15 +17,26 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	coEvents.clear();
 
-	// turn off collision when die 
-	if (state != ALADDIN_STATE_DIE)
-		CalcPotentialCollisions(coObjects, coEvents);
-
 	if (this->GetState() != ALADDIN_STATE_SIT_DOWN)
 		IsSit = false;
 
 	if (this->GetState() != ALADDIN_STATE_STANDING_SLASH)
 		IsSlash = false;
+
+	// turn off collision when die 
+	if (state != ALADDIN_STATE_DIE)
+		CalcPotentialCollisions(coObjects, coEvents);
+
+	if (IsSlash)
+	{
+		if (GetTickCount() - timeAttackStart > ALADDIN_ATTACK_TIME)
+		{
+			ResetAnimation();
+			timeAttackStart = 0;
+			IsSlash = false;
+			SetState(ALADDIN_STATE_IDLE);
+		}
+	}
 
 	if (dy == 0)
 	{
@@ -168,6 +179,7 @@ void Aladdin::Render()
 				ani = ALADDIN_ANI_SIT_DOWN_RIGHT;
 			else
 				ani = ALADDIN_ANI_SIT_DOWN_LEFT;
+			posY = y + 16;
 		}
 		if (IsJump == true) {
 			if (nx > 0)
@@ -177,17 +189,17 @@ void Aladdin::Render()
 		}
 		if (IsSlash == true) {
 			if (nx > 0) {
-				posY = y - 10;
 				ani = ALADDIN_ANI_STANDING_SLASH_RIGHT;
 			}
 			else {
-				posY = y - 10;
 				ani = ALADDIN_ANI_STANDING_SLASH_LEFT;
 			}
+			posY = y - 23;
 		}
-	}		
+	}
 	int alpha = 255;
 	if (untouchable) alpha = 128;
+
 	animations[ani]->Render(posX, posY, alpha);
 
 	RenderBoundingBox();
@@ -227,14 +239,15 @@ void Aladdin::SetState(int state)
 	case ALADDIN_STATE_STANDING_SLASH:
 		vx = 0;
 		IsSlash = true;
+		timeAttackStart = GetTickCount();
 		break;
 	}
 }
 
 void Aladdin::ResetAnimation()
 {
-	resetAni(ALADDIN_ANI_SIT_DOWN_RIGHT);
-	resetAni(ALADDIN_ANI_SIT_DOWN_LEFT);
+	resetAni(ALADDIN_ANI_STANDING_SLASH_LEFT);
+	resetAni(ALADDIN_ANI_STANDING_SLASH_RIGHT);
 }
 
 void Aladdin::GetBoundingBox(float& left, float& top, float& right, float& bottom)

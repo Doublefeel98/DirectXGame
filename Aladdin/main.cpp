@@ -61,7 +61,10 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_X:
-		aladdin->SetState(ALADDIN_STATE_STANDING_SLASH);
+		if (aladdin->GetState() != ALADDIN_STATE_STANDING_SLASH)
+		{
+			aladdin->SetState(ALADDIN_STATE_STANDING_SLASH);
+		}
 		break;
 	case DIK_C:
 		aladdin->SetState(ALADDIN_STATE_JUMP);
@@ -89,10 +92,13 @@ void CSampleKeyHander::KeyState(BYTE* states)
 		aladdin->SetState(ALADDIN_STATE_WALKING_LEFT);
 	else if (game->IsKeyDown(DIK_DOWN))
 		aladdin->SetState(ALADDIN_STATE_SIT_DOWN);
-	//else if (game->IsKeyDown(DIK_X))
-	//	aladdin->SetState(ALADDIN_STATE_STANDING_SLASH);
+	else if (game->IsKeyDown(DIK_X))
+		aladdin->SetState(ALADDIN_STATE_STANDING_SLASH);
 	else {
-		aladdin->SetState(ALADDIN_STATE_IDLE);
+		if (aladdin->GetState() != ALADDIN_STATE_STANDING_SLASH)
+		{
+			aladdin->SetState(ALADDIN_STATE_IDLE);
+		}
 	}
 
 	/*CCamera* camera = CCamera::GetInstance();
@@ -203,7 +209,7 @@ void Update(DWORD dt)
 
 	camera->SetCameraPosition(cx, cy);
 	
-	DebugOut(L"[INFO] KeyUp: %f\n", camera->GetCameraPosition().y);
+	DebugOut(L"[INFO] aladdin state: %d\n", aladdin->GetState());
 }
 
 /*

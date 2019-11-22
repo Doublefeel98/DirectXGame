@@ -90,11 +90,11 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(10228, 491, 680, 541, 765, texAladdinGoRight);
 	sprites->Add(10229, 560, 719, 719, 763, texAladdinGoRight);
 
-	sprites->Add(10301, 5, 337, 50, 388, texAladdinGoRight);		// standing slash right
-	sprites->Add(10302, 54, 326, 105, 388, texAladdinGoRight);
+	sprites->Add(10301, 5, 314, 50, 388, texAladdinGoRight);		// standing slash right
+	sprites->Add(10302, 54, 314, 105, 388, texAladdinGoRight);
 	sprites->Add(10303, 115, 314, 160, 388, texAladdinGoRight);
-	sprites->Add(10304, 171, 319, 253, 388, texAladdinGoRight);
-	sprites->Add(10305, 260, 335, 311, 388, texAladdinGoRight);
+	sprites->Add(10304, 171, 314, 253, 388, texAladdinGoRight);
+	sprites->Add(10305, 260, 314, 311, 388, texAladdinGoRight);
 
 	sprites->Add(10311, 9, 640, 56, 673, texAladdinGoRight);		// sitting slash right
 	sprites->Add(10312, 64, 642, 109, 673, texAladdinGoRight);
@@ -260,11 +260,11 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(11228, 580, 680, 630, 765, texAladdinGoLeft);
 	sprites->Add(11229, 502, 719, 561, 763, texAladdinGoLeft);
 
-	sprites->Add(11301, 1071, 337, 1116, 388, texAladdinGoLeft);		// standing slash left
-	sprites->Add(11302, 1016, 326, 1067, 388, texAladdinGoLeft);
+	sprites->Add(11301, 1071, 314, 1116, 388, texAladdinGoLeft);		// standing slash left
+	sprites->Add(11302, 1016, 314, 1067, 388, texAladdinGoLeft);
 	sprites->Add(11303, 961, 314, 1006, 388, texAladdinGoLeft);
-	sprites->Add(11304, 868, 319, 950, 388, texAladdinGoLeft);
-	sprites->Add(11305, 810, 335, 861, 388, texAladdinGoLeft);
+	sprites->Add(11304, 868, 314, 950, 388, texAladdinGoLeft);
+	sprites->Add(11305, 810, 314, 861, 388, texAladdinGoLeft);
 
 	sprites->Add(11311, 1065, 640, 1112, 673, texAladdinGoLeft);		// sitting slash left
 	sprites->Add(11312, 1012, 642, 1057, 673, texAladdinGoLeft);
@@ -390,16 +390,16 @@ void AladdinResoucres::LoadAnimations()
 	animations->Add(103, ani);
 
 	ani = new CAnimation(100);	// sitting down right
-	ani->Add(10021);
-	ani->Add(10022);
-	ani->Add(10023);
+	//ani->Add(10021);
+	//ani->Add(10022);
+	//ani->Add(10023);
 	ani->Add(10024);
 	animations->Add(104, ani);
 
 	ani = new CAnimation(100);	// sitting down left
-	ani->Add(11021);
-	ani->Add(11022);
-	ani->Add(11023);
+	//ani->Add(11021);
+	//ani->Add(11022);
+	//ani->Add(11023);
 	ani->Add(11024);
 	animations->Add(105, ani);
 
@@ -471,7 +471,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(11129);
 	animations->Add(113, ani);
 
-	ani = new CAnimation(100);	// jump right
+	ani = new CAnimation(60);	// jump right
 	ani->Add(10201);
 	ani->Add(10202);
 	ani->Add(10203);
@@ -484,7 +484,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(10210);
 	animations->Add(120, ani);
 
-	ani = new CAnimation(100);	// jump left
+	ani = new CAnimation(85);	// jump left
 	ani->Add(11201);
 	ani->Add(11202);
 	ani->Add(11203);
@@ -497,7 +497,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(11210);
 	animations->Add(121, ani);
 
-	ani = new CAnimation(100);	// run jump right
+	ani = new CAnimation(85);	// run jump right
 	ani->Add(10221);
 	ani->Add(10222);
 	ani->Add(10223);

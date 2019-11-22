@@ -7,6 +7,7 @@ class Aladdin : public CGameObject
 	int level;
 	int untouchable;
 	DWORD untouchable_start;
+	DWORD timeAttackStart;
 public:
 	Aladdin();
 	bool IsSit;

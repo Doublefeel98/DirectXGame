@@ -12,6 +12,7 @@ public:
 	bool IsSit;
 	bool IsJump;
 	bool IsGround;
+	bool IsSlash;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();
 	void SetState(int state);

@@ -49,7 +49,7 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(10102, 66, 1215, 109, 1273, texAladdinGoRight);
 	sprites->Add(10103, 120, 1215, 161, 1273, texAladdinGoRight);
 	sprites->Add(10104, 171, 1215, 212, 1273, texAladdinGoRight);
-	sprites->Add(10105, 220, 1215, 272, 1272, texAladdinGoRight);
+	sprites->Add(10105, 220, 1215, 272, 1273, texAladdinGoRight);
 	sprites->Add(10106, 279, 1215, 325, 1273, texAladdinGoRight);
 	sprites->Add(10107, 334, 1215, 376, 1273, texAladdinGoRight);
 	sprites->Add(10108, 386, 1215, 427, 1273, texAladdinGoRight);

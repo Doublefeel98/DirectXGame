@@ -89,6 +89,8 @@ void CSampleKeyHander::KeyState(BYTE* states)
 		aladdin->SetState(ALADDIN_STATE_WALKING_LEFT);
 	else if (game->IsKeyDown(DIK_DOWN))
 		aladdin->SetState(ALADDIN_STATE_SIT_DOWN);
+	//else if (game->IsKeyDown(DIK_X))
+	//	aladdin->SetState(ALADDIN_STATE_STANDING_SLASH);
 	else {
 		aladdin->SetState(ALADDIN_STATE_IDLE);
 	}

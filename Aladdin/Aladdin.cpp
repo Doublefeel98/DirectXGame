@@ -21,6 +21,18 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (state != ALADDIN_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
 
+	if (this->GetState() != ALADDIN_STATE_SIT_DOWN)
+		IsSit = false;
+
+	if (this->GetState() != ALADDIN_STATE_STANDING_SLASH)
+		IsSlash = false;
+
+	if (dy == 0)
+	{
+		IsJump = false;
+		IsGround = true;
+	}
+
 	// reset untouchable timer if untouchable time has passed
 	if (GetTickCount() - untouchable_start > ALADDIN_UNTOUCHABLE_TIME)
 	{
@@ -163,6 +175,16 @@ void Aladdin::Render()
 			else
 				ani = ALADDIN_ANI_JUMPING_LEFT;
 		}
+		if (IsSlash == true) {
+			if (nx > 0) {
+				posY = y - 10;
+				ani = ALADDIN_ANI_STANDING_SLASH_RIGHT;
+			}
+			else {
+				posY = y - 10;
+				ani = ALADDIN_ANI_STANDING_SLASH_LEFT;
+			}
+		}
 	}		
 	int alpha = 255;
 	if (untouchable) alpha = 128;
@@ -202,6 +224,10 @@ void Aladdin::SetState(int state)
 		vx = 0;
 		IsSit = true;
 		break;
+	case ALADDIN_STATE_STANDING_SLASH:
+		vx = 0;
+		IsSlash = true;
+		break;
 	}
 }
 
@@ -226,6 +252,7 @@ Aladdin::Aladdin() : CGameObject()
 
 	IsJump = false;
 	IsSit = false;
+	IsSlash = false;
 	untouchable = 0;
 
 	AddAnimation(100);		// idle right
@@ -234,12 +261,12 @@ Aladdin::Aladdin() : CGameObject()
 	AddAnimation(104);		// sitting down right
 	AddAnimation(105);		// sitting down left
 
-	AddAnimation(102);		// standing right
-	AddAnimation(103);		// standing left
-
 	AddAnimation(106);		// looking up right
 	AddAnimation(107);		// looking up right
 
+	AddAnimation(102);		// standing right
+	AddAnimation(103);		// standing left
+	
 	AddAnimation(110);		// walking right
 	AddAnimation(111);		// walking left
 	AddAnimation(112);		// stop right

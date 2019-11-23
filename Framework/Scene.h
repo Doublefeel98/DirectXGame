@@ -8,6 +8,7 @@
 class CScene
 {
 protected:
+	DWORD time;
 	int state;
 	static bool changeScene;
 	TileMap* tilemap;
@@ -17,8 +18,7 @@ protected:
 	string fileResoucre;
 	char* fileMap;
 	CCamera* camera;
-	//CResoucres *resoucres;
-	vector<LPGAMEOBJECT> listObject;
+	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> coObjects;
 	float mapWidth, mapHeight;
 	Grid* grid;

@@ -2,13 +2,15 @@
 #include "ScoreBoard.h";
 #include "Define.h"
 #include "AladdinObjects.h"
+#include "Aladdin.h"
 
 class SceneOne : public CScene
 {
-	AladdinObjects *objects;
+	Aladdin* aladdin;
+	AladdinObjects * aladinObjects;
 	ScoreBoard* scoreboard;
 public:
-	SceneOne();
+	SceneOne(Aladdin* aladdin);
 	void Render();
 	void Update(DWORD dt);
 	void DestroyAll();

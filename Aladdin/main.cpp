@@ -41,8 +41,6 @@ CGame * game;
 
 Aladdin* aladdin;
 
-vector<LPGAMEOBJECT> objects;
-
 AladdinResoucres *resources;
 CSceneManager * sceneManager;
 
@@ -135,23 +133,6 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 void LoadResources()
 {
 	aladdin = new Aladdin();
-	aladdin->SetPosition(50.0f, 948);
-	objects.push_back(aladdin);
-
-	/*for (int i = 0; i < 30; i++)
-	{
-		CBrick* brick = new CBrick();
-		brick->AddAnimation(601);
-		brick->SetPosition(0 + i * 32.0f, 1002);
-		objects.push_back(brick);
-	}*/
-
-	for (int i = 0; i < 67; i++)
-	{
-		Ground* ground = new Ground();
-		ground->SetPosition(0 + i * 32.0f, 1002);
-		objects.push_back(ground);
-	}
 }
 
 /*
@@ -164,18 +145,6 @@ void Update(DWORD dt)
 	 TO-DO: This is a "dirty" way, need a more organized way */
 
 	CSceneManager::GetInstance()->GetCurrentScene()->Update(dt);
-
-	vector<LPGAMEOBJECT> coObjects;
-	for (int i = 1; i < objects.size(); i++)
-	{
-		coObjects.push_back(objects[i]);
-	}
-
-	for (int i = 0; i < objects.size(); i++)
-	{
-		objects[i]->Update(dt, &coObjects);
-	}
-
 
 	// Update camera to follow aladdin
 	D3DXVECTOR3 pos = camera->GetCameraPosition();
@@ -205,8 +174,6 @@ void Update(DWORD dt)
 		cy = boundHeight - SCREEN_HEIGHT;
 	}
 
-	//cy = boundHeight - SCREEN_HEIGHT;
-
 	camera->SetCameraPosition(cx, cy);
 	
 	DebugOut(L"[INFO] aladdin state: %d\n", aladdin->GetState());
@@ -229,9 +196,6 @@ void Render()
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
 		CSceneManager::GetInstance()->GetCurrentScene()->Render();
-
-		for (int i = 0; i < objects.size(); i++)
-			objects[i]->Render();
 
 		spriteHandler->End();
 		d3ddv->EndScene();
@@ -344,7 +308,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	LoadResources();
 	sceneManager = CSceneManager::GetInstance();
-	sceneManager->ChangeScene(new SceneOne());
+	sceneManager->ChangeScene(new SceneOne(aladdin));
 
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 

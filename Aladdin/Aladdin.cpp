@@ -20,7 +20,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (this->GetState() != ALADDIN_STATE_SIT_DOWN) 
 	{
 		IsSit = false;
-		ResetAnimation();
+		ResetAnimationsSitDown();
 	}
 
 	if (this->GetState() != ALADDIN_STATE_STANDING_SLASH)
@@ -34,7 +34,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (GetTickCount() - timeAttackStart > ALADDIN_ATTACK_TIME)
 		{
-			ResetAnimation();
+			ResetAnimationsSlash();
 			timeAttackStart = 0;
 			IsSlash = false;
 			SetState(ALADDIN_STATE_IDLE);
@@ -246,12 +246,16 @@ void Aladdin::SetState(int state)
 	}
 }
 
-void Aladdin::ResetAnimation()
+void Aladdin::ResetAnimationsSlash()
+{
+	resetAni(ALADDIN_ANI_STANDING_SLASH_LEFT);
+	resetAni(ALADDIN_ANI_STANDING_SLASH_RIGHT);
+}
+
+void Aladdin::ResetAnimationsSitDown()
 {
 	resetAni(ALADDIN_ANI_SIT_DOWN_RIGHT);
 	resetAni(ALADDIN_ANI_SIT_DOWN_LEFT);
-	resetAni(ALADDIN_ANI_STANDING_SLASH_LEFT);
-	resetAni(ALADDIN_ANI_STANDING_SLASH_RIGHT);
 }
 
 void Aladdin::GetBoundingBox(float& left, float& top, float& right, float& bottom)

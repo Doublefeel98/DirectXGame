@@ -13,6 +13,7 @@ class Grid
 	LPCELL *cells;
 	int rows;
 	int columns;
+	bool checkExistCell(int cellX, int cellY);
 public:
 	Grid(int widthmap, int heightmap, int screenWidth, int screenHeight);
 	~Grid();

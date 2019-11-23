@@ -1,6 +1,13 @@
 #include "Grid.h"
 #include "debug.h"
 
+bool Grid::checkExistCell(int cellX, int cellY)
+{
+	if (cellX < 0 || cellX >= rows) return false;
+	if (cellY < 0 || cellY >= columns) return false;
+	return true;
+}
+
 Grid::Grid(int widthmap,int heightmap, int screenWidth, int screenHeight)
 {
 	this->heightCell = screenHeight / 2;
@@ -51,6 +58,10 @@ void Grid::Add(vector <LPGAMEOBJECT> *listObject)
 			}
 		}*/
 
+		DebugOut(L"[INFO] index: %d\n", i);
+		//if (i == 49)
+		//	continue;
+
 		object = listObject->at(i);
 		float left, top, right, bottom;
 		left = object->x;
@@ -58,21 +69,23 @@ void Grid::Add(vector <LPGAMEOBJECT> *listObject)
 		right = left + object->GetWidth();
 		bottom = top + object->GetHeight();
 
-		int cellLeft = (int)(left / widthCell);
-		int cellRight = (int)(right / widthCell);
-		int cellTop = (int)(top / heightCell);
-		int cellBottom = (int)(bottom / heightCell);
+		int cellLeft = (int)(left / widthCell) - 1;
+		int cellRight = (int)(right / widthCell) - 1;
+		int cellTop = (int)(top / heightCell) - 1;
+		int cellBottom = (int)(bottom / heightCell) - 1;
 
 		if (cellLeft == cellRight)
 		{
 			if (cellTop == cellBottom)
 			{
-				cells[cellLeft][cellTop].Insert(object);
+				if(checkExistCell(cellLeft, cellTop))
+					cells[cellLeft][cellTop].Insert(object);
 			}
 			else {
 				for (int j = cellTop; j <= cellBottom; j++)
 				{
-					cells[cellLeft][j].Insert(object);
+					if (checkExistCell(cellLeft, j))
+						cells[cellLeft][j].Insert(object);
 				}
 			}
 		}
@@ -81,7 +94,8 @@ void Grid::Add(vector <LPGAMEOBJECT> *listObject)
 			{
 				for (int j = cellLeft; j <= cellRight; j++)
 				{
-					cells[j][cellTop].Insert(object);
+					if (checkExistCell(j, cellTop))
+						cells[j][cellTop].Insert(object);
 				}
 			}
 			else
@@ -90,7 +104,8 @@ void Grid::Add(vector <LPGAMEOBJECT> *listObject)
 				{
 					for (int k = cellTop; k <= cellBottom; k++)
 					{
-						cells[j][k].Insert(object);
+						if (checkExistCell(j, k))
+							cells[j][k].Insert(object);
 					}
 				}
 			}

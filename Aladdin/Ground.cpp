@@ -1,4 +1,9 @@
 #include "Ground.h"
+Ground::Ground()
+{
+	width = GROUND_BBOX_WIDTH;
+	height = GROUND_BBOX_HEIGHT;
+}
 void Ground::Render()
 {
 	//RenderBoundingBox();

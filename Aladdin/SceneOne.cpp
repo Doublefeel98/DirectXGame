@@ -1,6 +1,11 @@
 #include "SceneOne.h"
-SceneOne::SceneOne()
+#include "Ground.h"
+SceneOne::SceneOne(Aladdin* aladdin)
 {
+	this->aladdin = aladdin;
+
+	objects.push_back(this->aladdin);
+
 	CSprites* sprites = CSprites::GetInstance();
 	mapWidth = 2144.0f;
 	mapHeight = 1024.0f;
@@ -12,30 +17,47 @@ SceneOne::SceneOne()
 	screenWidth = SCREEN_WIDTH;
 	screenHeight = SCREEN_HEIGHT;
 
-	objects = new AladdinObjects();
+	aladinObjects = new AladdinObjects();
 
 	tilemap = new TileMap(mapWidth, mapHeight, spriteMap, 16.0f, 16.0f);
 	tilemap->LoadListTileFromFile(fileMap);
 
-	objects->Load(fileResoucre, &listObject);
-	for (int i = 0; i < listObject.size(); i++)
-		coObjects.push_back(listObject[i]);
+	//aladinObjects->Load(fileResoucre, &objects);
+
+
+	for (int i = 0; i < 67; i++)
+	{
+		Ground* ground = new Ground();
+		ground->SetPosition(0 + i * 32.0f, 1002);
+		objects.push_back(ground);
+	}
+
+	for (int i = 1; i < objects.size(); i++)
+		coObjects.push_back(objects[i]);
 
 	grid = new Grid((int)mapWidth, (int)mapHeight, screenWidth, screenHeight);
 	grid->Add(&coObjects);
 
-	//camera->SetCameraPosition(0, 100);
-	//camera->SetCameraPosition(0, mapHeight - screenHeight + 22);
+	scoreboard = new ScoreBoard(aladdin, 0);
 }
 
 void SceneOne::Render()
 {
 	tilemap->Render(screenWidth, screenHeight);
+	for (int i = 0; i < objects.size(); i++)
+		objects[i]->Render();
+	scoreboard->Render();
 }
 
 void SceneOne::Update(DWORD dt)
 {
+	for (int i = 0; i < objects.size(); i++)
+	{
+		objects[i]->Update(dt, &coObjects);
+	}
 
+	time += dt;
+	scoreboard->Update(0, 500 - time * 0.001, 3, 2);
 }
 
 void SceneOne::DestroyAll()

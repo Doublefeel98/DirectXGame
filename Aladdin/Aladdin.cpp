@@ -17,8 +17,11 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	coEvents.clear();
 
-	if (this->GetState() != ALADDIN_STATE_SIT_DOWN)
+	if (this->GetState() != ALADDIN_STATE_SIT_DOWN) 
+	{
 		IsSit = false;
+		ResetAnimation();
+	}
 
 	if (this->GetState() != ALADDIN_STATE_STANDING_SLASH)
 		IsSlash = false;
@@ -179,7 +182,6 @@ void Aladdin::Render()
 				ani = ALADDIN_ANI_SIT_DOWN_RIGHT;
 			else
 				ani = ALADDIN_ANI_SIT_DOWN_LEFT;
-			posY = y + 16;
 		}
 		if (IsJump == true) {
 			if (nx > 0)
@@ -246,6 +248,8 @@ void Aladdin::SetState(int state)
 
 void Aladdin::ResetAnimation()
 {
+	resetAni(ALADDIN_ANI_SIT_DOWN_RIGHT);
+	resetAni(ALADDIN_ANI_SIT_DOWN_LEFT);
 	resetAni(ALADDIN_ANI_STANDING_SLASH_LEFT);
 	resetAni(ALADDIN_ANI_STANDING_SLASH_RIGHT);
 }

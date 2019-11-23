@@ -114,9 +114,22 @@ void CAnimation::Render(float x, float y, int alpha)
 		DWORD t = frames[currentFrame]->GetTime();
 		if (now - lastFrameTime > t)
 		{
-			currentFrame++;
+			if(IsLastFrame && !IsLoop){}
+			else{
+				currentFrame++;
+			}
 			lastFrameTime = now;
-			if (currentFrame == frames.size()) currentFrame = 0;
+			if (currentFrame == frames.size())
+			{
+				if (IsLoop) {
+					currentFrame = 0;
+				}
+				else
+				{
+					currentFrame = frames.size() - 1;
+					IsLastFrame = true;
+				}
+			}	
 		}
 
 	}

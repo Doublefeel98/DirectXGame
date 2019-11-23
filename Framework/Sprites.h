@@ -61,13 +61,15 @@ public:	DWORD lastFrameTime;
 public: int defaultTime;
 public: int currentFrame;
 	vector<LPANIMATION_FRAME> frames;
+	bool IsLoop;
+	bool IsLastFrame = false;
 public:
-	CAnimation(int defaultTime) { this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; }
+	CAnimation(int defaultTime, bool IsLoop = true) { this->IsLoop = IsLoop; this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; }
 	void Add(int spriteId, DWORD time = 0);
 	virtual void Render(float x, float y, int alpha = 255);
 	virtual void RenderFlipOx(float x, float y, int alpha = 255);
 	int getCurrentFrame() { return currentFrame; }
-	void reset() { currentFrame = -1; lastFrameTime = -1; }
+	void reset() { currentFrame = -1; lastFrameTime = -1; IsLastFrame = false; }
 };
 
 typedef CAnimation *LPANIMATION;

@@ -35,15 +35,32 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(10014, 619, 57, 660, 134, texAladdinGoRight);
 	sprites->Add(10015, 668, 57, 708, 134, texAladdinGoRight);
 	sprites->Add(10016, 715, 57, 754, 134, texAladdinGoRight);
+	sprites->Add(10017, 3, 141, 39, 218, texAladdinGoRight);
+	sprites->Add(10018, 46, 141, 86, 218, texAladdinGoRight);
+	sprites->Add(10019, 91, 141, 132, 218, texAladdinGoRight);
+	sprites->Add(10020, 140, 141, 178, 218, texAladdinGoRight);
+	sprites->Add(10021, 188, 141, 229, 218, texAladdinGoRight);
+	sprites->Add(10022, 238, 141, 280, 218, texAladdinGoRight);
+	sprites->Add(10023, 287, 141, 325, 218, texAladdinGoRight);
+	sprites->Add(10024, 334, 141, 373, 218, texAladdinGoRight);
+	sprites->Add(10025, 378, 141, 417, 218, texAladdinGoRight);
+	sprites->Add(10026, 425, 141, 463, 218, texAladdinGoRight);
+	sprites->Add(10027, 472, 141, 510, 218, texAladdinGoRight);
+	sprites->Add(10028, 519, 141, 555, 218, texAladdinGoRight);
+	sprites->Add(10029, 568, 141, 607, 218, texAladdinGoRight);
+	sprites->Add(10030, 615, 141, 657, 218, texAladdinGoRight);
+	sprites->Add(10031, 666, 141, 707, 218, texAladdinGoRight);
+	sprites->Add(10032, 715, 141, 754, 218, texAladdinGoRight);
+	sprites->Add(10033, 762, 141, 801, 218, texAladdinGoRight);
 
-	sprites->Add(10021, 205, 500, 247, 551, texAladdinGoRight);		// sitting down right
-	sprites->Add(10022, 258, 500, 306, 551, texAladdinGoRight);
-	sprites->Add(10023, 315, 500, 369, 551, texAladdinGoRight);
-	sprites->Add(10024, 378, 500, 431, 551, texAladdinGoRight);
+	sprites->Add(10041, 205, 500, 247, 551, texAladdinGoRight);		// sitting down right
+	sprites->Add(10042, 258, 500, 306, 551, texAladdinGoRight);
+	sprites->Add(10043, 315, 500, 369, 551, texAladdinGoRight);
+	sprites->Add(10044, 378, 500, 431, 551, texAladdinGoRight);
 
-	sprites->Add(10031, 11, 490, 50, 549, texAladdinGoRight);		// looking up right
-	sprites->Add(10032, 59, 490, 104, 549, texAladdinGoRight);
-	sprites->Add(10033, 111, 490, 160, 549, texAladdinGoRight);
+	sprites->Add(10051, 11, 490, 50, 549, texAladdinGoRight);		// looking up right
+	sprites->Add(10052, 59, 490, 104, 549, texAladdinGoRight);
+	sprites->Add(10053, 111, 490, 160, 549, texAladdinGoRight);
 
 	sprites->Add(10101, 14, 1215, 54, 1273, texAladdinGoRight);		// walk	right
 	sprites->Add(10102, 66, 1215, 109, 1273, texAladdinGoRight);
@@ -205,15 +222,32 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(11014, 461, 57, 502, 134, texAladdinGoLeft);
 	sprites->Add(11015, 413, 57, 453, 134, texAladdinGoLeft);
 	sprites->Add(11016, 367, 57, 406, 134, texAladdinGoLeft);
+	sprites->Add(11017, 1082, 141, 1118, 218, texAladdinGoLeft);
+	sprites->Add(11018, 1035, 141, 1075, 218, texAladdinGoLeft);
+	sprites->Add(11019, 989, 141, 1030, 218, texAladdinGoLeft);
+	sprites->Add(11020, 943, 141, 981, 218, texAladdinGoLeft);
+	sprites->Add(11021, 892, 141, 933, 218, texAladdinGoLeft);
+	sprites->Add(11022, 841, 141, 883, 218, texAladdinGoLeft);
+	sprites->Add(11023, 796, 141, 834, 218, texAladdinGoLeft);
+	sprites->Add(11024, 748, 141, 787, 218, texAladdinGoLeft);
+	sprites->Add(11025, 704, 141, 743, 218, texAladdinGoLeft);
+	sprites->Add(11026, 658, 141, 696, 218, texAladdinGoLeft);
+	sprites->Add(11027, 611, 141, 649, 218, texAladdinGoLeft);
+	sprites->Add(11028, 566, 141, 602, 218, texAladdinGoLeft);
+	sprites->Add(11029, 514, 141, 553, 218, texAladdinGoLeft);
+	sprites->Add(11030, 464, 141, 508, 218, texAladdinGoLeft);
+	sprites->Add(11031, 414, 141, 455, 218, texAladdinGoLeft);
+	sprites->Add(11032, 366, 141, 406, 218, texAladdinGoLeft);
+	sprites->Add(11033, 320, 141, 359, 218, texAladdinGoLeft);
 
-	sprites->Add(11021, 874, 500, 916, 551, texAladdinGoLeft);		// sitting down left
-	sprites->Add(11022, 815, 500, 863, 551, texAladdinGoLeft);
-	sprites->Add(11023, 752, 500, 806, 551, texAladdinGoLeft);
-	sprites->Add(11024, 690, 500, 743, 551, texAladdinGoLeft);
+	sprites->Add(11041, 874, 500, 916, 551, texAladdinGoLeft);		// sitting down left
+	sprites->Add(11042, 815, 500, 863, 551, texAladdinGoLeft);
+	sprites->Add(11043, 752, 500, 806, 551, texAladdinGoLeft);
+	sprites->Add(11044, 690, 500, 743, 551, texAladdinGoLeft);
 
-	sprites->Add(11031, 1071, 490, 1110, 549, texAladdinGoLeft);		// looking up left
-	sprites->Add(11032, 1017, 490, 1062, 549, texAladdinGoLeft);
-	sprites->Add(11033, 961, 490, 1010, 549, texAladdinGoLeft);
+	sprites->Add(11051, 1071, 490, 1110, 549, texAladdinGoLeft);		// looking up left
+	sprites->Add(11052, 1017, 490, 1062, 549, texAladdinGoLeft);
+	sprites->Add(11053, 961, 490, 1010, 549, texAladdinGoLeft);
 
 	sprites->Add(11101, 1067, 1215, 1107, 1273, texAladdinGoLeft);		// walk	left
 	sprites->Add(11102, 1012, 1215, 1055, 1273, texAladdinGoLeft);
@@ -369,6 +403,23 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(10014);
 	ani->Add(10015);
 	ani->Add(10016);
+	ani->Add(10017);
+	ani->Add(10018);
+	ani->Add(10019);
+	ani->Add(10020);
+	ani->Add(10021);
+	ani->Add(10022);
+	ani->Add(10023);
+	ani->Add(10024);
+	ani->Add(10025);
+	ani->Add(10026);
+	ani->Add(10027);
+	ani->Add(10028);
+	ani->Add(10029);
+	ani->Add(10030);
+	ani->Add(10031);
+	ani->Add(10032);
+	ani->Add(10033);
 	animations->Add(102, ani);
 
 	ani = new CAnimation(100);	// standing left
@@ -387,32 +438,49 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(11014);
 	ani->Add(11015);
 	ani->Add(11016);
-	animations->Add(103, ani);
-
-	ani = new CAnimation(100, false);	// sitting down right
-	ani->Add(10021);
-	ani->Add(10022);
-	ani->Add(10023);
-	ani->Add(10024);
-	animations->Add(104, ani);
-
-	ani = new CAnimation(100, false);	// sitting down left
+	ani->Add(11017);
+	ani->Add(11018);
+	ani->Add(11019);
+	ani->Add(11020);
 	ani->Add(11021);
 	ani->Add(11022);
 	ani->Add(11023);
 	ani->Add(11024);
-	animations->Add(105, ani);
-
-	ani = new CAnimation(100);	// looking up right
-	ani->Add(10031);
-	ani->Add(10032);
-	ani->Add(10033);
-	animations->Add(106, ani);
-
-	ani = new CAnimation(100);	// looking up left
+	ani->Add(11025);
+	ani->Add(11026);
+	ani->Add(11027);
+	ani->Add(11028);
+	ani->Add(11029);
+	ani->Add(11030);
 	ani->Add(11031);
 	ani->Add(11032);
 	ani->Add(11033);
+	animations->Add(103, ani);
+
+	ani = new CAnimation(100, false);	// sitting down right
+	ani->Add(10041);
+	ani->Add(10042);
+	ani->Add(10043);
+	ani->Add(10044);
+	animations->Add(104, ani);
+
+	ani = new CAnimation(100, false);	// sitting down left
+	ani->Add(11041);
+	ani->Add(11042);
+	ani->Add(11043);
+	ani->Add(11044);
+	animations->Add(105, ani);
+
+	ani = new CAnimation(100, false);	// looking up right
+	ani->Add(10051);
+	ani->Add(10052);
+	ani->Add(10053);
+	animations->Add(106, ani);
+
+	ani = new CAnimation(100, false);	// looking up left
+	ani->Add(11051);
+	ani->Add(11052);
+	ani->Add(11053);
 	animations->Add(107, ani);
 
 	ani = new CAnimation(100);	// walk right

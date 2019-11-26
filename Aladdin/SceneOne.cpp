@@ -3,6 +3,7 @@
 SceneOne::SceneOne(Aladdin* aladdin)
 {
 	this->aladdin = aladdin;
+	this->aladdin->SetPosition(0, 948);
 
 	objects.push_back(this->aladdin);
 

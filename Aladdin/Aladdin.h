@@ -10,6 +10,7 @@ class Aladdin : public CGameObject
 	DWORD timeAttackStart;
 	DWORD timeStandStart;
 	DWORD timeIdleStart;
+	DWORD timeSitStart;
 public:
 	Aladdin();
 	bool IsSit;

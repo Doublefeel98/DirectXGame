@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "debug.h"
 
-CSprite::CSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
+CSprite::CSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex, int dx, int dy)
 {
 	this->id = id;
 	this->left = left;
@@ -10,6 +10,8 @@ CSprite::CSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEX
 	this->right = right;
 	this->bottom = bottom;
 	this->texture = tex;
+	this->dx = dx;
+	this->dy = dy;
 }
 
 
@@ -25,11 +27,13 @@ CSprites *CSprites::GetInstance()
 void CSprite::Draw(float x, float y, int alpha)
 {
 	CGame * game = CGame::GetInstance();
-	game->Draw(x, y, texture, left, top, right, bottom, alpha);
+	game->Draw(x + dx, y + dy, texture, left, top, right, bottom, alpha);
 }
 
 void CSprite::Draw(D3DXVECTOR3& pos, RECT& rect, int alpha)
 {
+	pos.x += dx;
+	pos.y += dy;
 	CGame* game = CGame::GetInstance();
 	game->Draw(texture, pos, rect, alpha);
 }
@@ -37,6 +41,8 @@ void CSprite::Draw(D3DXVECTOR3& pos, RECT& rect, int alpha)
 
 void CSprite::Draw(D3DXVECTOR3& pos, int alpha)
 {
+	pos.x += dx;
+	pos.y += dy;
 	CGame* game = CGame::GetInstance();
 	game->Draw(texture, pos, alpha);
 }
@@ -44,23 +50,27 @@ void CSprite::Draw(D3DXVECTOR3& pos, int alpha)
 void CSprite::DrawFlipOx(float x, float y, int alpha)
 {
 	CGame* game = CGame::GetInstance();
-	game->DrawFlipOx(x, y, texture, left, top, right, bottom, alpha);
+	game->DrawFlipOx(x + dx, y + dy, texture, left, top, right, bottom, alpha);
 }
 
 void CSprite::DrawWithoutCamera(float x, float y, int alpha)
 {
 	CGame* game = CGame::GetInstance();
-	game->DrawWithoutCamera(x, y, texture, left, top, right, bottom, alpha);
+	game->DrawWithoutCamera(x + dx, y + dy, texture, left, top, right, bottom, alpha);
 }
 
 void CSprite::DrawWithoutCamera(D3DXVECTOR3& pos, RECT& rect, int alpha)
 {
+	pos.x += dx;
+	pos.y += dy;
 	CGame* game = CGame::GetInstance();
 	game->DrawWithoutCamera(texture, pos, rect, alpha);
 }
 
 void CSprite::DrawWithoutCamera(D3DXVECTOR3& pos, int alpha)
 {
+	pos.x += dx;
+	pos.y += dy;
 	CGame* game = CGame::GetInstance();
 	game->DrawWithoutCamera(texture, pos, alpha);
 }
@@ -75,15 +85,15 @@ void CSprite::DrawWithoutCamera(D3DXVECTOR3& pos, int alpha)
 
 
 
-void CSprites::Add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
+void CSprites::Add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex, int dx, int dy)
 {
-	LPSPRITE s = new CSprite(id, left, top, right, bottom, tex);
+	LPSPRITE s = new CSprite(id, left, top, right, bottom, tex, dx, dy);
 	sprites[id] = s;
 }
 
-void CSprites::AddByWidthHeight(int id, int left, int top, int width, int height, LPDIRECT3DTEXTURE9 tex)
+void CSprites::AddByWidthHeight(int id, int left, int top, int width, int height, LPDIRECT3DTEXTURE9 tex, int dx, int dy)
 {
-	LPSPRITE s = new CSprite(id, left, top, left + width, top + height, tex);
+	LPSPRITE s = new CSprite(id, left, top, left + width, top + height, tex, dx, dy);
 	sprites[id] = s;
 }
 

@@ -6,25 +6,20 @@
 
 void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+
+	DWORD now = GetTickCount();
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
 	// Simple fall down
 	vy += ALADDIN_GRAVITY * dt;
 
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
 
-	coEvents.clear();
-
-	if (this->GetState() != ALADDIN_STATE_SIT_DOWN) 
+	if (this->GetState() == ALADDIN_STATE_IDLE) 
 	{
 		IsSit = false;
 		ResetAnimationsSitDown();
 	}
-
-	if (this->GetState() != ALADDIN_STATE_STANDING_SLASH)
-		IsSlash = false;
 
 	if (this->GetState() != ALADDIN_STATE_LOOKING_UP) {
 		IsLookingUp = false;
@@ -36,25 +31,53 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		IsStand = false;
 		ResetAnimationIDLE();
 	}
-		
-	// turn off collision when die 
-	if (state != ALADDIN_STATE_DIE)
-		CalcPotentialCollisions(coObjects, coEvents);
 
+	if (now - timeSitStart > ALADDIN_SIT_TIME)
+	{
+		int ani;
+		if (nx > 0)
+		{
+			ani = ALADDIN_ANI_SIT_DOWN_LEFT;
+		}
+		else {
+			ani = ALADDIN_ANI_SIT_DOWN_RIGHT;
+		}
+		animations[ani]->currentFrame = animations[ani]->frames.size() - 1;
+	}
+		
 	if (IsSlash)
 	{
-		if (GetTickCount() - timeAttackStart > ALADDIN_ATTACK_TIME)
+		if (IsSit)
 		{
-			ResetAnimationsSlash();
-			timeAttackStart = 0;
-			IsSlash = false;
-			SetState(ALADDIN_STATE_IDLE);
+			if (now - timeAttackStart > ALADDIN_SIT_ATTACK_TIME)
+			{
+				ResetAnimationsSlash();
+				timeAttackStart = 0;
+				IsSlash = false;
+				SetState(ALADDIN_STATE_SIT_DOWN);
+
+			}
 		}
+		else {
+			if (now - timeAttackStart > ALADDIN_ATTACK_TIME)
+			{
+				ResetAnimationsSlash();
+				timeAttackStart = 0;
+				IsSlash = false;
+				if (IsJump) {
+				}
+				else {
+					SetState(ALADDIN_STATE_IDLE);
+				}
+
+			}
+		}
+		
 	}
 
 	if (IsStand)
 	{
-		if (GetTickCount() - timeStandStart > ALADDIN_STAND_TIME)
+		if (now - timeStandStart > ALADDIN_STAND_TIME)
 		{
 			ResetAnimationIDLE();
 			timeStandStart = 0;
@@ -69,8 +92,17 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		IsGround = true;
 	}
 
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+
+	// turn off collision when die 
+	if (state != ALADDIN_STATE_DIE)
+		CalcPotentialCollisions(coObjects, coEvents);
+
 	// reset untouchable timer if untouchable time has passed
-	if (GetTickCount() - untouchable_start > ALADDIN_UNTOUCHABLE_TIME)
+	if (now - untouchable_start > ALADDIN_UNTOUCHABLE_TIME)
 	{
 		untouchable_start = 0;
 		untouchable = 0;
@@ -205,14 +237,47 @@ void Aladdin::Render()
 			posY = y - 7;
 			ani = ALADDIN_ANI_WALKING_LEFT;
 		}
+
 		if (IsSit == true)
 		{
-			if (nx > 0)
+			if (IsSlash)
 			{
-				ani = ALADDIN_ANI_SIT_DOWN_RIGHT;
+				if (nx > 0)
+				{
+					ani = ALADDIN_ANI_SITTING_SLASH_RIGHT;
+				}
+				else {
+					ani = ALADDIN_ANI_SITTING_SLASH_LEFT;
+				}
+				posY = y + 17;
 			}
-			else
-				ani = ALADDIN_ANI_SIT_DOWN_LEFT;
+			else if (IsJump == true)
+			{
+				if (nx > 0)
+					ani = ALADDIN_ANI_JUMPING_RIGHT;
+				else
+					ani = ALADDIN_ANI_JUMPING_LEFT;
+			}
+			else {
+				if (nx > 0)
+				{
+					ani = ALADDIN_ANI_SIT_DOWN_RIGHT;
+				}
+				else
+					ani = ALADDIN_ANI_SIT_DOWN_LEFT;
+			}
+		}
+		else {
+			if (IsSlash == true)
+			{
+				if (nx > 0) {
+					ani = ALADDIN_ANI_STANDING_SLASH_RIGHT;
+				}
+				else {
+					ani = ALADDIN_ANI_STANDING_SLASH_LEFT;
+				}
+				posY = y - 23;
+			}
 		}
 		if (IsJump == true)
 		{
@@ -220,16 +285,6 @@ void Aladdin::Render()
 				ani = ALADDIN_ANI_JUMPING_RIGHT;
 			else
 				ani = ALADDIN_ANI_JUMPING_LEFT;
-		}
-		if (IsSlash == true) 
-		{
-			if (nx > 0) {
-				ani = ALADDIN_ANI_STANDING_SLASH_RIGHT;
-			}
-			else {
-				ani = ALADDIN_ANI_STANDING_SLASH_LEFT;
-			}
-			posY = y - 23;
 		}
 		if (IsLookingUp == true)
 		{
@@ -264,10 +319,12 @@ void Aladdin::SetState(int state)
 		nx = -1;
 		break;
 	case ALADDIN_STATE_JUMP:
+		//IsSit = false;
 		IsJump = true;
 		IsGround = false;
 		vy = -ALADDIN_JUMP_SPEED_Y;
 	case ALADDIN_STATE_IDLE:
+		IsSit = false;
 		vx = 0;
 		timeIdleStart = GetTickCount();
 		break;
@@ -282,10 +339,21 @@ void Aladdin::SetState(int state)
 	case ALADDIN_STATE_SIT_DOWN:
 		vx = 0;
 		IsSit = true;
+		timeSitStart = GetTickCount();
 		break;
 	case ALADDIN_STATE_STANDING_SLASH:
 		vx = 0;
 		IsSlash = true;
+		timeAttackStart = GetTickCount();
+		break;
+	case ALADDIN_STATE_SITTING_SLASH:
+		vx = 0;
+		IsSit = true;
+		IsSlash = true;
+		if (timeSitStart == 0)
+		{
+			timeSitStart = GetTickCount();
+		}
 		timeAttackStart = GetTickCount();
 		break;
 	case ALADDIN_STATE_LOOKING_UP:
@@ -299,6 +367,9 @@ void Aladdin::ResetAnimationsSlash()
 {
 	resetAni(ALADDIN_ANI_STANDING_SLASH_LEFT);
 	resetAni(ALADDIN_ANI_STANDING_SLASH_RIGHT);
+
+	resetAni(ALADDIN_ANI_SITTING_SLASH_LEFT);
+	resetAni(ALADDIN_ANI_SITTING_SLASH_RIGHT);
 }
 
 void Aladdin::ResetAnimationsSitDown()

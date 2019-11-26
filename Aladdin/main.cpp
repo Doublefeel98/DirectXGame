@@ -61,7 +61,14 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	case DIK_X:
 		if (aladdin->GetState() != ALADDIN_STATE_STANDING_SLASH)
 		{
-			aladdin->SetState(ALADDIN_STATE_STANDING_SLASH);
+			if (aladdin->IsSit)
+			{
+				aladdin->SetState(ALADDIN_STATE_SITTING_SLASH);
+			}
+			else {
+				aladdin->SetState(ALADDIN_STATE_STANDING_SLASH);
+			}
+			
 		}
 		break;
 	case DIK_C:
@@ -72,24 +79,44 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		aladdin->SetPosition(50.0f, 0.0f);
 		aladdin->SetSpeed(0, 0);
 		break;
+	case DIK_RIGHT:
+		aladdin->nx = 1;
+		break;
+	case DIK_LEFT:
+		aladdin->nx = -1;
+		break;
 	}
 }
 
 void CSampleKeyHander::OnKeyUp(int KeyCode)
 {
 	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
+	switch (KeyCode)
+	{
+	case DIK_DOWN:
+		aladdin->SetState(ALADDIN_STATE_IDLE);
+		break;
+	}
 }
 
 void CSampleKeyHander::KeyState(BYTE* states)
 {
 	// disable control key when Mario die 
 	if (aladdin->GetState() == ALADDIN_STATE_DIE) return;
-	if (game->IsKeyDown(DIK_RIGHT))
-		aladdin->SetState(ALADDIN_STATE_WALKING_RIGHT);
-	else if (game->IsKeyDown(DIK_LEFT))
-		aladdin->SetState(ALADDIN_STATE_WALKING_LEFT);
-	else if (game->IsKeyDown(DIK_DOWN))
-		aladdin->SetState(ALADDIN_STATE_SIT_DOWN);
+	if (game->IsKeyDown(DIK_RIGHT)) {
+		if (!aladdin->IsSit)
+			aladdin->SetState(ALADDIN_STATE_WALKING_RIGHT);
+	}	
+	else if (game->IsKeyDown(DIK_LEFT)) {
+		if (!aladdin->IsSit)
+			aladdin->SetState(ALADDIN_STATE_WALKING_LEFT);
+	}
+		
+	else if (game->IsKeyDown(DIK_DOWN)) {
+		if (!aladdin->IsJump) {
+			aladdin->SetState(ALADDIN_STATE_SIT_DOWN);
+		}
+	}
 	else if (game->IsKeyDown(DIK_X))
 		aladdin->SetState(ALADDIN_STATE_STANDING_SLASH);
 	else if (game->IsKeyDown(DIK_UP))
@@ -178,7 +205,8 @@ void Update(DWORD dt)
 
 	camera->SetCameraPosition(cx, cy);
 	
-	DebugOut(L"[INFO] aladdin state: %d\n", aladdin->GetState());
+	DebugOut(L"[INFO] aladdin isJump: %d\n", aladdin->IsJump);
+	DebugOut(L"[INFO] aladdin state: %d\n", aladdin->state);
 }
 
 /*

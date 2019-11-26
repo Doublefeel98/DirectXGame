@@ -300,15 +300,15 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(11301, 1071, 314, 1116, 388, texAladdinGoLeft);		// standing slash left
 	sprites->Add(11302, 1016, 314, 1067, 388, texAladdinGoLeft);
 	sprites->Add(11303, 961, 314, 1006, 388, texAladdinGoLeft);
-	sprites->Add(11304, 868, 314, 950, 388, texAladdinGoLeft);
+	sprites->Add(11304, 868, 314, 950, 388, texAladdinGoLeft, -40);
 	sprites->Add(11305, 810, 314, 861, 388, texAladdinGoLeft);
 
 	sprites->Add(11311, 1065, 639, 1112, 673, texAladdinGoLeft);		// sitting slash left
 	sprites->Add(11312, 1012, 639, 1057, 673, texAladdinGoLeft);
-	sprites->Add(11313, 935, 639, 1006, 673, texAladdinGoLeft);
-	sprites->Add(11314, 836, 639, 928, 673, texAladdinGoLeft);
-	sprites->Add(11315, 739, 639, 823, 673, texAladdinGoLeft);
-	sprites->Add(11316, 658, 639, 729, 673, texAladdinGoLeft);
+	sprites->Add(11313, 935, 639, 1006, 673, texAladdinGoLeft, -30);
+	sprites->Add(11314, 836, 639, 928, 673, texAladdinGoLeft, -51);
+	sprites->Add(11315, 739, 639, 823, 673, texAladdinGoLeft, -43);
+	sprites->Add(11316, 658, 639, 729, 673, texAladdinGoLeft, -30);
 	sprites->Add(11317, 601, 639, 646, 673, texAladdinGoLeft);
 
 	sprites->Add(11321, 1068, 386, 1110, 473, texAladdinGoLeft);		// looking up slash left

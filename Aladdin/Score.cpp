@@ -160,7 +160,7 @@ void Score::Render()
 		}
 		if (text != -1)
 		{
-			DebugOut(L"[INFO] index: %d\n", i);
+			//DebugOut(L"[INFO] index: %d\n", i);
 			sprites->Get(text)->DrawWithoutCamera(x + i * width, y);
 		}
 	}

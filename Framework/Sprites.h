@@ -12,9 +12,11 @@ public:
 	int left;
 	int top;
 	int right;
-	int bottom;	
+	int bottom;
+	int dx;
+	int dy;
 	LPDIRECT3DTEXTURE9 texture;
-	CSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
+	CSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex, int dx = 0, int dy = 0);
 	void Draw(float x, float y, int alpha = 255);
 	void Draw(D3DXVECTOR3 &pos, RECT &rect, int alpha = 255);
 	void Draw(D3DXVECTOR3 &pos, int alpha=255);
@@ -36,8 +38,8 @@ class CSprites
 	unordered_map<int, LPSPRITE> sprites;
 
 public:
-	void Add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
-	void AddByWidthHeight(int id, int left, int top, int width, int height, LPDIRECT3DTEXTURE9 tex);
+	void Add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex, int dx = 0, int dy = 0);
+	void AddByWidthHeight(int id, int left, int top, int width, int height, LPDIRECT3DTEXTURE9 tex, int dx = 0, int dy = 0);
 	LPSPRITE Get(int id);
 
 	static CSprites * GetInstance();

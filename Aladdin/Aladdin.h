@@ -8,6 +8,7 @@ class Aladdin : public CGameObject
 	int untouchable;
 	DWORD untouchable_start;
 	DWORD timeAttackStart;
+	DWORD timeSittingSlashStart;
 	DWORD timeStandStart;
 	DWORD timeIdleStart;
 public:
@@ -25,7 +26,8 @@ public:
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 	void ResetAnimationsSlash();
 	void ResetAnimationsSitDown();
-	void ResetAnimationIDLE();
+	void ResetAnimationIdle();
+	void ResetAnimationsStand();
 	void ResetAllAnimation();
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);

@@ -23,6 +23,13 @@ void AladdinResoucres::LoadSprites()
 
 	sprites->Add(10001, 3, 9, 41, 59, texAladdinGoRight);		// idle right
 
+	sprites->Add(10034, 47, 3, 88, 58, texAladdinGoRight);		// look around
+	sprites->Add(10035, 95, 3, 135, 58, texAladdinGoRight);
+	sprites->Add(10036, 143, 3, 187, 58, texAladdinGoRight);
+	sprites->Add(10037, 197, 3, 238, 58, texAladdinGoRight);
+	sprites->Add(10038, 250, 3, 292, 58, texAladdinGoRight);
+	sprites->Add(10039, 303, 3, 347, 58, texAladdinGoRight);
+
 	sprites->Add(10002, 6, 57, 46, 134, texAladdinGoRight);		// standing idle right
 	sprites->Add(10003, 51, 57, 112, 134, texAladdinGoRight);
 	sprites->Add(10004, 116, 57, 178, 134, texAladdinGoRight);
@@ -41,9 +48,9 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(10017, 3, 141, 39, 218, texAladdinGoRight);
 	sprites->Add(10018, 46, 141, 86, 218, texAladdinGoRight);
 	sprites->Add(10019, 91, 141, 132, 218, texAladdinGoRight);
-	sprites->Add(10020, 140, 141, 178, 218, texAladdinGoRight);
+	sprites->Add(10020, 140, 141, 178, 215, texAladdinGoRight);
 	sprites->Add(10021, 188, 141, 229, 218, texAladdinGoRight);
-	sprites->Add(10022, 238, 141, 280, 218, texAladdinGoRight);
+	sprites->Add(10022, 238, 141, 280, 215, texAladdinGoRight);
 	sprites->Add(10023, 287, 141, 325, 218, texAladdinGoRight);
 	sprites->Add(10024, 334, 141, 373, 218, texAladdinGoRight);
 	sprites->Add(10025, 378, 141, 417, 218, texAladdinGoRight);
@@ -51,7 +58,7 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(10027, 472, 141, 510, 218, texAladdinGoRight);
 	sprites->Add(10028, 519, 141, 555, 218, texAladdinGoRight);
 	sprites->Add(10029, 568, 141, 607, 218, texAladdinGoRight);
-	sprites->Add(10030, 615, 141, 657, 218, texAladdinGoRight);
+	sprites->Add(10030, 615, 141, 657, 215, texAladdinGoRight);
 	sprites->Add(10031, 666, 141, 707, 218, texAladdinGoRight);
 	sprites->Add(10032, 715, 141, 754, 218, texAladdinGoRight);
 	sprites->Add(10033, 762, 141, 801, 218, texAladdinGoRight);
@@ -210,6 +217,13 @@ void AladdinResoucres::LoadSprites()
 
 	sprites->Add(11001, 1081, 9, 1118, 59, texAladdinGoLeft);	// idle left	
 
+	sprites->Add(11034, 1033, 3, 1074, 58, texAladdinGoLeft);		
+	sprites->Add(11035, 986, 3, 1026, 58, texAladdinGoLeft);
+	sprites->Add(11036, 934, 3, 978, 58, texAladdinGoLeft);
+	sprites->Add(11037, 883, 3, 924, 58, texAladdinGoLeft);
+	sprites->Add(11038, 829, 3, 871, 58, texAladdinGoLeft);
+	sprites->Add(11039, 774, 3, 818, 58, texAladdinGoLeft);
+
 	sprites->Add(11002, 1075, 57, 1115, 134, texAladdinGoLeft);		// standing left
 	sprites->Add(11003, 1009, 57, 1070, 134, texAladdinGoLeft);
 	sprites->Add(11004, 943, 57, 1005, 134, texAladdinGoLeft);
@@ -237,7 +251,7 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(11026, 658, 141, 696, 218, texAladdinGoLeft);
 	sprites->Add(11027, 611, 141, 649, 218, texAladdinGoLeft);
 	sprites->Add(11028, 566, 141, 602, 218, texAladdinGoLeft);
-	sprites->Add(11029, 514, 141, 553, 218, texAladdinGoLeft);
+	sprites->Add(11029, 514, 138, 553, 218, texAladdinGoLeft);
 	sprites->Add(11030, 464, 141, 508, 218, texAladdinGoLeft);
 	sprites->Add(11031, 414, 141, 455, 218, texAladdinGoLeft);
 	sprites->Add(11032, 366, 141, 406, 218, texAladdinGoLeft);
@@ -544,6 +558,12 @@ void AladdinResoucres::LoadAnimations()
 	animations->Add(102, ani);
 
 	ani = new CAnimation(100);	// standing left
+	ani->Add(11034);
+	ani->Add(11035);
+	ani->Add(11036);
+	ani->Add(11037);
+	ani->Add(11038);
+	ani->Add(11039);
 	ani->Add(11002);
 	ani->Add(11003);
 	ani->Add(11004);
@@ -926,6 +946,24 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(11605);
 	ani->Add(11606);
 	animations->Add(162, ani);
+
+	ani = new CAnimation(100);	// look around right
+	ani->Add(10034);
+	ani->Add(10035);
+	ani->Add(10036);
+	ani->Add(10037);
+	ani->Add(10038);
+	ani->Add(10039);
+	animations->Add(163, ani);
+
+	ani = new CAnimation(100);	// look around left
+	ani->Add(11034);
+	ani->Add(11035);
+	ani->Add(11036);
+	ani->Add(11037);
+	ani->Add(11038);
+	ani->Add(11039);
+	animations->Add(164, ani);
 
 	//iten
 	ani = new CAnimation(100);		// HP 1

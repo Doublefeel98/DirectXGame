@@ -28,13 +28,13 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (this->GetState() != ALADDIN_STATE_LOOKING_UP) {
 		IsLookingUp = false;
-		ResetAnimationIDLE();
+		ResetAnimationIdle();
 	}
 
 	if (this->GetState() != ALADDIN_STATE_STANDING) 
 	{
 		IsStand = false;
-		ResetAnimationIDLE();
+		ResetAnimationIdle();
 	}
 		
 	// turn off collision when die 
@@ -52,16 +52,28 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 
-	if (IsStand)
+	if (IsSlash == true && IsSit == true)
 	{
-		if (GetTickCount() - timeStandStart > ALADDIN_STAND_TIME)
+		if (GetTickCount() - timeSittingSlashStart > ALADDIN_ATTACK_TIME)
 		{
-			ResetAnimationIDLE();
-			timeStandStart = 0;
-			IsStand = false;
+			ResetAnimationsSlash();
+			timeSittingSlashStart = 0;
+			IsSlash = false;
+			IsSit = false;
 			SetState(ALADDIN_STATE_IDLE);
 		}
 	}
+
+	//if (IsStand)
+	//{
+	//	if (GetTickCount() - timeStandStart > ALADDIN_STAND_TIME)
+	//	{
+	//		ResetAnimationIdle();
+	//		timeStandStart = 0;
+	//		IsStand = false;
+	//		SetState(ALADDIN_STATE_IDLE);
+	//	}
+	//}
 
 	if (dy == 0)
 	{
@@ -187,16 +199,19 @@ void Aladdin::Render()
 			if (nx > 0)
 			{
 				ani = ALADDIN_ANI_IDLE_RIGHT;
-				if (GetTickCount() - timeIdleStart ==  0) {
+				if (GetTickCount() - timeIdleStart ==  0) 
+				{		
+					posY = y - 3;
+					ani = ALADDIN_ANI_LOOK_AROUND_RIGHT;
 					posY = y - 25;
-					ani = ALADDIN_ANI_STANDING_RIGHT;
+					ani = ALADDIN_ANI_STANDING_RIGHT;	
 				}
 			}
-				//ani = ALADDIN_ANI_STANDING_RIGHT;
 			else
-				ani = ALADDIN_ANI_IDLE_LEFT;
+				ani = ALADDIN_ANI_IDLE_LEFT;		
 		}
-		else if (vx > 0) {
+		else if (vx > 0) 
+		{
 			posY = y - 7;
 			ani = ALADDIN_ANI_WALKING_RIGHT;
 		}	
@@ -210,6 +225,8 @@ void Aladdin::Render()
 			if (nx > 0)
 			{
 				ani = ALADDIN_ANI_SIT_DOWN_RIGHT;
+				if (IsSlash == true)
+					ani = ALADDIN_ANI_SITTING_SLASH_RIGHT;
 			}
 			else
 				ani = ALADDIN_ANI_SIT_DOWN_LEFT;
@@ -292,6 +309,12 @@ void Aladdin::SetState(int state)
 		vx = 0;
 		IsLookingUp = true;
 		break;
+	case ALADDIN_STATE_SITTING_SLASH:
+		vx = 0;
+		IsSit = true;
+		IsSlash = true;
+		timeSittingSlashStart = GetTickCount();
+		break;
 	}
 }
 
@@ -307,17 +330,24 @@ void Aladdin::ResetAnimationsSitDown()
 	resetAni(ALADDIN_ANI_SIT_DOWN_LEFT);
 }
 
-void Aladdin::ResetAnimationIDLE()
+void Aladdin::ResetAnimationIdle()
 {
-	resetAni(ALADDIN_ANI_LOOKING_UP_RIGHT);
-	resetAni(ALADDIN_ANI_LOOKING_UP_LEFT);
+	resetAni(ALADDIN_ANI_IDLE_RIGHT);
+	resetAni(ALADDIN_ANI_IDLE_LEFT);
+}
+
+void Aladdin::ResetAnimationsStand()
+{
+	resetAni(ALADDIN_ANI_STANDING_RIGHT);
+	resetAni(ALADDIN_ANI_STANDING_LEFT);
 }
 
 void Aladdin::ResetAllAnimation()
 {
-	ResetAnimationIDLE();
+	ResetAnimationIdle();
 	ResetAnimationsSitDown();
 	ResetAnimationsSlash();
+	ResetAnimationsStand();
 }
 
 
@@ -400,6 +430,9 @@ Aladdin::Aladdin() : CGameObject()
 
 	AddAnimation(161);		//ride the carpet right
 	AddAnimation(162);		//ride the carpet left
+
+	AddAnimation(163);		//look arounf right
+	AddAnimation(164);		//look around left
 }
 
 Aladdin::~Aladdin()

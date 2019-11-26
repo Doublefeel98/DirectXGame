@@ -76,6 +76,15 @@
     <ClCompile Include="Aladdin.cpp">
       <Filter>Source\Object\Player</Filter>
     </ClCompile>
+    <ClCompile Include="HP.cpp">
+      <Filter>Source\Object\ScoreBoard</Filter>
+    </ClCompile>
+    <ClCompile Include="Life.cpp">
+      <Filter>Source\Object\ScoreBoard</Filter>
+    </ClCompile>
+    <ClCompile Include="Score.cpp">
+      <Filter>Source\Object\ScoreBoard</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aladdin.h">
@@ -153,6 +162,15 @@
     <ClInclude Include="AladdinResoucres.h">
       <Filter>Source\Resources</Filter>
     </ClInclude>
+    <ClInclude Include="HP.h">
+      <Filter>Source\Object\ScoreBoard</Filter>
+    </ClInclude>
+    <ClInclude Include="Life.h">
+      <Filter>Source\Object\ScoreBoard</Filter>
+    </ClInclude>
+    <ClInclude Include="Score.h">
+      <Filter>Source\Object\ScoreBoard</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -175,6 +193,9 @@
     </Filter>
     <Filter Include="Source\Object\Player">
       <UniqueIdentifier>{17024440-30dc-4da2-ad33-96fe547159ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Object\ScoreBoard">
+      <UniqueIdentifier>{138c53e2-8c2d-4f92-8c19-65e5090e538b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

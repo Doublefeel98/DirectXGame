@@ -68,12 +68,6 @@ void CGame::Init(HWND hWnd)
 //	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 //}
 
-void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, RECT & r, int alpha)
-{
-	D3DXVECTOR3 p(x, y, 0);
-	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
-}
-
 void CGame::Draw(float x,float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
 {
 	D3DXVECTOR3 p(x, y, 0);
@@ -84,10 +78,27 @@ void CGame::Draw(float x,float y, LPDIRECT3DTEXTURE9 texture, int left, int top,
 	r.bottom = bottom;
 	CCamera* camera = CCamera::GetInstance();
 
-	D3DXVECTOR3 position = camera->GetCameraPosition();
-	//DebugOut(L"[INFO] Camera Position: %d : %d \n", position.x, position.y);
+	spriteHandler->Draw(texture, &r, NULL, &camera->SetPositionInCamera(p), D3DCOLOR_ARGB(alpha, 255, 255, 255));
+}
+
+void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, RECT& r, int alpha)
+{
+	D3DXVECTOR3 p(x, y, 0);
+	CCamera* camera = CCamera::GetInstance();
 
 	spriteHandler->Draw(texture, &r, NULL, &camera->SetPositionInCamera(p), D3DCOLOR_ARGB(alpha, 255, 255, 255));
+}
+
+void CGame::Draw(LPDIRECT3DTEXTURE9 texture, D3DXVECTOR3 &pos, RECT &r, int alpha )
+{
+	CCamera* camera = CCamera::GetInstance();
+	spriteHandler->Draw(texture, &r, NULL, &camera->SetPositionInCamera(pos), D3DCOLOR_ARGB(alpha, 255, 255, 255));// D3DCOLOR_ARGB(alpha, 255, 255, 255));
+}
+
+void CGame::Draw(LPDIRECT3DTEXTURE9 texture, D3DXVECTOR3 &pos, int alpha)
+{
+	CCamera * camera = CCamera::GetInstance();
+	spriteHandler->Draw(texture, NULL, NULL, &camera->SetPositionInCamera(pos), D3DCOLOR_ARGB(alpha, 255, 255, 255));// D3DCOLOR_ARGB(alpha, 255, 255, 255));
 }
 
 void CGame::DrawFlipOx(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
@@ -101,7 +112,7 @@ void CGame::DrawFlipOx(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, i
 	CCamera* camera = CCamera::GetInstance();
 
 	// lấy điểm chính giữa sprite
-	D3DXVECTOR3 center((right -left) / 2, (bottom - top) / 2, 0);
+	D3DXVECTOR3 center((right - left) / 2, (bottom - top) / 2, 0);
 
 	D3DXVECTOR3 position = camera->GetCameraPosition();
 	//DebugOut(L"[INFO] Camera Position: %d : %d \n", position.x, position.y);
@@ -119,30 +130,39 @@ void CGame::DrawFlipOx(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, i
 	spriteHandler->SetTransform(&oldMatrix); // set lai matrix cu~ de Sprite chi ap dung transfrom voi class nay
 }
 
-void CGame::Draw(LPDIRECT3DTEXTURE9 texture, D3DXVECTOR3 &pos, RECT &r, int alpha )
+
+void CGame::DrawWithoutCamera(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
 {
-	//D3DXVECTOR3 p(x, y, 0);
-	//RECT r;
-	//r.left = left;
-	//r.top = top;
-	//r.right = right;
-	//r.bottom = bottom;
-	//color = D3DCOLOR_ARGB(alpha, 255, 255, 255);
+	D3DXVECTOR3 p(x, y, 0);
+	RECT r;
+	r.left = left;
+	r.top = top;
+	r.right = right;
+	r.bottom = bottom;
+
+	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+}
+
+void CGame::DrawWithoutCamera(float x, float y, LPDIRECT3DTEXTURE9 texture, RECT& r, int alpha)
+{
+	D3DXVECTOR3 p(x, y, 0);
+
+	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+}
+
+void CGame::DrawWithoutCamera(LPDIRECT3DTEXTURE9 texture, D3DXVECTOR3& pos, RECT& r, int alpha)
+{
 	CCamera* camera = CCamera::GetInstance();
-	D3DXVECTOR3 position = camera->GetCameraPosition();
-
-
-	spriteHandler->Draw(texture, &r, NULL, &camera->SetPositionInCamera(pos), D3DCOLOR_ARGB(alpha, 255, 255, 255));// D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	spriteHandler->Draw(texture, &r, NULL, &pos, D3DCOLOR_ARGB(alpha, 255, 255, 255));// D3DCOLOR_ARGB(alpha, 255, 255, 255));
 }
 
-void CGame::Draw(LPDIRECT3DTEXTURE9 texture, D3DXVECTOR3 &pos, int alpha)
+void CGame::DrawWithoutCamera(LPDIRECT3DTEXTURE9 texture, D3DXVECTOR3& pos, int alpha)
 {
-	CCamera * camera = CCamera::GetInstance();
-	spriteHandler->Draw(texture, NULL, NULL, &camera->SetPositionInCamera(pos), D3DCOLOR_ARGB(alpha, 255, 255, 255));// D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	CCamera* camera = CCamera::GetInstance();
+	spriteHandler->Draw(texture, NULL, NULL, &pos, D3DCOLOR_ARGB(alpha, 255, 255, 255));// D3DCOLOR_ARGB(alpha, 255, 255, 255));
 }
 
-
- int CGame::IsKeyDown(int KeyCode)
+int CGame::IsKeyDown(int KeyCode)
 {
 	return (keyStates[KeyCode] & 0x80) > 0;
 }

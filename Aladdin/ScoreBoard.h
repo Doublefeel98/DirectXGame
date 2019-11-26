@@ -3,6 +3,9 @@
 #include <string>
 #include "Define.h"
 #include "../Framework/Game.h"
+#include "HP.h"
+#include "Life.h"
+#include "Score.h"
 
 class ScoreBoard
 {
@@ -14,8 +17,10 @@ class ScoreBoard
 	CSprite* sprite;
 	wstring information;
 
+	HP *hp;
+	Score* score;
+
 	int bossHP;
-	int score;
 	int time;
 	int item;
 	int energy;

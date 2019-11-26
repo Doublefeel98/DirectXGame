@@ -125,8 +125,11 @@
     <ClInclude Include="AladdinResoucres.h" />
     <ClInclude Include="ExtraHealth.h" />
     <ClInclude Include="HealthMeter.h" />
+    <ClInclude Include="HP.h" />
+    <ClInclude Include="Life.h" />
     <ClInclude Include="MagicCarpet.h" />
     <ClInclude Include="RestartPoint.h" />
+    <ClInclude Include="Score.h" />
     <ClInclude Include="SpendThese.h" />
     <ClInclude Include="ThrowApples.h" />
     <ClInclude Include="Up.h" />
@@ -152,8 +155,11 @@
     <ClCompile Include="AladdinResoucres.cpp" />
     <ClCompile Include="ExtraHealth.cpp" />
     <ClCompile Include="HealthMeter.cpp" />
+    <ClCompile Include="HP.cpp" />
+    <ClCompile Include="Life.cpp" />
     <ClCompile Include="MagicCarpet.cpp" />
     <ClCompile Include="RestartPoint.cpp" />
+    <ClCompile Include="Score.cpp" />
     <ClCompile Include="SpendThese.cpp" />
     <ClCompile Include="ThrowApples.cpp" />
     <ClCompile Include="Up.cpp" />

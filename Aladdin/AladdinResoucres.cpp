@@ -1,13 +1,16 @@
-#include "AladdinResoucres.h"
+﻿#include "AladdinResoucres.h"
 #include "Define.h"
 
 
 void AladdinResoucres::LoadTextures()
 {
 	textures->Add(ID_TEX_BBOX, L"resources\\textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
-	textures->Add(ID_TEX_MISC, L"resources\\textures\\misc.png", D3DCOLOR_XRGB(176, 224, 248));
 	textures->Add(ID_TEX_ALADDIN_GO_RIGHT, L"resources\\textures\\aladdinGoRight.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(ID_TEX_ALADDIN_GO_LEFT, L"resources\\textures\\aladdinGoLeft.png", D3DCOLOR_XRGB(255, 0, 255));
+
+	//item
+	textures->Add(ID_TEX_ITEM_1, L"resources\\textures\\aladdingenesis_aladdin_state_full.png", D3DCOLOR_XRGB(106, 148, 189));
+	textures->Add(ID_TEX_ITEM_2, L"resources\\textures\\Items.png", D3DCOLOR_XRGB(248, 0, 248));
 
 	//map
 	textures->Add(ID_TEX_MAP_ONE, L"resources\\mapread\\lv1\\lv1.png", D3DCOLOR_XRGB(163, 73, 164));
@@ -334,11 +337,129 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(11605, 799, 2107, 862, 2149, texAladdinGoRight);
 	sprites->Add(11606, 733, 2107, 788, 2149, texAladdinGoRight);
 
-	LPDIRECT3DTEXTURE9 texMisc = textures->Get(ID_TEX_MISC);
-	sprites->Add(20001, 408, 225, 424, 241, texMisc);
-
 	LPDIRECT3DTEXTURE9 textMapOne = textures->Get(ID_TEX_MAP_ONE);
 	sprites->Add(ID_SPRITE_MAP_ONE, 0, 0, 2144, 1024, textMapOne);
+
+
+	//item
+	LPDIRECT3DTEXTURE9 texItem1 = textures->Get(ID_TEX_ITEM_1);
+	LPDIRECT3DTEXTURE9 texItem2 = textures->Get(ID_TEX_ITEM_2);
+	
+	// item hp
+	sprites->AddByWidthHeight(20000, 17, 3007, 120, 32, texItem1); //hp aladdin 1
+	sprites->AddByWidthHeight(20001, 147, 3007, 120, 32, texItem1);
+	sprites->AddByWidthHeight(20002, 277, 3007, 119, 32, texItem1);
+	sprites->AddByWidthHeight(20003, 406, 3007, 119, 32, texItem1);
+							  
+	sprites->AddByWidthHeight(20010, 17, 3054, 112, 32, texItem1); //hp aladdin 2
+	sprites->AddByWidthHeight(20011, 139, 3054, 112, 32, texItem1);
+	sprites->AddByWidthHeight(20012, 261, 3054, 111, 32, texItem1);
+	sprites->AddByWidthHeight(20013, 382, 3054, 111, 32, texItem1);
+							  
+	sprites->AddByWidthHeight(20020, 17, 3101, 104, 32, texItem1); //hp aladdin 3
+	sprites->AddByWidthHeight(20021, 131, 3101, 104, 32, texItem1);
+	sprites->AddByWidthHeight(20022, 245, 3101, 103, 32, texItem1);
+	sprites->AddByWidthHeight(20023, 358, 3101, 103, 32, texItem1);
+							  
+	sprites->AddByWidthHeight(20030, 17, 3148, 96, 32, texItem1); //hp aladdin 4
+	sprites->AddByWidthHeight(20031, 123, 3148, 96, 32, texItem1);
+	sprites->AddByWidthHeight(20032, 229, 3148, 95, 32, texItem1);
+	sprites->AddByWidthHeight(20033, 334, 3148, 95, 32, texItem1);
+							  
+	sprites->AddByWidthHeight(20040, 17, 3195, 88, 32, texItem1); //hp aladdin 5
+	sprites->AddByWidthHeight(20041, 116, 3195, 88, 32, texItem1);
+	sprites->AddByWidthHeight(20042, 214, 3195, 87, 32, texItem1);
+	sprites->AddByWidthHeight(20043, 311, 3195, 87, 32, texItem1);
+							  
+	sprites->AddByWidthHeight(20050, 17, 3242, 80, 32, texItem1); //hp aladdin 6
+	sprites->AddByWidthHeight(20051, 107, 3242, 80, 32, texItem1);
+	sprites->AddByWidthHeight(20052, 197, 3242, 79, 32, texItem1);
+	sprites->AddByWidthHeight(20053, 286, 3242, 79, 32, texItem1);
+							  
+	sprites->AddByWidthHeight(20060, 17, 3289, 71, 32, texItem1); //hp aladdin 7
+	sprites->AddByWidthHeight(20061, 98, 3289, 71, 32, texItem1);
+	sprites->AddByWidthHeight(20062, 179, 3289, 72, 32, texItem1);
+	sprites->AddByWidthHeight(20063, 261, 3289, 72, 32, texItem1);
+							  
+	sprites->AddByWidthHeight(20070, 17, 3336, 63, 29, texItem1); //hp aladdin 8
+	sprites->AddByWidthHeight(20071, 90, 3336, 63, 29, texItem1);
+	sprites->AddByWidthHeight(20072, 163, 3336, 64, 29, texItem1);
+	sprites->AddByWidthHeight(20073, 237, 3335, 64, 30, texItem1);
+							  
+	sprites->AddByWidthHeight(20080, 17, 3380, 48, 24, texItem1); //hp aladdin 9
+							  
+	//item life				  
+	sprites->AddByWidthHeight(20100, 13, 3568, 22, 25, texItem1);
+	sprites->AddByWidthHeight(20101, 45, 3567, 24, 26, texItem1);
+	sprites->AddByWidthHeight(20102, 79, 3567, 24, 26, texItem1);
+	sprites->AddByWidthHeight(20103, 113, 3565, 27, 28, texItem1);
+	sprites->AddByWidthHeight(20104, 150, 3560, 36, 33, texItem1);
+	sprites->AddByWidthHeight(20105, 196, 3562, 33, 31, texItem1);
+	sprites->AddByWidthHeight(20106, 239, 3568, 23, 25, texItem1);
+	sprites->AddByWidthHeight(20107, 272, 3568, 22, 25, texItem1);
+	sprites->AddByWidthHeight(20108, 304, 3568, 22, 25, texItem1);
+							  
+	sprites->AddByWidthHeight(20109, 13, 3616, 22, 25, texItem1);
+	sprites->AddByWidthHeight(20110, 45, 3615, 24, 26, texItem1);
+	sprites->AddByWidthHeight(20111, 79, 3615, 24, 26, texItem1);
+	sprites->AddByWidthHeight(20112, 113, 3612, 37, 39, texItem1);
+	sprites->AddByWidthHeight(20113, 160, 3609, 37, 41, texItem1);
+	sprites->AddByWidthHeight(20114, 207, 3608, 37, 42, texItem1);
+	sprites->AddByWidthHeight(20115, 254, 3609, 37, 42, texItem1);
+	sprites->AddByWidthHeight(20116, 301, 3609, 37, 41, texItem1);
+	sprites->AddByWidthHeight(20117, 349, 3608, 37, 39, texItem1);
+	sprites->AddByWidthHeight(20118, 396, 3609, 32, 36, texItem1);
+	sprites->AddByWidthHeight(20119, 438, 3614, 32, 36, texItem1);
+	sprites->AddByWidthHeight(20120, 484, 3616, 22, 25, texItem1);
+							  
+	//text A->Z ()			  
+	sprites->AddByWidthHeight(20200, 359, 3566, 7, 8, texItem1); //A
+	sprites->AddByWidthHeight(20201, 371, 3566, 7, 8, texItem1); //B
+	sprites->AddByWidthHeight(20202, 383, 3566, 7, 8, texItem1); //C
+	sprites->AddByWidthHeight(20203, 395, 3566, 7, 8, texItem1); //D
+	sprites->AddByWidthHeight(20204, 407, 3566, 7, 8, texItem1); //E
+	sprites->AddByWidthHeight(20205, 419, 3566, 7, 8, texItem1); //F
+	sprites->AddByWidthHeight(20206, 431, 3566, 7, 8, texItem1); //G
+	sprites->AddByWidthHeight(20207, 443, 3566, 7, 8, texItem1); //H
+	sprites->AddByWidthHeight(20208, 455, 3566, 7, 8, texItem1); //I
+	sprites->AddByWidthHeight(20209, 463, 3566, 7, 8, texItem1); //J
+	sprites->AddByWidthHeight(20210, 472, 3566, 7, 8, texItem1); //K
+	sprites->AddByWidthHeight(20211, 484, 3566, 7, 8, texItem1); //L
+	sprites->AddByWidthHeight(20212, 496, 3566, 7, 8, texItem1); //M
+							  
+	sprites->AddByWidthHeight(20213, 360, 3581, 7, 8, texItem1); //N
+	sprites->AddByWidthHeight(20214, 372, 3581, 7, 8, texItem1); //O
+	sprites->AddByWidthHeight(20215, 384, 3581, 7, 8, texItem1); //P
+	sprites->AddByWidthHeight(20216, 396, 3581, 7, 8, texItem1); //Q
+	sprites->AddByWidthHeight(20217, 408, 3581, 7, 8, texItem1); //R
+	sprites->AddByWidthHeight(20218, 420, 3581, 7, 8, texItem1); //S
+	sprites->AddByWidthHeight(20219, 431, 3581, 7, 8, texItem1); //T
+	sprites->AddByWidthHeight(20220, 442, 3581, 7, 8, texItem1); //U
+	sprites->AddByWidthHeight(20221, 454, 3581, 7, 8, texItem1); //V
+	sprites->AddByWidthHeight(20222, 466, 3581, 7, 8, texItem1); //W
+	sprites->AddByWidthHeight(20223, 478, 3581, 7, 8, texItem1); //X
+	sprites->AddByWidthHeight(20224, 490, 3581, 7, 8, texItem1); //Y
+	sprites->AddByWidthHeight(20225, 502, 3581, 7, 8, texItem1); //Z
+							  
+	sprites->AddByWidthHeight(20226, 514, 3581, 4, 8, texItem1); //(
+	sprites->AddByWidthHeight(20227, 520, 3581, 4, 8, texItem1); //)
+							  
+	//number 0-9			  
+	sprites->AddByWidthHeight(20228, 359, 3594, 7, 8, texItem1); //0
+	sprites->AddByWidthHeight(20229, 371, 3594, 7, 8, texItem1); //1
+	sprites->AddByWidthHeight(20230, 379, 3594, 7, 8, texItem1); //2
+	sprites->AddByWidthHeight(20231, 389, 3594, 7, 8, texItem1); //3
+	sprites->AddByWidthHeight(20232, 398, 3594, 7, 8, texItem1); //4
+	sprites->AddByWidthHeight(20233, 409, 3594, 7, 8, texItem1); //5
+	sprites->AddByWidthHeight(20234, 419, 3594, 7, 8, texItem1); //6
+	sprites->AddByWidthHeight(20235, 430, 3594, 7, 8, texItem1); //7
+	sprites->AddByWidthHeight(20236, 439, 3594, 7, 8, texItem1); //8
+	sprites->AddByWidthHeight(20237, 449, 3594, 7, 8, texItem1); //9
+	sprites->AddByWidthHeight(20238, 459, 3594, 7, 8, texItem1); //.
+							 
+	//						  
+	sprites->AddByWidthHeight(20300, 17, 3435, 11, 16, texItem1); //tao
+	sprites->AddByWidthHeight(20300, 285, 3435, 17, 16, texItem1); //trung
 }
 
 void AladdinResoucres::LoadAnimations()
@@ -738,9 +859,66 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(11606);
 	animations->Add(162, ani);
 
-	ani = new CAnimation(100);		// brick
+	//iten
+	ani = new CAnimation(100);		// HP 1
+	ani->Add(20000);
 	ani->Add(20001);
-	animations->Add(601, ani);
+	ani->Add(20002);
+	ani->Add(20003);
+	animations->Add(-100, ani);
+
+	ani = new CAnimation(100);		// HP 2
+	ani->Add(20010);
+	ani->Add(20011);
+	ani->Add(20012);
+	ani->Add(10013);
+	animations->Add(-101, ani);
+
+	ani = new CAnimation(100);		// HP 3
+	ani->Add(20020);
+	ani->Add(20021);
+	ani->Add(20022);
+	ani->Add(20023);
+	animations->Add(-102, ani);
+
+	ani = new CAnimation(100);		// HP 4
+	ani->Add(20030);
+	ani->Add(20031);
+	ani->Add(20032);
+	ani->Add(20033);
+	animations->Add(-103, ani);
+
+	ani = new CAnimation(100);		// HP 5
+	ani->Add(20040);
+	ani->Add(20041);
+	ani->Add(20042);
+	ani->Add(20043);
+	animations->Add(-104, ani);
+
+	ani = new CAnimation(100);		// HP 6
+	ani->Add(20050);
+	ani->Add(20051);
+	ani->Add(20052);
+	ani->Add(20053);
+	animations->Add(-105, ani);
+
+	ani = new CAnimation(100);		// HP 7
+	ani->Add(20060);
+	ani->Add(20061);
+	ani->Add(20062);
+	ani->Add(20063);
+	animations->Add(-106, ani);
+
+	ani = new CAnimation(100);		// HP 8
+	ani->Add(20070);
+	ani->Add(20071);
+	ani->Add(20072);
+	ani->Add(20073);
+	animations->Add(-107, ani);
+
+	ani = new CAnimation(100);		// HP 9
+	ani->Add(20080);
+	animations->Add(-108, ani);
 }
 
 AladdinResoucres::AladdinResoucres()

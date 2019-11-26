@@ -58,7 +58,7 @@ void Grid::Add(vector <LPGAMEOBJECT> *listObject)
 			}
 		}*/
 
-		DebugOut(L"[INFO] index: %d\n", i);
+		// DebugOut(L"[INFO] index: %d\n", i);
 		//if (i == 49)
 		//	continue;
 

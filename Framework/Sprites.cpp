@@ -28,10 +28,41 @@ void CSprite::Draw(float x, float y, int alpha)
 	game->Draw(x, y, texture, left, top, right, bottom, alpha);
 }
 
+void CSprite::Draw(D3DXVECTOR3& pos, RECT& rect, int alpha)
+{
+	CGame* game = CGame::GetInstance();
+	game->Draw(texture, pos, rect, alpha);
+}
+
+
+void CSprite::Draw(D3DXVECTOR3& pos, int alpha)
+{
+	CGame* game = CGame::GetInstance();
+	game->Draw(texture, pos, alpha);
+}
+
 void CSprite::DrawFlipOx(float x, float y, int alpha)
 {
 	CGame* game = CGame::GetInstance();
 	game->DrawFlipOx(x, y, texture, left, top, right, bottom, alpha);
+}
+
+void CSprite::DrawWithoutCamera(float x, float y, int alpha)
+{
+	CGame* game = CGame::GetInstance();
+	game->DrawWithoutCamera(x, y, texture, left, top, right, bottom, alpha);
+}
+
+void CSprite::DrawWithoutCamera(D3DXVECTOR3& pos, RECT& rect, int alpha)
+{
+	CGame* game = CGame::GetInstance();
+	game->DrawWithoutCamera(texture, pos, rect, alpha);
+}
+
+void CSprite::DrawWithoutCamera(D3DXVECTOR3& pos, int alpha)
+{
+	CGame* game = CGame::GetInstance();
+	game->DrawWithoutCamera(texture, pos, alpha);
 }
 
 //
@@ -41,23 +72,18 @@ void CSprite::DrawFlipOx(float x, float y, int alpha)
 //	game->Draw(x,y, texture, left, top, right, bottom, alpha);
 //}
 
-void CSprite::Draw(D3DXVECTOR3 &pos, RECT &rect, int alpha)
-{
-	CGame * game = CGame::GetInstance();
-	game->Draw(texture, pos, rect, alpha);
-}
 
-
-void CSprite::Draw(D3DXVECTOR3 &pos, int alpha)
-{
-	CGame * game = CGame::GetInstance();
-	game->Draw(texture, pos, alpha);
-}
 
 
 void CSprites::Add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
 {
 	LPSPRITE s = new CSprite(id, left, top, right, bottom, tex);
+	sprites[id] = s;
+}
+
+void CSprites::AddByWidthHeight(int id, int left, int top, int width, int height, LPDIRECT3DTEXTURE9 tex)
+{
+	LPSPRITE s = new CSprite(id, left, top, left + width, top + height, tex);
 	sprites[id] = s;
 }
 
@@ -101,7 +127,7 @@ void CAnimation::Add(int spriteId, DWORD time)
 //	frames[currentFrame]->GetSprite()->Draw(x, y, alpha);
 //}
 
-void CAnimation::Render(float x, float y, int alpha)
+void CAnimation::Render(float x, float y, int alpha, bool isFollow)
 {
 	DWORD now = GetTickCount();
 	if (currentFrame == -1)
@@ -133,8 +159,13 @@ void CAnimation::Render(float x, float y, int alpha)
 		}
 
 	}
-
-	frames[currentFrame]->GetSprite()->Draw(x, y, alpha);
+	if (isFollow)
+	{
+		frames[currentFrame]->GetSprite()->Draw(x, y, alpha);
+	}
+	else {
+		frames[currentFrame]->GetSprite()->DrawWithoutCamera(x, y, alpha);
+	}
 }
 
 void CAnimation::RenderFlipOx(float x, float y, int alpha)

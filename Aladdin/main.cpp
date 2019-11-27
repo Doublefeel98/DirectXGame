@@ -44,6 +44,8 @@ Aladdin* aladdin;
 AladdinResoucres *resources;
 CSceneManager * sceneManager;
 
+float dy;
+
 class CSampleKeyHander : public CKeyEventHandler
 {
 	virtual void KeyState(BYTE* states);
@@ -72,7 +74,10 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		}
 		break;
 	case DIK_C:
-		aladdin->SetState(ALADDIN_STATE_JUMP);
+		if (!aladdin->IsJump)
+		{
+			aladdin->SetState(ALADDIN_STATE_JUMP);
+		}
 		break;
 	case DIK_A: // reset
 		aladdin->SetState(ALADDIN_STATE_IDLE);
@@ -95,6 +100,8 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 	{
 	case DIK_DOWN:
 		aladdin->SetState(ALADDIN_STATE_IDLE);
+		break;
+	case DIK_UP:
 		break;
 	}
 }
@@ -120,7 +127,9 @@ void CSampleKeyHander::KeyState(BYTE* states)
 	else if (game->IsKeyDown(DIK_X))
 		aladdin->SetState(ALADDIN_STATE_STANDING_SLASH);
 	else if (game->IsKeyDown(DIK_UP))
+	{
 		aladdin->SetState(ALADDIN_STATE_LOOKING_UP);
+	}
 	else {
 		if (aladdin->GetState() != ALADDIN_STATE_STANDING_SLASH)
 		{
@@ -196,17 +205,29 @@ void Update(DWORD dt)
 		cx = cx + aladdin->GetWidth() + 5 + SCREEN_WIDTH/2 - SCREEN_WIDTH;
 	}
 
-	if (cy < mapHeight - SCREEN_HEIGHT / 2) {
-		cy = cy - SCREEN_HEIGHT / 2;
+	DebugOut(L"[INFO] aladin y: %f\n", cy);
+
+	if (cy + aladdin->GetHeight()/2 < mapHeight - SCREEN_HEIGHT / 2) {
+		cy = cy + aladdin->GetHeight() / 2 - SCREEN_HEIGHT / 2;
 	}
 	else {
 		cy = boundHeight - SCREEN_HEIGHT;
 	}
 
+	if (aladdin->IsMoveCameraWhenLookingUp())
+	{
+		cy = cy - 10;
+	}
+
+	if (aladdin->IsLookingUp)
+	{
+		
+
+	}
+
 	camera->SetCameraPosition(cx, cy);
 	
-	DebugOut(L"[INFO] aladdin isJump: %d\n", aladdin->IsJump);
-	DebugOut(L"[INFO] aladdin state: %d\n", aladdin->state);
+	DebugOut(L"[INFO] camera y: %f\n", cy);
 }
 
 /*

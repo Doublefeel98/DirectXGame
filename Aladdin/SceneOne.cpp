@@ -3,7 +3,7 @@
 SceneOne::SceneOne(Aladdin* aladdin)
 {
 	this->aladdin = aladdin;
-	this->aladdin->SetPosition(0, 948);
+	this->aladdin->SetPosition(0, 900);
 
 	objects.push_back(this->aladdin);
 
@@ -29,7 +29,7 @@ SceneOne::SceneOne(Aladdin* aladdin)
 	for (int i = 0; i < 67; i++)
 	{
 		Ground* ground = new Ground();
-		ground->SetPosition(0 + i * 32.0f, 1002);
+		ground->SetPosition(0 + i * 32.0f, 995);
 		objects.push_back(ground);
 	}
 

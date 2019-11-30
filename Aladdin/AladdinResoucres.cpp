@@ -14,6 +14,25 @@ void AladdinResoucres::LoadTextures()
 
 	//map
 	textures->Add(ID_TEX_MAP_ONE, L"resources\\mapread\\lv1\\lv1.png", D3DCOLOR_XRGB(163, 73, 164));
+
+	//Obstacle
+	textures->Add(ID_TEX_OBSTACLE, L"resources\\textures\\Aladdin_Sultan_ Dungeon.png", D3DCOLOR_XRGB(163, 73, 164));
+
+	//bat
+	textures->Add(ID_TEX_BAT, L"resources\\textures\\bat.png", D3DCOLOR_XRGB(255, 0, 255));
+
+	//guard
+	textures->Add(ID_TEX_GUARD, L"resources\\textures\\guard.png", D3DCOLOR_XRGB(120, 193, 152));
+
+	//thin guard
+	textures->Add(ID_TEX_THIN_GUARD, L"resources\\textures\\guard2.png", D3DCOLOR_XRGB(120, 193, 152));
+
+	//item
+	textures->Add(ID_TEX_ITEMS, L"resources\\textures\\Items.png", D3DCOLOR_XRGB(248, 0, 248));
+
+	//skeleton
+	textures->Add(ID_TEX_SKELETON, L"resources\\textures\\skeleton.png", D3DCOLOR_XRGB(255, 255, 255));
+
 }
 
 void AladdinResoucres::LoadSprites()
@@ -508,6 +527,225 @@ void AladdinResoucres::LoadSprites()
 	//						  
 	sprites->AddByWidthHeight(20300, 17, 3435, 11, 16, texItem1); //tao
 	sprites->AddByWidthHeight(20300, 285, 3435, 17, 16, texItem1); //trung
+
+	LPDIRECT3DTEXTURE9 texObstacle = textures->Get(ID_TEX_OBSTACLE);
+	sprites->Add(20400,	1	,1770,	31	,1793 ,texObstacle);		//Stone
+	sprites->Add(20401,	37	,1770,	67	,1793 ,texObstacle);
+	sprites->Add(20402,	73	,1770,	107	,1793 ,texObstacle);
+	sprites->Add(20403,	112	,1770,	149	,1793 ,texObstacle);
+	sprites->Add(20404,	155	,1770,	194	,1793 ,texObstacle);
+	sprites->Add(20405,	155	,1770,	194	,1793 ,texObstacle);
+	sprites->Add(20406,	155	,1770,	194	,1793 ,texObstacle);
+	sprites->Add(20407,	155	,1770,	194	,1793 ,texObstacle);
+	sprites->Add(20408,	155	,1770,	194	,1793 ,texObstacle);
+	sprites->Add(20409,	112	,1770,	149	,1793 ,texObstacle);
+	sprites->Add(20410,	73	,1770,	107	,1793 ,texObstacle);
+	sprites->Add(20411,	37	,1770,	67	,1793 ,texObstacle);
+
+	sprites->Add(20420,	1	,1798	,23	,1833	,texObstacle);		//trap
+	sprites->Add(20421,	29	,1798	,51	,1833	,texObstacle);
+	sprites->Add(20422,	57	,1798	,82	,1833	,texObstacle);
+	sprites->Add(20423,	88	,1798	,120,	1833,texObstacle);
+	sprites->Add(20424,	126	,1798	,167,	1833,texObstacle);
+	sprites->Add(20425,	173	,1798	,221,	1833,texObstacle);
+
+	sprites->Add(20430,	227, 1770, 240, 1837,texObstacle);			//ball
+	sprites->Add(20431,	246, 1770, 260, 1837,texObstacle);
+	sprites->Add(20432,	266, 1770, 280, 1837,texObstacle);
+	sprites->Add(20433,	286, 1770, 300, 1837,texObstacle);
+	sprites->Add(20434,	306, 1770, 321, 1837,texObstacle);
+	sprites->Add(20435,	327, 1770, 342, 1837,texObstacle);
+	sprites->Add(20436,	349, 1770, 365, 1837,texObstacle);
+	sprites->Add(20437,	371, 1770, 391, 1837,texObstacle);
+	sprites->Add(20438,	397, 1770, 422, 1837,texObstacle);
+	sprites->Add(20439,	428, 1770, 456, 1837,texObstacle);
+	sprites->Add(20440,	461, 1770, 490, 1837,texObstacle);
+	sprites->Add(20441,	496, 1770, 526, 1837,texObstacle);
+	sprites->Add(20442,	532, 1770, 564, 1837,texObstacle);
+	sprites->Add(20443,	569, 1770, 601, 1837,texObstacle);
+	sprites->Add(20444,	607, 1770, 639, 1837,texObstacle);
+	sprites->Add(20445,	569, 1770, 601, 1837,texObstacle);
+	sprites->Add(20446,	532, 1770, 564, 1837,texObstacle);
+	sprites->Add(20447,	496, 1770, 526, 1837,texObstacle);
+	sprites->Add(20448,	461, 1770, 490, 1837,texObstacle);
+	sprites->Add(20449,	428, 1770, 456, 1837,texObstacle);
+	sprites->Add(20450,	397, 1770, 422, 1837,texObstacle);
+	sprites->Add(20451,	371, 1770, 391, 1837,texObstacle);
+	sprites->Add(20452,	349, 1770, 365, 1837,texObstacle);
+	sprites->Add(20453,	327, 1770, 342, 1837,texObstacle);
+	sprites->Add(20454,	306, 1770, 321, 1837,texObstacle);
+	sprites->Add(20455,	286, 1770, 300, 1837,texObstacle);
+	sprites->Add(20456,	266, 1770, 280, 1837,texObstacle);
+	sprites->Add(20457,	246, 1770, 260, 1837,texObstacle);
+
+	LPDIRECT3DTEXTURE9 texBat = textures->Get(ID_TEX_BAT);
+	sprites->Add(21000,9	,10	,16	,36	  ,texBat);		//wait
+
+	sprites->Add(21010,10	,52 ,34	,92	  ,texBat);		//fly
+	sprites->Add(21011,39	,52 ,52	,92	  ,texBat);
+	sprites->Add(21012,56	,52 ,86	,92	  ,texBat);
+	sprites->Add(21013,89	,52 ,121,	92,texBat);
+	sprites->Add(21014,128,52 ,136,	92,texBat);
+	sprites->Add(21015,143,52 ,163,	92,texBat);
+	sprites->Add(21016,165,52 ,207,	92,texBat);
+
+	sprites->Add(21020,20	,10 ,41	,36	  ,texBat);		//rotate
+	sprites->Add(21021,48	,10 ,67	,36	  ,texBat);
+	sprites->Add(21022,76	,10 ,97	,36	  ,texBat);
+
+	sprites->Add(21030,10	,100,	23	,159,texBat);	//die
+	sprites->Add(21031,38	,100,	89	,159,texBat);
+	sprites->Add(21032,93	,100,	115	,159,texBat);
+	sprites->Add(21033,128,100,	146	,159,texBat);
+	sprites->Add(21034,160,100,	189	,159,texBat);
+	sprites->Add(21035,199,100,	228	,159,texBat);
+	sprites->Add(21036,233,100,	266	,159,texBat);
+	sprites->Add(21037,275,100,	298	,159,texBat);
+	sprites->Add(21038,306,100,	335	,159,texBat);
+
+
+	LPDIRECT3DTEXTURE9 texGuard = textures->Get(ID_TEX_GUARD);
+	sprites->Add(22001,0	,300	,150	,375	 ,texGuard);	//wait
+	sprites->Add(22002, 150	,300	,300	,375 ,texGuard);
+	sprites->Add(22003, 300	,300	,450	,375 ,texGuard);
+	sprites->Add(22004,0	,375	,150	,450,texGuard);
+	sprites->Add(22005,150,	375	,300	,450,texGuard);
+	sprites->Add(22006,300,	375	,450	,450,texGuard);
+
+	sprites->Add(22010, 0	,450,150	,525 ,texGuard);		//tab
+	sprites->Add(22011, 150	,450,300	,525 ,texGuard);
+	sprites->Add(22012,300	,450,450	,525 ,texGuard);
+	sprites->Add(22013,0	,525,150	,600 ,texGuard);
+	sprites->Add(22014,150	,525,300	,600 ,texGuard);
+	sprites->Add(22015,300	,525,450	,600 ,texGuard);
+
+	sprites->Add(22020,0	,600,150	,675 ,texGuard);		//wave
+	sprites->Add(22021,150	,600,300	,675 ,texGuard);
+	sprites->Add(22022,300	,600,450	,675 ,texGuard);
+	sprites->Add(22023,0	,675,150	,750 ,texGuard);
+	sprites->Add(22024, 150, 675, 300, 750, texGuard);
+
+	sprites->Add(22030,0	,750,150	,825 ,texGuard);		//suprise
+	sprites->Add(22031,150	,750,300	,825 ,texGuard);
+	sprites->Add(22032,300	,750,450	,825 ,texGuard);
+	sprites->Add(22033,0	,825,150	,900 ,texGuard);
+	sprites->Add(22034,150	,825,300	,900 ,texGuard);
+	sprites->Add(22035,300	,825,450	,900 ,texGuard);
+
+	sprites->Add(22040,0	,900,150	,975 ,texGuard);		//jupm
+	sprites->Add(22041,150	,900,300	,975 ,texGuard);
+	sprites->Add(22042,300	,900,450	,975 ,texGuard);
+	sprites->Add(22043,0	,975,150	,1050,texGuard);
+	sprites->Add(22044,150	,975,300	,1050,texGuard);
+	sprites->Add(22045,300	,975,450	,1050,texGuard);
+	sprites->Add(22046,0	,1050,150	,1125,texGuard);
+	sprites->Add(22047,150	,1050,300	,1125,texGuard);
+	sprites->Add(22048,300	,1050,450	,1125,texGuard);
+
+	sprites->Add(22050,0	,1125,150	,1200,texGuard);		//lie
+	sprites->Add(22051,150	,1125,300	,1200,texGuard);
+	sprites->Add(22052,300	,1125,450	,1200,texGuard);
+	sprites->Add(22053,0	,1200,150	,1275,texGuard);
+
+	sprites->Add(22060,150	,1200,300	,1275,texGuard);	//lie_shadow
+	sprites->Add(22061,300	,1200,450	,1275,texGuard);
+	sprites->Add(22062,0	,1275,150	,1350,texGuard);
+	sprites->Add(22063,150	,1275,300	,1350,texGuard);
+
+	LPDIRECT3DTEXTURE9 texTGuard = textures->Get(ID_TEX_THIN_GUARD);
+	sprites->Add(23000,0	,0	,150	,75	,texTGuard);		//walk
+	sprites->Add(23001,150	,0	,300	,75	,texTGuard);
+	sprites->Add(23002,300	,0	,450	,75	,texTGuard);
+	sprites->Add(23003,0	,75	,150	,150,texTGuard);
+	sprites->Add(23004,150	,75	,300	,150,texTGuard);
+	sprites->Add(23005,300	,75	,450	,150,texTGuard);
+	sprites->Add(23006,0	,150,	150	,225,texTGuard);
+	sprites->Add(23007,150	,150,	300	,225,texTGuard);
+
+	sprites->Add(23010,0	,225,	150	,300,texTGuard);		//wave
+	sprites->Add(23011,150	,225,	300	,300,texTGuard);
+	sprites->Add(23012,300	,225,	450	,300,texTGuard);
+	sprites->Add(23013,0	,300,	150	,375,texTGuard);
+	sprites->Add(23014,150	,300,	300	,375,texTGuard);
+	sprites->Add(23015,300	,300,	450	,375,texTGuard);
+
+	sprites->Add(23020,0	,375,	150	,450,texTGuard);		//die
+	sprites->Add(23021,150	,375,	300	,450,texTGuard);
+	sprites->Add(23022,300	,375,	450	,450,texTGuard);
+	sprites->Add(23023,0	,450,	150	,525,texTGuard);
+	sprites->Add(23024,150	,450,	300	,525,texTGuard);
+	sprites->Add(23025,300	,450,	450	,525,texTGuard);
+	sprites->Add(23026,0	,525,	150	,600,texTGuard);
+	sprites->Add(23027,150	,525,	300	,600,texTGuard);
+	sprites->Add(23028,300	,525,	450	,600,texTGuard);
+
+	sprites->Add(23030, 0, 375, 150, 450, texTGuard);		//wait
+
+	LPDIRECT3DTEXTURE9 texSkeleton = textures->Get(ID_TEX_SKELETON);
+	sprites->Add(24001,0	,200	,100,	300,texSkeleton);	//skeleton
+	sprites->Add(24002,100,	200	,200,	300,texSkeleton);
+	sprites->Add(24003,200,	200	,300,	300,texSkeleton);
+	sprites->Add(24004,300,	200	,400,	300,texSkeleton);
+	sprites->Add(24005,400,	200	,500,	300,texSkeleton);
+	sprites->Add(24006,500,	200	,600,	300,texSkeleton);
+	sprites->Add(24007,600,	200	,700,	300,texSkeleton);
+	sprites->Add(24008,700,	200	,800,	300,texSkeleton);
+	sprites->Add(24009,600,	100	,700,	200,texSkeleton);
+	sprites->Add(24010,500,	100	,600,	200,texSkeleton);
+	sprites->Add(24011,400,	100	,500,	200,texSkeleton);
+	sprites->Add(24012,300,	100	,400,	200,texSkeleton);
+	sprites->Add(24012,200,	100	,300,	200,texSkeleton);
+	sprites->Add(24013,700,	0	,800,	100,texSkeleton);
+	sprites->Add(24014,600,	0	,700,	100,texSkeleton);
+	sprites->Add(24015,500,	0	,600,	100,texSkeleton);
+	sprites->Add(24016,400,	0	,500,	100,texSkeleton);
+	sprites->Add(24017,300,	0	,400,	100,texSkeleton);
+	sprites->Add(24018,200,	0	,300,	100,texSkeleton);
+	sprites->Add(24019,100,	0	,200,	100,texSkeleton);
+	sprites->Add(24020,0	,0,	100	,100,texSkeleton);
+
+	LPDIRECT3DTEXTURE9 texItems = textures->Get(ID_TEX_ITEMS);
+	sprites->Add(21100,340	,105, 	356	,127,texItems);		//penny
+	sprites->Add(21101,363	,105, 379	,127,texItems);
+	sprites->Add(21102,386	,105, 402	,127,texItems);
+	sprites->Add(21103,409	,105, 425	,127,texItems);
+	sprites->Add(21104,432	,105, 448	,127,texItems);
+	sprites->Add(21105,454	,105, 485	,127,texItems);
+	sprites->Add(21106,492	,105, 514	,127,texItems);
+	sprites->Add(21107,522	,105, 538	,127,texItems);
+	sprites->Add(21108,545	,105, 561	,127,texItems);
+
+	sprites->Add(21110,335	,45, 372	,96	,texItems);		//faace
+	sprites->Add(21111,389	,45, 431	,96	,texItems);
+	sprites->Add(21112,443	,45, 486	,96	,texItems);
+	sprites->Add(21113,497	,45, 541	,96	,texItems);
+
+	sprites->Add(21120,335	,45, 372	,96	,texItems);	
+
+	sprites->Add(21130,19	,424, 38	,461,texItems);		//vase
+	sprites->Add(21131,49	,424, 72	,461,texItems);
+	sprites->Add(21132,78	,424, 111	,461,texItems);
+	sprites->Add(21133,119	,424, 138	,461,texItems);
+	sprites->Add(21134,145	,424, 167	,461,texItems);
+	sprites->Add(21135,174	,424, 199	,461,texItems);
+	sprites->Add(21136,207	,424, 230	,461,texItems);
+	sprites->Add(21137,239	,424, 258	,461,texItems);
+	sprites->Add(21138,270	,424, 293	,461,texItems);
+	sprites->Add(21139,302	,424, 324	,461,texItems);
+
+	sprites->Add(21140,19	,424, 38	,461,texItems);
+
+	sprites->Add(21150,341	,17, 	353	,28	,texItems);	//apple
+						
+	sprites->Add(21170, 343, 171,361,	 196, texItems);	//heart
+	sprites->Add(21171, 366, 171,382,	 196, texItems);
+	sprites->Add(21172, 386, 171,403,	 196, texItems);
+	sprites->Add(21173, 406, 171,423,	 196, texItems);
+	sprites->Add(21174, 426, 171,445,	 196, texItems);
+	sprites->Add(21175, 448, 171,465,	 196, texItems);
+	sprites->Add(21176, 467, 171,483,	 196, texItems);
+	sprites->Add(21177, 486, 171,502,	 196, texItems);
+
 }
 
 void AladdinResoucres::LoadAnimations()
@@ -1019,6 +1257,276 @@ void AladdinResoucres::LoadAnimations()
 	ani = new CAnimation(100);		// HP 9
 	ani->Add(20080);
 	animations->Add(-108, ani);
+
+	ani = new CAnimation(200);		// Stone
+	ani->Add(20400);
+	ani->Add(20401);
+	ani->Add(20402);
+	ani->Add(20403);
+	ani->Add(20404);
+	ani->Add(20405);
+	ani->Add(20406);
+	ani->Add(20406);
+	ani->Add(20406);
+	ani->Add(20407);
+	ani->Add(20408);
+	ani->Add(20409);
+	ani->Add(20410);
+	ani->Add(20411);
+	animations->Add(2040, ani);
+
+	ani = new CAnimation(100);		// Trap
+	ani->Add(20420);
+	ani->Add(20421);
+	ani->Add(20422);
+	ani->Add(20423);
+	ani->Add(20424);
+	ani->Add(20425);
+	ani->Add(20424);
+	ani->Add(20423);
+	ani->Add(20422);
+	ani->Add(20421);
+	animations->Add(2042, ani);
+
+	ani = new CAnimation(100);		// Ball
+	ani->Add(20430);
+	ani->Add(20431);
+	ani->Add(20432);
+	ani->Add(20433);
+	ani->Add(20434);
+	ani->Add(20435);
+	ani->Add(20436);
+	ani->Add(20437);
+	ani->Add(20438);
+	ani->Add(20439);
+	ani->Add(20440);
+	ani->Add(20441);
+	ani->Add(20442);
+	ani->Add(20443);
+	ani->Add(20444);
+	ani->Add(20445);
+	ani->Add(20446);
+	ani->Add(20447);
+	ani->Add(20448);
+	ani->Add(20449);
+	ani->Add(20450);
+	ani->Add(20451);
+	ani->Add(20452);
+	ani->Add(20453);
+	ani->Add(20454);
+	ani->Add(20455);
+	ani->Add(20456);
+	ani->Add(20457);
+	animations->Add(2043, ani);
+
+	ani = new CAnimation(100);		// Bat
+	ani->Add(21000);
+	animations->Add(2100, ani);
+
+	ani = new CAnimation(100);		
+	ani->Add(21010);
+	ani->Add(21011);
+	ani->Add(21012);
+	ani->Add(21013);
+	ani->Add(21014);
+	ani->Add(21015);
+	ani->Add(21016);
+	animations->Add(2101, ani);
+
+	ani = new CAnimation(100);		
+	ani->Add(21020);
+	ani->Add(21021);
+	ani->Add(21022);
+	animations->Add(2102, ani);
+
+	ani = new CAnimation(100);		
+	ani->Add(21030);
+	ani->Add(21031);
+	ani->Add(21032);
+	ani->Add(21033);
+	ani->Add(21034);
+	ani->Add(21035);
+	ani->Add(21036);
+	ani->Add(21037);
+	ani->Add(21038);
+	animations->Add(2103, ani);
+
+	ani = new CAnimation(100);			//Guard
+	ani->Add(22001);
+	ani->Add(22002);
+	ani->Add(22003);
+	ani->Add(22004);
+	ani->Add(22005);
+	ani->Add(22006);
+	animations->Add(2200, ani);
+
+	ani = new CAnimation(100);
+	ani->Add(22010);
+	ani->Add(22011);
+	ani->Add(22012);
+	ani->Add(22013);
+	ani->Add(22014);
+	ani->Add(22015);
+	animations->Add(2201, ani);
+		
+	ani = new CAnimation(100);
+	ani->Add(22020);
+	ani->Add(22021);
+	ani->Add(22022);
+	ani->Add(22023);
+	ani->Add(22024);
+	animations->Add(2202, ani);
+
+	ani = new CAnimation(100);
+	ani->Add(22030);
+	ani->Add(22031);
+	ani->Add(22032);
+	ani->Add(22033);
+	ani->Add(22034);
+	ani->Add(22035);
+	animations->Add(2203, ani);
+
+	ani = new CAnimation(100);
+	ani->Add(22040);
+	ani->Add(22041);
+	ani->Add(22042);
+	ani->Add(22043);
+	ani->Add(22044);
+	ani->Add(22045);
+	ani->Add(22046);
+	ani->Add(22047);
+	ani->Add(22048);
+	animations->Add(2204, ani);
+
+	ani = new CAnimation(100);
+	ani->Add(22050);
+	ani->Add(22051);
+	ani->Add(22052);
+	ani->Add(22053);
+	animations->Add(2205, ani);
+
+	ani = new CAnimation(100);
+	ani->Add(22060);
+	ani->Add(22061);
+	ani->Add(22062);
+	ani->Add(22063);
+	animations->Add(2206, ani);
+
+	ani = new CAnimation(100);			// thin guard
+	ani->Add(23000);
+	ani->Add(23001);
+	ani->Add(23002);
+	ani->Add(23003);
+	ani->Add(23004);
+	ani->Add(23005);
+	ani->Add(23006);
+	ani->Add(23007);
+	animations->Add(2300, ani);
+
+	ani = new CAnimation(100);
+	ani->Add(23010);
+	ani->Add(23011);
+	ani->Add(23012);
+	ani->Add(23013);
+	ani->Add(23014);
+	ani->Add(23015);
+	animations->Add(2301, ani);
+
+	ani = new CAnimation(100);
+	ani->Add(23020);
+	ani->Add(23021);
+	ani->Add(23022);
+	ani->Add(23023);
+	ani->Add(23024);
+	ani->Add(23025);
+	ani->Add(23026);
+	ani->Add(23027);
+	ani->Add(23028);
+	animations->Add(2302, ani);
+
+	ani = new CAnimation(100);
+	ani->Add(23030);
+	animations->Add(2303, ani);
+
+	ani = new CAnimation(100);		//skeleton
+	ani->Add(24001);
+	ani->Add(24002);
+	ani->Add(24003);
+	ani->Add(24004);
+	ani->Add(24005);
+	ani->Add(24006);
+	ani->Add(24007);
+	ani->Add(24008);
+	ani->Add(24009);
+	ani->Add(24010);
+	ani->Add(24011);
+	ani->Add(24012);
+	ani->Add(24012);
+	ani->Add(24013);
+	ani->Add(24014);
+	ani->Add(24015);
+	ani->Add(24016);
+	ani->Add(24017);
+	ani->Add(24018);
+	ani->Add(24019);
+	ani->Add(24020);
+	animations->Add(2400, ani);
+
+	ani = new CAnimation(100);		//penny
+	ani->Add(21100);
+	ani->Add(21101);
+	ani->Add(21102);
+	ani->Add(21103);
+	ani->Add(21104);
+	ani->Add(21105);
+	ani->Add(21106);
+	ani->Add(21107);
+	ani->Add(21108);
+	animations->Add(2110, ani);
+
+	ani = new CAnimation(100);		//face
+	ani->Add(21110);
+	ani->Add(21111);
+	ani->Add(21112);
+	ani->Add(21113);
+	animations->Add(2111, ani);
+
+	ani = new CAnimation(100);
+	ani->Add(21120);
+	animations->Add(2112, ani);
+
+	ani = new CAnimation(100);		//vase
+	ani->Add(21130);
+	ani->Add(21131);
+	ani->Add(21132);
+	ani->Add(21133);
+	ani->Add(21134);
+	ani->Add(21135);
+	ani->Add(21136);
+	ani->Add(21137);
+	ani->Add(21138);
+	ani->Add(21139);
+	animations->Add(2113, ani);
+
+	ani = new CAnimation(100);
+	ani->Add(21140);
+	animations->Add(2114, ani);
+
+
+	ani = new CAnimation(100);		//apple
+	ani->Add(21150);
+	animations->Add(2115, ani);
+
+	ani = new CAnimation(100);		//heart
+	ani->Add(21170);
+	ani->Add(21171);
+	ani->Add(21172);
+	ani->Add(21173);
+	ani->Add(21174);
+	ani->Add(21175);
+	ani->Add(21176);
+	ani->Add(21177);
+	animations->Add(2117, ani);
 }
 
 AladdinResoucres::AladdinResoucres()

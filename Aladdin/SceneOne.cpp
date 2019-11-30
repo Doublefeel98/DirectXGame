@@ -11,7 +11,8 @@ SceneOne::SceneOne(Aladdin* aladdin)
 	mapWidth = 2144.0f;
 	mapHeight = 1024.0f;
 	spriteMap = sprites->Get(ID_SPRITE_MAP_ONE);
-	fileResoucre = "resoucres\\object\\objects_lv1.txt";
+	//fileResoucre = "resoucres\\object\\objects_lv1.txt";
+	fileResource = "resources\\object\\objects_1.txt";
 	fileMap = "resources\\mapread\\lv1\\Mapstate.txt";
 	tileWidth = 16.0f;
 	tileHeight = 16.0f;
@@ -24,7 +25,7 @@ SceneOne::SceneOne(Aladdin* aladdin)
 	tilemap->LoadListTileFromFile(fileMap);
 
 	//aladinObjects->Load(fileResoucre, &objects);
-
+	aladinObjects->LoadListObject(fileResource, &objects);
 
 	for (int i = 0; i < 67; i++)
 	{

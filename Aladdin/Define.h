@@ -15,6 +15,12 @@
 #define ID_TEX_MISC 20
 #define ID_TEX_ITEM_1 -1
 #define ID_TEX_ITEM_2 -2
+#define ID_TEX_OBSTACLE -100
+#define ID_TEX_BAT		-101
+#define ID_TEX_GUARD	-102
+#define ID_TEX_THIN_GUARD	-103
+#define ID_TEX_SKELETON	-104
+#define ID_TEX_ITEMS	-105
 
 #define ID_TEX_MAP_ONE -10
 
@@ -31,6 +37,19 @@
 #define OBJECT_PILLAR_3 -70
 #define OBJECT_PILLAR_4 -60
 #define OBJECT_ROCK -60
+#define OBJECT_STONE 2040
+#define OBJECT_TRAP 2042
+#define OBJECT_BALL 2043
+#define OBJECT_BAT 1
+#define OBJECT_FACE 2
+#define OBJECT_GUARD 3
+#define OBJECT_SKELETON 4
+#define OBJECT_THIN_GUARD 5
+#define OBJECT_VASE 6
+#define OBJECT_PENNY 7
+#define OBJECT_APPLE 8
+#define OBJECT_HEART 9
+
 
 //ALADDIN
 #define ALADDIN_WALKING_SPEED		0.1f 
@@ -124,9 +143,69 @@
 #define ALADDIN_ANI_LOOK_AROUND_LEFT				39
 
 #define ALADDIN_ANI_DIE								40
+#define STONE_ANI_WAIT								0
+#define TRAP_ANI_WAIT								0
+#define BALL_ANI_WAIT								0
+#define BAT_ANI_WAIT								0
+#define BAT_ANI_FLY									1			
+#define BAT_ANI_ROTATE								2
+#define BAT_ANI_DIE									3
+#define GUARD_ANI_WAIT								0
+#define GUARD_ANI_STAB								1			
+#define GUARD_ANI_WAVE								2
+#define GUARD_ANI_SURPRISE							3
+#define GUARD_ANI_JUMP								4
+#define GUARD_ANI_DIE								5
+#define GUARD_ANI_DIE_SHADOW						6
+#define THIN_GUARD_ANI_WAIT							0
+#define THIN_GUARD_ANI_WAVE							1
+#define THIN_GUARD_ANI_WALK							2
+#define THIN_GUARD_ANI_SURPRISE						3
+#define SKELETON_ANI_WAIT							0
+#define APPLE_ANI_WAIT								0
+#define PENNY_ANI_WAIT								0
+#define VASE_ANI_WAIT								0
+#define GENNIE_ANI_WAIT								0
+#define HEART_ANI_WAIT								0
+#define VASE_ANI_ACTIVE								1
+#define GENNIE_ANI_ACTIVE								1
 
 #define ALADDIN_BBOX_WIDTH  41
 #define ALADDIN_BBOX_HEIGHT 51
+#define STONE_BBOX_WIDTH 28
+#define STONE_BBOX_HEIGHT 11
+#define TRAP_BBOX_WIDTH 45
+#define TRAP_BBOX_HEIGHT 20
+#define BALL_BBOX_WIDTH 26
+#define BALL_BBOX_HEIGHT 31
+#define BAT_BBOX_HEIGHT 15
+#define BAT_BBOX_WIDTH_WAIT 9
+#define BAT_BBOX_WIDTH_FLY 30
+#define BAT_BBOX_WIDTH_ROTATE 20
+#define BAT_BBOX_WIDTH_DIE 9
+#define GUARD_BBOX_HEIGHT 50
+#define GUARD_BBOX_WIDTH_WAIT 40
+#define GUARD_BBOX_WIDTH_STAB 80
+#define GUARD_BBOX_WIDTH_WAVE 90
+#define GUARD_BBOX_WIDTH_DIE 60
+#define THIN_GUARD_BBOX_HEIGHT 50
+#define THIN_GUARD_BBOX_WIDTH_WAIT 50
+#define THIN_GUARD_BBOX_WIDTH_WAVE 80
+#define THIN_GUARD_BBOX_WIDTH_WALK 45
+#define THIN_GUARD_BBOX_WIDTH_SURPISE 45
+#define SKELETON_BBOX_WIDTH 40
+#define SKELETON_BBOX_HEIGHT 80
+#define SKELETON_BBOX_WIDTH_WIDE 80
+#define APPLE_BBOX_HEIGHT 10
+#define APPLE_BBOX_WIDTH  10
+#define PENNY_BBOX_HEIGHT 17
+#define PENNY_BBOX_WIDTH 17
+#define VASE_BBOX_HEIGHT 30
+#define VASE_BBOX_WIDTH 20
+#define	GENNIE_BBOX_WIDTH 35
+#define	GENNIE_BBOX_HEIGHT 50
+#define	HEART_BBOX_WIDTH 20
+#define	HEART_BBOX_HEIGH 20
 
 #define ALADDIN_RUN_BBOX_WIDTH  41
 #define ALADDIN_RUN_BBOX_HEIGHT 58
@@ -142,3 +221,10 @@
 //Ground
 #define GROUND_BBOX_WIDTH				32
 #define GROUND_BBOX_HEIGHT				5
+
+//MAX_HP 
+#define BAT_MAX_HP 1
+#define GUARD_MAX_HP 3
+#define THIN_GUARD_MAX_HP 2
+#define SKELETON_MAX_HP 2
+

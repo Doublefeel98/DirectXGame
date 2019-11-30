@@ -9,6 +9,7 @@ class SceneOne : public CScene
 	Aladdin* aladdin;
 	AladdinObjects * aladinObjects;
 	ScoreBoard* scoreboard;
+	char* fileResource;
 public:
 	SceneOne(Aladdin* aladdin);
 	void Render();

@@ -60,6 +60,8 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	switch (KeyCode)
 	{
+	case DIK_Z:
+		aladdin->SetState(ALADDIN_STATE_THROW_APPLE);
 	case DIK_X:
 		if (aladdin->GetState() != ALADDIN_STATE_STANDING_SLASH)
 		{

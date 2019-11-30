@@ -13,6 +13,7 @@ class Aladdin : public CGameObject
 	DWORD timeIdleStart;
 	DWORD timeSitStart;
 	DWORD timeLookUpStart;
+	DWORD timeThrowStart;
 public:
 	Aladdin();
 	bool IsSit;
@@ -21,6 +22,7 @@ public:
 	bool IsGround;
 	bool IsSlash;
 	bool IsStand;
+	bool IsThrow;
 	bool IsMoveCameraWhenLookingUp();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();
@@ -30,6 +32,7 @@ public:
 	void ResetAnimationsSlash();
 	void ResetAnimationsSitDown();
 	void ResetAnimationIdle();
+	void ResetAnimationsThrow();
 	void ResetAllAnimation();
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);

@@ -69,7 +69,16 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				timeAttackStart = 0;
 				IsSlash = false;
 				SetState(ALADDIN_STATE_SIT_DOWN);
-
+			}
+		}
+		if (IsLookingUp)
+		{
+			if (now - timeAttackStart > ALADDIN_LOOK_UP_ATTACK_TIME)
+			{
+				ResetAnimationsSlash();
+				timeAttackStart = 0;
+				IsSlash = false;
+				SetState(ALADDIN_STATE_LOOKING_UP);
 			}
 		}
 		else {
@@ -83,11 +92,21 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				else {
 					SetState(ALADDIN_STATE_IDLE);
 				}
-
 			}
-		}
-		
+		}		
 	}
+
+	if(IsThrow)
+	{
+		if (now - timeThrowStart > ALADDIN_THROW_TIME)
+		{
+			ResetAnimationsThrow();
+			timeThrowStart = 0;
+			IsThrow = false;
+			//SetState(ALADDIN_STATE_THROW_APPLE);
+		}
+	}
+
 
 	//if (IsSlash == true && IsSit == true)
 	//{
@@ -308,6 +327,7 @@ void Aladdin::Render()
 					ani = ALADDIN_ANI_JUMPING_LEFT;
 			}
 			else {
+				posY = y;
 				if (nx > 0)
 				{
 					ani = ALADDIN_ANI_SIT_DOWN_RIGHT;
@@ -337,12 +357,31 @@ void Aladdin::Render()
 		}
 		if (IsLookingUp == true)
 		{
-			posY = y - 8;
-			if (nx > 0)
-				ani = ALADDIN_ANI_LOOKING_UP_RIGHT;
-
+			if (IsSlash)
+			{
+				posY = y - 32;
+				if (nx > 0)
+					ani = ALADDIN_ANI_LOOKING_UP_SLASH_RIGHT;
+				else
+					ani = ALADDIN_ANI_LOOKING_UP_SLASH_LEFT;
+			}
 			else
-				ani = ALADDIN_ANI_LOOKING_UP_LEFT;
+			{
+				posY = y - 8;
+				if (nx > 0)
+					ani = ALADDIN_ANI_LOOKING_UP_RIGHT;
+
+				else
+					ani = ALADDIN_ANI_LOOKING_UP_LEFT;
+			}
+		}
+		if (IsThrow)
+		{
+			posY = y - 10;
+			if (nx > 0)
+				ani = ALADDIN_ANI_THROW_APPLE_RIGHT;
+			else
+				ani = ALADDIN_ANI_THROW_APPLE_LEFT;
 		}
 	}
 	int alpha = 255;
@@ -416,7 +455,24 @@ void Aladdin::SetState(int state)
 			timeLookUpStart = currentTime;
 		}
 		break;
+	case ALADDIN_STATE_LOOKING_UP_SLASH:
+		vx = 0;
+		IsLookingUp = true;
+		IsSlash = true;
+		if (timeLookUpStart == 0)
+		{
+			timeLookUpStart = currentTime;
+		}
+		timeAttackStart = currentTime;
+	case ALADDIN_STATE_THROW_APPLE:
+		vx = 0;
+		IsThrow = true;
+		if (timeThrowStart == 0)
+		{
+			timeThrowStart = currentTime;
+		}
 	}
+	
 }
 
 void Aladdin::ResetAnimationsSlash()
@@ -426,6 +482,9 @@ void Aladdin::ResetAnimationsSlash()
 
 	resetAni(ALADDIN_ANI_SITTING_SLASH_LEFT);
 	resetAni(ALADDIN_ANI_SITTING_SLASH_RIGHT);
+
+	resetAni(ALADDIN_ANI_LOOKING_UP_SLASH_LEFT);
+	resetAni(ALADDIN_ANI_LOOKING_UP_SLASH_RIGHT);
 }
 
 void Aladdin::ResetAnimationsSitDown()
@@ -443,12 +502,18 @@ void Aladdin::ResetAnimationIdle()
 	resetAni(ALADDIN_ANI_STANDING_RIGHT);
 }
 
+void Aladdin::ResetAnimationsThrow()
+{
+	resetAni(ALADDIN_ANI_THROW_APPLE_RIGHT);
+	resetAni(ALADDIN_ANI_THROW_APPLE_LEFT);
+}
 
 void Aladdin::ResetAllAnimation()
 {
 	ResetAnimationIdle();
 	ResetAnimationsSitDown();
 	ResetAnimationsSlash();
+	ResetAnimationsThrow();
 }
 
 

@@ -166,7 +166,7 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(10341, 13, 1067, 65, 1142, texAladdinGoRight);		// jumping slash right
 	sprites->Add(10342, 75, 1067, 125, 1142, texAladdinGoRight);
 	sprites->Add(10343, 140, 1067, 187, 1142, texAladdinGoRight);
-	sprites->Add(10344, 199, 1067, 151, 1142, texAladdinGoRight);
+	sprites->Add(10344, 199, 1067, 251, 1142, texAladdinGoRight);
 	sprites->Add(10345, 266, 1067, 349, 1142, texAladdinGoRight);
 	sprites->Add(10346, 361, 1067, 408, 1142, texAladdinGoRight);
 
@@ -177,7 +177,7 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(10405, 221, 231, 258, 291, texAladdinGoRight);
 	sprites->Add(10406, 268, 231, 320, 291, texAladdinGoRight);
 
-	sprites->Add(10411, 9, 567, 484, 619, texAladdinGoRight);		// sitting throw apple right
+	sprites->Add(10411, 9, 567, 46, 619, texAladdinGoRight);		// sitting throw apple right
 	sprites->Add(10412, 58, 567, 95, 619, texAladdinGoRight);
 	sprites->Add(10413, 107, 567, 157, 619, texAladdinGoRight);
 	sprites->Add(10414, 164, 567, 246, 619, texAladdinGoRight);
@@ -322,7 +322,7 @@ void AladdinResoucres::LoadSprites()
 
 	sprites->Add(11221, 1070, 680, 1111, 765, texAladdinGoLeft);		// run jump	left
 	sprites->Add(11222, 1010, 680, 1055, 765, texAladdinGoLeft);
-	sprites->Add(11223, 940, 680, 957, 765, texAladdinGoLeft);
+	sprites->Add(11223, 940, 680, 997, 765, texAladdinGoLeft);
 	sprites->Add(11224, 864, 680, 922, 765, texAladdinGoLeft);
 	sprites->Add(11225, 787, 680, 848, 765, texAladdinGoLeft);
 	sprites->Add(11226, 713, 680, 771, 765, texAladdinGoLeft);
@@ -345,7 +345,7 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(11317, 601, 639, 646, 673, texAladdinGoLeft);
 
 	sprites->Add(11321, 1068, 389, 1110, 473, texAladdinGoLeft);		// looking up slash left
-	sprites->Add(11322, 1017, 389, 104, 473, texAladdinGoLeft);
+	sprites->Add(11322, 1017, 389, 1045, 473, texAladdinGoLeft);
 	sprites->Add(11323, 945, 389, 1010, 473, texAladdinGoLeft);
 	sprites->Add(11324, 881, 389, 928, 473, texAladdinGoLeft);
 	sprites->Add(11325, 825, 389, 872, 473, texAladdinGoLeft);
@@ -371,7 +371,7 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(11405, 863, 231, 900, 291, texAladdinGoLeft);
 	sprites->Add(11406, 814, 231, 853, 291, texAladdinGoLeft);
 
-	sprites->Add(11411, 1075, 567, 112, 619, texAladdinGoLeft);		// sitting throw apple left
+	sprites->Add(11411, 1075, 567, 1112, 619, texAladdinGoLeft);		// sitting throw apple left
 	sprites->Add(11412, 1026, 567, 1063, 619, texAladdinGoLeft);
 	sprites->Add(11413, 964, 567, 1014, 619, texAladdinGoLeft);
 	sprites->Add(11414, 875, 567, 957, 619, texAladdinGoLeft);

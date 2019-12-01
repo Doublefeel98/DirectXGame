@@ -14,6 +14,9 @@ class Aladdin : public CGameObject
 	DWORD timeSitStart;
 	DWORD timeLookUpStart;
 	DWORD timeThrowStart;
+	DWORD timeRunJumpStart;
+	DWORD timeJumpSlashStart;
+	DWORD timeJumpThrowStart;
 public:
 	Aladdin();
 	bool IsSit;
@@ -33,6 +36,8 @@ public:
 	void ResetAnimationsSitDown();
 	void ResetAnimationIdle();
 	void ResetAnimationsThrow();
+	void ResetAnimationsJump();
+	void ResetAnimationsLookUp();
 	void ResetAllAnimation();
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);

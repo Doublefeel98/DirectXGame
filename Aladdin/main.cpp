@@ -61,7 +61,17 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_Z:
-		aladdin->SetState(ALADDIN_STATE_THROW_APPLE);
+		if (aladdin->GetState() != ALADDIN_STATE_THROW_APPLE)
+		{
+			if (aladdin->IsSit)
+			{
+				aladdin->SetState(ALADDIN_STATE_SITTING_THROW_APPLE);
+			}
+			else
+			{
+				aladdin->SetState(ALADDIN_STATE_THROW_APPLE);
+			}
+		}		
 	case DIK_X:
 		if (aladdin->GetState() != ALADDIN_STATE_STANDING_SLASH)
 		{
@@ -69,16 +79,31 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 			{
 				aladdin->SetState(ALADDIN_STATE_SITTING_SLASH);
 			}
-			else {
-				aladdin->SetState(ALADDIN_STATE_STANDING_SLASH);
+			else if (aladdin->IsLookingUp)
+			{
+				aladdin->SetState(ALADDIN_STATE_LOOKING_UP_SLASH);
 			}
-			
+			else
+			{
+				aladdin->SetState(ALADDIN_STATE_STANDING_SLASH);
+			}			
 		}
 		break;
 	case DIK_C:
 		if (!aladdin->IsJump)
 		{
-			aladdin->SetState(ALADDIN_STATE_JUMP);
+			if (aladdin->IsSlash)
+			{
+				aladdin->SetState(ALADDIN_STATE_JUMPING_SLASH);
+			}
+			else if (aladdin->IsThrow)
+			{
+				aladdin->SetState(ALADDIN_STATE_JUMPING_THROW_APPLE);
+			}
+			else
+			{
+				aladdin->SetState(ALADDIN_STATE_JUMP);
+			}
 		}
 		break;
 	case DIK_A: // reset

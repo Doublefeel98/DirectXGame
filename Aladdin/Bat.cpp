@@ -12,10 +12,10 @@ Bat::Bat() :CGameObject() {
 	wait = true; fly = false; rotate = false; die = false;
 	HP = BAT_MAX_HP;
 
-	AddAnimation(2100);		
-	AddAnimation(2101);
-	AddAnimation(2102);
-	AddAnimation(2103);
+	//AddAnimation(2100);		
+	//AddAnimation(2101);
+	//AddAnimation(2102);
+	//AddAnimation(2103);
 
 }
 Bat::~Bat() {

@@ -12,10 +12,10 @@ ThinPalaceGuard::ThinPalaceGuard() :CGameObject() {
 	wait = false; wave = false; walk = false; surprise = true;
 	HP = THIN_GUARD_MAX_HP;
 
-	AddAnimation(2303);
-	AddAnimation(2301);
-	AddAnimation(2300);
-	AddAnimation(2302);
+	//AddAnimation(2303);
+	//AddAnimation(2301);
+	//AddAnimation(2300);
+	//AddAnimation(2302);
 
 }
 ThinPalaceGuard::~ThinPalaceGuard() {

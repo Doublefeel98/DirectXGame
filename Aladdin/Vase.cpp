@@ -9,8 +9,8 @@ Vase::Vase() :CGameObject() {
 
 	enabled = true;
 
-	AddAnimation(2114);
-	AddAnimation(2113);
+	//AddAnimation(2114);
+	//AddAnimation(2113);
 }
 Vase::~Vase() {
 

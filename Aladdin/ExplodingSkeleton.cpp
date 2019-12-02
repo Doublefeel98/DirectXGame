@@ -10,7 +10,7 @@ ExplodingSkeleton::ExplodingSkeleton() :CGameObject() {
 
 	HP = SKELETON_MAX_HP;
 
-	AddAnimation(2400);
+	//AddAnimation(2400);
 
 }
 ExplodingSkeleton::~ExplodingSkeleton() {

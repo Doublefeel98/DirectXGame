@@ -12,13 +12,13 @@ MusclePalaceGuard::MusclePalaceGuard() :CGameObject() {
 	wait = false; stab = false; wave = false; jump = false; surprise = false; die = true;
 	HP = GUARD_MAX_HP;
 
-	AddAnimation(2200);
-	AddAnimation(2201);
-	AddAnimation(2202);
-	AddAnimation(2203);
-	AddAnimation(2204);
-	AddAnimation(2205);
-	AddAnimation(2206);
+	//AddAnimation(2200);
+	//AddAnimation(2201);
+	//AddAnimation(2202);
+	//AddAnimation(2203);
+	//AddAnimation(2204);
+	//AddAnimation(2205);
+	//AddAnimation(2206);
 
 }
 MusclePalaceGuard::~MusclePalaceGuard() {

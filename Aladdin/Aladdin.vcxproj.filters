@@ -117,6 +117,27 @@
     <ClInclude Include="Up.h">
       <Filter>Source\Object</Filter>
     </ClInclude>
+    <ClInclude Include="GenieBonusLevel.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthMeter.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Iago.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Jafar.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="MagicCarpet.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Peddler.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
     <ClInclude Include="RestartPoint.h">
       <Filter>Source\Object</Filter>
     </ClInclude>

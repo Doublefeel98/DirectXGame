@@ -13,7 +13,8 @@ void AladdinResoucres::LoadTextures()
 	textures->Add(ID_TEX_ITEM_2, L"resources\\textures\\Items.png", D3DCOLOR_XRGB(248, 0, 248));
 
 	//map
-	textures->Add(ID_TEX_MAP_ONE, L"resources\\mapread\\lv1\\lv1.png", D3DCOLOR_XRGB(163, 73, 164));
+	//textures->Add(ID_TEX_MAP_ONE, L"resources\\mapread\\lv1\\lv1.png", D3DCOLOR_XRGB(163, 73, 164));
+	textures->Add(ID_TEX_MAP_ONE, L"resources\\map\\lv1\\titlemaplv1.png", D3DCOLOR_XRGB(163, 73, 164));
 
 	//Obstacle
 	textures->Add(ID_TEX_OBSTACLE, L"resources\\textures\\Aladdin_Sultan_ Dungeon.png", D3DCOLOR_XRGB(163, 73, 164));
@@ -398,8 +399,11 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(11605, 799, 2107, 862, 2149, texAladdinGoRight, -15);
 	sprites->Add(11606, 733, 2107, 788, 2149, texAladdinGoRight, -7);
 
+	/*LPDIRECT3DTEXTURE9 textMapOne = textures->Get(ID_TEX_MAP_ONE);
+	sprites->Add(ID_SPRITE_MAP_ONE, 0, 0, 2144, 1024, textMapOne);*/
+
 	LPDIRECT3DTEXTURE9 textMapOne = textures->Get(ID_TEX_MAP_ONE);
-	sprites->Add(ID_SPRITE_MAP_ONE, 0, 0, 2144, 1024, textMapOne);
+	sprites->Add(ID_SPRITE_MAP_ONE, 0, 0, 256, 8144, textMapOne);
 
 
 	//item
@@ -571,6 +575,12 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(20455,	286, 1770, 300, 1837,texObstacle);
 	sprites->Add(20456,	266, 1770, 280, 1837,texObstacle);
 	sprites->Add(20457,	246, 1770, 260, 1837,texObstacle);
+
+
+	sprites->AddByWidthHeight(20500, 177, 1144, 40, 344, texObstacle); // pilar 1
+	sprites->AddByWidthHeight(20501, 497, 1144, 32, 160, texObstacle); // pilar 2
+	sprites->AddByWidthHeight(20502, 817, 1144, 32, 744, texObstacle); // pilar 3
+	sprites->AddByWidthHeight(20503, 1169, 1144, 32, 192, texObstacle); // pilar 4
 
 	//LPDIRECT3DTEXTURE9 texBat = textures->Get(ID_TEX_BAT);
 	//sprites->Add(21000,9	,10	,16	,36	  ,texBat);		//wait
@@ -1497,6 +1507,22 @@ void AladdinResoucres::LoadAnimations()
 	ani = new CAnimation(100);		// HP 9
 	ani->Add(20080);
 	animations->Add(-108, ani);
+
+	ani = new CAnimation(100);		// Pilar 1
+	ani->Add(20500);
+	animations->Add(2050, ani);
+
+	ani = new CAnimation(100);		// Pilar 2
+	ani->Add(20501);
+	animations->Add(2051, ani);
+
+	ani = new CAnimation(100);		// Pilar 3
+	ani->Add(20502);
+	animations->Add(2052, ani);
+
+	ani = new CAnimation(100);		// Pilar 4
+	ani->Add(20503);
+	animations->Add(2053, ani);
 
 	ani = new CAnimation(200);		// Stone
 	ani->Add(20400);

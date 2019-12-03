@@ -3,7 +3,6 @@
 #include "../Framework/debug.h"
 
 #include "../Framework/Game.h"
-#include"ThinPalaceGuard.h"
 
 ThinPalaceGuard::ThinPalaceGuard() :CGameObject() {
 	width = THIN_GUARD_BBOX_WIDTH_WAIT;

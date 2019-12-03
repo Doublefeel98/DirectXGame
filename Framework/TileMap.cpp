@@ -1,6 +1,6 @@
 #include "TileMap.h"
 #include "Camera.h"
-#include "../Framework/Helper.h"
+#include "Helper.h"
 
 
 TileMap::TileMap(float _width, float _height, CSprite *_sprite, float _tileWidth, float _tileHeight)
@@ -46,44 +46,45 @@ void TileMap::LoadListTileFromFile(const char *file)
 	fstream pFile;
 	pFile.open(file, fstream::in);
 	string lineString;
-	int *posSpace = new int[cols];
-	string subString;
-	int i = 0;
+
+	pFile.good();
+	getline(pFile, lineString);
+	//rows = atoi(lineString.c_str());
+
+	pFile.good();
+	getline(pFile, lineString);
+	//cols = atoi(lineString.c_str());
 
 	std::vector<std::string> listRow;
 
-	while (pFile.good())
+	for (int i = 0; i < rows; i++)
 	{
+		pFile.good();
 		getline(pFile, lineString);
-		if (lineString.find("END") != string::npos)
-			break;
-
-		//for (int j = 0; j < cols; j++)
-		//{
-		//	if (j == 0)
-		//	{
-		//		posSpace[0] = lineString.find(" ", 0);
-		//		subString = lineString.substr(0, posSpace[0]);
-		//		int id = atoi(subString.c_str());
-		//		matrix[i][j] = id;
-		//	}
-		//	else
-		//	{	
-		//		posSpace[j] = lineString.find(" ", posSpace[j - 1] + 1);
-		//		subString = lineString.substr(posSpace[j - 1] + 1, posSpace[j] - (posSpace[j - 1] + 1));
-		//		int id = atoi(subString.c_str());
-		//		matrix[i][j] = id;
-		//	}
-		//}
-
-		listRow = Helper::split(lineString, ',');
+		listRow = Helper::split(lineString, ' ');
 		for (int j = 0; j < cols; j++)
 		{
 			int id = atoi(listRow[j].c_str());
 			matrix[i][j] = id;
 		}
-		i++;
 	}
+
+	//int i = 0;
+	//std::vector<std::string> listRow;
+	//while (pFile.good())
+	//{
+	//	getline(pFile, lineString);
+	//	if (lineString.find("END") != string::npos)
+	//		break;
+
+	//	listRow = Helper::split(lineString, ' ');
+	//	for (int j = 0; j < cols; j++)
+	//	{
+	//		int id = atoi(listRow[j].c_str());
+	//		matrix[i][j] = id;
+	//	}
+	//	i++;
+	//}
 }
 
 void TileMap::Render(int screenWidth, int screenHeight)
@@ -97,6 +98,7 @@ void TileMap::Render(int screenWidth, int screenHeight)
 	int rowEnd;
 	int colStart;
 	int colEnd;
+
 	if ((cameraPosition.y / tileHeight) < 0)
 		rowStart = 0;
 	else
@@ -123,8 +125,10 @@ void TileMap::Render(int screenWidth, int screenHeight)
 		{
 			rect.left = (matrix[i][j] % spritePerRow) * tileWidth;
 			rect.top = (matrix[i][j] / spritePerRow) * tileHeight;
+
 			rect.right = rect.left + tileWidth;
 			rect.bottom = rect.top + tileHeight;
+
 			pos.x = j * tileWidth;
 			pos.y = i * tileHeight;
 			pos.z = 0;

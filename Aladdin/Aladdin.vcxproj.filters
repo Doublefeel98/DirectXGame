@@ -1,52 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Bat.cpp">
-      <Filter>Source\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Source\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="ExplodingSkeleton.cpp">
-      <Filter>Source\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="ExtraHealth.cpp">
-      <Filter>Source\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="FatPalaceGuard.cpp">
-      <Filter>Source\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="GenieBonusLevel.cpp">
-      <Filter>Source\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Ground.cpp">
-      <Filter>Source\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="HealthMeter.cpp">
-      <Filter>Source\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Iago.cpp">
-      <Filter>Source\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Jafar.cpp">
-      <Filter>Source\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="MagicCarpet.cpp">
-      <Filter>Source\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="MusclePalaceGuard.cpp">
-      <Filter>Source\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Peddler.cpp">
-      <Filter>Source\Object</Filter>
-    </ClCompile>
     <ClCompile Include="RestartPoint.cpp">
       <Filter>Source\Object</Filter>
     </ClCompile>
     <ClCompile Include="SpendThese.cpp">
-      <Filter>Source\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="ThinPalaceGuard.cpp">
       <Filter>Source\Object</Filter>
     </ClCompile>
     <ClCompile Include="ThrowApples.cpp">
@@ -85,78 +43,84 @@
     <ClCompile Include="Score.cpp">
       <Filter>Source\Object\ScoreBoard</Filter>
     </ClCompile>
-    <ClCompile Include="Stone.cpp">
-      <Filter>Source\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Ball.cpp">
-      <Filter>Source\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Trap.cpp">
-      <Filter>Source\Object</Filter>
-    </ClCompile>
     <ClCompile Include="Penny.cpp">
       <Filter>Source\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Vase.cpp">
-      <Filter>Source\Object</Filter>
+    <ClCompile Include="Ground.cpp">
+      <Filter>Source\Object\map</Filter>
+    </ClCompile>
+    <ClCompile Include="Pilar.cpp">
+      <Filter>Source\Object\map</Filter>
+    </ClCompile>
+    <ClCompile Include="WreckingBall.cpp">
+      <Filter>Source\Object\map</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Source\Object\map</Filter>
+    </ClCompile>
+    <ClCompile Include="Bat.cpp">
+      <Filter>Source\Object\map</Filter>
+    </ClCompile>
+    <ClCompile Include="Trap.cpp">
+      <Filter>Source\Object\map</Filter>
+    </ClCompile>
+    <ClCompile Include="Peddler.cpp">
+      <Filter>Source\Object\map</Filter>
+    </ClCompile>
+    <ClCompile Include="Stone.cpp">
+      <Filter>Source\Object\map</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtraHealth.cpp">
+      <Filter>Source\Object\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="GenieBonusLevel.cpp">
+      <Filter>Source\Object\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthMeter.cpp">
+      <Filter>Source\Object\Items</Filter>
     </ClCompile>
     <ClCompile Include="Heart.cpp">
-      <Filter>Source\Object</Filter>
+      <Filter>Source\Object\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Apple.cpp">
+      <Filter>Source\Object\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Iago.cpp">
+      <Filter>Source\Object\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Jafar.cpp">
+      <Filter>Source\Object\Enemies\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="MagicCarpet.cpp">
+      <Filter>Source\Object\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplodingSkeleton.cpp">
+      <Filter>Source\Object\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="FatPalaceGuard.cpp">
+      <Filter>Source\Object\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalPalaceGuard.cpp">
+      <Filter>Source\Object\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Vase.cpp">
+      <Filter>Source\Object\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="ThinPalaceGuard.cpp">
+      <Filter>Source\Object\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aladdin.h">
       <Filter>Source\Object\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Bat.h">
-      <Filter>Source\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>Source\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="ExplodingSkeleton.h">
-      <Filter>Source\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="ExtraHealth.h">
-      <Filter>Source\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="FatPalaceGuard.h">
-      <Filter>Source\Object</Filter>
-    </ClInclude>
     <ClInclude Include="Up.h">
-      <Filter>Source\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="GenieBonusLevel.h">
-      <Filter>Source\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Ground.h">
-      <Filter>Source\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="HealthMeter.h">
-      <Filter>Source\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Iago.h">
-      <Filter>Source\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Jafar.h">
-      <Filter>Source\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="MagicCarpet.h">
-      <Filter>Source\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="MusclePalaceGuard.h">
-      <Filter>Source\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Peddler.h">
       <Filter>Source\Object</Filter>
     </ClInclude>
     <ClInclude Include="RestartPoint.h">
       <Filter>Source\Object</Filter>
     </ClInclude>
     <ClInclude Include="SpendThese.h">
-      <Filter>Source\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="ThinPalaceGuard.h">
       <Filter>Source\Object</Filter>
     </ClInclude>
     <ClInclude Include="ThrowApples.h">
@@ -166,9 +130,6 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="SceneOne.h">
-      <Filter>Source\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneBoss.h">
       <Filter>Source\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="ScoreBoard.h">
@@ -189,23 +150,74 @@
     <ClInclude Include="Score.h">
       <Filter>Source\Object\ScoreBoard</Filter>
     </ClInclude>
-    <ClInclude Include="Stone.h">
-      <Filter>Source\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Trap.h">
-      <Filter>Source\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Ball.h">
-      <Filter>Source\Object</Filter>
-    </ClInclude>
     <ClInclude Include="Penny.h">
       <Filter>Source\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Vase.h">
-      <Filter>Source\Object</Filter>
+    <ClInclude Include="Pilar.h">
+      <Filter>Source\Object\map</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>Source\Object\map</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneBoss.h">
+      <Filter>Source\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="WreckingBall.h">
+      <Filter>Source\Object\map</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Source\Object\map</Filter>
+    </ClInclude>
+    <ClInclude Include="Bat.h">
+      <Filter>Source\Object\map</Filter>
+    </ClInclude>
+    <ClInclude Include="Trap.h">
+      <Filter>Source\Object\map</Filter>
+    </ClInclude>
+    <ClInclude Include="Peddler.h">
+      <Filter>Source\Object\map</Filter>
+    </ClInclude>
+    <ClInclude Include="Stone.h">
+      <Filter>Source\Object\map</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtraHealth.h">
+      <Filter>Source\Object\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="GenieBonusLevel.h">
+      <Filter>Source\Object\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthMeter.h">
+      <Filter>Source\Object\Items</Filter>
     </ClInclude>
     <ClInclude Include="Heart.h">
-      <Filter>Source\Object</Filter>
+      <Filter>Source\Object\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Apple.h">
+      <Filter>Source\Object\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Iago.h">
+      <Filter>Source\Object\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Jafar.h">
+      <Filter>Source\Object\Enemies\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="MagicCarpet.h">
+      <Filter>Source\Object\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplodingSkeleton.h">
+      <Filter>Source\Object\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="FatPalaceGuard.h">
+      <Filter>Source\Object\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalPalaceGuard.h">
+      <Filter>Source\Object\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Vase.h">
+      <Filter>Source\Object\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ThinPalaceGuard.h">
+      <Filter>Source\Object\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -232,6 +244,12 @@
     </Filter>
     <Filter Include="Source\Object\ScoreBoard">
       <UniqueIdentifier>{138c53e2-8c2d-4f92-8c19-65e5090e538b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Object\map">
+      <UniqueIdentifier>{ae36649e-40e2-4fbb-af59-9bf646f63262}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Object\Enemies\Boss">
+      <UniqueIdentifier>{f5408931-a367-431f-b28f-8cc1e8e28fe5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

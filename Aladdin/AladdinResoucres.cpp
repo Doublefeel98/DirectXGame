@@ -13,7 +13,8 @@ void AladdinResoucres::LoadTextures()
 	textures->Add(ID_TEX_ITEM_2, L"resources\\textures\\Items.png", D3DCOLOR_XRGB(248, 0, 248));
 
 	//map
-	textures->Add(ID_TEX_MAP_ONE, L"resources\\mapread\\lv1\\lv1.png", D3DCOLOR_XRGB(163, 73, 164));
+	//textures->Add(ID_TEX_MAP_ONE, L"resources\\mapread\\lv1\\lv1.png", D3DCOLOR_XRGB(163, 73, 164));
+	textures->Add(ID_TEX_MAP_ONE, L"resources\\map\\lv1\\titlemaplv1.png", D3DCOLOR_XRGB(163, 73, 164));
 
 	//Obstacle
 	textures->Add(ID_TEX_OBSTACLE, L"resources\\textures\\Aladdin_Sultan_ Dungeon.png", D3DCOLOR_XRGB(163, 73, 164));
@@ -177,11 +178,11 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(10405, 221, 231, 258, 291, texAladdinGoRight);
 	sprites->Add(10406, 268, 231, 320, 291, texAladdinGoRight);
 
-	sprites->Add(10411, 9, 567, 46, 619, texAladdinGoRight);		// sitting throw apple right
-	sprites->Add(10412, 58, 567, 95, 619, texAladdinGoRight);
-	sprites->Add(10413, 107, 567, 157, 619, texAladdinGoRight);
-	sprites->Add(10414, 164, 567, 246, 619, texAladdinGoRight);
-	sprites->Add(10415, 256, 567, 313, 619, texAladdinGoRight);
+	sprites->Add(10411, 9, 567, 46, 619, texAladdinGoRight, 3);		// sitting throw apple right
+	sprites->Add(10412, 58, 567, 95, 619, texAladdinGoRight, 3);
+	sprites->Add(10413, 107, 567, 157, 619, texAladdinGoRight, 3);
+	sprites->Add(10414, 164, 567, 246, 619, texAladdinGoRight, -8);
+	sprites->Add(10415, 256, 567, 313, 619, texAladdinGoRight, -4);
 
 	sprites->Add(10421, 19, 1005, 68, 1064, texAladdinGoRight);		// jumping throw apple right
 	sprites->Add(10422, 77, 1005, 120, 1064, texAladdinGoRight);
@@ -371,10 +372,10 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(11405, 863, 231, 900, 291, texAladdinGoLeft);
 	sprites->Add(11406, 814, 231, 853, 291, texAladdinGoLeft);
 
-	sprites->Add(11411, 1075, 567, 1112, 619, texAladdinGoLeft);		// sitting throw apple left
-	sprites->Add(11412, 1026, 567, 1063, 619, texAladdinGoLeft);
+	sprites->Add(11411, 1075, 567, 1112, 619, texAladdinGoLeft, 13);		// sitting throw apple left
+	sprites->Add(11412, 1026, 567, 1063, 619, texAladdinGoLeft, 13);
 	sprites->Add(11413, 964, 567, 1014, 619, texAladdinGoLeft);
-	sprites->Add(11414, 875, 567, 957, 619, texAladdinGoLeft);
+	sprites->Add(11414, 875, 567, 957, 619, texAladdinGoLeft, -21);
 	sprites->Add(11415, 808, 567, 865, 619, texAladdinGoLeft);
 
 	sprites->Add(11421, 1053, 1005, 1102, 1064, texAladdinGoLeft);		// jumping throw apple left
@@ -405,7 +406,7 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(11606, 733, 2107, 788, 2149, texAladdinGoRight);
 
 	LPDIRECT3DTEXTURE9 textMapOne = textures->Get(ID_TEX_MAP_ONE);
-	sprites->Add(ID_SPRITE_MAP_ONE, 0, 0, 2144, 1024, textMapOne);
+	sprites->Add(ID_SPRITE_MAP_ONE, 0, 0, 256, 8144, textMapOne);
 
 
 	//item
@@ -577,6 +578,12 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(20455,	286, 1770, 300, 1837,texObstacle);
 	sprites->Add(20456,	266, 1770, 280, 1837,texObstacle);
 	sprites->Add(20457,	246, 1770, 260, 1837,texObstacle);
+
+	sprites->AddByWidthHeight(20500, 177, 1144, 40, 344, texObstacle); // pilar 1
+	sprites->AddByWidthHeight(20501, 497, 1144, 32, 160, texObstacle); // pilar 2
+	sprites->AddByWidthHeight(20502, 817, 1144, 32, 744, texObstacle); // pilar 3
+	sprites->AddByWidthHeight(20503, 1169, 1144, 32, 192, texObstacle); // pilar 4
+
 
 	LPDIRECT3DTEXTURE9 texBat = textures->Get(ID_TEX_BAT);
 	sprites->Add(21000,9	,10	,16	,36	  ,texBat);		//wait
@@ -1318,6 +1325,22 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(20456);
 	ani->Add(20457);
 	animations->Add(2043, ani);
+
+	ani = new CAnimation(100);		// Pilar 1
+	ani->Add(20500);
+	animations->Add(2050, ani);
+
+	ani = new CAnimation(100);		// Pilar 2
+	ani->Add(20501);
+	animations->Add(2051, ani);
+
+	ani = new CAnimation(100);		// Pilar 3
+	ani->Add(20502);
+	animations->Add(2052, ani);
+
+	ani = new CAnimation(100);		// Pilar 4
+	ani->Add(20503);
+	animations->Add(2053, ani);
 
 	ani = new CAnimation(100);		// Bat
 	ani->Add(21000);

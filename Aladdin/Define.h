@@ -31,24 +31,25 @@
 
 
 //ID OBJECTS
-#define	OBJECT_GROUND -100
-#define OBJECT_PILLAR_1 -90
-#define OBJECT_PILLAR_2 -80
-#define OBJECT_PILLAR_3 -70
-#define OBJECT_PILLAR_4 -60
-#define OBJECT_ROCK -60
-#define OBJECT_STONE 2040
-#define OBJECT_TRAP 2042
-#define OBJECT_BALL 2043
-#define OBJECT_BAT 1
-#define OBJECT_FACE 2
-#define OBJECT_GUARD 3
-#define OBJECT_SKELETON 4
-#define OBJECT_THIN_GUARD 5
-#define OBJECT_VASE 6
-#define OBJECT_PENNY 7
-#define OBJECT_APPLE 8
-#define OBJECT_HEART 9
+#define	OBJECT_APPLE					1
+#define OBJECT_GOLD						2
+#define OBJECT_GENIE_FACE				3
+#define OBJECT_GENIE_JAR				4
+#define OBJECT_BAT						5
+#define OBJECT_NORMAL_PALACE_GUARD		6
+#define OBJECT_THIN_PALACE_GUARD		7
+#define OBJECT_FAT_PALACE_GUARD			8
+#define OBJECT_EXPLODING_SKELETON		9
+#define OBJECT_PEDDLER					10
+#define OBJECT_BRICK					11
+#define OBJECT_SPIKE_TRAP				12
+#define OBJECT_WRECKING_BALL			13
+#define OBJECT_CHAINS					14
+#define OBJECT_FENCE					15
+#define OBJECT_ROCK_BAR					16
+#define OBJECT_WOOD						17
+#define OBJECT_GROUND					18
+#define OBJECT_PILAR_5					19
 
 
 //ALADDIN
@@ -150,9 +151,11 @@
 #define ALADDIN_ANI_LOOK_AROUND_LEFT				39
 
 #define ALADDIN_ANI_DIE								40
+
 #define STONE_ANI_WAIT								0
 #define TRAP_ANI_WAIT								0
 #define BALL_ANI_WAIT								0
+
 #define BAT_ANI_WAIT								0
 #define BAT_ANI_FLY									1			
 #define BAT_ANI_ROTATE								2
@@ -228,6 +231,16 @@
 //Ground
 #define GROUND_BBOX_WIDTH				32
 #define GROUND_BBOX_HEIGHT				5
+
+//pilar
+#define PILAR_STATE_1								0
+#define PILAR_STATE_2								1
+#define PILAR_STATE_3								2
+#define PILAR_STATE_4								3
+#define PILAR_STATE_5								5
+
+#define PILAR_BBOX_WIDTH_5				78
+#define PILAR_BBOX_HEIGHT_5				761
 
 //MAX_HP 
 #define BAT_MAX_HP 1

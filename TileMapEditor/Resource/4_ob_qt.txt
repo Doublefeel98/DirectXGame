@@ -1,0 +1,8 @@
+1 Ground 31 129 32 16 
+2 Ground 63 127 32 16 
+3 Ground 94 128 32 16 
+4 Ground 125 128 32 16 
+5 Ground 156 127 32 16 
+6 Ground 187 127 32 16 
+0 Camera 0 240 256 240 
+0 Character 40 240 36 46 

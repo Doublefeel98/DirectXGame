@@ -109,6 +109,9 @@
     <ClCompile Include="ThinPalaceGuard.cpp">
       <Filter>Source\Object\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="NormalPalaceGuard.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aladdin.h">
@@ -117,6 +120,30 @@
     <ClInclude Include="Up.h">
       <Filter>Source\Object</Filter>
     </ClInclude>
+<<<<<<< HEAD
+=======
+    <ClInclude Include="GenieBonusLevel.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthMeter.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Iago.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Jafar.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="MagicCarpet.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Peddler.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+>>>>>>> features/toan2
     <ClInclude Include="RestartPoint.h">
       <Filter>Source\Object</Filter>
     </ClInclude>
@@ -218,6 +245,9 @@
     </ClInclude>
     <ClInclude Include="ThinPalaceGuard.h">
       <Filter>Source\Object\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalPalaceGuard.h">
+      <Filter>Source\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

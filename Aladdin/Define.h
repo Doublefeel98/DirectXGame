@@ -153,32 +153,64 @@
 #define ALADDIN_ANI_DIE								40
 
 #define STONE_ANI_WAIT								0
+
 #define TRAP_ANI_WAIT								0
+
 #define BALL_ANI_WAIT								0
 
 #define BAT_ANI_WAIT								0
-#define BAT_ANI_FLY									1			
-#define BAT_ANI_ROTATE								2
-#define BAT_ANI_DIE									3
-#define GUARD_ANI_WAIT								0
-#define GUARD_ANI_STAB								1			
-#define GUARD_ANI_WAVE								2
-#define GUARD_ANI_SURPRISE							3
-#define GUARD_ANI_JUMP								4
-#define GUARD_ANI_DIE								5
-#define GUARD_ANI_DIE_SHADOW						6
-#define THIN_GUARD_ANI_WAIT							0
-#define THIN_GUARD_ANI_WAVE							1
-#define THIN_GUARD_ANI_WALK							2
-#define THIN_GUARD_ANI_SURPRISE						3
-#define SKELETON_ANI_WAIT							0
+#define BAT_ANI_SWING								1
+#define BAT_ANI_FLY									2			
+
+
+#define THIN_GUARD_ANI_IDLE_RIGHT					0
+#define THIN_GUARD_ANI_IDLE_LEFT					1
+#define THIN_GUARD_ANI_WALK_RIGHT					2
+#define THIN_GUARD_ANI_WALK_LEFT					3
+#define THIN_GUARD_ANI_ATTACK_RIGHT					4
+#define THIN_GUARD_ANI_ATTACK_LEFT					5
+#define THIN_GUARD_ANI_SUPRISE_RIGHT				6
+#define THIN_GUARD_ANI_SUPRISE_LEFT					7
+
+#define NORMAL_GUARD_ANI_IDLE_RIGHT					0
+#define NORMAL_GUARD_ANI_IDLE_LEFT					1			
+#define NORMAL_GUARD_ANI_WALK_RIGHT					2
+#define NORMAL_GUARD_ANI_WALK_LEFT					3
+#define NORMAL_GUARD_ANI_WAIT_RIGHT					4
+#define NORMAL_GUARD_ANI_WAIT_LEFT					5
+#define NORMAL_GUARD_ANI_ATTACK_RIGHT				6
+#define NORMAL_GUARD_ANI_ATTACK_LEFT				7
+#define NORMAL_GUARD_ANI_SUPRISE_RIGH				8
+#define NORMAL_GUARD_ANI_SUPRISE_LEFT				9
+
+#define FAT_GUARD_ANI_IDLE_RIGHT					0
+#define FAT_GUARD_ANI_IDLE_LEFT						1
+#define FAT_GUARD_ANI_WALK_RIGHT					2
+#define FAT_GUARD_ANI_WALK_LEFT						3
+#define FAT_GUARD_ANI_ATTACK_RIGHT					4
+#define FAT_GUARD_ANI_ATTACK_LEFT					5
+#define FAT_GUARD_ANI_SUPRISE_RIGHT					6
+#define FAT_GUARD_ANI_SUPRISE_LEFT					7
+
+#define SKELETON_ANI_WAIT_RIGHT						0
+#define SKELETON_ANI_WAIT_LEFT						1
+#define SKELETON_ANI_STAND_UP_RIGHT					2
+#define SKELETON_ANI_STAND_UP_LEFT					3
+
+
 #define APPLE_ANI_WAIT								0
+
 #define PENNY_ANI_WAIT								0
+
 #define VASE_ANI_WAIT								0
+
 #define GENNIE_ANI_WAIT								0
+
 #define HEART_ANI_WAIT								0
+
 #define VASE_ANI_ACTIVE								1
-#define GENNIE_ANI_ACTIVE								1
+
+#define GENNIE_ANI_ACTIVE							1
 
 #define ALADDIN_BBOX_WIDTH  41
 #define ALADDIN_BBOX_HEIGHT 51

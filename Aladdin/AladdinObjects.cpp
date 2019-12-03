@@ -46,13 +46,6 @@ void AladdinObjects::Load(string file, vector<LPGAMEOBJECT>* listObject)
 
 void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, int height, vector<LPGAMEOBJECT>* listObject)
 {
-	if (type == OBJECT_APPLE)
-	{
-
-	}
-	else if (type == OBJECT_APPLE) {
-
-	}
 	switch (type)
 	{
 	//case OBJECT_APPLE:

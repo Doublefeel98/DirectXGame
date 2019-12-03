@@ -130,6 +130,7 @@
     <ClInclude Include="HP.h" />
     <ClInclude Include="Life.h" />
     <ClInclude Include="MagicCarpet.h" />
+    <ClInclude Include="NormalPalaceGuard.h" />
     <ClInclude Include="Penny.h" />
     <ClInclude Include="RestartPoint.h" />
     <ClInclude Include="Score.h" />
@@ -152,7 +153,6 @@
     <ClInclude Include="GenieBonusLevel.h" />
     <ClInclude Include="Jafar.h" />
     <ClInclude Include="FatPalaceGuard.h" />
-    <ClInclude Include="MusclePalaceGuard.h" />
     <ClInclude Include="Peddler.h" />
     <ClInclude Include="ThinPalaceGuard.h" />
     <ClInclude Include="Vase.h" />
@@ -188,7 +188,7 @@
     <ClCompile Include="Jafar.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="FatPalaceGuard.cpp" />
-    <ClCompile Include="MusclePalaceGuard.cpp" />
+    <ClCompile Include="NormalPalaceGuard.cpp" />
     <ClCompile Include="Peddler.cpp" />
     <ClCompile Include="ThinPalaceGuard.cpp" />
     <ClCompile Include="Vase.cpp" />

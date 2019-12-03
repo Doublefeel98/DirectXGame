@@ -9,7 +9,7 @@ Penny::Penny() :CGameObject() {
 
 	enabled = true;
 
-	//AddAnimation(2110);
+	AddAnimation(2110);
 }
 Penny::~Penny() {
 

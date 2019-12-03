@@ -30,10 +30,10 @@ void ThrowApples::GetBoundingBox(float& left, float& top, float& right, float& b
 	}
 }
 void ThrowApples::Render() {
-	if (enabled) {
-		animations[APPLE_ANI_WAIT]->Render(x, y, 255);
-		RenderBoundingBox();
-	}
+	//if (enabled) {
+	//	animations[APPLE_ANI_WAIT]->Render(x, y, 255);
+	//	RenderBoundingBox();
+	//}
 }
 void ThrowApples::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject) {
 	CGameObject::Update(dt);

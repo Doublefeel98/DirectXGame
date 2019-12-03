@@ -34,9 +34,6 @@
     <ClCompile Include="MagicCarpet.cpp">
       <Filter>Source\Object</Filter>
     </ClCompile>
-    <ClCompile Include="MusclePalaceGuard.cpp">
-      <Filter>Source\Object</Filter>
-    </ClCompile>
     <ClCompile Include="Peddler.cpp">
       <Filter>Source\Object</Filter>
     </ClCompile>
@@ -103,6 +100,9 @@
     <ClCompile Include="Heart.cpp">
       <Filter>Source\Object</Filter>
     </ClCompile>
+    <ClCompile Include="NormalPalaceGuard.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aladdin.h">
@@ -142,9 +142,6 @@
       <Filter>Source\Object</Filter>
     </ClInclude>
     <ClInclude Include="MagicCarpet.h">
-      <Filter>Source\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="MusclePalaceGuard.h">
       <Filter>Source\Object</Filter>
     </ClInclude>
     <ClInclude Include="Peddler.h">
@@ -205,6 +202,9 @@
       <Filter>Source\Object</Filter>
     </ClInclude>
     <ClInclude Include="Heart.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalPalaceGuard.h">
       <Filter>Source\Object</Filter>
     </ClInclude>
   </ItemGroup>

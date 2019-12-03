@@ -9,7 +9,7 @@ Heart::Heart() :CGameObject() {
 
 	enabled = true;
 
-	//AddAnimation(2117);
+	AddAnimation(2117);
 }
 Heart::~Heart() {
 

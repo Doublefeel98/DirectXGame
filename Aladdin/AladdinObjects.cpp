@@ -119,7 +119,7 @@ void AladdinObjects::LoadObject(int id, int type, float _x, float _y, vector<LPG
 	}
 	case OBJECT_GUARD :
 	{
-		MusclePalaceGuard* object = new MusclePalaceGuard();
+		NormalPalaceGuard* object = new NormalPalaceGuard();
 		object->SetId(id);
 		object->SetType(type);
 		object->SetPosition(x - 75, y - 65);

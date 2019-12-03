@@ -15,7 +15,8 @@ protected:
 	D3DXVECTOR3 cameraCheckpoint;
 	MapCollision* leftmap;
 	MapCollision* rightmap;
-	string fileResoucre;
+	char* fileResoucre;
+	char* fileGrid;
 	char* fileMap;
 	CCamera* camera;
 	vector<LPGAMEOBJECT> objects;

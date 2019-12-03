@@ -123,15 +123,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AladdinResoucres.h" />
-    <ClInclude Include="Ball.h" />
+    <ClInclude Include="Apple.h" />
+    <ClInclude Include="WreckingBall.h" />
     <ClInclude Include="ExtraHealth.h" />
     <ClInclude Include="HealthMeter.h" />
     <ClInclude Include="Heart.h" />
     <ClInclude Include="HP.h" />
     <ClInclude Include="Life.h" />
     <ClInclude Include="MagicCarpet.h" />
-    <ClInclude Include="NormalPalaceGuard.h" />
     <ClInclude Include="Penny.h" />
+    <ClInclude Include="Pilar.h" />
     <ClInclude Include="RestartPoint.h" />
     <ClInclude Include="Score.h" />
     <ClInclude Include="SpendThese.h" />
@@ -153,13 +154,15 @@
     <ClInclude Include="GenieBonusLevel.h" />
     <ClInclude Include="Jafar.h" />
     <ClInclude Include="FatPalaceGuard.h" />
+    <ClInclude Include="NormalPalaceGuard.h" />
     <ClInclude Include="Peddler.h" />
     <ClInclude Include="ThinPalaceGuard.h" />
     <ClInclude Include="Vase.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AladdinResoucres.cpp" />
-    <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="Apple.cpp" />
+    <ClCompile Include="WreckingBall.cpp" />
     <ClCompile Include="ExtraHealth.cpp" />
     <ClCompile Include="HealthMeter.cpp" />
     <ClCompile Include="Heart.cpp" />
@@ -167,6 +170,7 @@
     <ClCompile Include="Life.cpp" />
     <ClCompile Include="MagicCarpet.cpp" />
     <ClCompile Include="Penny.cpp" />
+    <ClCompile Include="Pilar.cpp" />
     <ClCompile Include="RestartPoint.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="SpendThese.cpp" />

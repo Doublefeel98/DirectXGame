@@ -3,7 +3,6 @@
 #include "../Framework/debug.h"
 
 #include "../Framework/Game.h"
-#include"ThinPalaceGuard.h"
 
 void ThinPalaceGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject) {
 	CGameObject::Update(dt);

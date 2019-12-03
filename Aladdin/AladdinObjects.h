@@ -2,7 +2,7 @@
 #include "../Framework/Scene.h";
 #include "ScoreBoard.h";
 #include "Define.h"
-#include"Ball.h"
+#include"WreckingBall.h"
 #include"Trap.h"
 #include"Stone.h"
 #include"Bat.h"

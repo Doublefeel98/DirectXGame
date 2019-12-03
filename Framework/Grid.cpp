@@ -1,22 +1,73 @@
 #include "Grid.h"
 #include "debug.h"
+#include "Helper.h"
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
 
 bool Grid::checkExistCell(int cellX, int cellY)
 {
-	if (cellX < 0 || cellX >= rows) return false;
-	if (cellY < 0 || cellY >= columns) return false;
+	if (cellX < 0 || cellX >= numXCells) return false;
+	if (cellY < 0 || cellY >= numYCells) return false;
 	return true;
 }
 
-Grid::Grid(int widthmap,int heightmap, int screenWidth, int screenHeight)
+Grid::Grid(int widthmap, int heightmap, int cellSize)
 {
-	this->heightCell = screenHeight / 2;
-	this->widthCell = screenWidth / 2;
-	rows = heightmap / heightCell;
-	columns = widthmap / widthCell;
-	cells = new Cell*[rows];
-	for (int i = 0; i < rows; i++)
-		cells[i] = new Cell[columns];
+	this->cellSize = cellSize;
+	numXCells = heightmap / cellSize + (heightmap % cellSize > 0) ?  1 : 0;
+	numYCells = widthmap / cellSize + (widthmap % cellSize > 0) ? 1 : 0;
+
+	cells = new Cell*[numXCells];
+
+	for (int i = 0; i < numXCells; i++)
+		cells[i] = new Cell[numYCells];
+}
+
+Grid::Grid(const char* file, int widthmap, int heightmap, int cellSize, vector <LPGAMEOBJECT>* listObject)
+{
+	this->cellSize = cellSize;
+	numXCells = heightmap / cellSize + (heightmap % cellSize > 0) ? 1 : 0;
+	numYCells = widthmap / cellSize + (widthmap % cellSize > 0) ? 1 : 0;
+
+	cells = new Cell * [numXCells];
+
+	for (int i = 0; i < numXCells; i++)
+		cells[i] = new Cell[numYCells];
+
+	fstream pFile;
+	pFile.open(file, fstream::in);
+	string lineString;
+	int i = 0;
+	//int id;
+	int idObject;
+
+	std::vector<std::string> listInfo;
+
+	int indexX;
+	int indexY;
+
+	while (pFile.good())
+	{
+		getline(pFile, lineString);
+		if (lineString.find("END") != string::npos)
+			break;
+
+		listInfo = Helper::split(lineString, ' ');
+		//id = atoi(listInfo[0].c_str());
+
+		indexX = atoi(listInfo[0].c_str());
+		indexY = atoi(listInfo[1].c_str());
+
+		for (int j = 2; j < listInfo.size(); j++)
+		{
+			idObject = atoi(listInfo[j].c_str());
+			cells[indexX][indexY].Insert(listObject->at(idObject));
+			cells[indexX][indexY].InsertIdObject(idObject);
+		}
+		i++;
+	}
 }
 
 
@@ -69,10 +120,10 @@ void Grid::Add(vector <LPGAMEOBJECT> *listObject)
 		right = left + object->GetWidth();
 		bottom = top + object->GetHeight();
 
-		int cellLeft = (int)(left / widthCell) - 1;
-		int cellRight = (int)(right / widthCell) - 1;
-		int cellTop = (int)(top / heightCell) - 1;
-		int cellBottom = (int)(bottom / heightCell) - 1;
+		int cellLeft = (int)(left / cellSize);
+		int cellRight = (int)(right / cellSize);
+		int cellTop = (int)(top / cellSize);
+		int cellBottom = (int)(bottom / cellSize);
 
 		if (cellLeft == cellRight)
 		{
@@ -113,28 +164,37 @@ void Grid::Add(vector <LPGAMEOBJECT> *listObject)
 	}
 }
 
-void Grid::GetListOfObjects(vector<LPGAMEOBJECT>* list_object, int SCREEN_WIDTH, int SCREEN_HEIGHT)
+void Grid::AddById(vector<LPGAMEOBJECT>* listObject)
+{
+
+}
+
+void Grid::GetListOfObjects(vector<LPGAMEOBJECT>* list_object, int screenWidth, int screenHeight)
 {
 	CCamera* camera = CCamera::GetInstance();
 	list_object->clear();
 	int xs, ys;
 	int xe, ye;
 	int i, j, k;
-	xs = (int)camera->GetCameraPosition().x / widthCell;
-	ys = (int)camera->GetCameraPosition().y / heightCell;
+	xs = (int)camera->GetCameraPosition().x / cellSize;
+	ys = (int)camera->GetCameraPosition().y / cellSize;
 
-	xe = (int)(camera->GetCameraPosition().x + SCREEN_WIDTH) / widthCell;
-	ye = (int)(camera->GetCameraPosition().y + SCREEN_HEIGHT) / heightCell;
-	if (xe == columns-1)
+	xe = (int)(camera->GetCameraPosition().x + screenWidth) / cellSize;
+	ye = (int)(camera->GetCameraPosition().y + screenHeight) / cellSize;
+	if (xe == numYCells-1)
 		xe += 1;
 	for (i = ys; i < ye; i++)
-	for (j = xs; j < xe; j++)
 	{
-		if (cells[i][j].GetListObjects().size() != 0)
-			for (k = 0; k < cells[i][j].GetListObjects().size(); k++)
-			{
-				LPGAMEOBJECT e = cells[i][j].GetListObjects()[k];
-				list_object->push_back(e);
-			}
+		for (j = xs; j < xe; j++)
+		{
+			if (cells[i][j].GetListObjects().size() != 0)
+				for (k = 0; k < cells[i][j].GetListObjects().size(); k++)
+				{
+					LPGAMEOBJECT e = cells[i][j].GetListObjects()[k];
+					list_object->push_back(e);
+				}
+		}
 	}
+		
 }
+

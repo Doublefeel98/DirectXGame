@@ -61,8 +61,8 @@
             this.saveImgFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.btnLoadObject = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.tbCellSize = new System.Windows.Forms.TextBox();
             this.btnChangeCellSize = new System.Windows.Forms.Button();
+            this.tbCellSize = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBG)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -327,7 +327,7 @@
             this.imageListOB.Images.SetKeyName(4, "Bat.png");
             this.imageListOB.Images.SetKeyName(5, "NormalGuard.png");
             this.imageListOB.Images.SetKeyName(6, "ThinGuard.png");
-            this.imageListOB.Images.SetKeyName(7, "FatGuard.jpg");
+            this.imageListOB.Images.SetKeyName(7, "FatGuard.png");
             this.imageListOB.Images.SetKeyName(8, "BoomSkeleton.png");
             this.imageListOB.Images.SetKeyName(9, "Peddler.png");
             this.imageListOB.Images.SetKeyName(10, "StoneBrick.png");
@@ -412,15 +412,6 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Cell Size";
             // 
-            // tbCellSize
-            // 
-            this.tbCellSize.Location = new System.Drawing.Point(7, 22);
-            this.tbCellSize.Margin = new System.Windows.Forms.Padding(4);
-            this.tbCellSize.Name = "tbCellSize";
-            this.tbCellSize.Size = new System.Drawing.Size(116, 22);
-            this.tbCellSize.TabIndex = 4;
-            this.tbCellSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
             // btnChangeCellSize
             // 
             this.btnChangeCellSize.Location = new System.Drawing.Point(141, 20);
@@ -430,6 +421,15 @@
             this.btnChangeCellSize.Text = "change";
             this.btnChangeCellSize.UseVisualStyleBackColor = true;
             this.btnChangeCellSize.Click += new System.EventHandler(this.btnChangeCellSize_Click);
+            // 
+            // tbCellSize
+            // 
+            this.tbCellSize.Location = new System.Drawing.Point(7, 22);
+            this.tbCellSize.Margin = new System.Windows.Forms.Padding(4);
+            this.tbCellSize.Name = "tbCellSize";
+            this.tbCellSize.Size = new System.Drawing.Size(116, 22);
+            this.tbCellSize.TabIndex = 4;
+            this.tbCellSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // MapEditor
             // 

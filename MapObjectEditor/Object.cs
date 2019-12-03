@@ -135,7 +135,7 @@ namespace MapEditor
             {
                 this.Id = 1;
             }
-            else if (Name.Equals("aaa"))
+            else if (Name.Equals("Ruby"))
             {
                 this.Id = 2;
             }
@@ -221,7 +221,7 @@ namespace MapEditor
             {
                 objectId = 1;
             }
-            else if (objectName.Equals("aaa"))
+            else if (objectName.Equals("Ruby"))
             {
                 objectId = 2;
             }

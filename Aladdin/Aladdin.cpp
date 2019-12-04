@@ -30,6 +30,8 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// Simple fall down
 	vy += ALADDIN_GRAVITY * dt;
 
+	throwApple->Update(dt, coObjects);
+
 
 	if (this->GetState() == ALADDIN_STATE_IDLE) 
 	{
@@ -127,6 +129,17 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			if (now - timeThrowStart > ALADDIN_SIT_THROW_TIME)
 			{
+				throwApple->SetEnable(true);
+				if (nx > 0)
+				{
+					throwApple->SetState(THROW_APPLE_STATE_RIGHT);
+					throwApple->SetPosition(x + ALADDIN_BBOX_WIDTH + 3, y - 3);
+				}
+				else {
+					throwApple->SetState(THROW_APPLE_STATE_LEFT);
+					throwApple->SetPosition(x - 3, y - 3);
+				}
+
 				ResetAnimationsThrow();
 				timeThrowStart = 0;
 				IsThrow = false;
@@ -137,6 +150,18 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			if (now - timeThrowStart > ALADDIN_JUMP_THROW_TIME)
 			{
+				throwApple->SetEnable(true);
+				if (nx > 0)
+				{
+					throwApple->SetState(THROW_APPLE_STATE_RIGHT);
+					throwApple->SetPosition(x + ALADDIN_BBOX_WIDTH + 3, y);
+				}
+				else {
+					throwApple->SetState(THROW_APPLE_STATE_LEFT);
+					throwApple->SetPosition(x - 3, y);
+				}
+				
+
 				ResetAnimationsThrow();
 				timeThrowStart = 0;
 				IsThrow = false;
@@ -148,6 +173,17 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			if (now - timeThrowStart > ALADDIN_THROW_TIME)
 			{
+				throwApple->SetEnable(true);
+				if (nx > 0)
+				{
+					throwApple->SetState(THROW_APPLE_STATE_RIGHT);
+					throwApple->SetPosition(x + ALADDIN_BBOX_WIDTH + 3, y);
+				}
+				else {
+					throwApple->SetState(THROW_APPLE_STATE_LEFT);
+					throwApple->SetPosition(x - 3, y);
+				}
+
 				ResetAnimationsThrow();
 				timeThrowStart = 0;
 				IsThrow = false;
@@ -480,6 +516,8 @@ void Aladdin::Render()
 	animations[ani]->Render(posX, posY, alpha);
 
 	RenderBoundingBox();
+
+	throwApple->Render();
 }
 
 void Aladdin::SetState(int state)
@@ -704,7 +742,24 @@ Aladdin::Aladdin() : CGameObject()
 	IsLookingUp = false;
 	IsStand = false;
 	IsThrow = false;
+	IsGround = false;
 	untouchable = 0;
+
+	throwApple = new ThrowApples();
+
+	level = 0;
+	untouchable = 0;
+	untouchable_start = 0;
+	timeAttackStart = 0;
+	timeSittingSlashStart = 0;
+	timeStandStart = 0;
+	timeIdleStart = 0;
+	timeSitStart = 0;
+	timeLookUpStart = 0;
+	timeThrowStart = 0;
+	timeRunJumpStart = 0;
+	timeJumpSlashStart = 0;
+	timeJumpThrowStart = 0;
 
 	AddAnimation(100);		// idle right
 	AddAnimation(101);		//idle left

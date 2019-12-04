@@ -7,9 +7,6 @@
     <ClCompile Include="SpendThese.cpp">
       <Filter>Source\Object</Filter>
     </ClCompile>
-    <ClCompile Include="ThrowApples.cpp">
-      <Filter>Source\Object</Filter>
-    </ClCompile>
     <ClCompile Include="Up.cpp">
       <Filter>Source\Object</Filter>
     </ClCompile>
@@ -109,6 +106,9 @@
     <ClCompile Include="ThinPalaceGuard.cpp">
       <Filter>Source\Object\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="ThrowApples.cpp">
+      <Filter>Source\Object\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aladdin.h">
@@ -142,9 +142,6 @@
       <Filter>Source\Object</Filter>
     </ClInclude>
     <ClInclude Include="SpendThese.h">
-      <Filter>Source\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="ThrowApples.h">
       <Filter>Source\Object</Filter>
     </ClInclude>
     <ClInclude Include="Define.h">
@@ -239,6 +236,9 @@
     </ClInclude>
     <ClInclude Include="ThinPalaceGuard.h">
       <Filter>Source\Object\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="ThrowApples.h">
+      <Filter>Source\Object\Items</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

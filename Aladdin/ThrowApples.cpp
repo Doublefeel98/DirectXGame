@@ -3,20 +3,22 @@
 #include "../Framework/debug.h"
 
 #include "../Framework/Game.h"
-ThrowApples::ThrowApples() :CGameObject() {
-	width =	APPLE_BBOX_WIDTH;
-	height =APPLE_BBOX_HEIGHT;
 
-	enabled = true;
+ThrowApples::ThrowApples() :CGameObject() {
+	x = -5;
+	y = -5;
+	width =	APPLE_BBOX_WIDTH;
+	height = APPLE_BBOX_HEIGHT;
 
 	AddAnimation(2115);
+	isEnable = false;
 }
 ThrowApples::~ThrowApples() {
 
 }
 void ThrowApples::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (enabled) {
+	if (isEnable) {
 		left = x;
 		top = y;
 		right = left + APPLE_BBOX_WIDTH;
@@ -29,13 +31,55 @@ void ThrowApples::GetBoundingBox(float& left, float& top, float& right, float& b
 		bottom = 0;
 	}
 }
-void ThrowApples::Render() {
-	//if (enabled) {
-	//	animations[APPLE_ANI_WAIT]->Render(x, y, 255);
-	//	RenderBoundingBox();
-	//}
+void ThrowApples::SetState(int state)
+{
+	CGameObject::SetState(state);
+	switch (state)
+	{
+	case THROW_APPLE_STATE_RIGHT:
+		vx = THROW_APPLE_SPEED;
+		nx = 1;
+		break;
+	case THROW_APPLE_STATE_LEFT:
+		vx = -THROW_APPLE_SPEED;
+		nx = -1;
+		break;
+	}
 }
-void ThrowApples::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject) {
-	CGameObject::Update(dt);
+void ThrowApples::Render() {
+	if (isEnable) {
+		animations[0]->Render(x, y);
+		RenderBoundingBox();
+	}
+}
+void ThrowApples::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	
+	if (isEnable) {
+		CGameObject::Update(dt);
+
+		// Simple fall down
+		vy += THROW_APPLE_GRAVITY * dt;
+
+		vector<LPCOLLISIONEVENT> coEvents;
+		vector<LPCOLLISIONEVENT> coEventsResult;
+
+		coEvents.clear();
+
+		CalcPotentialCollisions(coObjects, coEvents);
+
+		// No collision occured, proceed normally
+		if (coEvents.size() == 0)
+		{
+			x += dx;
+			y += dy;
+		}
+		else {
+			isEnable = false;
+		}
+	}
+	else {
+		x = -5;
+		y = -5;
+		vy = 0;
+	}
 }

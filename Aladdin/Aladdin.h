@@ -1,6 +1,7 @@
 #pragma once
 #include "../Framework/GameObject.h"
 #include "Define.h"
+#include "ThrowApples.h"
 
 class Aladdin : public CGameObject
 {
@@ -17,6 +18,7 @@ class Aladdin : public CGameObject
 	DWORD timeRunJumpStart;
 	DWORD timeJumpSlashStart;
 	DWORD timeJumpThrowStart;
+	ThrowApples* throwApple;
 public:
 	Aladdin();
 	bool IsSit;

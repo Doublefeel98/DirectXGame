@@ -20,7 +20,6 @@
 #define ID_TEX_GUARD	-102
 #define ID_TEX_THIN_GUARD	-103
 #define ID_TEX_SKELETON	-104
-#define ID_TEX_ITEMS	-105
 
 #define ID_TEX_MAP_ONE -10
 
@@ -151,6 +150,15 @@
 #define ALADDIN_ANI_LOOK_AROUND_LEFT				39
 
 #define ALADDIN_ANI_DIE								40
+
+// apple
+#define THROW_APPLE_GRAVITY							0.002f
+#define THROW_APPLE_SPEED							0.5f
+
+#define THROW_APPLE_STATE_RIGHT						0
+#define THROW_APPLE_STATE_LEFT						1
+
+
 
 #define STONE_ANI_WAIT								0
 

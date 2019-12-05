@@ -36,13 +36,16 @@ void NormalPalaceGuard::GetBoundingBox(float& left, float& top, float& right, fl
 	//	right = left + GUARD_BBOX_WIDTH_DIE;
 	//	bottom = top + GUARD_BBOX_HEIGHT;
 	//}
+	left = x;
+	top = y;
+	right = left + GUARD_BBOX_WIDTH_WAIT;
+	bottom = top + GUARD_BBOX_HEIGHT;
 }
 
 void NormalPalaceGuard::Render()
 {
-	//if (wait) {
-	//	animations[NORMAL_GUARD_ANI_WAIT]->Render(x, y, 255);
-	//}
+	animations[NORMAL_GUARD_ANI_IDLE_RIGHT]->Render(x, y, 255);
+
 	//else if (stab) {
 	//	animations[NORMAL_GUARD_ANI_STAB]->Render(x, y, 255);
 	//}
@@ -60,7 +63,7 @@ void NormalPalaceGuard::Render()
 	//	animations[NORMAL_GUARD_ANI_DIE]->Render(x, y, 255);
 
 	//}
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 
 NormalPalaceGuard::NormalPalaceGuard() :CGameObject()

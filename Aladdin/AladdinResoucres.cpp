@@ -11,6 +11,7 @@ void AladdinResoucres::LoadTextures()
 	//item
 	textures->Add(ID_TEX_ITEM_1, L"resources\\textures\\aladdingenesis_aladdin_state_full.png", D3DCOLOR_XRGB(106, 148, 189));
 	textures->Add(ID_TEX_ITEM_2, L"resources\\textures\\Items.png", D3DCOLOR_XRGB(248, 0, 248));
+	textures->Add(ID_TEX_THROW_APPLE, L"resources\\textures\\aladdinGoRight.png", D3DCOLOR_XRGB(255, 0, 255));
 
 	//map
 	//textures->Add(ID_TEX_MAP_ONE, L"resources\\mapread\\lv1\\lv1.png", D3DCOLOR_XRGB(163, 73, 164));
@@ -396,6 +397,21 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(11605, 799, 2107, 862, 2149, texAladdinGoRight, -15);
 	sprites->Add(11606, 733, 2107, 788, 2149, texAladdinGoRight, -7);
 
+	sprites->AddByWidthHeight(10701, 9, 2160, 42, 52, texAladdinGoRight);		// be attacked right
+	sprites->AddByWidthHeight(10702, 58, 2160, 55, 52, texAladdinGoRight);
+	sprites->AddByWidthHeight(10703, 122, 2160, 59, 52, texAladdinGoRight);
+	sprites->AddByWidthHeight(10704, 189, 2160, 80, 52, texAladdinGoRight);
+	sprites->AddByWidthHeight(10705, 282, 2160, 62, 52, texAladdinGoRight);
+	sprites->AddByWidthHeight(10706, 351, 2160, 59, 52, texAladdinGoRight);
+
+	sprites->AddByWidthHeight(11701, 1070, 2160, 42, 52, texAladdinGoLeft);		// be attacked left
+	sprites->AddByWidthHeight(11702, 1008, 2160, 55, 52, texAladdinGoLeft);
+	sprites->AddByWidthHeight(11703, 940, 2160, 59, 52, texAladdinGoLeft);
+	sprites->AddByWidthHeight(11704, 852, 2160, 80, 52, texAladdinGoLeft);
+	sprites->AddByWidthHeight(11705, 778, 2160, 62, 52, texAladdinGoLeft);
+	sprites->AddByWidthHeight(11706, 711, 2160, 59, 52, texAladdinGoLeft);
+
+
 	/*LPDIRECT3DTEXTURE9 textMapOne = textures->Get(ID_TEX_MAP_ONE);
 	sprites->Add(ID_SPRITE_MAP_ONE, 0, 0, 2144, 1024, textMapOne);*/
 
@@ -746,6 +762,16 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(21175, 448, 171,465,	 196, texItem2);
 	sprites->Add(21176, 467, 171,483,	 196, texItem2);
 	sprites->Add(21177, 486, 171,502,	 196, texItem2);
+
+	LPDIRECT3DTEXTURE9 texThrowApple = textures->Get(ID_TEX_THROW_APPLE);
+
+	sprites->AddByWidthHeight(22000, 373, 24, 7, 7, texThrowApple);		// throw apple
+
+	sprites->AddByWidthHeight(22001, 394, 13, 23, 27, texThrowApple);	// throw apple break
+	sprites->AddByWidthHeight(22002, 414, 13, 18, 27, texThrowApple);
+	sprites->AddByWidthHeight(22003, 444, 13, 29, 27, texThrowApple);
+	sprites->AddByWidthHeight(22004, 485, 13, 31, 27, texThrowApple);
+	sprites->AddByWidthHeight(22005, 532, 13, 30, 27, texThrowApple);
 
 	LPDIRECT3DTEXTURE9 texThinGuard = textures->Get(ID_TEX_GUARD);
 
@@ -1444,6 +1470,24 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(11039);
 	animations->Add(164, ani);
 
+	ani = new CAnimation(100);	// be attacked right
+	ani->Add(10701);
+	ani->Add(10702);
+	ani->Add(10703);
+	ani->Add(10704);
+	ani->Add(10705);
+	ani->Add(10706);
+	animations->Add(165, ani);
+
+	ani = new CAnimation(100);	// be attacked left
+	ani->Add(11701);
+	ani->Add(11702);
+	ani->Add(11703);
+	ani->Add(11704);
+	ani->Add(11705);
+	ani->Add(11706);
+	animations->Add(166, ani);
+
 	//item
 	ani = new CAnimation(100);		// HP 1
 	ani->Add(20000);
@@ -1790,6 +1834,18 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(21176);
 	ani->Add(21177);
 	animations->Add(2117, ani);
+
+	ani = new CAnimation(100);		// throw apple
+	ani->Add(22000);
+	animations->Add(2200, ani);
+
+	ani = new CAnimation(100);		// throw apple break
+	ani->Add(22001);
+	ani->Add(22002);
+	ani->Add(22003);
+	ani->Add(22004);
+	animations->Add(2201, ani);
+
 
 	// enemy
 	// thin guard

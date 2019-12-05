@@ -10,7 +10,12 @@ ThrowApples::ThrowApples() :CGameObject() {
 	width =	APPLE_BBOX_WIDTH;
 	height = APPLE_BBOX_HEIGHT;
 
-	AddAnimation(2115);
+	AddAnimation(2200);		// throw apple
+	
+	AddAnimation(2201);		// throw apple break
+	AddAnimation(2202);
+	AddAnimation(2203);
+	AddAnimation(2204);
 	isEnable = false;
 }
 ThrowApples::~ThrowApples() {
@@ -58,7 +63,7 @@ void ThrowApples::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		CGameObject::Update(dt);
 
 		// Simple fall down
-		vy += THROW_APPLE_GRAVITY * dt;
+		vy += THROW_APPLE_GRAVITY * (dt/2);
 
 		vector<LPCOLLISIONEVENT> coEvents;
 		vector<LPCOLLISIONEVENT> coEventsResult;

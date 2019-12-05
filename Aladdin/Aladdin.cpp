@@ -811,6 +811,10 @@ Aladdin::Aladdin() : CGameObject()
 
 	AddAnimation(163);		//look arounf right
 	AddAnimation(164);		//look around left
+
+	AddAnimation(165);		//be attacked right
+	AddAnimation(166);		//be attacked left
+
 }
 
 Aladdin::~Aladdin()

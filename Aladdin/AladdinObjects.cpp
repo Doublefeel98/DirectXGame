@@ -84,24 +84,28 @@ void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, i
 	//	obj->SetHeight(height);
 	//	listObject->push_back(obj);
 	//	break;
-	//case OBJECT_BAT:
-	//	Ground* obj = new Ground();
-	//	obj->SetId(id);
-	//	obj->SetType(type);
-	//	obj->SetPosition(x, y);
-	//	obj->SetWidth(width);
-	//	obj->SetHeight(height);
-	//	listObject->push_back(obj);
-	//	break;
-	//case OBJECT_NORMAL_PALACE_GUARD:
-	//	Ground* obj = new Ground();
-	//	obj->SetId(id);
-	//	obj->SetType(type);
-	//	obj->SetPosition(x, y);
-	//	obj->SetWidth(width);
-	//	obj->SetHeight(height);
-	//	listObject->push_back(obj);
-	//	break;
+	case OBJECT_BAT:
+	{
+		Bat* obj = new Bat();
+		obj->SetId(id);
+		obj->SetType(type);
+		obj->SetPosition(x, y);
+		obj->SetWidth(width);
+		obj->SetHeight(height);
+		listObject->push_back(obj);
+	}
+		break;
+	case OBJECT_NORMAL_PALACE_GUARD:
+	{
+		NormalPalaceGuard* obj = new NormalPalaceGuard();
+		obj->SetId(id);
+		obj->SetType(type);
+		obj->SetPosition(x, y);
+		obj->SetWidth(width);
+		obj->SetHeight(height);
+		listObject->push_back(obj);
+	}
+		break;
 	//case OBJECT_THIN_PALACE_GUARD:
 	//	Ground* obj = new Ground();
 	//	obj->SetId(id);

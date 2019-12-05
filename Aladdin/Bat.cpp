@@ -13,11 +13,11 @@ void Bat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 
 void Bat::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	//if (wait) {
-	//	left = x;
-	//	top = y + 5;
-	//	right = left + BAT_BBOX_WIDTH_WAIT;
-	//	bottom = top + BAT_BBOX_HEIGHT;
+	if (wait) {
+		left = x;
+		top = y + 5;
+		right = left + BAT_BBOX_WIDTH_WAIT;
+		bottom = top + BAT_BBOX_HEIGHT;
 	//}else if (fly) {
 	//	left = x;
 	//	top = y + 10;
@@ -33,7 +33,7 @@ void Bat::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 	//	top = y;
 	//	right = left + BAT_BBOX_WIDTH_DIE;
 	//	bottom = top + BAT_BBOX_HEIGHT;
-	//}
+	}
 }
 void Bat::Render() 
 {
@@ -53,6 +53,9 @@ void Bat::Render()
 	//	animations[BAT_ANI_DIE]->Render(x, y, 255);
 	//	RenderBoundingBox();
 	//}
+
+	animations[BAT_ANI_WAIT]->Render(x, y, 255);
+	RenderBoundingBox();
 }
 
 Bat::Bat() :CGameObject() 

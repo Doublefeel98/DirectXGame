@@ -194,7 +194,7 @@ namespace MapEditor
             textBoxHeightOB.Text = imageCursor.Height.ToString();
             textBoxWidthOB.Text = imageCursor.Width.ToString();
             textBoxNameOB.Text = listViewOB.SelectedItems[0].Text;
-            objectId = listViewOB.SelectedItems[0].ImageIndex;
+            objectId = listViewOB.SelectedItems[0].ImageIndex + 1;
         }
 
         private void pictureBoxBG_MouseMove(object sender, MouseEventArgs e)

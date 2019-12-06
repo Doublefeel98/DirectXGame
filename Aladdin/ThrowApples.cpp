@@ -26,8 +26,8 @@ void ThrowApples::GetBoundingBox(float& left, float& top, float& right, float& b
 	if (isEnable) {
 		left = x;
 		top = y;
-		right = left + APPLE_BBOX_WIDTH;
-		bottom = top + APPLE_BBOX_HEIGHT;
+		right = left + THROW_APPLE_BBOX_WIDTH;
+		bottom = top + THROW_APPLE_BBOX_HEIGHT;
 	}
 	else {
 		left = 0;

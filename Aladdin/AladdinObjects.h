@@ -14,6 +14,7 @@
 #include"ThinPalaceGuard.h"
 #include"GenieBonusLevel.h"
 #include"Heart.h"
+#include"Apple.h"
 class AladdinObjects
 {
 public:

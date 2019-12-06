@@ -27,7 +27,7 @@ void AladdinResoucres::LoadTextures()
 	textures->Add(ID_TEX_GUARD, L"resources\\textures\\enemy.png", D3DCOLOR_XRGB(255, 0, 255));
 
 	//skeleton
-	textures->Add(ID_TEX_SKELETON, L"resources\\textures\\skeleton.png", D3DCOLOR_XRGB(255, 255, 255));
+	textures->Add(ID_TEX_SKELETON, L"resources\\textures\\skeleton.png", D3DCOLOR_XRGB(255, 0, 255));
 
 }
 
@@ -722,46 +722,46 @@ void AladdinResoucres::LoadSprites()
 	//sprites->Add(24020,0	,0,	100	,100,texSkeleton);
 
 
-	sprites->Add(21100,340	,105, 356	,127,texItem2);		//penny
-	sprites->Add(21101,363	,105, 379	,127,texItem2);
-	sprites->Add(21102,386	,105, 402	,127,texItem2);
-	sprites->Add(21103,409	,105, 425	,127,texItem2);
-	sprites->Add(21104,432	,105, 448	,127,texItem2);
-	sprites->Add(21105,454	,105, 485	,127,texItem2);
-	sprites->Add(21106,492	,105, 514	,127,texItem2);
-	sprites->Add(21107,522	,105, 538	,127,texItem2);
-	sprites->Add(21108,545	,105, 561	,127,texItem2);
+	sprites->Add(21100, 340, 107, 356, 128, texItem2);		//penny
+	sprites->Add(21101, 363, 107, 379, 128, texItem2);
+	sprites->Add(21102, 386, 107, 402, 128, texItem2);
+	sprites->Add(21103, 409, 107, 425, 128, texItem2);
+	sprites->Add(21104, 432, 107, 448, 128, texItem2);
+	sprites->Add(21105, 454, 107, 485, 128, texItem2);
+	sprites->Add(21106, 492, 107, 514, 128, texItem2);
+	sprites->Add(21107, 522, 107, 538, 128, texItem2);
+	sprites->Add(21108, 545, 107, 561, 128, texItem2);
 
-	sprites->Add(21110,335	,45, 372	,96	,texItem2);		//faace
-	sprites->Add(21111,389	,45, 431	,96	,texItem2);
-	sprites->Add(21112,443	,45, 486	,96	,texItem2);
-	sprites->Add(21113,497	,45, 541	,96	,texItem2);
+	sprites->Add(21110, 335, 45, 372, 97, texItem2);		//genie face
+	sprites->Add(21111, 389, 45, 431, 97, texItem2);
+	sprites->Add(21112, 443, 45, 486, 97, texItem2);
+	sprites->Add(21113, 497, 45, 541, 97, texItem2);
 
-	sprites->Add(21120,335	,45, 372	,96	,texItem2);	
+	sprites->Add(21120, 335, 45, 372, 96, texItem2);	
 
-	sprites->Add(21130,19	,424, 38	,461,texItem2);		//vase
-	sprites->Add(21131,49	,424, 72	,461,texItem2);
-	sprites->Add(21132,78	,424, 111	,461,texItem2);
-	sprites->Add(21133,119	,424, 138	,461,texItem2);
-	sprites->Add(21134,145	,424, 167	,461,texItem2);
-	sprites->Add(21135,174	,424, 199	,461,texItem2);
-	sprites->Add(21136,207	,424, 230	,461,texItem2);
-	sprites->Add(21137,239	,424, 258	,461,texItem2);
-	sprites->Add(21138,270	,424, 293	,461,texItem2);
-	sprites->Add(21139,302	,424, 324	,461,texItem2);
+	sprites->Add(21130, 19, 424, 38, 461, texItem2);		//vase
+	sprites->Add(21131, 49, 424, 72, 461, texItem2);
+	sprites->Add(21132, 78, 424, 111, 461, texItem2);
+	sprites->Add(21133, 119, 424, 138, 461, texItem2);
+	sprites->Add(21134, 145, 424, 167, 461, texItem2);
+	sprites->Add(21135, 174, 424, 199, 461, texItem2);
+	sprites->Add(21136, 207, 424, 230, 461, texItem2);
+	sprites->Add(21137, 239, 424, 258, 461, texItem2);
+	sprites->Add(21138, 270, 424, 293, 461, texItem2);
+	sprites->Add(21139, 302, 424, 324, 461, texItem2);
 
-	sprites->Add(21140,19	,424, 38	,461,texItem2);
+	sprites->Add(21140, 19, 424, 38, 461, texItem2);
 
-	sprites->Add(21150, 341	,17, 	353	,28	,texItem2);	//apple
+	sprites->Add(21150, 341, 17, 353, 29, texItem2);		//apple
 						
-	sprites->Add(21170, 343, 171,361,	 196, texItem2);	//heart
-	sprites->Add(21171, 366, 171,382,	 196, texItem2);
-	sprites->Add(21172, 386, 171,403,	 196, texItem2);
-	sprites->Add(21173, 406, 171,423,	 196, texItem2);
-	sprites->Add(21174, 426, 171,445,	 196, texItem2);
-	sprites->Add(21175, 448, 171,465,	 196, texItem2);
-	sprites->Add(21176, 467, 171,483,	 196, texItem2);
-	sprites->Add(21177, 486, 171,502,	 196, texItem2);
+	sprites->Add(21170, 343, 171,361, 196, texItem2);		//heart
+	sprites->Add(21171, 366, 171,382, 196, texItem2);
+	sprites->Add(21172, 386, 171,403, 196, texItem2);
+	sprites->Add(21173, 406, 171,423, 196, texItem2);
+	sprites->Add(21174, 426, 171,445, 196, texItem2);
+	sprites->Add(21175, 448, 171,465, 196, texItem2);
+	sprites->Add(21176, 467, 171,483, 196, texItem2);
+	sprites->Add(21177, 486, 171,502, 196, texItem2);
 
 	LPDIRECT3DTEXTURE9 texThrowApple = textures->Get(ID_TEX_THROW_APPLE);
 
@@ -1815,7 +1815,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(21139);
 	animations->Add(2113, ani);
 
-	ani = new CAnimation(100);
+	ani = new CAnimation(100);		// vase idle
 	ani->Add(21140);
 	animations->Add(2114, ani);
 

@@ -35,6 +35,11 @@ void ThinPalaceGuard::GetBoundingBox(float& left, float& top, float& right, floa
 	//	right = left + THIN_GUARD_BBOX_WIDTH_SURPISE;
 	//	bottom = top + THIN_GUARD_BBOX_HEIGHT;
 	//}
+
+	left = x;
+	top = y;
+	right = left + THIN_GUARD_BBOX_WIDTH;
+	bottom = top + THIN_GUARD_BBOX_HEIGHT;
 }
 void ThinPalaceGuard::Render() {
 	//if (wait) {
@@ -49,12 +54,14 @@ void ThinPalaceGuard::Render() {
 	//else {
 	//	animations[THIN_GUARD_ANI_SURPRISE]->Render(x, y, 255);
 	//}
-	//RenderBoundingBox();
+	
+	animations[THIN_GUARD_ANI_SUPRISE_RIGHT]->Render(x, y, 255);
+	RenderBoundingBox();
 }
 
 
 ThinPalaceGuard::ThinPalaceGuard() :CGameObject() {
-	width = THIN_GUARD_BBOX_WIDTH_WAIT;
+	width = THIN_GUARD_BBOX_WIDTH;
 	height = THIN_GUARD_BBOX_HEIGHT;
 
 	wait = false; wave = false; walk = false; surprise = true;

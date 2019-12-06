@@ -54,7 +54,7 @@ void Bat::Render()
 	//	RenderBoundingBox();
 	//}
 
-	animations[BAT_ANI_WAIT]->Render(x, y, 255);
+	animations[BAT_ANI_FLY]->Render(x, y, 255);
 	RenderBoundingBox();
 }
 

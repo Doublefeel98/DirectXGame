@@ -31,14 +31,15 @@ void GenieBonusLevel::GetBoundingBox(float& left, float& top, float& right, floa
 	}
 }
 void GenieBonusLevel::Render() {
-	if (enabled) {
-		animations[GENNIE_ANI_WAIT]->Render(x, y, 255);
-		RenderBoundingBox();
-	}
-	else {
-		animations[GENNIE_ANI_ACTIVE]->Render(x, y, 255);
-		RenderBoundingBox();
-	}
+	//if (enabled) {
+	//	animations[GENNIE_ANI_WAIT]->Render(x, y, 255);
+	//	RenderBoundingBox();
+	//}
+	//else {
+	//	animations[GENNIE_ANI_ACTIVE]->Render(x, y, 255);
+	//	RenderBoundingBox();
+	//}
+	animations[GENNIE_ANI_ACTIVE]->Render(x, y, 255);
 }
 void GenieBonusLevel::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject) {
 	CGameObject::Update(dt);

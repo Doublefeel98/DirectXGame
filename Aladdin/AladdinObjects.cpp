@@ -48,42 +48,54 @@ void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, i
 {
 	switch (type)
 	{
-	//case OBJECT_APPLE:
-	//	Ground* obj = new Ground();
-	//	obj->SetId(id);
-	//	obj->SetType(type);
-	//	obj->SetPosition(x, y);
-	//	obj->SetWidth(width);
-	//	obj->SetHeight(height);
-	//	listObject->push_back(obj);
-	//	break;
-	//case OBJECT_GOLD:
-	//	Ground* obj = new Ground();
-	//	obj->SetId(id);
-	//	obj->SetType(type);
-	//	obj->SetPosition(x, y);
-	//	obj->SetWidth(width);
-	//	obj->SetHeight(height);
-	//	listObject->push_back(obj);
-	//	break;
-	//case OBJECT_GENIE_FACE:
-	//	Ground* obj = new Ground();
-	//	obj->SetId(id);
-	//	obj->SetType(type);
-	//	obj->SetPosition(x, y);
-	//	obj->SetWidth(width);
-	//	obj->SetHeight(height);
-	//	listObject->push_back(obj);
-	//	break;
-	//case OBJECT_GENIE_JAR:
-	//	Ground* obj = new Ground();
-	//	obj->SetId(id);
-	//	obj->SetType(type);
-	//	obj->SetPosition(x, y);
-	//	obj->SetWidth(width);
-	//	obj->SetHeight(height);
-	//	listObject->push_back(obj);
-	//	break;
+	case OBJECT_APPLE:
+	{
+		Apple* obj = new Apple();
+		obj->SetId(id);
+		obj->SetType(type);
+		obj->SetPosition(x, y);
+		obj->SetWidth(width);
+		obj->SetHeight(height);
+		listObject->push_back(obj);
+	}
+		break;
+
+	case OBJECT_GOLD:
+	{
+		Penny* obj = new Penny();
+		obj->SetId(id);
+		obj->SetType(type);
+		obj->SetPosition(x, y);
+		obj->SetWidth(width);
+		obj->SetHeight(height);
+		listObject->push_back(obj);
+	}
+		break;
+
+	case OBJECT_GENIE_FACE:
+	{
+		GenieBonusLevel* obj = new GenieBonusLevel();
+		obj->SetId(id);
+		obj->SetType(type);
+		obj->SetPosition(x, y);
+		obj->SetWidth(width);
+		obj->SetHeight(height);
+		listObject->push_back(obj);
+	}
+		break;
+
+	case OBJECT_GENIE_VASE:
+	{
+		Vase* obj = new Vase();
+		obj->SetId(id);
+		obj->SetType(type);
+		obj->SetPosition(x, y);
+		obj->SetWidth(width);
+		obj->SetHeight(height);
+		listObject->push_back(obj);
+	}
+		break;
+
 	case OBJECT_BAT:
 	{
 		Bat* obj = new Bat();
@@ -95,6 +107,7 @@ void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, i
 		listObject->push_back(obj);
 	}
 		break;
+
 	case OBJECT_NORMAL_PALACE_GUARD:
 	{
 		NormalPalaceGuard* obj = new NormalPalaceGuard();
@@ -106,15 +119,19 @@ void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, i
 		listObject->push_back(obj);
 	}
 		break;
-	//case OBJECT_THIN_PALACE_GUARD:
-	//	Ground* obj = new Ground();
-	//	obj->SetId(id);
-	//	obj->SetType(type);
-	//	obj->SetPosition(x, y);
-	//	obj->SetWidth(width);
-	//	obj->SetHeight(height);
-	//	listObject->push_back(obj);
-	//	break;
+
+	case OBJECT_THIN_PALACE_GUARD:
+	{
+		ThinPalaceGuard* obj = new ThinPalaceGuard();
+		obj->SetId(id);
+		obj->SetType(type);
+		obj->SetPosition(x, y);
+		obj->SetWidth(width);
+		obj->SetHeight(height);
+		listObject->push_back(obj);
+	}
+		break;
+
 	//case OBJECT_FAT_PALACE_GUARD:
 	//	Ground* obj = new Ground();
 	//	obj->SetId(id);
@@ -124,6 +141,19 @@ void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, i
 	//	obj->SetHeight(height);
 	//	listObject->push_back(obj);
 	//	break;
+
+	case OBJECT_EXPLODING_SKELETON:
+	{
+		ExplodingSkeleton* obj = new ExplodingSkeleton();
+		obj->SetId(id);
+		obj->SetType(type);
+		obj->SetPosition(x, y);
+		obj->SetWidth(width);
+		obj->SetHeight(height);
+		listObject->push_back(obj);
+	}
+	break;
+
 	//case OBJECT_PEDDLER:
 	//	Ground* obj = new Ground();
 	//	obj->SetId(id);

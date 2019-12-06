@@ -24,11 +24,16 @@ void ExplodingSkeleton::GetBoundingBox(float& left, float& top, float& right, fl
 	//	right = left + SKELETON_BBOX_WIDTH;
 	//	bottom = top + SKELETON_BBOX_HEIGHT;
 	//}
+
+	left = x + 25;
+	top = y + 10;
+	right = left + SKELETON_BBOX_WIDTH;
+	bottom = top + SKELETON_BBOX_HEIGHT;
 }
 void ExplodingSkeleton::Render() 
 {
-	//animations[SKELETON_ANI_WAIT]->Render(x, y, 255);
-	//RenderBoundingBox();
+	animations[SKELETON_ANI_STAND_UP_RIGHT]->Render(x, y, 255);
+	RenderBoundingBox();
 	
 }
 

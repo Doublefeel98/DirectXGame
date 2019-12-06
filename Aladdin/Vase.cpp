@@ -31,14 +31,16 @@ void Vase::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 	}
 }
 void Vase::Render() {
-	if (enabled) {
-		animations[VASE_ANI_WAIT]->Render(x, y, 255);
-		RenderBoundingBox();
-	}
-	else {
-		animations[VASE_ANI_ACTIVE]->Render(x, y, 255);
-		RenderBoundingBox();
-	}
+	//if (enabled) {
+	//	animations[VASE_ANI_WAIT]->Render(x, y, 255);
+	//	RenderBoundingBox();
+	//}
+	//else {
+	//	animations[VASE_ANI_ACTIVE]->Render(x, y, 255);
+	//	RenderBoundingBox();
+	//}
+	
+	animations[VASE_ANI_ACTIVE]->Render(x, y, 255);
 }
 void Vase::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject) {
 	CGameObject::Update(dt);

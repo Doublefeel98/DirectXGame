@@ -137,13 +137,23 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			if (now - timeAttackStart > ALADDIN_JUMP_SLASH_TIME)
 			{
-				ResetAnimationsSlash();
+				ResetAnimationsJump();
 				timeAttackStart = 0;
 				IsSlash = false;
 				IsJump = false;
 				SetState(ALADDIN_STATE_IDLE);
 
 				sword->SetEnable(false);
+			}
+		}
+		else if (vx > 0)
+		{
+			if (now - timeAttackStart > ALADDIN_RUN_SLASH_TIME)
+			{
+				ResetAnimationsSlash();
+				timeAttackStart = 0;
+				IsSlash = false;
+				SetState(ALADDIN_STATE_WALKING_RIGHT);
 			}
 		}
 		else {
@@ -212,11 +222,30 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					throwApple->SetPosition(x - 3, y);
 				}
 				
-
 				ResetAnimationsThrow();
 				timeThrowStart = 0;
 				IsThrow = false;
 				IsJump = false;
+				SetState(ALADDIN_STATE_IDLE);
+			}
+		}
+		else if (vx > 0)
+		{
+			if (now - timeThrowStart > ALADDIN_RUN_THROW_TIME)
+			{
+				throwApple->SetEnable(true);
+				if (nx > 0)
+				{
+					throwApple->SetState(THROW_APPLE_STATE_RIGHT);
+					throwApple->SetPosition(x + ALADDIN_BBOX_WIDTH + 3, y);
+				}
+				else {
+					throwApple->SetState(THROW_APPLE_STATE_LEFT);
+					throwApple->SetPosition(x - 3, y);
+				}
+				ResetAnimationsThrow();
+				timeThrowStart = 0;
+				IsThrow = false;
 				SetState(ALADDIN_STATE_IDLE);
 			}
 		}
@@ -474,13 +503,32 @@ void Aladdin::Render()
 		else {
 			if (IsSlash == true)
 			{
-				if (nx > 0) {
-					ani = ALADDIN_ANI_STANDING_SLASH_RIGHT;
+				if (nx > 0) 
+				{
+					if (vx > 0)
+					{
+						posY = y - 8;
+						ani = ALADDIN_ANI_RUN_SLASH_RIGHT;
+					}
+					else
+					{ 
+						ani = ALADDIN_ANI_STANDING_SLASH_RIGHT;
+						posY = y - 23;
+					}					
 				}
-				else {
-					ani = ALADDIN_ANI_STANDING_SLASH_LEFT;
-				}
-				posY = y - 23;
+				else
+				{
+					if (vx < 0)
+					{
+						posY = y - 8;
+						ani = ALADDIN_ANI_RUN_SLASH_LEFT;
+					}
+					else
+					{
+						ani = ALADDIN_ANI_STANDING_SLASH_LEFT;
+						posY = y - 23;
+					}
+				}				
 			}
 		}
 		if (IsJump == true)
@@ -552,12 +600,33 @@ void Aladdin::Render()
 					ani = ALADDIN_ANI_JUMPING_THROW_APPLE_LEFT;
 			}
 			else
-			{
-				posY = y - 10;
+			{				
 				if (nx > 0)
-					ani = ALADDIN_ANI_THROW_APPLE_RIGHT;
+				{
+					if (vx > 0)
+					{
+						ani = ALADDIN_ANI_RUN_THROW_RIGHT;
+						posY = y - 10;
+					}
+					else
+					{
+						ani = ALADDIN_ANI_THROW_APPLE_RIGHT;
+						posY = y - 10;
+					}
+				}					
 				else
-					ani = ALADDIN_ANI_THROW_APPLE_LEFT;
+				{
+					if (vx < 0)
+					{
+						ani = ALADDIN_ANI_RUN_THROW_LEFT;
+						posY = y - 10;
+					}
+					else
+					{
+						ani = ALADDIN_ANI_THROW_APPLE_LEFT;
+						posY = y - 10;
+					}
+				}
 			}
 		}
 	}
@@ -673,7 +742,25 @@ void Aladdin::SetState(int state)
 		IsGround = false;		
 		if (timeRunJumpStart == 0)
 		{
-			timeRunJumpStart = 0;
+			timeRunJumpStart = currentTime;
+		}
+		break;
+	case ALADDIN_STATE_RUN_SLASH:
+		vx = ALADDIN_WALKING_SPEED;
+		nx = 1;
+		IsSlash = true;
+		if (timeAttackStart == 0)
+		{
+			timeAttackStart == currentTime;
+		}
+		break;
+	case ALADDIN_STATE_RUN_THROW:
+		vx = ALADDIN_WALKING_SPEED;
+		nx = 1;
+		IsThrow = true;
+		if (timeThrowStart == 0)
+		{
+			timeThrowStart == currentTime;
 		}
 		break;
 	case ALADDIN_STATE_JUMPING_SLASH:
@@ -710,6 +797,9 @@ void Aladdin::ResetAnimationsSlash()
 
 	resetAni(ALADDIN_ANI_LOOKING_UP_SLASH_LEFT);
 	resetAni(ALADDIN_ANI_LOOKING_UP_SLASH_RIGHT);
+
+	resetAni(ALADDIN_ANI_RUN_SLASH_LEFT);
+	resetAni(ALADDIN_ANI_RUN_SLASH_RIGHT);
 }
 
 void Aladdin::ResetAnimationsSitDown()
@@ -740,6 +830,9 @@ void Aladdin::ResetAnimationsThrow()
 
 	resetAni(ALADDIN_ANI_SITTING_THROW_APPLE_RIGHT);
 	resetAni(ALADDIN_ANI_SITTING_THROW_APPLE_LEFT);
+
+	resetAni(ALADDIN_ANI_RUN_THROW_LEFT);
+	resetAni(ALADDIN_ANI_RUN_THROW_RIGHT);
 }
 
 void Aladdin::ResetAnimationsJump()
@@ -837,6 +930,10 @@ Aladdin::Aladdin() : CGameObject()
 	AddAnimation(121);		// jump left
 	AddAnimation(122);		// run jump right
 	AddAnimation(123);		// run jump left
+	AddAnimation(124);		// run slash right
+	AddAnimation(125);		// run slash left
+	AddAnimation(126);		// run throw right
+	AddAnimation(127);		// run throw left
 
 	AddAnimation(131);		// standing slash right
 	AddAnimation(132);		// standing slash left

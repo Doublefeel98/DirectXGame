@@ -16,10 +16,10 @@ int CEnemy::GetScore()
 }
 
 
-CEnemy::CEnemy()
+CEnemy::CEnemy() : CGameObject()
 {
 }
-CEnemy::CEnemy(int hp)
+CEnemy::CEnemy(int hp) : CGameObject()
 {
 	this->hp = hp;
 	this->respawnTime = 1000;

@@ -25,10 +25,27 @@ void ExplodingSkeleton::GetBoundingBox(float& left, float& top, float& right, fl
 	//	bottom = top + SKELETON_BBOX_HEIGHT;
 	//}
 
-	left = x + 25;
-	top = y + 10;
-	right = left + SKELETON_BBOX_WIDTH;
-	bottom = top + SKELETON_BBOX_HEIGHT;
+	left = x;
+	top = y;
+	right = x + SKELETON_BBOX_WIDTH;
+
+	if (state == CENEMY_STATE_DIE)
+		bottom = y + 0;
+	else
+		bottom = y + SKELETON_BBOX_HEIGHT;
+}
+void ExplodingSkeleton::SetState(int state)
+{
+	CGameObject::SetState(state);
+	switch (state)
+	{
+	case CENEMY_STATE_DIE:
+		x = -5;
+		y = -5;
+		vx = 0;
+		vy = 0;
+		break;
+	}
 }
 void ExplodingSkeleton::Render() 
 {
@@ -37,7 +54,7 @@ void ExplodingSkeleton::Render()
 	
 }
 
-ExplodingSkeleton::ExplodingSkeleton() :CGameObject() 
+ExplodingSkeleton::ExplodingSkeleton() : CEnemy()
 {
 	width = SKELETON_BBOX_WIDTH;
 	height = SKELETON_BBOX_HEIGHT;

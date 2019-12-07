@@ -15,12 +15,17 @@ void FatPalaceGuard::GetBoundingBox(float& left, float& top, float& right, float
 
 }
 
+void FatPalaceGuard::SetState(int state)
+{
+	CGameObject::SetState(state);
+}
+
 void FatPalaceGuard::Render()
 {
 
 }
 
-FatPalaceGuard::FatPalaceGuard() :CGameObject()
+FatPalaceGuard::FatPalaceGuard() : CEnemy()
 {
 	width = GUARD_BBOX_WIDTH_WAIT;
 	height = GUARD_BBOX_HEIGHT;

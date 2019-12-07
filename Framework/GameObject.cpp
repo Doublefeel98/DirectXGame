@@ -8,30 +8,6 @@
 #include "GameObject.h"
 #include "Sprites.h"
 
-#include <direct.h>
-#define GetCurrentDir _getcwd
-
-#include<iostream>
-using namespace std;
-
-std::string get_current_dir() {
-	char buff[FILENAME_MAX]; //create string buffer to hold path
-	GetCurrentDir(buff, FILENAME_MAX);
-	string current_working_dir(buff);
-	return current_working_dir;
-}
-
-
-
-LPCWSTR convertStringToWchar_t(std::string text)
-{
-	wstring wcstring;
-	for (int i = 0; i < text.length(); ++i)
-		wcstring += wchar_t(text[i]);
-
-	const wchar_t* result = wcstring.c_str();
-	return result;
-}
 
 CGameObject::CGameObject()
 {

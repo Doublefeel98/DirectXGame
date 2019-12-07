@@ -14,17 +14,35 @@ void NormalPalaceGuard::GetBoundingBox(float& left, float& top, float& right, fl
 {
 	left = x;
 	top = y;
-	right = left + GUARD_BBOX_WIDTH_WAIT;
-	bottom = top + GUARD_BBOX_HEIGHT;
+	right = x + GUARD_BBOX_WIDTH_WAIT;
+
+	if (state == CENEMY_STATE_DIE)
+		bottom = y + 0;
+	else
+		bottom = y + GUARD_BBOX_HEIGHT;
+}
+
+void NormalPalaceGuard::SetState(int state)
+{
+	CGameObject::SetState(state);
+	switch (state)
+	{
+	case CENEMY_STATE_DIE:
+		x = -5;
+		y = -5;
+		vx = 0;
+		vy = 0;
+		break;
+	}
 }
 
 void NormalPalaceGuard::Render()
 {
-	animations[NORMAL_GUARD_ANI_WAIT_RIGHT]->Render(x, y, 255);
+	animations[NORMAL_GUARD_ANI_WAIT_LEFT]->Render(x, y, 255);
 	RenderBoundingBox();
 }
 
-NormalPalaceGuard::NormalPalaceGuard() :CGameObject()
+NormalPalaceGuard::NormalPalaceGuard() : CEnemy()
 {
 	width = GUARD_BBOX_WIDTH_WAIT;
 	height = GUARD_BBOX_HEIGHT;

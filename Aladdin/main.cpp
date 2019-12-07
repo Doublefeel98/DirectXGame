@@ -71,7 +71,8 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 			{
 				aladdin->SetState(ALADDIN_STATE_THROW_APPLE);
 			}
-		}		
+		}	
+		break;
 	case DIK_X:
 		if (aladdin->GetState() != ALADDIN_STATE_STANDING_SLASH)
 		{
@@ -106,11 +107,6 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 			}
 		}
 		break;
-	case DIK_A: // reset
-		aladdin->SetState(ALADDIN_STATE_IDLE);
-		aladdin->SetPosition(50.0f, 0.0f);
-		aladdin->SetSpeed(0, 0);
-		break;
 	case DIK_RIGHT:
 		aladdin->nx = 1;
 		break;
@@ -135,36 +131,34 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 
 void CSampleKeyHander::KeyState(BYTE* states)
 {
-	// disable control key when Mario die 
-	//if (aladdin->GetState() == ALADDIN_STATE_DIE) return;
-	//if (game->IsKeyDown(DIK_RIGHT)) {
-	//	if (!aladdin->IsSit)
-	//		aladdin->SetState(ALADDIN_STATE_WALKING_RIGHT);
-	//}	
-	//else if (game->IsKeyDown(DIK_LEFT)) {
-	//	if (!aladdin->IsSit)
-	//		aladdin->SetState(ALADDIN_STATE_WALKING_LEFT);
-	//}
-	//	
-	//else if (game->IsKeyDown(DIK_DOWN)) {
-	//	if (!aladdin->IsJump) {
-	//		aladdin->SetState(ALADDIN_STATE_SIT_DOWN);
-	//	}
-	//}
-	//else if (game->IsKeyDown(DIK_X))
-	//	aladdin->SetState(ALADDIN_STATE_STANDING_SLASH);
-	//else if (game->IsKeyDown(DIK_UP))
-	//{
-	//	aladdin->SetState(ALADDIN_STATE_LOOKING_UP);
-	//}
-	//else {
-	//	if (aladdin->GetState() != ALADDIN_STATE_STANDING_SLASH)
-	//	{
-	//		aladdin->SetState(ALADDIN_STATE_IDLE);
-	//	}
-	//}
+	 // disable control key when Mario die 
+	if (aladdin->GetState() == ALADDIN_STATE_DIE) return;
+	if (game->IsKeyDown(DIK_RIGHT)) {
+		if (!aladdin->IsSit)
+			aladdin->SetState(ALADDIN_STATE_WALKING_RIGHT);
+	}	
+	else if (game->IsKeyDown(DIK_LEFT)) {
+		if (!aladdin->IsSit)
+			aladdin->SetState(ALADDIN_STATE_WALKING_LEFT);
+	}
+		
+	else if (game->IsKeyDown(DIK_DOWN)) {
+		if (!aladdin->IsJump) {
+			aladdin->SetState(ALADDIN_STATE_SIT_DOWN);
+		}
+	}
+	else if (game->IsKeyDown(DIK_UP))
+	{
+		aladdin->SetState(ALADDIN_STATE_LOOKING_UP);
+	}
+	else {
+		if (aladdin->GetState() != ALADDIN_STATE_STANDING_SLASH)
+		{
+			aladdin->SetState(ALADDIN_STATE_IDLE);
+		}
+	}
 
-	CCamera* camera = CCamera::GetInstance();
+	/*CCamera* camera = CCamera::GetInstance();
 	if (game->IsKeyDown(DIK_RIGHT))
 		camera->SetCameraPosition(camera->GetCameraPosition().x + 10, camera->GetCameraPosition().y);
 	else if (game->IsKeyDown(DIK_LEFT))
@@ -172,7 +166,7 @@ void CSampleKeyHander::KeyState(BYTE* states)
 	else if (game->IsKeyDown(DIK_UP))
 		camera->SetCameraPosition(camera->GetCameraPosition().x, camera->GetCameraPosition().y - 10);
 	else if (game->IsKeyDown(DIK_DOWN))
-		camera->SetCameraPosition(camera->GetCameraPosition().x, camera->GetCameraPosition().y + 10);
+		camera->SetCameraPosition(camera->GetCameraPosition().x, camera->GetCameraPosition().y + 10);*/
 }
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -246,13 +240,7 @@ void Update(DWORD dt)
 		cy = cy - 10;
 	}
 
-	if (aladdin->IsLookingUp)
-	{
-		
-
-	}
-
-	//camera->SetCameraPosition(cx, cy);
+	camera->SetCameraPosition(cx, cy);
 	
 	DebugOut(L"[INFO] camera y: %f\n", cy);
 }

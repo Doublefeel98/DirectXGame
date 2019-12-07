@@ -31,6 +31,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vy += ALADDIN_GRAVITY * dt;
 
 	throwApple->Update(dt, coObjects);
+	sword->Update(dt, coObjects);
 
 
 	if (this->GetState() == ALADDIN_STATE_IDLE) 
@@ -77,28 +78,63 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		
 	if (IsSlash)
 	{
+		sword->SetEnable(true);
 		if (IsSit)
 		{
+			if (nx > 0)
+			{
+				sword->SetState(SWORD_STATE_SIT_RIGHT);
+				sword->SetPosition(x + ALADDIN_BBOX_WIDTH, y);
+			}
+			else {
+				sword->SetState(SWORD_STATE_SIT_LEFT);
+				sword->SetPosition(x, y);
+			}
+
 			if (now - timeAttackStart > ALADDIN_SIT_ATTACK_TIME)
 			{
 				ResetAnimationsSlash();
 				timeAttackStart = 0;
 				IsSlash = false;
 				SetState(ALADDIN_STATE_SIT_DOWN);
+
+				sword->SetEnable(false);
 			}
 		}
 		else if (IsLookingUp)
 		{
+			if (nx > 0)
+			{
+				sword->SetState(SWORD_STATE_LOOKUP_RIGHT);
+				sword->SetPosition(x + ALADDIN_BBOX_WIDTH, y);
+			}
+			else {
+				sword->SetState(SWORD_STATE_LOOKUP_LEFT);
+				sword->SetPosition(x, y);
+			}
+
 			if (now - timeAttackStart > ALADDIN_LOOK_UP_ATTACK_TIME)
 			{
 				ResetAnimationsSlash();
 				timeAttackStart = 0;
 				IsSlash = false;
 				SetState(ALADDIN_STATE_LOOKING_UP);
+
+				sword->SetEnable(false);
 			}
 		}
 		else if (IsJump)
 		{
+			if (nx > 0)
+			{
+				sword->SetState(SWORD_STATE_JUMP_RIGHT);
+				sword->SetPosition(x + ALADDIN_BBOX_WIDTH, y);
+			}
+			else {
+				sword->SetState(SWORD_STATE_JUMP_LEFT);
+				sword->SetPosition(x, y);
+			}
+
 			if (now - timeAttackStart > ALADDIN_JUMP_SLASH_TIME)
 			{
 				ResetAnimationsSlash();
@@ -106,9 +142,22 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				IsSlash = false;
 				IsJump = false;
 				SetState(ALADDIN_STATE_IDLE);
+
+				sword->SetEnable(false);
 			}
 		}
 		else {
+
+			if (nx > 0)
+			{
+				sword->SetState(SWORD_STATE_RIGHT);
+				sword->SetPosition(x + ALADDIN_BBOX_WIDTH, y -8);
+			}
+			else {
+				sword->SetState(SWORD_STATE_LEFT);
+				sword->SetPosition(x, y - 8);
+			}
+
 			if (now - timeAttackStart > ALADDIN_ATTACK_TIME)
 			{
 				ResetAnimationsSlash();
@@ -119,6 +168,8 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				else {
 					SetState(ALADDIN_STATE_IDLE);
 				}
+
+				sword->SetEnable(false);
 			}
 		}		
 	}
@@ -518,6 +569,9 @@ void Aladdin::Render()
 	RenderBoundingBox();
 
 	throwApple->Render();
+
+	//render bouding box sword for test
+	sword->Render();
 }
 
 void Aladdin::SetState(int state)
@@ -746,6 +800,7 @@ Aladdin::Aladdin() : CGameObject()
 	untouchable = 0;
 
 	throwApple = new ThrowApples();
+	sword = new Sword();
 
 	level = 0;
 	untouchable = 0;

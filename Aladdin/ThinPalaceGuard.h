@@ -1,8 +1,8 @@
 #pragma once
-#include "../Framework/GameObject.h"
+#include "../Framework/Enemy.h"
 #include "Define.h"
 
-class ThinPalaceGuard : public CGameObject
+class ThinPalaceGuard : public CEnemy
 {
 private:
 	bool wait, wave, walk, surprise;	// indicate which state a bat object is currently in
@@ -15,6 +15,5 @@ public:
 	virtual void Render();
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
-
-
+	virtual void SetState(int state);
 };

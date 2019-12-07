@@ -109,6 +109,7 @@
     <ClCompile Include="ThrowApples.cpp">
       <Filter>Source\Object\Items</Filter>
     </ClCompile>
+    <ClCompile Include="Sword.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aladdin.h">
@@ -240,6 +241,7 @@
     <ClInclude Include="ThrowApples.h">
       <Filter>Source\Object\Items</Filter>
     </ClInclude>
+    <ClInclude Include="Sword.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">

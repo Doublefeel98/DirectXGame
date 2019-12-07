@@ -2,6 +2,7 @@
 #include "../Framework/GameObject.h"
 #include "Define.h"
 #include "ThrowApples.h"
+#include "Sword.h"
 
 class Aladdin : public CGameObject
 {
@@ -19,6 +20,7 @@ class Aladdin : public CGameObject
 	DWORD timeJumpSlashStart;
 	DWORD timeJumpThrowStart;
 	ThrowApples* throwApple;
+	Sword* sword;
 public:
 	Aladdin();
 	bool IsSit;

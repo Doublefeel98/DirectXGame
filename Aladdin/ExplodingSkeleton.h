@@ -1,8 +1,8 @@
 #pragma once
-#include "../Framework/GameObject.h"
+#include "../Framework/Enemy.h"
 #include "Define.h"
 
-class ExplodingSkeleton : public CGameObject
+class ExplodingSkeleton : public CEnemy
 {
 private:
 	int HP;
@@ -14,4 +14,5 @@ public:
 	virtual void Render();
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	virtual void SetState(int state);
 };

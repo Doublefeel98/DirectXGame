@@ -3,12 +3,13 @@
 #include "../Framework/debug.h"
 
 #include "../Framework/Game.h"
+#include "../Framework/Enemy.h"
 
 ThrowApples::ThrowApples() :CGameObject() {
 	x = -5;
 	y = -5;
-	width =	APPLE_BBOX_WIDTH;
-	height = APPLE_BBOX_HEIGHT;
+	width =	THROW_APPLE_BBOX_WIDTH;
+	height = THROW_APPLE_BBOX_HEIGHT;
 
 	AddAnimation(2200);		// throw apple
 	
@@ -79,6 +80,43 @@ void ThrowApples::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 			y += dy;
 		}
 		else {
+
+			float min_tx, min_ty, nx = 0, ny;
+
+			FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+
+			// block 
+			//x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+			//y += min_ty * dy + ny * 0.4f;
+
+			//if (nx != 0) vx = 0;
+			//if (ny != 0) vy = 0;
+
+			// Collision logic with Enemy
+			for (UINT i = 0; i < coEventsResult.size(); i++)
+			{
+				LPCOLLISIONEVENT e = coEventsResult[i];
+
+				if (dynamic_cast<LPENEMY>(e->obj)) // if e->obj is Goomba 
+				{
+					LPENEMY enemy = dynamic_cast<LPENEMY>(e->obj);
+
+					if (enemy->GetState() != CENEMY_STATE_DIE)
+					{
+						enemy->SetState(CENEMY_STATE_DIE);
+					}
+
+					// jump on top >> kill Goomba and deflect a bit 
+					/*if (e->ny < 0)
+					{
+						if (enemy->GetState() != CENEMY_STATE_DIE)
+						{
+							enemy->SetState(CENEMY_STATE_DIE);
+						}
+					}*/
+				}
+			}
+
 			isEnable = false;
 		}
 	}

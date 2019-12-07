@@ -4,8 +4,8 @@
 
 #include "../Framework/Game.h"
 Heart::Heart() :CGameObject() {
-	width = APPLE_BBOX_WIDTH;
-	height = APPLE_BBOX_HEIGHT;
+	width = THROW_APPLE_BBOX_WIDTH;
+	height = THROW_APPLE_BBOX_HEIGHT;
 
 	enabled = true;
 

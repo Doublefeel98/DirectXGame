@@ -72,8 +72,11 @@ SceneOne::SceneOne(Aladdin* aladdin)
 void SceneOne::Render()
 {
 	tilemap->Render(screenWidth, screenHeight);
-	for (int i = 0; i < objects.size(); i++)
+	for (int i = 1; i < objects.size(); i++)
 		objects[i]->Render();
+
+	aladdin->Render();
+
 	for (int i = 0; i < pilars.size(); i++)
 	{
 		pilars[i]->Render();

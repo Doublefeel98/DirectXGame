@@ -5,8 +5,13 @@
 #include "../Framework/Game.h"
 
 void ThinPalaceGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject) {
-	CGameObject::Update(dt);
-
+	CEnemy::Update(dt, coObject);
+	if (isDead) {
+		x = -5;
+		y = -5;
+		vx = 0;
+		vy = 0;
+	}
 }
 
 void ThinPalaceGuard::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -40,23 +45,14 @@ void ThinPalaceGuard::GetBoundingBox(float& left, float& top, float& right, floa
 	top = y;
 	right = x + THIN_GUARD_BBOX_WIDTH;
 
-	if (state == CENEMY_STATE_DIE)
+	if (isDead)
 		bottom = y + 0;
 	else
 		bottom = y + THIN_GUARD_BBOX_HEIGHT;
 }
 void ThinPalaceGuard::SetState(int state)
 {
-	CGameObject::SetState(state);
-	switch (state)
-	{
-	case CENEMY_STATE_DIE:
-		x = -5;
-		y = -5;
-		vx = 0;
-		vy = 0;
-		break;
-	}
+	CEnemy::SetState(state);
 }
 void ThinPalaceGuard::Render() {
 	//if (wait) {
@@ -71,9 +67,12 @@ void ThinPalaceGuard::Render() {
 	//else {
 	//	animations[THIN_GUARD_ANI_SURPRISE]->Render(x, y, 255);
 	//}
-	
-	animations[THIN_GUARD_ANI_SUPRISE_RIGHT]->Render(x, y, 255);
-	RenderBoundingBox();
+	if (isEnable)
+	{
+		animations[THIN_GUARD_ANI_SUPRISE_RIGHT]->Render(x, y);
+		CEnemy::Render();
+		RenderBoundingBox();
+	}
 }
 
 
@@ -86,7 +85,7 @@ ThinPalaceGuard::ThinPalaceGuard() : CEnemy()
 	wave = false; 
 	walk = false; 
 	surprise = true;
-	HP = THIN_GUARD_MAX_HP;
+	hp = THIN_GUARD_MAX_HP;
 
 	AddAnimation(201);		// idle right
 	AddAnimation(202);		// idle left

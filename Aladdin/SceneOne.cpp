@@ -5,7 +5,7 @@
 SceneOne::SceneOne(Aladdin* aladdin)
 {
 	this->aladdin = aladdin;
-	this->aladdin->SetPosition(0, 900);
+	this->aladdin->SetPosition(1200, 900);
 
 	objects.push_back(this->aladdin);
 

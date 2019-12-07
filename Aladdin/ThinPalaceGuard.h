@@ -6,7 +6,6 @@ class ThinPalaceGuard : public CEnemy
 {
 private:
 	bool wait, wave, walk, surprise;	// indicate which state a bat object is currently in
-	int HP;
 public:
 	ThinPalaceGuard();
 	~ThinPalaceGuard();

@@ -19,6 +19,8 @@ class Aladdin : public CGameObject
 	DWORD timeRunJumpStart;
 	DWORD timeJumpSlashStart;
 	DWORD timeJumpThrowStart;
+	int hurtable;
+	DWORD timeHurtableStart;
 	ThrowApples* throwApple;
 	Sword* sword;
 public:
@@ -30,12 +32,14 @@ public:
 	bool IsSlash;
 	bool IsStand;
 	bool IsThrow;
+	bool IsHurt;
 	bool IsMoveCameraWhenLookingUp();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();
 	void SetState(int state);
 	void SetLevel(int l) { level = l; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
+	void StartHurting() { IsHurt = true; hurtable = 1; timeHurtableStart = GetTickCount(); }
 	void ResetAnimationsSlash();
 	void ResetAnimationsSitDown();
 	void ResetAnimationIdle();

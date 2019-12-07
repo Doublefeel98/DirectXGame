@@ -226,8 +226,6 @@ void Update(DWORD dt)
 		cx = cx + aladdin->GetWidth() + 5 + SCREEN_WIDTH/2 - SCREEN_WIDTH;
 	}
 
-	DebugOut(L"[INFO] aladin y: %f\n", cy);
-
 	if (cy + aladdin->GetHeight()/2 < mapHeight - SCREEN_HEIGHT / 2) {
 		cy = cy + aladdin->GetHeight() / 2 - SCREEN_HEIGHT / 2;
 	}
@@ -241,8 +239,6 @@ void Update(DWORD dt)
 	}
 
 	camera->SetCameraPosition(cx, cy);
-	
-	DebugOut(L"[INFO] camera y: %f\n", cy);
 }
 
 /*

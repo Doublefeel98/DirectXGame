@@ -4,7 +4,8 @@
 
 #include "../Framework/Game.h"
 #include "../Framework/Enemy.h"
-
+#include "../Framework/debug.h"
+#include "Aladdin.h"
 Sword::Sword()
 {
 	x = -5;
@@ -14,6 +15,7 @@ Sword::Sword()
 	isEnable = false;
 	vx = 0;
 	vy = 0;
+	damage = 1;
 }
 
 Sword::~Sword()
@@ -26,38 +28,28 @@ void Sword::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (isEnable) {
 		CGameObject::Update(dt);
 
-		vector<LPCOLLISIONEVENT> coEvents;
-		vector<LPCOLLISIONEVENT> coEventsResult;
-
-		coEvents.clear();
-
-		CalcPotentialCollisions(coObjects, coEvents);
-
-		// No collision occured, proceed normally
-		if (coEvents.size() == 0)
+		for (UINT i = 0; i < coObjects->size(); i++)
 		{
-			x += dx;
-			y += dy;
-		}
-		else {
-			float min_tx, min_ty, nx = 0, ny;
+			if (dynamic_cast<CEnemy*>(coObjects->at(i))) {
 
-			FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+				CEnemy* enemy = dynamic_cast<CEnemy*>(coObjects->at(i));
 
-			for (UINT i = 0; i < coEventsResult.size(); i++)
-			{
-				LPCOLLISIONEVENT e = coEventsResult[i];
+				float l1, t1, r1, b1, l2, t2, r2, b2;
+				GetBoundingBox(l1, t1, r1, b1);
+				enemy->GetBoundingBox(l2, t2, r2, b2);
 
-				if (dynamic_cast<LPENEMY>(e->obj)) // if e->obj is Goomba 
-				{
-					LPENEMY enemy = dynamic_cast<LPENEMY>(e->obj);
-
-					if (enemy->GetState() != CENEMY_STATE_DIE)
+				if (t1 <= b2 && b1 >= t2 && l1 <= r2 && r1 >= l2) {
+					if ((coObjects->at(i))->nx != 0)
 					{
-						enemy->SetState(CENEMY_STATE_DIE);
+						//enemy->GetColliderEffect()->SetEnable(true);
+						if (enemy->isEnable) {
+							enemy->SetHP(enemy->GetHP() - this->damage);
+							this->isEnable = false;
+							DebugOut(L"[INFO] enemm hp: %d\n", enemy->GetHP());
+						}
 					}
-
 				}
+
 			}
 		}
 	}

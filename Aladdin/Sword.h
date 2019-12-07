@@ -5,6 +5,7 @@ class Sword : public CGameObject
 {
 private:
 	bool isEnable;
+	int damage;
 public:
 	Sword();
 	~Sword();

@@ -18,6 +18,7 @@ ThrowApples::ThrowApples() :CGameObject() {
 	AddAnimation(2203);
 	AddAnimation(2204);
 	isEnable = false;
+	damage = 5;
 }
 ThrowApples::~ThrowApples() {
 
@@ -101,19 +102,10 @@ void ThrowApples::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 				{
 					LPENEMY enemy = dynamic_cast<LPENEMY>(e->obj);
 
-					if (enemy->GetState() != CENEMY_STATE_DIE)
-					{
-						enemy->SetState(CENEMY_STATE_DIE);
+					//enemy->GetColliderEffect()->SetEnable(true);
+					if (enemy->isEnable) {
+						enemy->SetHP(enemy->GetHP() - this->damage);
 					}
-
-					// jump on top >> kill Goomba and deflect a bit 
-					/*if (e->ny < 0)
-					{
-						if (enemy->GetState() != CENEMY_STATE_DIE)
-						{
-							enemy->SetState(CENEMY_STATE_DIE);
-						}
-					}*/
 				}
 			}
 

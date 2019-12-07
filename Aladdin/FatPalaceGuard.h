@@ -6,7 +6,6 @@ class FatPalaceGuard : public CEnemy
 {
 private:
 	bool wait, stab, wave, surprise, jump, die;	// indicate which state a bat object is currently in
-	int HP;
 public:
 	FatPalaceGuard();
 	~FatPalaceGuard();

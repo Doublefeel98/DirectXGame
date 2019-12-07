@@ -172,15 +172,19 @@ void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, i
 	//	obj->SetHeight(height);
 	//	listObject->push_back(obj);
 	//	break;
-	//case OBJECT_SPIKE_TRAP:
-	//	Ground* obj = new Ground();
-	//	obj->SetId(id);
-	//	obj->SetType(type);
-	//	obj->SetPosition(x, y);
-	//	obj->SetWidth(width);
-	//	obj->SetHeight(height);
-	//	listObject->push_back(obj);
-	//	break;
+
+	case OBJECT_SPIKE_TRAP:
+	{
+		Trap* obj = new Trap();
+		obj->SetId(id);
+		obj->SetType(type);
+		obj->SetPosition(x, y);
+		obj->SetWidth(width);
+		obj->SetHeight(height);
+		listObject->push_back(obj);
+	}
+		break;
+
 	case OBJECT_WRECKING_BALL:
 		{
 			WreckingBall* obj = new WreckingBall();

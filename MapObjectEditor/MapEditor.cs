@@ -29,6 +29,8 @@ namespace MapEditor
 
         private int objectId;
 
+        private int objectIndexInfo;
+
         private const int CELL_SIZE = 160;
 
         private const int START_INDEX = 1;
@@ -111,6 +113,7 @@ namespace MapEditor
         {            
             textBoxNameOB.Visible = true;            
             CurrentCursor = CursorCur.OBJECT;
+            resetObjInfo();
 
             // Lay image khi click + doi cursor          
             foreach (ListViewItem itm in listViewOB.SelectedItems)
@@ -297,9 +300,51 @@ namespace MapEditor
                     {
                         pictureBoxBG.Controls.Remove(listObject.ElementAt(i).Pic);
                         listObject.RemoveAt(i);
+                        break;
                     }
                 }
             }
+            else if(CurrentCursor == CursorCur.NONE)
+            {
+                PictureBox p = (PictureBox)sender;
+
+                for (int i = 0; i < listObject.Count; i++)
+                {
+                    if (listObject.ElementAt(i).Pic == p)
+                    {
+                        objectIndexInfo = i;
+
+                        string id = listObject.ElementAt(i).Id.ToString();
+                        string name = listObject.ElementAt(i).Name;
+                        string posX = listObject.ElementAt(i).PosX.ToString();
+                        string posY = listObject.ElementAt(i).PosY.ToString();
+                        string w = listObject.ElementAt(i).Width.ToString();
+                        string h = listObject.ElementAt(i).Height.ToString();
+                        int delay = listObject.ElementAt(i).delay;
+
+                        setOjectInfo(id, name, posX, posY, w, h, delay);
+
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void resetObjInfo()
+        {
+            setOjectInfo("", "", "", "", "", "", 0);
+            objectIndexInfo = -1;
+        }
+
+        private void setOjectInfo(string id, string name, string posX, string posY, string w, string h, int delay)
+        {
+            tbObjId.Text = id;
+            tbObjName.Text = name;
+            tbObjX.Text = posX;
+            tbObjY.Text = posY;
+            tbObjWidth.Text = w;
+            tbObjHeight.Text = h;
+            numObjDelay.Value = delay;
         }
 
         private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)
@@ -331,6 +376,7 @@ namespace MapEditor
             this.Cursor = Cursors.Default;
             CurrentCursor = CursorCur.NONE;
             imageCursor = null;
+            resetObjInfo();
         }
 
         private void removePic_Click(object sender, EventArgs e)
@@ -339,6 +385,7 @@ namespace MapEditor
             imageCursor = Utilities.ResizeImage(imageCursor, 8, 8);
             CurrentCursor = CursorCur.ICON;
             this.Cursor = new Cursor(((Bitmap)imageCursor).GetHicon());
+            resetObjInfo();
         }
 
         private void buttonSaveImg_Click(object sender, EventArgs e)
@@ -501,7 +548,7 @@ namespace MapEditor
                 string[] infos;
                 Object obj;
                 PictureBox p;
-                int posX, posY, width, height;
+                int posX, posY, width, height, delay;
                 int id;
 
                 clearAllPictureBox();
@@ -514,6 +561,14 @@ namespace MapEditor
                     width = int.Parse(infos[4]);
                     height = int.Parse(infos[5]);
 
+                    if(infos.Length > 6)
+                    {
+                        delay = int.Parse(infos[6]);
+                    }
+                    else
+                    {
+                        delay = 0;
+                    }
 
                     if (int.TryParse(infos[1], out id))
                     {
@@ -523,7 +578,7 @@ namespace MapEditor
                         p.SizeMode = PictureBoxSizeMode.AutoSize;
                         p.BackColor = Color.Transparent;
 
-                        obj = new Object(p, id, START_INDEX + listObject.Count, posX, posY, width, height);
+                        obj = new Object(p, id, START_INDEX + listObject.Count, posX, posY, width, height, delay);
                     }
                     else
                     {
@@ -535,7 +590,7 @@ namespace MapEditor
                         p.SizeMode = PictureBoxSizeMode.AutoSize;
                         p.BackColor = Color.Transparent;
 
-                        obj = new Object(p, infos[1], START_INDEX + listObject.Count, posX, posY, width, height);
+                        obj = new Object(p, infos[1], START_INDEX + listObject.Count, posX, posY, width, height, delay);
                     }
 
                     listObject.Add(obj);
@@ -545,6 +600,14 @@ namespace MapEditor
                     pictureBoxBG.Controls.Add(listObject.ElementAt(listObject.Count - 1).Pic);
                 }
                 renderListImage();
+            }
+        }
+
+        private void numObjDelay_ValueChanged(object sender, EventArgs e)
+        {
+            if(objectIndexInfo != -1)
+            {
+                listObject.ElementAt(objectIndexInfo).delay = (int)numObjDelay.Value;
             }
         }
 

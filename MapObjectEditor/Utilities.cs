@@ -26,7 +26,8 @@ namespace MapEditor
                 string w = listObj.ElementAt(i).Width.ToString();
                 string h = listObj.ElementAt(i).Height.ToString();
                 string index = listObj.ElementAt(i).Index.ToString();
-                sWriter.WriteLine(index + " " + id + " " + posX + " " + posY + " " + w + " " + h);
+                string delay = listObj.ElementAt(i).delay.ToString();
+                sWriter.WriteLine(index + " " + id + " " + posX + " " + posY + " " + w + " " + h + " "+ delay);
             }
 
             sWriter.Flush();

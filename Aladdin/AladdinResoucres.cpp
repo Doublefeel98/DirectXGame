@@ -579,13 +579,6 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(20402,	73	,1770,	107	,1793 ,texObstacle);
 	sprites->Add(20403,	112	,1770,	149	,1793 ,texObstacle);
 	sprites->Add(20404,	155	,1770,	194	,1793 ,texObstacle);
-	sprites->Add(20405,	155	,1770,	194	,1793 ,texObstacle);
-	sprites->Add(20406,	155	,1770,	194	,1793 ,texObstacle);
-	sprites->Add(20407,	155	,1770,	194	,1793 ,texObstacle);
-	sprites->Add(20408,	155	,1770,	194	,1793 ,texObstacle);
-	sprites->Add(20409,	112	,1770,	149	,1793 ,texObstacle);
-	sprites->Add(20410,	73	,1770,	107	,1793 ,texObstacle);
-	sprites->Add(20411,	37	,1770,	67	,1793 ,texObstacle);
 
 	sprites->Add(20420,	1	,1798	,23	,1833	,texObstacle);		//trap
 	sprites->Add(20421,	29	,1798	,51	,1833	,texObstacle);
@@ -1640,16 +1633,12 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(20401);
 	ani->Add(20402);
 	ani->Add(20403);
-	ani->Add(20404);
-	ani->Add(20405);
-	ani->Add(20406);
-	ani->Add(20406);
-	ani->Add(20406);
-	ani->Add(20407);
-	ani->Add(20408);
-	ani->Add(20409);
-	ani->Add(20410);
-	ani->Add(20411);
+	ani->Add(20404, 2000);
+	ani->Add(20403);
+	ani->Add(20402);
+	ani->Add(20401);
+	//delay
+	ani->Add(20400, 1400);
 	animations->Add(2040, ani);
 
 	ani = new CAnimation(200);		// Trap

@@ -70,7 +70,8 @@ public: int currentFrame;
 	bool IsLoop;
 	bool IsLastFrame = false;
 public:
-	CAnimation(int defaultTime, bool IsLoop = true) { this->IsLoop = IsLoop; this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; }
+	CAnimation(int defaultTime, bool IsLoop = true) 
+	{ this->IsLoop = IsLoop; this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; }
 	void Add(int spriteId, DWORD time = 0);
 	virtual void Render(float x, float y, int alpha = 255, bool isFollow = true);
 	virtual void RenderFlipOx(float x, float y, int alpha = 255);

@@ -63,6 +63,21 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.btnChangeCellSize = new System.Windows.Forms.Button();
             this.tbCellSize = new System.Windows.Forms.TextBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.numObjDelay = new System.Windows.Forms.NumericUpDown();
+            this.label13 = new System.Windows.Forms.Label();
+            this.tbObjX = new System.Windows.Forms.TextBox();
+            this.tbObjY = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.tbObjName = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.tbObjHeight = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.tbObjWidth = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tbObjId = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBG)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -72,6 +87,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.cancelPic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.removePic)).BeginInit();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numObjDelay)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonLoad
@@ -431,12 +448,177 @@
             this.tbCellSize.TabIndex = 4;
             this.tbCellSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.tbObjId);
+            this.groupBox5.Controls.Add(this.label14);
+            this.groupBox5.Controls.Add(this.numObjDelay);
+            this.groupBox5.Controls.Add(this.label13);
+            this.groupBox5.Controls.Add(this.tbObjX);
+            this.groupBox5.Controls.Add(this.tbObjY);
+            this.groupBox5.Controls.Add(this.label11);
+            this.groupBox5.Controls.Add(this.label12);
+            this.groupBox5.Controls.Add(this.tbObjName);
+            this.groupBox5.Controls.Add(this.label10);
+            this.groupBox5.Controls.Add(this.tbObjHeight);
+            this.groupBox5.Controls.Add(this.label9);
+            this.groupBox5.Controls.Add(this.tbObjWidth);
+            this.groupBox5.Controls.Add(this.label8);
+            this.groupBox5.Location = new System.Drawing.Point(486, 714);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(844, 59);
+            this.groupBox5.TabIndex = 19;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "ObjectInfo";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(8, 28);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(27, 17);
+            this.label14.TabIndex = 16;
+            this.label14.Text = "Id :";
+            // 
+            // numObjDelay
+            // 
+            this.numObjDelay.Location = new System.Drawing.Point(783, 27);
+            this.numObjDelay.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numObjDelay.Name = "numObjDelay";
+            this.numObjDelay.Size = new System.Drawing.Size(55, 22);
+            this.numObjDelay.TabIndex = 15;
+            this.numObjDelay.ValueChanged += new System.EventHandler(this.numObjDelay_ValueChanged);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(726, 28);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(52, 17);
+            this.label13.TabIndex = 13;
+            this.label13.Text = "Delay :";
+            // 
+            // tbObjX
+            // 
+            this.tbObjX.Location = new System.Drawing.Point(566, 27);
+            this.tbObjX.Margin = new System.Windows.Forms.Padding(4);
+            this.tbObjX.Name = "tbObjX";
+            this.tbObjX.ReadOnly = true;
+            this.tbObjX.Size = new System.Drawing.Size(60, 22);
+            this.tbObjX.TabIndex = 12;
+            this.tbObjX.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // tbObjY
+            // 
+            this.tbObjY.Location = new System.Drawing.Point(664, 27);
+            this.tbObjY.Margin = new System.Windows.Forms.Padding(4);
+            this.tbObjY.Name = "tbObjY";
+            this.tbObjY.ReadOnly = true;
+            this.tbObjY.Size = new System.Drawing.Size(55, 22);
+            this.tbObjY.TabIndex = 11;
+            this.tbObjY.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(634, 29);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(33, 17);
+            this.label11.TabIndex = 10;
+            this.label11.Text = "Y = ";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(537, 29);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(33, 17);
+            this.label12.TabIndex = 9;
+            this.label12.Text = "X = ";
+            // 
+            // tbObjName
+            // 
+            this.tbObjName.Location = new System.Drawing.Point(162, 25);
+            this.tbObjName.Margin = new System.Windows.Forms.Padding(4);
+            this.tbObjName.Name = "tbObjName";
+            this.tbObjName.ReadOnly = true;
+            this.tbObjName.Size = new System.Drawing.Size(117, 22);
+            this.tbObjName.TabIndex = 8;
+            this.tbObjName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(101, 28);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(53, 17);
+            this.label10.TabIndex = 7;
+            this.label10.Text = "Name :";
+            // 
+            // tbObjHeight
+            // 
+            this.tbObjHeight.Location = new System.Drawing.Point(468, 26);
+            this.tbObjHeight.Margin = new System.Windows.Forms.Padding(4);
+            this.tbObjHeight.Name = "tbObjHeight";
+            this.tbObjHeight.ReadOnly = true;
+            this.tbObjHeight.Size = new System.Drawing.Size(61, 22);
+            this.tbObjHeight.TabIndex = 6;
+            this.tbObjHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(411, 29);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(61, 17);
+            this.label9.TabIndex = 5;
+            this.label9.Text = "Height : ";
+            // 
+            // tbObjWidth
+            // 
+            this.tbObjWidth.Location = new System.Drawing.Point(342, 26);
+            this.tbObjWidth.Margin = new System.Windows.Forms.Padding(4);
+            this.tbObjWidth.Name = "tbObjWidth";
+            this.tbObjWidth.ReadOnly = true;
+            this.tbObjWidth.Size = new System.Drawing.Size(61, 22);
+            this.tbObjWidth.TabIndex = 4;
+            this.tbObjWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(290, 28);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(56, 17);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "Width : ";
+            // 
+            // tbObjId
+            // 
+            this.tbObjId.Location = new System.Drawing.Point(41, 26);
+            this.tbObjId.Margin = new System.Windows.Forms.Padding(4);
+            this.tbObjId.Name = "tbObjId";
+            this.tbObjId.ReadOnly = true;
+            this.tbObjId.Size = new System.Drawing.Size(55, 22);
+            this.tbObjId.TabIndex = 17;
+            this.tbObjId.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // MapEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1601, 784);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.btnLoadObject);
             this.Controls.Add(this.buttonSaveImg);
@@ -465,6 +647,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.removePic)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numObjDelay)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -474,9 +659,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBoxBG;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBoxHeightOB;
         private System.Windows.Forms.TextBox textBoxWidthOB;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -503,6 +686,23 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button btnChangeCellSize;
         private System.Windows.Forms.TextBox tbCellSize;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.TextBox textBoxHeightOB;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown numObjDelay;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox tbObjX;
+        private System.Windows.Forms.TextBox tbObjY;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox tbObjName;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox tbObjHeight;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox tbObjWidth;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox tbObjId;
     }
 }
 

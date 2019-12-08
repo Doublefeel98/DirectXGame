@@ -123,9 +123,6 @@
     <ClInclude Include="GenieBonusLevel.h">
       <Filter>Source\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Ground.h">
-      <Filter>Source\Object</Filter>
-    </ClInclude>
     <ClInclude Include="HealthMeter.h">
       <Filter>Source\Object</Filter>
     </ClInclude>
@@ -136,9 +133,6 @@
       <Filter>Source\Object</Filter>
     </ClInclude>
     <ClInclude Include="MagicCarpet.h">
-      <Filter>Source\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Peddler.h">
       <Filter>Source\Object</Filter>
     </ClInclude>
     <ClInclude Include="RestartPoint.h">
@@ -245,6 +239,12 @@
     </ClInclude>
     <ClInclude Include="ThrowApples.h">
       <Filter>Source\Object\wepons</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>Source\Object\maps</Filter>
+    </ClInclude>
+    <ClInclude Include="Peddler.h">
+      <Filter>Source\Object\maps</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

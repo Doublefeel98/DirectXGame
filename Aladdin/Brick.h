@@ -6,7 +6,8 @@
 class Brick : public CGameObject
 {
 private:
-	bool enabled;
+	bool isDelay;
+	DWORD timeStartDelay;
 public:
 	Brick();
 	~Brick();
@@ -15,7 +16,5 @@ public:
 	virtual void Render();
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
-
-	bool IsEnabled() { return enabled; }
-	void SetEnabled(bool en) { enabled = en; }
+	void setDelay() { this->isDelay = true; }
 };

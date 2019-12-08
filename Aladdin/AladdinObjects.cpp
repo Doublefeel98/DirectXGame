@@ -25,7 +25,7 @@ void AladdinObjects::Load(string file, vector<LPGAMEOBJECT>* listObject)
 	float y;
 	int width;
 	int height;
-
+	int delay;
 	int count = 0;
 
 	while (input >> checkEnd)
@@ -38,13 +38,13 @@ void AladdinObjects::Load(string file, vector<LPGAMEOBJECT>* listObject)
 		if (count == 0)
 		{
 			id = atoi(checkEnd.c_str());
-			input >> type >> x >> y >> width >> height;
-			LoadObject(id, type, x, y, width, height, listObject);
+			input >> type >> x >> y >> width >> height >> delay;
+			LoadObject(id, type, x, y, width, height, delay, listObject);
 		}
 	}
 }
 
-void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, int height, vector<LPGAMEOBJECT>* listObject)
+void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, int height, int delay, vector<LPGAMEOBJECT>* listObject)
 {
 	switch (type)
 	{
@@ -172,6 +172,9 @@ void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, i
 		obj->SetPosition(x, y);
 		obj->SetWidth(width);
 		obj->SetHeight(height);
+		if (delay) {
+			obj->setDelay();
+		}
 		listObject->push_back(obj);
 	}
 		break;

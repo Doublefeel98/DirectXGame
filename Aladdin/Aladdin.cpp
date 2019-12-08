@@ -362,6 +362,8 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			timeHurtableStart = 0;
 			hurtable = 0;
 			IsHurt = false;
+			ResetAnimationIdle();
+			SetState(ALADDIN_STATE_IDLE);
 		}
 	}
 
@@ -1010,10 +1012,24 @@ void Aladdin::ResetAllAnimation()
 
 void Aladdin::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
+	/*if (IsSit) {
+		left = x;
+		top = y - 16;
+		right = left + ALADDIN_SIT_BBOX_WIDTH;
+		bottom = top + ALADDIN_SIT_BBOX_HEIGHT;
+	}
+	else {
+		left = x;
+		top = y;
+		right = left + ALADDIN_BBOX_WIDTH;
+		bottom = top + ALADDIN_BBOX_HEIGHT;
+	}*/
+
 	left = x;
 	top = y;
 	right = left + ALADDIN_BBOX_WIDTH;
 	bottom = top + ALADDIN_BBOX_HEIGHT;
+	
 }
 
 Aladdin::Aladdin() : CGameObject()

@@ -14,7 +14,6 @@ WreckingBall::~WreckingBall() {
 }
 void WreckingBall::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-
 	if (animations[BALL_ANI_WAIT]->currentFrame >= 9 && animations[BALL_ANI_WAIT]->currentFrame <= 19) {
 		left = x + 6;
 		top = y + 25;

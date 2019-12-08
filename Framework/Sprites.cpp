@@ -102,8 +102,6 @@ LPSPRITE CSprites::Get(int id)
 	return sprites[id];
 }
 
-
-
 void CAnimation::Add(int spriteId, DWORD time)
 {
 	int t = time;
@@ -200,7 +198,6 @@ void CAnimation::RenderFlipOx(float x, float y, int alpha)
 
 	frames[currentFrame]->GetSprite()->DrawFlipOx(x, y, alpha);
 }
-
 
 
 CAnimations * CAnimations::__instance = NULL;

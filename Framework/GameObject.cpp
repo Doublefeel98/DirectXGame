@@ -204,7 +204,10 @@ void CGameObject::RenderBoundingBoxFlipOx()
 void CGameObject::AddAnimation(int aniId)
 {
 	LPANIMATION ani = CAnimations::GetInstance()->Get(aniId);
-	animations.push_back(ani);
+
+	LPANIMATION temp = new CAnimation(ani->defaultTime);
+	temp->frames = ani->frames;
+	animations.push_back(temp);
 }
 
 

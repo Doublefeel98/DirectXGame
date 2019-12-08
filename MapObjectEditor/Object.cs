@@ -26,8 +26,10 @@ namespace MapEditor
         public int Height { get; set; }
 
         public PictureBox Pic { get; set; }
+
+        public int delay { get; set; }
         
-        public Object(PictureBox Pic, int Id, string Name, int index,int PosX, int PosY)
+        public Object(PictureBox Pic, int Id, string Name, int index,int PosX, int PosY, int delay = 0)
         {
             this.Id = Id;
             this.Index = index;
@@ -36,14 +38,16 @@ namespace MapEditor
             this.PosY = PosY;
             this.Pic = Pic;
             Width = Pic.Width;
-            Height = Pic.Height;            
+            Height = Pic.Height;
+            this.delay = delay;
         }
 
-        public Object(PictureBox Pic, int Id, int index, int PosX, int PosY, int Width, int Height)
+        public Object(PictureBox Pic, int Id, int index, int PosX, int PosY, int Width, int Height, int delay = 0)
         {
             this.Pic = Pic;
             this.Id = Id;
             this.Index = index;
+            this.delay = delay;
             if (this.Id == 1)
             {
                 Name = "Apple";
@@ -126,11 +130,12 @@ namespace MapEditor
             this.Height = Height;            
         }
 
-        public Object(PictureBox Pic, string Name, int index, int PosX, int PosY, int Width, int Height)
+        public Object(PictureBox Pic, string Name, int index, int PosX, int PosY, int Width, int Height, int delay = 0)
         {
             this.Pic = Pic;
             this.Name = Name;
             this.Index = index;
+            this.delay = delay;
             if (Name.Equals("Apple"))
             {
                 this.Id = 1;

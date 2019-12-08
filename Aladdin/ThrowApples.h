@@ -5,7 +5,6 @@
 class ThrowApples : public CGameObject
 {
 private:
-	bool isEnable;
 	int damage;
 public:
 	ThrowApples();
@@ -15,6 +14,4 @@ public:
 	virtual void Render();
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	void SetState(int state);
-	void SetEnable(bool isEnable) { this->isEnable = isEnable; }
-	bool IsEnable() { return this->isEnable; }
 };

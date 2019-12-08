@@ -395,6 +395,15 @@ void CGame::SweptAABB(
 
 }
 
+bool CGame::isColliding(float ml, float mt, float mr, float mb, float sl, float st, float sr, float sb)
+{
+	if (mt <= sb && mb >= st && ml <= sr && mr >= sl)
+	{
+		return true;
+	}
+	return false;
+}
+
 CGame *CGame::GetInstance()
 {
 	if (__instance == NULL) __instance = new CGame();

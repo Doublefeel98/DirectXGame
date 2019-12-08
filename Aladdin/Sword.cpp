@@ -38,7 +38,7 @@ void Sword::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				GetBoundingBox(l1, t1, r1, b1);
 				enemy->GetBoundingBox(l2, t2, r2, b2);
 
-				if (t1 <= b2 && b1 >= t2 && l1 <= r2 && r1 >= l2) {
+				if (CGame::isColliding(l1, t1, r1, b1, l2, t2, r2, b2)) {
 					if ((coObjects->at(i))->nx != 0)
 					{
 						//enemy->GetColliderEffect()->SetEnable(true);

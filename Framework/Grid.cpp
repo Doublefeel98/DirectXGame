@@ -16,11 +16,10 @@ bool Grid::checkExistCell(int cellX, int cellY)
 Grid::Grid(int widthmap, int heightmap, int cellSize)
 {
 	this->cellSize = cellSize;
-	numXCells = heightmap / cellSize + (heightmap % cellSize > 0) ?  1 : 0;
-	numYCells = widthmap / cellSize + (widthmap % cellSize > 0) ? 1 : 0;
+	numYCells = heightmap / cellSize + ((heightmap % cellSize > 0) ?  1 : 0);
+	numXCells = widthmap / cellSize + ((widthmap % cellSize > 0) ? 1 : 0);
 
-	cells = new Cell*[numXCells];
-
+	cells = new Cell * [numXCells];
 	for (int i = 0; i < numXCells; i++)
 		cells[i] = new Cell[numYCells];
 }
@@ -28,8 +27,8 @@ Grid::Grid(int widthmap, int heightmap, int cellSize)
 Grid::Grid(const char* file, int widthmap, int heightmap, int cellSize, vector <LPGAMEOBJECT>* listObject)
 {
 	this->cellSize = cellSize;
-	numXCells = heightmap / cellSize + (heightmap % cellSize > 0) ? 1 : 0;
-	numYCells = widthmap / cellSize + (widthmap % cellSize > 0) ? 1 : 0;
+	numXCells = heightmap / cellSize + ((heightmap % cellSize > 0) ? 1 : 0);
+	numYCells = widthmap / cellSize + ((widthmap % cellSize > 0) ? 1 : 0);
 
 	cells = new Cell * [numXCells];
 
@@ -114,7 +113,6 @@ void Grid::Add(vector <LPGAMEOBJECT> *listObject)
 		//	continue;
 
 		object = listObject->at(i);
-		float left, top, right, bottom;
 		left = object->x;
 		top = object->y;
 		right = left + object->GetWidth();
@@ -169,29 +167,48 @@ void Grid::AddById(vector<LPGAMEOBJECT>* listObject)
 
 }
 
+bool checkContainId(vector<LPGAMEOBJECT> *list_object, LPGAMEOBJECT e)
+{
+	LPGAMEOBJECT temp;
+	for (int i = 0; i < list_object->size(); i++)
+	{
+		temp = list_object->at(i);
+		if (temp->id == e->id) {
+			return true;
+		}
+	}
+	return false;
+}
+
 void Grid::GetListOfObjects(vector<LPGAMEOBJECT>* list_object, int screenWidth, int screenHeight)
 {
 	CCamera* camera = CCamera::GetInstance();
 	list_object->clear();
-	int xs, ys;
-	int xe, ye;
+	int left, top, right, bottom;
 	int i, j, k;
-	xs = (int)camera->GetCameraPosition().x / cellSize;
-	ys = (int)camera->GetCameraPosition().y / cellSize;
 
-	xe = (int)(camera->GetCameraPosition().x + screenWidth) / cellSize;
-	ye = (int)(camera->GetCameraPosition().y + screenHeight) / cellSize;
-	if (xe == numYCells-1)
-		xe += 1;
-	for (i = ys; i < ye; i++)
+	left = (int)camera->GetCameraPosition().x / cellSize;
+	top = (int)camera->GetCameraPosition().y / cellSize;
+
+	right = (int)(camera->GetCameraPosition().x + screenWidth) / cellSize 
+			+ ((int)(camera->GetCameraPosition().x + screenWidth) % cellSize ? 1 : 0);
+
+	bottom = (int)(camera->GetCameraPosition().y + screenHeight) / cellSize 
+			+ ((int)(camera->GetCameraPosition().y + screenHeight) % cellSize ? 1 : 0);
+
+	LPGAMEOBJECT e;
+
+	for (i = left; i < right; i++)
 	{
-		for (j = xs; j < xe; j++)
+		for (j = top; j < bottom; j++)
 		{
 			if (cells[i][j].GetListObjects().size() != 0)
 				for (k = 0; k < cells[i][j].GetListObjects().size(); k++)
 				{
-					LPGAMEOBJECT e = cells[i][j].GetListObjects()[k];
-					list_object->push_back(e);
+					e = cells[i][j].GetListObjects().at(k);
+					if (!checkContainId(list_object, e)) {
+						list_object->push_back(e);
+					}
 				}
 		}
 	}

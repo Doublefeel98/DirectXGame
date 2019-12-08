@@ -4,9 +4,10 @@ Trap::Trap() :CGameObject() {
 	width = TRAP_BBOX_WIDTH;
 	height = TRAP_BBOX_HEIGHT;
 
-	enabled = false;
+	isEnable = false;
 
 	AddAnimation(2042);
+	damage = 1;
 }
 Trap::~Trap() {
 
@@ -14,8 +15,8 @@ Trap::~Trap() {
 void Trap::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	if (animations[TRAP_ANI_WAIT]->currentFrame >= 4 && animations[TRAP_ANI_WAIT]->currentFrame <= 7) {
-		left = x;
-		top = y;
+		left = x + 10;
+		top = y + 4;
 		right = left + TRAP_BBOX_WIDTH;
 		bottom = top + TRAP_BBOX_HEIGHT;
 	}
@@ -34,7 +35,10 @@ void Trap::Render() {
 void Trap::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject) {
 	CGameObject::Update(dt);
 	if (animations[TRAP_ANI_WAIT]->currentFrame >= 4 && animations[TRAP_ANI_WAIT]->currentFrame <= 7) {
-		enabled = true;
+		isEnable = true;
 	}
-	enabled = false;
+	else {
+		isEnable = false;
+	}
+	
 }

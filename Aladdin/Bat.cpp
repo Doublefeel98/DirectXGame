@@ -7,8 +7,13 @@
 
 void Bat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 {
-	CGameObject::Update(dt);
-
+	CEnemy::Update(dt, coObject);
+	if (isDead) {
+		x = -5;
+		y = -5;
+		vx = 0;
+		vy = 0;
+	}
 }
 
 void Bat::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -54,17 +59,21 @@ void Bat::Render()
 	//	RenderBoundingBox();
 	//}
 
-	animations[BAT_ANI_FLY]->Render(x, y, 255);
-	RenderBoundingBox();
+	if (isEnable)
+	{
+		animations[BAT_ANI_FLY]->Render(x, y, 255);
+		CEnemy::Render();
+		RenderBoundingBox();
+	}
 }
 
-Bat::Bat() :CGameObject() 
+Bat::Bat() :CEnemy() 
 {
 	width = BAT_BBOX_WIDTH_WAIT;
 	height = BAT_BBOX_HEIGHT;
 
 	wait = true; fly = false; rotate = false; die = false;
-	HP = BAT_MAX_HP;
+	hp = BAT_MAX_HP;
 
 	AddAnimation(230);		// wait
 

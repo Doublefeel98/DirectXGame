@@ -10,9 +10,6 @@
     <ClCompile Include="Up.cpp">
       <Filter>Source\Object</Filter>
     </ClCompile>
-    <ClCompile Include="SceneOne.cpp">
-      <Filter>Source\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="ScoreBoard.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -44,28 +41,25 @@
       <Filter>Source\Object</Filter>
     </ClCompile>
     <ClCompile Include="Ground.cpp">
-      <Filter>Source\Object\map</Filter>
+      <Filter>Source\Object\maps</Filter>
     </ClCompile>
     <ClCompile Include="Pilar.cpp">
-      <Filter>Source\Object\map</Filter>
+      <Filter>Source\Object\maps</Filter>
     </ClCompile>
     <ClCompile Include="WreckingBall.cpp">
-      <Filter>Source\Object\map</Filter>
+      <Filter>Source\Object\maps</Filter>
     </ClCompile>
     <ClCompile Include="Brick.cpp">
-      <Filter>Source\Object\map</Filter>
-    </ClCompile>
-    <ClCompile Include="Bat.cpp">
-      <Filter>Source\Object\map</Filter>
+      <Filter>Source\Object\maps</Filter>
     </ClCompile>
     <ClCompile Include="Trap.cpp">
-      <Filter>Source\Object\map</Filter>
+      <Filter>Source\Object\maps</Filter>
     </ClCompile>
     <ClCompile Include="Peddler.cpp">
-      <Filter>Source\Object\map</Filter>
+      <Filter>Source\Object\maps</Filter>
     </ClCompile>
     <ClCompile Include="Stone.cpp">
-      <Filter>Source\Object\map</Filter>
+      <Filter>Source\Object\maps</Filter>
     </ClCompile>
     <ClCompile Include="ExtraHealth.cpp">
       <Filter>Source\Object\Items</Filter>
@@ -106,10 +100,18 @@
     <ClCompile Include="ThinPalaceGuard.cpp">
       <Filter>Source\Object\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="ThrowApples.cpp">
-      <Filter>Source\Object\Items</Filter>
+    <ClCompile Include="Bat.cpp">
+      <Filter>Source\Object\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="Sword.cpp" />
+    <ClCompile Include="SceneOne.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Sword.cpp">
+      <Filter>Source\Object\wepons</Filter>
+    </ClCompile>
+    <ClCompile Include="ThrowApples.cpp">
+      <Filter>Source\Object\wepons</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aladdin.h">
@@ -173,7 +175,7 @@
       <Filter>Source\Object</Filter>
     </ClInclude>
     <ClInclude Include="Pilar.h">
-      <Filter>Source\Object\map</Filter>
+      <Filter>Source\Object\maps</Filter>
     </ClInclude>
     <ClInclude Include="Ground.h">
       <Filter>Source\Object\map</Filter>
@@ -182,22 +184,19 @@
       <Filter>Source\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="WreckingBall.h">
-      <Filter>Source\Object\map</Filter>
+      <Filter>Source\Object\maps</Filter>
     </ClInclude>
     <ClInclude Include="Brick.h">
-      <Filter>Source\Object\map</Filter>
-    </ClInclude>
-    <ClInclude Include="Bat.h">
-      <Filter>Source\Object\map</Filter>
+      <Filter>Source\Object\maps</Filter>
     </ClInclude>
     <ClInclude Include="Trap.h">
-      <Filter>Source\Object\map</Filter>
+      <Filter>Source\Object\maps</Filter>
     </ClInclude>
     <ClInclude Include="Peddler.h">
       <Filter>Source\Object\map</Filter>
     </ClInclude>
     <ClInclude Include="Stone.h">
-      <Filter>Source\Object\map</Filter>
+      <Filter>Source\Object\maps</Filter>
     </ClInclude>
     <ClInclude Include="ExtraHealth.h">
       <Filter>Source\Object\Items</Filter>
@@ -238,10 +237,15 @@
     <ClInclude Include="ThinPalaceGuard.h">
       <Filter>Source\Object\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="ThrowApples.h">
-      <Filter>Source\Object\Items</Filter>
+    <ClInclude Include="Bat.h">
+      <Filter>Source\Object\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="Sword.h" />
+    <ClInclude Include="Sword.h">
+      <Filter>Source\Object\wepons</Filter>
+    </ClInclude>
+    <ClInclude Include="ThrowApples.h">
+      <Filter>Source\Object\wepons</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -268,11 +272,14 @@
     <Filter Include="Source\Object\ScoreBoard">
       <UniqueIdentifier>{138c53e2-8c2d-4f92-8c19-65e5090e538b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Object\map">
-      <UniqueIdentifier>{ae36649e-40e2-4fbb-af59-9bf646f63262}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Object\Enemies\Boss">
       <UniqueIdentifier>{f5408931-a367-431f-b28f-8cc1e8e28fe5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Object\wepons">
+      <UniqueIdentifier>{fc5d81b1-30f9-4ef2-a996-e65377471d0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Object\maps">
+      <UniqueIdentifier>{ae36649e-40e2-4fbb-af59-9bf646f63262}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

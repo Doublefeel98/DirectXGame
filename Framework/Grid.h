@@ -9,7 +9,7 @@ class Grid
 {
 	friend class CGameObject;
 	int cellSize;
-	LPCELL* cells;
+	Cell **cells;
 	int numXCells;
 	int numYCells;
 	bool checkExistCell(int cellX, int cellY);

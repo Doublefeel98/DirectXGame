@@ -1,12 +1,11 @@
 #pragma once
-#include "../Framework/GameObject.h"
+#include "../Framework/Enemy.h"
 #include "Define.h"
 
-class Bat : public CGameObject
+class Bat : public CEnemy
 {
 private:
 	bool wait, fly, rotate, die;	// indicate which state a bat object is currently in
-	int HP;
 public:
 	Bat();
 	~Bat();

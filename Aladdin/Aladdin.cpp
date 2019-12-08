@@ -4,6 +4,8 @@
 
 #include "../Framework/Game.h"
 #include "../Framework/debug.h"
+#include "WreckingBall.h"
+#include "Trap.h"
 
 bool Aladdin::IsMoveCameraWhenLookingUp()
 {
@@ -22,6 +24,9 @@ bool Aladdin::IsMoveCameraWhenLookingUp()
 
 void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	//if (hp <= 0) {
+	//	SetState(ALADDIN_STATE_DIE);
+	//}
 
 	DWORD now = GetTickCount();
 	// Calculate dx, dy 
@@ -89,7 +94,15 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				sword->SetState(SWORD_STATE_SIT_LEFT);
 				sword->SetPosition(x, y);
 			}
-
+			if (now - timeAttackStart >= ALADDIN_SIT_ENABLE_SWORD_TIME)
+			{
+				if (!sword->IsFighting())
+				{
+					sword->SetEnable(true);
+					sword->SetFighting(true);
+				}
+				
+			}
 			if (now - timeAttackStart > ALADDIN_SIT_ATTACK_TIME)
 			{
 				ResetAnimationsSlash();
@@ -109,7 +122,14 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				sword->SetState(SWORD_STATE_LOOKUP_LEFT);
 				sword->SetPosition(x, y);
 			}
-
+			if (now - timeAttackStart >= ALADDIN_LOOK_UP_ENABLE_SWORD_TIME)
+			{
+				if (!sword->IsFighting())
+				{
+					sword->SetEnable(true);
+					sword->SetFighting(true);
+				}
+			}
 			if (now - timeAttackStart > ALADDIN_LOOK_UP_ATTACK_TIME)
 			{
 				ResetAnimationsSlash();
@@ -129,7 +149,14 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				sword->SetState(SWORD_STATE_JUMP_LEFT);
 				sword->SetPosition(x, y);
 			}
-
+			if (now - timeAttackStart >= ALADDIN_JUMP_ENABLE_SWORD_TIME)
+			{
+				if (!sword->IsFighting())
+				{
+					sword->SetEnable(true);
+					sword->SetFighting(true);
+				}
+			}
 			if (now - timeAttackStart > ALADDIN_JUMP_SLASH_TIME)
 			{
 				ResetAnimationsJump();
@@ -139,8 +166,16 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				SetState(ALADDIN_STATE_IDLE);
 			}
 		}
-		else if (vx > 0)
+		else if (vx != 0)
 		{
+			if (now - timeAttackStart >= ALADDIN_RUN_ENABLE_SWORD_TIME)
+			{
+				if (!sword->IsFighting())
+				{
+					sword->SetEnable(true);
+					sword->SetFighting(true);
+				}
+			}
 			if (now - timeAttackStart > ALADDIN_RUN_SLASH_TIME)
 			{
 				ResetAnimationsSlash();
@@ -160,7 +195,14 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				sword->SetState(SWORD_STATE_LEFT);
 				sword->SetPosition(x, y - 8);
 			}
-
+			if (now - timeAttackStart >= ALADDIN_ENABLE_SWORD_TIME)
+			{
+				if (!sword->IsFighting())
+				{
+					sword->SetEnable(true);
+					sword->SetFighting(true);
+				}
+			}
 			if (now - timeAttackStart > ALADDIN_ATTACK_TIME)
 			{
 				ResetAnimationsSlash();
@@ -176,6 +218,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else {
 		sword->SetEnable(false);
+		sword->SetFighting(false);
 	}
 
 	if(IsThrow)
@@ -289,15 +332,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//	}
 	//}
 
-	if (IsHurt) {
-		if (GetTickCount() - timeHurtableStart > 600)
-		{
-			timeHurtableStart = 0;
-			hurtable = 0;
-			IsHurt = false;
-
-		}
-	}
+	
 
 	if (dy == 0)
 	{
@@ -314,12 +349,91 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (state != ALADDIN_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
 
-	// reset untouchable timer if untouchable time has passed
-	//if (now - untouchable_start > ALADDIN_UNTOUCHABLE_TIME)
-	//{
-	//	untouchable_start = 0;
-	//	untouchable = 0;
-	//}
+	 // reset untouchable timer if untouchable time has passed
+	if (now - untouchable_start > ALADDIN_UNTOUCHABLE_TIME)
+	{
+		untouchable_start = 0;
+		untouchable = 0;
+	}
+
+	if (IsHurt) {
+		if (GetTickCount() - timeHurtableStart > ALADDIN_HURTABLE_TIME)
+		{
+			timeHurtableStart = 0;
+			hurtable = 0;
+			IsHurt = false;
+		}
+	}
+
+	for (UINT i = 0; i < coObjects->size(); i++)
+	{
+		if (dynamic_cast<Trap*>(coObjects->at(i)))
+		{
+			Trap* trap = dynamic_cast<Trap*>(coObjects->at(i));
+			float l1, t1, r1, b1, l2, t2, r2, b2;
+			GetBoundingBox(l1, t1, r1, b1);
+			trap->GetBoundingBox(l2, t2, r2, b2);
+			if (CGame::isColliding(l1, t1, r1, b1, l2, t2, r2, b2)) {
+				if (untouchable == 0)
+				{
+					if (trap->IsEnable())
+					{
+						if (hp > 0)
+						{
+							this->hp -= trap->GetDamage();
+							StartUntouchable();
+							StartHurting();
+							SetState(ALADDIN_STATE_BE_ATTACKED);
+							trap->SetEnable(false);
+						}
+						/*if (hp > 0)
+						{
+							this->hp -= trap->GetDamage();
+							StartUntouchable();
+							StartHurting();
+							SetState(ALADDIN_STATE_BE_ATTACKED);
+							trap->SetEnable(false);
+						}*/
+						//else
+						//	SetState(ALADDIN_STATE_DIE);
+					}
+				}
+			}
+		}
+		else if (dynamic_cast<WreckingBall*>(coObjects->at(i)))
+		{
+			WreckingBall* ball = dynamic_cast<WreckingBall*>(coObjects->at(i));
+			float l1, t1, r1, b1, l2, t2, r2, b2;
+			GetBoundingBox(l1, t1, r1, b1);
+			ball->GetBoundingBox(l2, t2, r2, b2);
+			if (CGame::isColliding(l1, t1, r1, b1, l2, t2, r2, b2)) {
+				if (untouchable == 0)
+				{
+					if (ball->IsEnable())
+					{
+						if (hp > 0)
+						{
+							this->hp -= ball->GetDamage();
+							StartUntouchable();
+							StartHurting();
+							SetState(ALADDIN_STATE_BE_ATTACKED);
+							ball->SetEnable(false);
+						}
+						/*if (hp > 0)
+						{
+							this->hp -= trap->GetDamage();
+							StartUntouchable();
+							StartHurting();
+							SetState(ALADDIN_STATE_BE_ATTACKED);
+							ball->SetEnable(false);
+						}*/
+						//else
+						//	SetState(ALADDIN_STATE_DIE);
+					}
+				}
+			}
+		}
+	}
 
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
@@ -340,7 +454,75 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (nx != 0) vx = 0;
 		if (ny != 0) vy = 0;
 
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			LPCOLLISIONEVENT e = coEventsResult[i];
 
+			if (dynamic_cast<Trap *>(e->obj))
+			{
+				Trap* trap = dynamic_cast<Trap*>(e->obj);
+
+				if (e->nx != 0)
+				{
+					if (untouchable == 0)
+					{
+						if (trap->IsEnable())
+						{
+							if (hp > 0)
+							{
+								this->hp -= trap->GetDamage();
+								StartUntouchable();
+								StartHurting();
+								SetState(ALADDIN_STATE_BE_ATTACKED);
+								trap->SetEnable(false);
+							}
+							/*if (hp > 0)
+							{
+								this->hp -= trap->GetDamage();
+								StartUntouchable();
+								StartHurting();
+								SetState(ALADDIN_STATE_BE_ATTACKED);
+								trap->SetEnable(false);
+							}*/
+							//else
+							//	SetState(ALADDIN_STATE_DIE);
+						}
+					}
+				}
+			}
+			else if (dynamic_cast<WreckingBall*>(e->obj))
+			{
+				WreckingBall* ball = dynamic_cast<WreckingBall*>(e->obj);
+
+				if (e->nx != 0)
+				{
+					if (untouchable == 0)
+					{
+						if (ball->IsEnable())
+						{
+							if (hp > 0)
+							{
+								this->hp -= ball->GetDamage();
+								StartUntouchable();
+								StartHurting();
+								SetState(ALADDIN_STATE_BE_ATTACKED);
+								ball->SetEnable(false);
+							}
+							/*if (hp > 0)
+							{
+								this->hp -= trap->GetDamage();
+								StartUntouchable();
+								StartHurting();
+								SetState(ALADDIN_STATE_BE_ATTACKED);
+								ball->SetEnable(false);
+							}*/
+							//else
+							//	SetState(ALADDIN_STATE_DIE);
+						}
+					}
+				}
+			}
+		}
 	}
 
 	// clean up collision events
@@ -403,7 +585,7 @@ void Aladdin::Render()
 			ani = ALADDIN_ANI_WALKING_LEFT;
 		}
 
-		if (IsSit == true)
+		if (IsSit)
 		{
 			if (IsSlash)
 			{
@@ -434,7 +616,7 @@ void Aladdin::Render()
 			}
 		}
 		else {
-			if (IsSlash == true)
+			if (IsSlash)
 			{
 				if (nx > 0) 
 				{
@@ -464,7 +646,7 @@ void Aladdin::Render()
 				}				
 			}
 		}
-		if (IsJump == true)
+		if (IsJump)
 		{
 			if (nx > 0) 
 			{
@@ -495,7 +677,7 @@ void Aladdin::Render()
 				}
 			}
 		}
-		if (IsLookingUp == true)
+		if (IsLookingUp)
 		{
 			if (IsSlash)
 			{
@@ -562,9 +744,19 @@ void Aladdin::Render()
 				}
 			}
 		}
+		if (IsHurt) {
+			if (nx > 0)
+			{
+				ani = ALADDIN_ANI_BE_ATTACKED_RIGHT;
+			}
+			else 
+			{
+				ani = ALADDIN_ANI_BE_ATTACKED_LEFT;
+			}
+		}
 	}
 	int alpha = 255;
-	if (hurtable) alpha = 128;
+	if (untouchable) alpha = 128;
 
 	animations[ani]->Render(posX, posY, alpha);
 
@@ -619,14 +811,12 @@ void Aladdin::SetState(int state)
 	case ALADDIN_STATE_STANDING_SLASH:
 		vx = 0;
 		IsSlash = true;
-		sword->SetEnable(true);
 		timeAttackStart = currentTime;
 		break;
 	case ALADDIN_STATE_SITTING_SLASH:
 		vx = 0;
 		IsSit = true;
 		IsSlash = true;
-		sword->SetEnable(true);
 		if (timeSitStart == 0)
 		{
 			timeSitStart = currentTime;
@@ -645,7 +835,6 @@ void Aladdin::SetState(int state)
 		vx = 0;
 		IsLookingUp = true;
 		IsSlash = true;
-		sword->SetEnable(true);
 		if (timeLookUpStart == 0)
 		{
 			timeLookUpStart = currentTime;
@@ -685,7 +874,6 @@ void Aladdin::SetState(int state)
 		vx = ALADDIN_WALKING_SPEED;
 		nx = 1;
 		IsSlash = true;
-		sword->SetEnable(true);
 		if (timeAttackStart == 0)
 		{
 			timeAttackStart == currentTime;
@@ -705,7 +893,6 @@ void Aladdin::SetState(int state)
 		vy = -ALADDIN_JUMP_SPEED_Y;
 		IsJump = true;
 		IsSlash = true;
-		sword->SetEnable(true);
 		IsGround = false;
 		if (timeJumpSlashStart == 0)
 		{
@@ -721,6 +908,19 @@ void Aladdin::SetState(int state)
 		{
 			timeJumpThrowStart = 0;
 		}
+		break;
+	case ALADDIN_STATE_BE_ATTACKED:
+		IsGround = false;
+		/*if (nx > 0)
+		{
+			vx = -0.1;
+		}
+		if (nx < 0)
+		{
+			vx = 0.1;
+		}*/
+		//if (dy <= 0 || vy >= 0 || dy > 0)
+		//	vy = -0.4;
 		break;
 	}
 }
@@ -846,6 +1046,8 @@ Aladdin::Aladdin() : CGameObject()
 	timeRunJumpStart = 0;
 	timeJumpSlashStart = 0;
 	timeJumpThrowStart = 0;
+
+	hp = ALADDIN_MAX_HP;
 
 	AddAnimation(100);		// idle right
 	AddAnimation(101);		//idle left

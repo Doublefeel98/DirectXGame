@@ -4,9 +4,10 @@ WreckingBall::WreckingBall() :CGameObject() {
 	width = BALL_BBOX_WIDTH;
 	height = BALL_BBOX_HEIGHT;
 
-	enabled = false;
+	isEnable = false;
 
 	AddAnimation(2043);
+	damage = 1;
 }
 WreckingBall::~WreckingBall() {
 
@@ -36,7 +37,7 @@ void WreckingBall::Render() {
 void WreckingBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject) {
 	CGameObject::Update(dt);
 	if (animations[BALL_ANI_WAIT]->currentFrame >= 9 && animations[BALL_ANI_WAIT]->currentFrame <= 19) {
-		enabled = true;
+		isEnable = true;
 	}
-	else enabled = false;
+	else isEnable = false;
 }

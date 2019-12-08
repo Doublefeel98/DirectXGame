@@ -4,7 +4,7 @@
 
 class WreckingBall :public CGameObject {
 private:
-	bool enabled;
+	int damage;
 public:
 	WreckingBall();
 	~WreckingBall();
@@ -14,6 +14,6 @@ public:
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 
-	bool IsEnabled() { return enabled; }
-	void SetEnabled(bool en) { enabled = en; }
+	void SetDamage(int damage) { this->damage = damage; }
+	int GetDamage() { return damage; }
 };

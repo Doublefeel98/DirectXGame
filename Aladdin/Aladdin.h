@@ -23,6 +23,7 @@ class Aladdin : public CGameObject
 	DWORD timeHurtableStart;
 	ThrowApples* throwApple;
 	Sword* sword;
+	int hp;
 public:
 	Aladdin();
 	bool IsSit;
@@ -38,6 +39,8 @@ public:
 	virtual void Render();
 	void SetState(int state);
 	void SetLevel(int l) { level = l; }
+	int GetHP() { return this->hp; }
+	void SetHP(int hp) { this->hp = hp; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 	void StartHurting() { IsHurt = true; hurtable = 1; timeHurtableStart = GetTickCount(); }
 	void ResetAnimationsSlash();

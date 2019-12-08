@@ -1,13 +1,13 @@
 #include "SceneOne.h"
 #include "Ground.h"
 #include "Pilar.h"
+#include "../Framework/debug.h"
 
 SceneOne::SceneOne(Aladdin* aladdin)
 {
 	this->aladdin = aladdin;
+	//this->aladdin->SetPosition(/*1200*/ 0, 900);
 	this->aladdin->SetPosition(1200, 900);
-
-	objects.push_back(this->aladdin);
 
 	CSprites* sprites = CSprites::GetInstance();
 	mapWidth = 2144.0f;
@@ -72,8 +72,13 @@ SceneOne::SceneOne(Aladdin* aladdin)
 void SceneOne::Render()
 {
 	tilemap->Render(screenWidth, screenHeight);
-	for (int i = 1; i < objects.size(); i++)
-		objects[i]->Render();
+
+	grid->GetListOfObjects(&coObjects, screenWidth, screenHeight);
+
+	for (int i = 0; i < coObjects.size(); i++)
+	{
+		coObjects[i]->Render();
+	}
 
 	aladdin->Render();
 
@@ -86,13 +91,18 @@ void SceneOne::Render()
 
 void SceneOne::Update(DWORD dt)
 {
-	for (int i = 0; i < objects.size(); i++)
+	grid->GetListOfObjects(&coObjects, screenWidth, screenHeight);
+
+	aladdin->Update(dt, &coObjects);
+
+	for (int i = 0; i < coObjects.size(); i++)
 	{
-		objects[i]->Update(dt, &coObjects);
+		coObjects[i]->Update(dt, &coObjects);
 	}
 
 	time += dt;
 	scoreboard->Update(0, 500 - time * 0.001, 3, 2);
+	//DebugOut(L"[INFO] aladdin hp: %d\n", aladdin->GetHP());
 }
 
 void SceneOne::DestroyAll()

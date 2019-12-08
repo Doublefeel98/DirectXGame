@@ -1652,7 +1652,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(20411);
 	animations->Add(2040, ani);
 
-	ani = new CAnimation(100);		// Trap
+	ani = new CAnimation(200);		// Trap
 	ani->Add(20420);
 	ani->Add(20421);
 	ani->Add(20422);

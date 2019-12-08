@@ -18,6 +18,8 @@ int CEnemy::GetScore()
 
 CEnemy::CEnemy() : CGameObject()
 {
+	isEnable = true;
+	isDead = false;
 }
 CEnemy::CEnemy(int hp) : CGameObject()
 {
@@ -25,6 +27,8 @@ CEnemy::CEnemy(int hp) : CGameObject()
 	this->respawnTime = 1000;
 	hpC = hp;
 	e_prevHP = hp;
+	isEnable = true;
+	isDead = false;
 }
 
 CEnemy::~CEnemy()

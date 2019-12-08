@@ -6,8 +6,13 @@
 
 void ExplodingSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 {
-	CGameObject::Update(dt);
-
+	CEnemy::Update(dt, coObject);
+	if (isDead) {
+		x = -5;
+		y = -5;
+		vx = 0;
+		vy = 0;
+	}
 }
 
 void ExplodingSkeleton::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -29,29 +34,23 @@ void ExplodingSkeleton::GetBoundingBox(float& left, float& top, float& right, fl
 	top = y;
 	right = x + SKELETON_BBOX_WIDTH;
 
-	if (state == CENEMY_STATE_DIE)
+	if (isDead)
 		bottom = y + 0;
 	else
 		bottom = y + SKELETON_BBOX_HEIGHT;
 }
 void ExplodingSkeleton::SetState(int state)
 {
-	CGameObject::SetState(state);
-	switch (state)
-	{
-	case CENEMY_STATE_DIE:
-		x = -5;
-		y = -5;
-		vx = 0;
-		vy = 0;
-		break;
-	}
+	CEnemy::SetState(state);
 }
 void ExplodingSkeleton::Render() 
 {
-	animations[SKELETON_ANI_STAND_UP_RIGHT]->Render(x, y, 255);
-	RenderBoundingBox();
-	
+	if (isEnable)
+	{
+		animations[SKELETON_ANI_STAND_UP_RIGHT]->Render(x, y);
+		CEnemy::Render();
+		RenderBoundingBox();
+	}
 }
 
 ExplodingSkeleton::ExplodingSkeleton() : CEnemy()
@@ -59,7 +58,7 @@ ExplodingSkeleton::ExplodingSkeleton() : CEnemy()
 	width = SKELETON_BBOX_WIDTH;
 	height = SKELETON_BBOX_HEIGHT;
 
-	HP = SKELETON_MAX_HP;
+	hp = SKELETON_MAX_HP;
 
 	AddAnimation(240);		// wait right
 	AddAnimation(241);		// wait left

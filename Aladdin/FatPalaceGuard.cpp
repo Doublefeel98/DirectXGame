@@ -6,7 +6,7 @@
 
 void FatPalaceGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 {
-	CGameObject::Update(dt);
+	CEnemy::Update(dt, coObject);
 
 }
 
@@ -17,7 +17,7 @@ void FatPalaceGuard::GetBoundingBox(float& left, float& top, float& right, float
 
 void FatPalaceGuard::SetState(int state)
 {
-	CGameObject::SetState(state);
+	CEnemy::SetState(state);
 }
 
 void FatPalaceGuard::Render()
@@ -31,7 +31,7 @@ FatPalaceGuard::FatPalaceGuard() : CEnemy()
 	height = GUARD_BBOX_HEIGHT;
 
 	wait = false; stab = false; wave = false; jump = false; surprise = false; die = true;
-	HP = GUARD_MAX_HP;
+	hp = GUARD_MAX_HP;
 
 	AddAnimation(221);		// idle right
 	AddAnimation(222);		// idle left

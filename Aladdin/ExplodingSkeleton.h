@@ -5,7 +5,6 @@
 class ExplodingSkeleton : public CEnemy
 {
 private:
-	int HP;
 public:
 	ExplodingSkeleton();
 	~ExplodingSkeleton();

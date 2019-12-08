@@ -6,6 +6,7 @@ class ThrowApples : public CGameObject
 {
 private:
 	bool isEnable;
+	int damage;
 public:
 	ThrowApples();
 	~ThrowApples();

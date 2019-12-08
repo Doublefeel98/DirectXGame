@@ -78,7 +78,6 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		
 	if (IsSlash)
 	{
-		sword->SetEnable(true);
 		if (IsSit)
 		{
 			if (nx > 0)
@@ -97,8 +96,6 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				timeAttackStart = 0;
 				IsSlash = false;
 				SetState(ALADDIN_STATE_SIT_DOWN);
-
-				sword->SetEnable(false);
 			}
 		}
 		else if (IsLookingUp)
@@ -119,8 +116,6 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				timeAttackStart = 0;
 				IsSlash = false;
 				SetState(ALADDIN_STATE_LOOKING_UP);
-
-				sword->SetEnable(false);
 			}
 		}
 		else if (IsJump)
@@ -142,8 +137,6 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				IsSlash = false;
 				IsJump = false;
 				SetState(ALADDIN_STATE_IDLE);
-
-				sword->SetEnable(false);
 			}
 		}
 		else if (vx > 0)
@@ -178,10 +171,11 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				else {
 					SetState(ALADDIN_STATE_IDLE);
 				}
-
-				sword->SetEnable(false);
 			}
 		}		
+	}
+	else {
+		sword->SetEnable(false);
 	}
 
 	if(IsThrow)
@@ -295,6 +289,16 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//	}
 	//}
 
+	if (IsHurt) {
+		if (GetTickCount() - timeHurtableStart > 600)
+		{
+			timeHurtableStart = 0;
+			hurtable = 0;
+			IsHurt = false;
+
+		}
+	}
+
 	if (dy == 0)
 	{
 		IsJump = false;
@@ -311,11 +315,11 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		CalcPotentialCollisions(coObjects, coEvents);
 
 	// reset untouchable timer if untouchable time has passed
-	if (now - untouchable_start > ALADDIN_UNTOUCHABLE_TIME)
-	{
-		untouchable_start = 0;
-		untouchable = 0;
-	}
+	//if (now - untouchable_start > ALADDIN_UNTOUCHABLE_TIME)
+	//{
+	//	untouchable_start = 0;
+	//	untouchable = 0;
+	//}
 
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
@@ -336,84 +340,13 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (nx != 0) vx = 0;
 		if (ny != 0) vy = 0;
 
-		// Collision logic with Goombas
-		//for (UINT i = 0; i < coEventsResult.size(); i++)
-		//{
-		//	LPCOLLISIONEVENT e = coEventsResult[i];
 
-		//	if (dynamic_cast<CGoomba*>(e->obj)) // if e->obj is Goomba 
-		//	{
-		//		CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
-
-		//		// jump on top >> kill Goomba and deflect a bit 
-		//		if (e->ny < 0)
-		//		{
-		//			if (goomba->GetState() != GOOMBA_STATE_DIE)
-		//			{
-		//				goomba->SetState(GOOMBA_STATE_DIE);
-		//				vy = -MARIO_JUMP_DEFLECT_SPEED;
-		//			}
-		//		}
-		//		else if (e->nx != 0)
-		//		{
-		//			if (untouchable == 0)
-		//			{
-		//				if (goomba->GetState() != GOOMBA_STATE_DIE)
-		//				{
-		//					if (level > MARIO_LEVEL_SMALL)
-		//					{
-		//						level = MARIO_LEVEL_SMALL;
-		//						StartUntouchable();
-		//					}
-		//					else
-		//						SetState(MARIO_STATE_DIE);
-		//				}
-		//			}
-		//		}
-		//	}
-		//}
 	}
 
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
-//void Aladdin::Render()
-//{
-//	int ani;
-//	if (state == ALADDIN_STATE_DIE)
-//		ani = ALADDIN_ANI_DIE;
-//	else
-//	{
-//		if (vx == 0)
-//		{
-//			ani = ALADDIN_ANI_IDLE_RIGHT;
-//			if (nx > 0) isFlip = false;
-//			else isFlip = true;
-//			//ani = ALADDIN_ANI_IDLE_STANDING_LEFT;
-//			//if (nx > 0) isFlip = false;
-//			//else isFlip = true;
-//		}
-//		else {
-//			ani = ALADDIN_ANI_WALKING_RIGHT;
-//			if(vx > 0)
-//				isFlip = false;
-//			else isFlip = true;
-//		}
-//	}
-//
-//	int alpha = 255;
-//	if (untouchable) alpha = 128;
-//	if (isFlip)
-//	{
-//		animations[ani]->RenderFlipOx(x, y, alpha);
-//	}
-//	else {
-//		animations[ani]->Render(x, y, alpha);
-//	}
-//	
-//	RenderBoundingBox();
-//}
 
 void Aladdin::Render()
 {
@@ -631,7 +564,7 @@ void Aladdin::Render()
 		}
 	}
 	int alpha = 255;
-	if (untouchable) alpha = 128;
+	if (hurtable) alpha = 128;
 
 	animations[ani]->Render(posX, posY, alpha);
 
@@ -686,12 +619,14 @@ void Aladdin::SetState(int state)
 	case ALADDIN_STATE_STANDING_SLASH:
 		vx = 0;
 		IsSlash = true;
+		sword->SetEnable(true);
 		timeAttackStart = currentTime;
 		break;
 	case ALADDIN_STATE_SITTING_SLASH:
 		vx = 0;
 		IsSit = true;
 		IsSlash = true;
+		sword->SetEnable(true);
 		if (timeSitStart == 0)
 		{
 			timeSitStart = currentTime;
@@ -710,6 +645,7 @@ void Aladdin::SetState(int state)
 		vx = 0;
 		IsLookingUp = true;
 		IsSlash = true;
+		sword->SetEnable(true);
 		if (timeLookUpStart == 0)
 		{
 			timeLookUpStart = currentTime;
@@ -749,6 +685,7 @@ void Aladdin::SetState(int state)
 		vx = ALADDIN_WALKING_SPEED;
 		nx = 1;
 		IsSlash = true;
+		sword->SetEnable(true);
 		if (timeAttackStart == 0)
 		{
 			timeAttackStart == currentTime;
@@ -768,6 +705,7 @@ void Aladdin::SetState(int state)
 		vy = -ALADDIN_JUMP_SPEED_Y;
 		IsJump = true;
 		IsSlash = true;
+		sword->SetEnable(true);
 		IsGround = false;
 		if (timeJumpSlashStart == 0)
 		{

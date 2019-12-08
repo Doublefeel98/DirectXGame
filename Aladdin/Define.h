@@ -287,7 +287,6 @@
 #define GENNIE_ANI_ACTIVE							1
 
 //enemy
-#define CENEMY_STATE_DIE		-100
 
 #define STONE_BBOX_WIDTH 28
 #define STONE_BBOX_HEIGHT 11

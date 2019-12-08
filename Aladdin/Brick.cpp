@@ -1,15 +1,34 @@
 #include "Brick.h"
 
-void CBrick::Render()
+void Brick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 {
-	animations[0]->Render(x, y);
-	//RenderBoundingBox();
+	CGameObject::Update(dt);
+
 }
 
-void CBrick::GetBoundingBox(float &l, float &t, float &r, float &b)
+
+void Brick::Render()
+{
+	animations[0]->Render(x, y);
+	RenderBoundingBox();
+}
+
+void Brick::GetBoundingBox(float &l, float &t, float &r, float &b)
 {
 	l = x;
 	t = y;
 	r = x + BRICK_BBOX_WIDTH;
 	b = y + BRICK_BBOX_HEIGHT;
+}
+
+Brick::Brick() :CGameObject() {
+	width = BRICK_BBOX_WIDTH;
+	height = BRICK_BBOX_WIDTH;
+
+	enabled = false;
+
+	AddAnimation(2040);
+}
+Brick::~Brick() {
+
 }

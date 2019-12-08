@@ -4,6 +4,7 @@
 #include "Define.h"
 #include"WreckingBall.h"
 #include"Trap.h"
+#include"Brick.h"
 #include"Stone.h"
 #include"Bat.h"
 #include"NormalPalaceGuard.h"

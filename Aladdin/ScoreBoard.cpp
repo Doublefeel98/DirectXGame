@@ -57,7 +57,7 @@ void ScoreBoard::Update(int bossHP, int time, int life, int stage)
 	information = L"SCORE_00000 TIME " + timeString + L" STAGE " + stageString + L"\n";
 
 	score->Update(timeString);
-	hp->Update(8);
+	hp->Update(aladdin->GetHP());
 }
 
 void ScoreBoard::Render()

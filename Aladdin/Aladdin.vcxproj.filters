@@ -112,6 +112,7 @@
     <ClCompile Include="ThrowApples.cpp">
       <Filter>Source\Object\wepons</Filter>
     </ClCompile>
+    <ClCompile Include="Wood.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aladdin.h">
@@ -171,9 +172,6 @@
     <ClInclude Include="Pilar.h">
       <Filter>Source\Object\maps</Filter>
     </ClInclude>
-    <ClInclude Include="Ground.h">
-      <Filter>Source\Object\map</Filter>
-    </ClInclude>
     <ClInclude Include="SceneBoss.h">
       <Filter>Source\Scenes</Filter>
     </ClInclude>
@@ -185,9 +183,6 @@
     </ClInclude>
     <ClInclude Include="Trap.h">
       <Filter>Source\Object\maps</Filter>
-    </ClInclude>
-    <ClInclude Include="Peddler.h">
-      <Filter>Source\Object\map</Filter>
     </ClInclude>
     <ClInclude Include="Stone.h">
       <Filter>Source\Object\maps</Filter>
@@ -246,6 +241,9 @@
     <ClInclude Include="Peddler.h">
       <Filter>Source\Object\maps</Filter>
     </ClInclude>
+    <ClInclude Include="Ground.h" />
+    <ClInclude Include="Peddler.h" />
+    <ClInclude Include="Wood.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">

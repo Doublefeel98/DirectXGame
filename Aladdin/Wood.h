@@ -1,12 +1,10 @@
 #pragma once
 #include "../Framework/GameObject.h"
-class HP : public CGameObject
+class Wood : public CGameObject
 {
-	int hp;
 public:
-	void Render();
-	void Update(int hp);
+	virtual void Render();
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
-	HP(int hp);
+	virtual void Update(DWORD dt);
 };
 

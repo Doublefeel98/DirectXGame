@@ -125,6 +125,7 @@
     <ClInclude Include="AladdinResoucres.h" />
     <ClInclude Include="Apple.h" />
     <ClInclude Include="Sword.h" />
+    <ClInclude Include="Wood.h" />
     <ClInclude Include="WreckingBall.h" />
     <ClInclude Include="ExtraHealth.h" />
     <ClInclude Include="HealthMeter.h" />
@@ -164,6 +165,7 @@
     <ClCompile Include="AladdinResoucres.cpp" />
     <ClCompile Include="Apple.cpp" />
     <ClCompile Include="Sword.cpp" />
+    <ClCompile Include="Wood.cpp" />
     <ClCompile Include="WreckingBall.cpp" />
     <ClCompile Include="ExtraHealth.cpp" />
     <ClCompile Include="HealthMeter.cpp" />

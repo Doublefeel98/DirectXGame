@@ -10,19 +10,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MapEditor
-{    
+{
     enum CursorCur
     {
         ICON,
         OBJECT,
         NONE
     }
-    
+
     public partial class MapEditor : Form
     {
         Image imageCursor = null;
         CursorCur CurrentCursor;
-        private List<Object> listObject;        
+        private List<Object> listObject;
         private Grid grid;
 
         Bitmap bmpMap;
@@ -47,7 +47,7 @@ namespace MapEditor
 
             // List Object
             listViewOB.LargeImageList = imageListOB;
-            listViewOB.View = View.LargeIcon;       
+            listViewOB.View = View.LargeIcon;
             listViewOB.Items.Add("Apple", 0);
             listViewOB.Items.Add("Ruby", 1);
             listViewOB.Items.Add("GenieFace", 2);
@@ -80,7 +80,7 @@ namespace MapEditor
 
             tbCellSize.Text = CELL_SIZE + "";
         }
-        
+
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFile = new OpenFileDialog();
@@ -110,8 +110,8 @@ namespace MapEditor
         }
 
         private void listViewOB_MouseClick(object sender, MouseEventArgs e)
-        {            
-            textBoxNameOB.Visible = true;            
+        {
+            textBoxNameOB.Visible = true;
             CurrentCursor = CursorCur.OBJECT;
             resetObjInfo();
 
@@ -132,11 +132,11 @@ namespace MapEditor
                     }
                     else if (imgIndex == 2)
                     {
-                        imageCursor = Utilities.ResizeImage(imageCursor, 38, 50);                        
+                        imageCursor = Utilities.ResizeImage(imageCursor, 38, 50);
                     }
                     else if (imgIndex == 3)
                     {
-                        imageCursor = Utilities.ResizeImage(imageCursor, 20, 33);                        
+                        imageCursor = Utilities.ResizeImage(imageCursor, 20, 33);
                     }
                     else if (imgIndex == 4)
                     {
@@ -168,7 +168,7 @@ namespace MapEditor
                     }
                     else if (imgIndex == 11)
                     {
-                        imageCursor = Utilities.ResizeImage(imageCursor, 42, 34);                       
+                        imageCursor = Utilities.ResizeImage(imageCursor, 42, 34);
                     }
                     else if (imgIndex == 12)
                     {
@@ -188,7 +188,7 @@ namespace MapEditor
                     }
                     else if (imgIndex == 16)
                     {
-                        imageCursor = Utilities.ResizeImage(imageCursor, 66, 15);
+                        imageCursor = Utilities.ResizeImage(imageCursor, 46, 15);
                     }
                 }
             }
@@ -248,7 +248,7 @@ namespace MapEditor
                     string nameOb = textBoxNameOB.Text.Trim();
 
                     Object ob = new Object(p, objectId, nameOb, (START_INDEX + listObject.Count), Convert.ToInt32(textBoxX.Text.Trim()),
-                        Convert.ToInt32(textBoxY.Text.Trim())/*, direction*/);   
+                        Convert.ToInt32(textBoxY.Text.Trim())/*, direction*/);
 
                     listObject.Add(ob);
                     listObject.ElementAt(listObject.Count - 1).Pic.Click += new System.EventHandler(PictureBoxes_Click);
@@ -268,7 +268,7 @@ namespace MapEditor
         private void buttonSave_Click(object sender, EventArgs e)
         {
             if (listObject.Count > 0)
-            {                
+            {
                 saveFileDialog1.Filter = "Text Files (*.txt)|*.txt|All files (*.*)|*.*";
                 saveFileDialog1.FilterIndex = 1;
                 saveFileDialog1.ShowDialog();
@@ -304,7 +304,7 @@ namespace MapEditor
                     }
                 }
             }
-            else if(CurrentCursor == CursorCur.NONE)
+            else if (CurrentCursor == CursorCur.NONE)
             {
                 PictureBox p = (PictureBox)sender;
 
@@ -342,8 +342,8 @@ namespace MapEditor
             tbObjName.Text = name;
             tbObjX.Text = posX;
             tbObjY.Text = posY;
-            tbObjWidth.Text = w;
-            tbObjHeight.Text = h;
+            numWidth.Text = w;
+            numHeight.Text = h;
             numObjDelay.Value = delay;
         }
 
@@ -497,7 +497,7 @@ namespace MapEditor
             }
             else if (imgIndex == 16)
             {
-                image = Utilities.ResizeImage(image, 66, 15);
+                image = Utilities.ResizeImage(image, 46, 15);
             }
             return image;
         }
@@ -561,7 +561,7 @@ namespace MapEditor
                     width = int.Parse(infos[4]);
                     height = int.Parse(infos[5]);
 
-                    if(infos.Length > 6)
+                    if (infos.Length > 6)
                     {
                         delay = int.Parse(infos[6]);
                     }
@@ -573,7 +573,7 @@ namespace MapEditor
                     if (int.TryParse(infos[1], out id))
                     {
                         p = new PictureBox();
-                        p.Image = getImage(id -1);
+                        p.Image = getImage(id - 1);
                         p.Location = new Point(posX, posY);
                         p.SizeMode = PictureBoxSizeMode.AutoSize;
                         p.BackColor = Color.Transparent;
@@ -585,7 +585,7 @@ namespace MapEditor
                         id = Object.getIdByName(infos[1]);
 
                         p = new PictureBox();
-                        p.Image = getImage(id-1);
+                        p.Image = getImage(id - 1);
                         p.Location = new Point(posX, posY);
                         p.SizeMode = PictureBoxSizeMode.AutoSize;
                         p.BackColor = Color.Transparent;
@@ -605,9 +605,25 @@ namespace MapEditor
 
         private void numObjDelay_ValueChanged(object sender, EventArgs e)
         {
-            if(objectIndexInfo != -1)
+            if (objectIndexInfo != -1)
             {
                 listObject.ElementAt(objectIndexInfo).delay = (int)numObjDelay.Value;
+            }
+        }
+
+        private void numWidth_ValueChanged(object sender, EventArgs e)
+        {
+            if (objectIndexInfo != -1)
+            {
+                listObject.ElementAt(objectIndexInfo).Width = (int)numWidth.Value;
+            }
+        }
+
+        private void numHeight_ValueChanged(object sender, EventArgs e)
+        {
+            if (objectIndexInfo != -1)
+            {
+                listObject.ElementAt(objectIndexInfo).Height = (int)numHeight.Value;
             }
         }
 

@@ -37,12 +37,12 @@
 
 CCamera* camera;
 
-CGame * game;
+CGame* game;
 
 Aladdin* aladdin;
 
-AladdinResoucres *resources;
-CSceneManager * sceneManager;
+AladdinResoucres* resources;
+CSceneManager* sceneManager;
 
 float dy;
 
@@ -71,7 +71,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 			{
 				aladdin->SetState(ALADDIN_STATE_THROW_APPLE);
 			}
-		}	
+		}
 		break;
 	case DIK_X:
 		if (aladdin->GetState() != ALADDIN_STATE_STANDING_SLASH)
@@ -87,7 +87,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 			else
 			{
 				aladdin->SetState(ALADDIN_STATE_STANDING_SLASH);
-			}			
+			}
 		}
 		break;
 	case DIK_C:
@@ -131,17 +131,16 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 
 void CSampleKeyHander::KeyState(BYTE* states)
 {
-	 // disable control key when Mario die 
+	// disable control key when Mario die 
 	if (aladdin->GetState() == ALADDIN_STATE_DIE) return;
 	if (game->IsKeyDown(DIK_RIGHT)) {
 		if (!aladdin->IsSit)
 			aladdin->SetState(ALADDIN_STATE_WALKING_RIGHT);
-	}	
+	}
 	else if (game->IsKeyDown(DIK_LEFT)) {
 		if (!aladdin->IsSit)
 			aladdin->SetState(ALADDIN_STATE_WALKING_LEFT);
 	}
-		
 	else if (game->IsKeyDown(DIK_DOWN)) {
 		if (!aladdin->IsJump) {
 			aladdin->SetState(ALADDIN_STATE_SIT_DOWN);
@@ -215,7 +214,7 @@ void Update(DWORD dt)
 	aladdin->GetPosition(cx, cy);
 
 	boundHeight = mapHeight + 22;
-	
+
 	if (cx + aladdin->GetWidth() + 5 < SCREEN_WIDTH / 2) {
 		cx = pos.x;
 	}
@@ -223,10 +222,10 @@ void Update(DWORD dt)
 		cx = mapWidth - SCREEN_WIDTH - 1;
 	}
 	else {
-		cx = cx + aladdin->GetWidth() + 5 + SCREEN_WIDTH/2 - SCREEN_WIDTH;
+		cx = cx + aladdin->GetWidth() + 5 + SCREEN_WIDTH / 2 - SCREEN_WIDTH;
 	}
 
-	if (cy + aladdin->GetHeight()/2 < mapHeight - SCREEN_HEIGHT / 2) {
+	if (cy + aladdin->GetHeight() / 2 < mapHeight - SCREEN_HEIGHT / 2) {
 		cy = cy + aladdin->GetHeight() / 2 - SCREEN_HEIGHT / 2;
 	}
 	else {
@@ -372,7 +371,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	sceneManager = CSceneManager::GetInstance();
 	sceneManager->ChangeScene(new SceneOne(aladdin));
 
-	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH*2, SCREEN_HEIGHT*2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
+	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 
 	Run();
 

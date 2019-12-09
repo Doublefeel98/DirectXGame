@@ -5,6 +5,8 @@
 class WreckingBall :public CGameObject {
 private:
 	int damage;
+	bool isDelay;
+	DWORD timeStartDelay;
 public:
 	WreckingBall();
 	~WreckingBall();
@@ -16,4 +18,5 @@ public:
 
 	void SetDamage(int damage) { this->damage = damage; }
 	int GetDamage() { return damage; }
+	void setDelay() { this->isDelay = true; }
 };

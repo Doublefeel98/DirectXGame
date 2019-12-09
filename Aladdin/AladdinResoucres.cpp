@@ -58,21 +58,21 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(11038, 829, 3, 871, 58, texAladdinGoLeft);
 	sprites->Add(11039, 774, 3, 818, 58, texAladdinGoLeft);
 
-	sprites->Add(10002, 6, 57, 46, 134, texAladdinGoRight);			// standing idle right
-	sprites->Add(10003, 51, 57, 112, 134, texAladdinGoRight, -12);
-	sprites->Add(10004, 116, 57, 178, 134, texAladdinGoRight, 9);
-	sprites->Add(10005, 180, 57, 221, 134, texAladdinGoRight, 9);
-	sprites->Add(10006, 228, 57, 267, 134, texAladdinGoRight, 9);
-	sprites->Add(10007, 275, 57, 311, 134, texAladdinGoRight, 9);
-	sprites->Add(10008, 319, 57, 359, 134, texAladdinGoRight, 9);
-	sprites->Add(10009, 366, 57, 407, 134, texAladdinGoRight, 9);
-	sprites->Add(10010, 417, 57, 454, 134, texAladdinGoRight, 9);
-	sprites->Add(10011, 465, 57, 503, 134, texAladdinGoRight, 9);
-	sprites->Add(10012, 516, 57, 554, 134, texAladdinGoRight, 9);
-	sprites->Add(10013, 568, 57, 608, 134, texAladdinGoRight, 9);
-	sprites->Add(10014, 619, 57, 660, 134, texAladdinGoRight, 9);
-	sprites->Add(10015, 668, 57, 708, 134, texAladdinGoRight, 9);
-	sprites->Add(10016, 715, 57, 754, 134, texAladdinGoRight, 9);
+	sprites->Add(10002, 6, 58, 46, 134, texAladdinGoRight);			// standing idle right
+	sprites->Add(10003, 51, 58, 112, 134, texAladdinGoRight, -12);
+	sprites->Add(10004, 116, 58, 178, 134, texAladdinGoRight, 9);
+	sprites->Add(10005, 180, 58, 221, 134, texAladdinGoRight, 9);
+	sprites->Add(10006, 228, 58, 267, 134, texAladdinGoRight, 9);
+	sprites->Add(10007, 275, 58, 311, 134, texAladdinGoRight, 9);
+	sprites->Add(10008, 319, 58, 359, 134, texAladdinGoRight, 9);
+	sprites->Add(10009, 366, 58, 407, 134, texAladdinGoRight, 9);
+	sprites->Add(10010, 417, 58, 454, 134, texAladdinGoRight, 9);
+	sprites->Add(10011, 465, 58, 503, 134, texAladdinGoRight, 9);
+	sprites->Add(10012, 516, 58, 554, 134, texAladdinGoRight, 9);
+	sprites->Add(10013, 568, 58, 608, 134, texAladdinGoRight, 9);
+	sprites->Add(10014, 619, 58, 660, 134, texAladdinGoRight, 9);
+	sprites->Add(10015, 668, 58, 708, 134, texAladdinGoRight, 9);
+	sprites->Add(10016, 715, 58, 754, 134, texAladdinGoRight, 9);
 	sprites->Add(10017, 3, 141, 39, 218, texAladdinGoRight, 9);
 	sprites->Add(10018, 46, 141, 86, 218, texAladdinGoRight, 9);
 	sprites->Add(10019, 91, 141, 132, 218, texAladdinGoRight, 9);
@@ -91,21 +91,21 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(10032, 715, 141, 754, 218, texAladdinGoRight, 9);
 	sprites->Add(10033, 762, 141, 801, 218, texAladdinGoRight, 9);
 
-	sprites->Add(11002, 1075, 57, 1115, 134, texAladdinGoLeft);		// standing left
-	sprites->Add(11003, 1009, 57, 1070, 134, texAladdinGoLeft);
-	sprites->Add(11004, 943, 57, 1005, 134, texAladdinGoLeft);
-	sprites->Add(11005, 900, 57, 941, 134, texAladdinGoLeft);
-	sprites->Add(11006, 854, 57, 893, 134, texAladdinGoLeft);
-	sprites->Add(11007, 810, 57, 846, 134, texAladdinGoLeft);
-	sprites->Add(11008, 762, 57, 802, 134, texAladdinGoLeft);
-	sprites->Add(11009, 720, 57, 755, 134, texAladdinGoLeft);
-	sprites->Add(11010, 667, 57, 704, 134, texAladdinGoLeft);
-	sprites->Add(11011, 618, 57, 656, 134, texAladdinGoLeft);
-	sprites->Add(11012, 567, 57, 605, 134, texAladdinGoLeft);
-	sprites->Add(11013, 513, 57, 553, 134, texAladdinGoLeft);
-	sprites->Add(11014, 461, 57, 502, 134, texAladdinGoLeft);
-	sprites->Add(11015, 413, 57, 453, 134, texAladdinGoLeft);
-	sprites->Add(11016, 367, 57, 406, 134, texAladdinGoLeft);
+	sprites->Add(11002, 1075, 58, 1115, 134, texAladdinGoLeft);		// standing left
+	sprites->Add(11003, 1009, 58, 1070, 134, texAladdinGoLeft);
+	sprites->Add(11004, 943, 58, 1005, 134, texAladdinGoLeft);
+	sprites->Add(11005, 900, 58, 941, 134, texAladdinGoLeft);
+	sprites->Add(11006, 854, 58, 893, 134, texAladdinGoLeft);
+	sprites->Add(11007, 810, 58, 846, 134, texAladdinGoLeft);
+	sprites->Add(11008, 762, 58, 802, 134, texAladdinGoLeft);
+	sprites->Add(11009, 720, 58, 755, 134, texAladdinGoLeft);
+	sprites->Add(11010, 667, 58, 704, 134, texAladdinGoLeft);
+	sprites->Add(11011, 618, 58, 656, 134, texAladdinGoLeft);
+	sprites->Add(11012, 567, 58, 605, 134, texAladdinGoLeft);
+	sprites->Add(11013, 513, 58, 553, 134, texAladdinGoLeft);
+	sprites->Add(11014, 461, 58, 502, 134, texAladdinGoLeft);
+	sprites->Add(11015, 413, 58, 453, 134, texAladdinGoLeft);
+	sprites->Add(11016, 367, 58, 406, 134, texAladdinGoLeft);
 	sprites->Add(11017, 1082, 141, 1118, 218, texAladdinGoLeft);
 	sprites->Add(11018, 1035, 141, 1075, 218, texAladdinGoLeft);
 	sprites->Add(11019, 989, 141, 1030, 218, texAladdinGoLeft);
@@ -1652,6 +1652,8 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(20423);
 	ani->Add(20422);
 	ani->Add(20421);
+	//delay
+	ani->Add(20420, 1800);
 	animations->Add(2042, ani);
 
 	ani = new CAnimation(100);		// Ball
@@ -1683,6 +1685,8 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(20455);
 	ani->Add(20456);
 	ani->Add(20457);
+	//delay
+	ani->Add(20430, 0);
 	animations->Add(2043, ani);
 
 	//ani = new CAnimation(100);		// Bat

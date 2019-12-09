@@ -187,6 +187,9 @@ void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, i
 		obj->SetPosition(x, y);
 		obj->SetWidth(width);
 		obj->SetHeight(height);
+		if (delay) {
+			obj->setDelay();
+		}
 		listObject->push_back(obj);
 	}
 		break;
@@ -199,6 +202,9 @@ void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, i
 			obj->SetPosition(x, y);
 			obj->SetWidth(width);
 			obj->SetHeight(height);
+			if (delay) {
+				obj->setDelay();
+			}
 			listObject->push_back(obj);
 		}
 		break;

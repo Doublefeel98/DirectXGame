@@ -5,6 +5,7 @@ WreckingBall::WreckingBall() :CGameObject() {
 	height = BALL_BBOX_HEIGHT;
 
 	isEnable = false;
+	timeStartDelay = 0;
 
 	AddAnimation(2043);
 	damage = 1;
@@ -28,9 +29,27 @@ void WreckingBall::GetBoundingBox(float& left, float& top, float& right, float& 
 	}
 }
 void WreckingBall::Render() {
-
-	animations[BALL_ANI_WAIT]->Render(x, y, 255);
-	RenderBoundingBox();
+	if (isDelay) {
+		if (timeStartDelay == 0) {
+			timeStartDelay = GetTickCount();
+			animations[0]->frames[0]->GetSprite()->Draw(x, y);
+		}
+		else {
+			if (GetTickCount() - timeStartDelay > 2800)
+			{
+				animations[0]->Render(x, y);
+				RenderBoundingBox();
+			}
+			else {
+				animations[0]->frames[0]->GetSprite()->Draw(x, y);
+			}
+		}
+	}
+	else
+	{
+		animations[BALL_ANI_WAIT]->Render(x, y, 255);
+		RenderBoundingBox();
+	}
 }
 
 void WreckingBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject) {

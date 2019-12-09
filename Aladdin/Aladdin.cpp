@@ -90,7 +90,8 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				sword->SetState(SWORD_STATE_SIT_RIGHT);
 				sword->SetPosition(x + ALADDIN_BBOX_WIDTH, y);
 			}
-			else {
+			else 
+			{
 				sword->SetState(SWORD_STATE_SIT_LEFT);
 				sword->SetPosition(x, y);
 			}
@@ -100,8 +101,11 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					sword->SetEnable(true);
 					sword->SetFighting(true);
-				}
-				
+				}				
+			}
+			if (now - timeAttackStart >= 700)
+			{
+				sword->SetEnable(false);
 			}
 			if (now - timeAttackStart > ALADDIN_SIT_ATTACK_TIME)
 			{
@@ -157,6 +161,10 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					sword->SetFighting(true);
 				}
 			}
+			if (now - timeAttackStart >= 600)
+			{
+				sword->SetEnable(false);
+			}
 			if (now - timeAttackStart > ALADDIN_JUMP_SLASH_TIME)
 			{
 				ResetAnimationsJump();
@@ -176,11 +184,16 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					sword->SetFighting(true);
 				}
 			}
+			if (now - timeAttackStart >= 600)
+			{
+				sword->SetEnable(false);
+			}
 			if (now - timeAttackStart > ALADDIN_RUN_SLASH_TIME)
 			{
 				ResetAnimationsSlash();
 				timeAttackStart = 0;
 				IsSlash = false;
+
 				SetState(ALADDIN_STATE_WALKING_RIGHT);
 			}
 		}
@@ -202,6 +215,10 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					sword->SetEnable(true);
 					sword->SetFighting(true);
 				}
+			}
+			if (now - timeAttackStart >= 500)
+			{
+				sword->SetEnable(false);
 			}
 			if (now - timeAttackStart > ALADDIN_ATTACK_TIME)
 			{

@@ -219,11 +219,11 @@
 #define SWORD_STATE_RUN_LEFT						8
 #define SWORD_STATE_RUN_RIGHT						9
 
-#define SWORD_BBOX_WIDTH							44
+#define SWORD_BBOX_WIDTH							42
 #define SWORD_BBOX_HEIGHT							61
 
-#define SWORD_BBOX_SIT_WIDTH						28
-#define SWORD_BBOX_SIT_HEIGHT						18
+#define SWORD_BBOX_SIT_WIDTH						44
+#define SWORD_BBOX_SIT_HEIGHT						40
 
 #define SWORD_BBOX_JUMP_WIDTH						18
 #define SWORD_BBOX_JUMP_HEIGHT						28

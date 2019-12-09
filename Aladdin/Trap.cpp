@@ -5,6 +5,7 @@ Trap::Trap() :CGameObject() {
 	height = TRAP_BBOX_HEIGHT;
 
 	isEnable = false;
+	timeStartDelay = 0;
 
 	AddAnimation(2042);
 	damage = 1;
@@ -27,10 +28,29 @@ void Trap::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 		bottom = 0;
 	}
 }
-void Trap::Render() {
-
-	animations[TRAP_ANI_WAIT]->Render(x, y, 255);
-	RenderBoundingBox();
+void Trap::Render() 
+{
+	if (isDelay) {
+		if (timeStartDelay == 0) {
+			timeStartDelay = GetTickCount();
+			animations[0]->frames[0]->GetSprite()->Draw(x, y);
+		}
+		else {
+			if (GetTickCount() - timeStartDelay > 1800)
+			{
+				animations[0]->Render(x, y);
+				RenderBoundingBox();
+			}
+			else {
+				animations[0]->frames[0]->GetSprite()->Draw(x, y);
+			}
+		}
+	}
+	else
+	{
+		animations[0]->Render(x, y, 255);
+		RenderBoundingBox();
+	}
 }
 void Trap::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject) {
 	CGameObject::Update(dt);

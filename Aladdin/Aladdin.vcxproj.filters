@@ -113,6 +113,7 @@
       <Filter>Source\Object\wepons</Filter>
     </ClCompile>
     <ClCompile Include="Wood.cpp" />
+    <ClCompile Include="StoneBar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aladdin.h">
@@ -235,15 +236,16 @@
     <ClInclude Include="ThrowApples.h">
       <Filter>Source\Object\wepons</Filter>
     </ClInclude>
+    <ClInclude Include="Ground.h" />
+    <ClInclude Include="Peddler.h" />
+    <ClInclude Include="Wood.h" />
     <ClInclude Include="Ground.h">
       <Filter>Source\Object\maps</Filter>
     </ClInclude>
     <ClInclude Include="Peddler.h">
       <Filter>Source\Object\maps</Filter>
     </ClInclude>
-    <ClInclude Include="Ground.h" />
-    <ClInclude Include="Peddler.h" />
-    <ClInclude Include="Wood.h" />
+    <ClInclude Include="StoneBar.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">

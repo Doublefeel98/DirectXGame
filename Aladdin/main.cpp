@@ -190,7 +190,7 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 void LoadResources()
 {
-	aladdin = new Aladdin();
+	aladdin = Aladdin::GetInstance();
 }
 
 /*

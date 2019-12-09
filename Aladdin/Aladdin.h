@@ -6,6 +6,7 @@
 
 class Aladdin : public CGameObject
 {
+	static Aladdin* __instance;
 	int level;
 	int untouchable;
 	DWORD untouchable_start;
@@ -24,8 +25,8 @@ class Aladdin : public CGameObject
 	ThrowApples* throwApple;
 	Sword* sword;
 	int hp;
-public:
 	Aladdin();
+public:
 	bool IsSit;
 	bool IsLookingUp;
 	bool IsJump;
@@ -53,4 +54,5 @@ public:
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	~Aladdin();
+	static Aladdin* GetInstance();
 };

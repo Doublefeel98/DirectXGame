@@ -6,7 +6,7 @@
 #include "../Framework/debug.h"
 #include "WreckingBall.h"
 #include "Trap.h"
-
+Aladdin* Aladdin::__instance = NULL;
 bool Aladdin::IsMoveCameraWhenLookingUp()
 {
 	if (IsLookingUp) {
@@ -39,7 +39,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	sword->Update(dt, coObjects);
 
 
-	if (this->GetState() == ALADDIN_STATE_IDLE) 
+	if (this->GetState() == ALADDIN_STATE_IDLE)
 	{
 		IsSit = false;
 		ResetAnimationsSitDown();
@@ -80,7 +80,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		animations[ani]->currentFrame = animations[ani]->frames.size() - 1;
 	}
-		
+
 	if (IsSlash)
 	{
 		if (IsSit)
@@ -90,7 +90,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				sword->SetState(SWORD_STATE_SIT_RIGHT);
 				sword->SetPosition(x + ALADDIN_BBOX_WIDTH, y);
 			}
-			else 
+			else
 			{
 				sword->SetState(SWORD_STATE_SIT_LEFT);
 				sword->SetPosition(x, y);
@@ -101,7 +101,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					sword->SetEnable(true);
 					sword->SetFighting(true);
-				}				
+				}
 			}
 			if (now - timeAttackStart >= 700)
 			{
@@ -202,7 +202,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			if (nx > 0)
 			{
 				sword->SetState(SWORD_STATE_RIGHT);
-				sword->SetPosition(x + ALADDIN_BBOX_WIDTH, y -8);
+				sword->SetPosition(x + ALADDIN_BBOX_WIDTH, y - 8);
 			}
 			else {
 				sword->SetState(SWORD_STATE_LEFT);
@@ -231,14 +231,14 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					SetState(ALADDIN_STATE_IDLE);
 				}
 			}
-		}		
+		}
 	}
 	else {
 		sword->SetEnable(false);
 		sword->SetFighting(false);
 	}
 
-	if(IsThrow)
+	if (IsThrow)
 	{
 		if (IsSit)
 		{
@@ -275,7 +275,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					throwApple->SetState(THROW_APPLE_STATE_LEFT);
 					throwApple->SetPosition(x - 3, y);
 				}
-				
+
 				ResetAnimationsThrow();
 				timeThrowStart = 0;
 				IsThrow = false;
@@ -349,7 +349,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//	}
 	//}
 
-	
+
 
 	if (dy == 0)
 	{
@@ -366,7 +366,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (state != ALADDIN_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
 
-	 // reset untouchable timer if untouchable time has passed
+	// reset untouchable timer if untouchable time has passed
 	if (now - untouchable_start > ALADDIN_UNTOUCHABLE_TIME)
 	{
 		untouchable_start = 0;
@@ -477,7 +477,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
-			if (dynamic_cast<Trap *>(e->obj))
+			if (dynamic_cast<Trap*>(e->obj))
 			{
 				Trap* trap = dynamic_cast<Trap*>(e->obj);
 
@@ -564,17 +564,17 @@ void Aladdin::Render()
 			if (nx > 0)
 			{
 				ani = ALADDIN_ANI_IDLE_RIGHT;
-				
+
 				if (dt >= ALADDIN_LOOKAROUND_TIME && dt < ALADDIN_STAND_TIME)
-				{		
+				{
 					posY = y - 3;
 					ani = ALADDIN_ANI_LOOK_AROUND_RIGHT;
-					
+
 				}
-				else if(dt > ALADDIN_STAND_TIME)
+				else if (dt > ALADDIN_STAND_TIME)
 				{
 					posY = y - 25;
-					ani = ALADDIN_ANI_STANDING_RIGHT;	
+					ani = ALADDIN_ANI_STANDING_RIGHT;
 				}
 			}
 			else
@@ -586,18 +586,18 @@ void Aladdin::Render()
 					ani = ALADDIN_ANI_LOOK_AROUND_LEFT;
 
 				}
-				else if(dt > ALADDIN_STAND_TIME)
+				else if (dt > ALADDIN_STAND_TIME)
 				{
 					posY = y - 25;
 					ani = ALADDIN_ANI_STANDING_LEFT;
 				}
 			}
 		}
-		else if (vx > 0) 
+		else if (vx > 0)
 		{
 			posY = y - 7;
 			ani = ALADDIN_ANI_WALKING_RIGHT;
-		}	
+		}
 		else
 		{
 			posY = y - 7;
@@ -637,7 +637,7 @@ void Aladdin::Render()
 		else {
 			if (IsSlash)
 			{
-				if (nx > 0) 
+				if (nx > 0)
 				{
 					if (vx > 0)
 					{
@@ -645,10 +645,10 @@ void Aladdin::Render()
 						ani = ALADDIN_ANI_RUN_SLASH_RIGHT;
 					}
 					else
-					{ 
+					{
 						ani = ALADDIN_ANI_STANDING_SLASH_RIGHT;
 						posY = y - 23;
-					}					
+					}
 				}
 				else
 				{
@@ -662,12 +662,12 @@ void Aladdin::Render()
 						ani = ALADDIN_ANI_STANDING_SLASH_LEFT;
 						posY = y - 23;
 					}
-				}				
+				}
 			}
 		}
 		if (IsJump)
 		{
-			if (nx > 0) 
+			if (nx > 0)
 			{
 				if (IsSlash)
 				{
@@ -679,7 +679,7 @@ void Aladdin::Render()
 						ani = ALADDIN_ANI_RUN_JUMP_RIGHT;
 					else
 						ani = ALADDIN_ANI_JUMPING_RIGHT;
-				}	
+				}
 			}
 			else
 			{
@@ -734,7 +734,7 @@ void Aladdin::Render()
 					ani = ALADDIN_ANI_JUMPING_THROW_APPLE_LEFT;
 			}
 			else
-			{				
+			{
 				if (nx > 0)
 				{
 					if (vx > 0)
@@ -747,7 +747,7 @@ void Aladdin::Render()
 						ani = ALADDIN_ANI_THROW_APPLE_RIGHT;
 						posY = y - 10;
 					}
-				}					
+				}
 				else
 				{
 					if (vx < 0)
@@ -768,7 +768,7 @@ void Aladdin::Render()
 			{
 				ani = ALADDIN_ANI_BE_ATTACKED_RIGHT;
 			}
-			else 
+			else
 			{
 				ani = ALADDIN_ANI_BE_ATTACKED_LEFT;
 			}
@@ -817,11 +817,11 @@ void Aladdin::SetState(int state)
 	case ALADDIN_STATE_DIE:
 		vy = -ALADDIN_DIE_DEFLECT_SPEED;
 		break;
-	//case ALADDIN_STATE_STANDING:
-	//	vx = 0;
-	//	IsStand = true;
-	//	timeStandStart = currentTime;
-	//	break;
+		//case ALADDIN_STATE_STANDING:
+		//	vx = 0;
+		//	IsStand = true;
+		//	timeStandStart = currentTime;
+		//	break;
 	case ALADDIN_STATE_SIT_DOWN:
 		vx = 0;
 		IsSit = true;
@@ -871,7 +871,7 @@ void Aladdin::SetState(int state)
 	case ALADDIN_STATE_SITTING_THROW_APPLE:
 		vx = 0;
 		IsSit = true;
-		IsThrow = true;		
+		IsThrow = true;
 		if (timeSitStart == 0)
 		{
 			timeSitStart = currentTime;
@@ -883,7 +883,7 @@ void Aladdin::SetState(int state)
 		nx = 1;
 		vy = -ALADDIN_JUMP_SPEED_Y;
 		IsJump = true;
-		IsGround = false;		
+		IsGround = false;
 		if (timeRunJumpStart == 0)
 		{
 			timeRunJumpStart = currentTime;
@@ -1046,7 +1046,7 @@ void Aladdin::GetBoundingBox(float& left, float& top, float& right, float& botto
 	top = y;
 	right = left + ALADDIN_BBOX_WIDTH;
 	bottom = top + ALADDIN_BBOX_HEIGHT;
-	
+
 }
 
 Aladdin::Aladdin() : CGameObject()
@@ -1093,7 +1093,7 @@ Aladdin::Aladdin() : CGameObject()
 
 	AddAnimation(102);		// standing right
 	AddAnimation(103);		// standing left
-	
+
 	AddAnimation(110);		// walking right
 	AddAnimation(111);		// walking left
 	AddAnimation(112);		// stop right
@@ -1147,3 +1147,8 @@ Aladdin::~Aladdin()
 
 }
 
+Aladdin* Aladdin::GetInstance()
+{
+	if (__instance == NULL) __instance = new Aladdin();
+	return __instance;
+}

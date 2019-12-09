@@ -3,6 +3,8 @@
 #include "Pilar.h"
 #include "Brick.h"
 #include "WreckingBall.h"
+#include "StoneBar.h"
+#include "Wood.h"
 
 
 AladdinObjects::AladdinObjects()
@@ -58,7 +60,7 @@ void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, i
 		obj->SetHeight(height);
 		listObject->push_back(obj);
 	}
-		break;
+	break;
 
 	case OBJECT_GOLD:
 	{
@@ -70,7 +72,7 @@ void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, i
 		obj->SetHeight(height);
 		listObject->push_back(obj);
 	}
-		break;
+	break;
 
 	case OBJECT_GENIE_FACE:
 	{
@@ -82,7 +84,7 @@ void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, i
 		obj->SetHeight(height);
 		listObject->push_back(obj);
 	}
-		break;
+	break;
 
 	case OBJECT_GENIE_VASE:
 	{
@@ -94,7 +96,7 @@ void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, i
 		obj->SetHeight(height);
 		listObject->push_back(obj);
 	}
-		break;
+	break;
 
 	case OBJECT_BAT:
 	{
@@ -106,7 +108,7 @@ void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, i
 		obj->SetHeight(height);
 		listObject->push_back(obj);
 	}
-		break;
+	break;
 
 	case OBJECT_NORMAL_PALACE_GUARD:
 	{
@@ -118,7 +120,7 @@ void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, i
 		obj->SetHeight(height);
 		listObject->push_back(obj);
 	}
-		break;
+	break;
 
 	case OBJECT_THIN_PALACE_GUARD:
 	{
@@ -130,7 +132,7 @@ void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, i
 		obj->SetHeight(height);
 		listObject->push_back(obj);
 	}
-		break;
+	break;
 
 	//case OBJECT_FAT_PALACE_GUARD:
 	//	Ground* obj = new Ground();
@@ -177,7 +179,7 @@ void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, i
 		}
 		listObject->push_back(obj);
 	}
-		break;
+	break;
 
 	case OBJECT_SPIKE_TRAP:
 	{
@@ -192,22 +194,22 @@ void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, i
 		}
 		listObject->push_back(obj);
 	}
-		break;
+	break;
 
 	case OBJECT_WRECKING_BALL:
-		{
-			WreckingBall* obj = new WreckingBall();
-			obj->SetId(id);
-			obj->SetType(type);
-			obj->SetPosition(x, y);
-			obj->SetWidth(width);
-			obj->SetHeight(height);
-			if (delay) {
-				obj->setDelay();
-			}
-			listObject->push_back(obj);
+	{
+		WreckingBall* obj = new WreckingBall();
+		obj->SetId(id);
+		obj->SetType(type);
+		obj->SetPosition(x, y);
+		obj->SetWidth(width);
+		obj->SetHeight(height);
+		if (delay) {
+			obj->setDelay();
 		}
-		break;
+		listObject->push_back(obj);
+	}
+	break;
 	//case OBJECT_CHAINS:
 	//	Ground* obj = new Ground();
 	//	obj->SetId(id);
@@ -226,48 +228,52 @@ void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, i
 	//	obj->SetHeight(height);
 	//	listObject->push_back(obj);
 	//	break;
-	//case OBJECT_ROCK_BAR:
-	//	Ground* obj = new Ground();
-	//	obj->SetId(id);
-	//	obj->SetType(type);
-	//	obj->SetPosition(x, y);
-	//	obj->SetWidth(width);
-	//	obj->SetHeight(height);
-	//	listObject->push_back(obj);
-	//	break;
-	//case OBJECT_WOOD:
-	//	Ground* obj = new Ground();
-	//	obj->SetId(id);
-	//	obj->SetType(type);
-	//	obj->SetPosition(x, y);
-	//	obj->SetWidth(width);
-	//	obj->SetHeight(height);
-	//	listObject->push_back(obj);
-	//	break;
+	case OBJECT_ROCK_BAR:
+	{
+		StoneBar* obj = new StoneBar();
+		obj->SetId(id);
+		obj->SetType(type);
+		obj->SetPosition(x, y);
+		obj->SetWidth(width);
+		obj->SetHeight(height);
+		listObject->push_back(obj);
+	}
+	break;
+	case OBJECT_WOOD:
+	{
+		Wood* obj = new Wood();
+		obj->SetId(id);
+		obj->SetType(type);
+		obj->SetPosition(x, y);
+		obj->SetWidth(width);
+		obj->SetHeight(height);
+		listObject->push_back(obj);
+	}
+	break;
 	case OBJECT_GROUND:
-		{
-			Ground* obj = new Ground();
-			obj->SetId(id);
-			obj->SetType(type);
-			obj->SetPosition(x, y);
-			obj->SetWidth(width);
-			obj->SetHeight(height);
-			listObject->push_back(obj);
-			
-		}
-		break;
+	{
+		Ground* obj = new Ground();
+		obj->SetId(id);
+		obj->SetType(type);
+		obj->SetPosition(x, y);
+		obj->SetWidth(width);
+		obj->SetHeight(height);
+		listObject->push_back(obj);
+
+	}
+	break;
 	case OBJECT_PILAR_5:
-		{
-			Pilar* obj = new Pilar();
-			obj->SetId(id);
-			obj->SetType(type);
-			obj->SetState(PILAR_STATE_5);
-			obj->SetPosition(x, y);
-			obj->SetWidth(width);
-			obj->SetHeight(height);
-			listObject->push_back(obj);
-		}
-		break;
+	{
+		Pilar* obj = new Pilar();
+		obj->SetId(id);
+		obj->SetType(type);
+		obj->SetState(PILAR_STATE_5);
+		obj->SetPosition(x, y);
+		obj->SetWidth(width);
+		obj->SetHeight(height);
+		listObject->push_back(obj);
+	}
+	break;
 	default:
 		break;
 	}

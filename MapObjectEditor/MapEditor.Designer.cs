@@ -64,20 +64,20 @@
             this.btnChangeCellSize = new System.Windows.Forms.Button();
             this.tbCellSize = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.numY = new System.Windows.Forms.NumericUpDown();
+            this.numX = new System.Windows.Forms.NumericUpDown();
+            this.numHeight = new System.Windows.Forms.NumericUpDown();
+            this.numWidth = new System.Windows.Forms.NumericUpDown();
             this.tbObjId = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.numObjDelay = new System.Windows.Forms.NumericUpDown();
             this.label13 = new System.Windows.Forms.Label();
-            this.tbObjX = new System.Windows.Forms.TextBox();
-            this.tbObjY = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.tbObjName = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.numWidth = new System.Windows.Forms.NumericUpDown();
-            this.numHeight = new System.Windows.Forms.NumericUpDown();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBG)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -88,9 +88,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.removePic)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numObjDelay)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numWidth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numWidth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numObjDelay)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonLoad
@@ -357,6 +359,7 @@
             this.imageListOB.Images.SetKeyName(15, "StoneBar.png");
             this.imageListOB.Images.SetKeyName(16, "Wood.png");
             this.imageListOB.Images.SetKeyName(17, "Ground.png");
+            this.imageListOB.Images.SetKeyName(18, "Heart.png");
             // 
             // buttonSave
             // 
@@ -452,14 +455,14 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.numY);
+            this.groupBox5.Controls.Add(this.numX);
             this.groupBox5.Controls.Add(this.numHeight);
             this.groupBox5.Controls.Add(this.numWidth);
             this.groupBox5.Controls.Add(this.tbObjId);
             this.groupBox5.Controls.Add(this.label14);
             this.groupBox5.Controls.Add(this.numObjDelay);
             this.groupBox5.Controls.Add(this.label13);
-            this.groupBox5.Controls.Add(this.tbObjX);
-            this.groupBox5.Controls.Add(this.tbObjY);
             this.groupBox5.Controls.Add(this.label11);
             this.groupBox5.Controls.Add(this.label12);
             this.groupBox5.Controls.Add(this.tbObjName);
@@ -472,6 +475,58 @@
             this.groupBox5.TabIndex = 19;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "ObjectInfo";
+            // 
+            // numY
+            // 
+            this.numY.Location = new System.Drawing.Point(659, 25);
+            this.numY.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numY.Name = "numY";
+            this.numY.Size = new System.Drawing.Size(61, 22);
+            this.numY.TabIndex = 21;
+            this.numY.ValueChanged += new System.EventHandler(this.numY_ValueChanged);
+            // 
+            // numX
+            // 
+            this.numX.Location = new System.Drawing.Point(564, 25);
+            this.numX.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numX.Name = "numX";
+            this.numX.Size = new System.Drawing.Size(64, 22);
+            this.numX.TabIndex = 20;
+            this.numX.ValueChanged += new System.EventHandler(this.numX_ValueChanged);
+            // 
+            // numHeight
+            // 
+            this.numHeight.Location = new System.Drawing.Point(469, 25);
+            this.numHeight.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numHeight.Name = "numHeight";
+            this.numHeight.Size = new System.Drawing.Size(61, 22);
+            this.numHeight.TabIndex = 19;
+            this.numHeight.ValueChanged += new System.EventHandler(this.numHeight_ValueChanged);
+            // 
+            // numWidth
+            // 
+            this.numWidth.Location = new System.Drawing.Point(340, 26);
+            this.numWidth.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numWidth.Name = "numWidth";
+            this.numWidth.Size = new System.Drawing.Size(64, 22);
+            this.numWidth.TabIndex = 18;
+            this.numWidth.ValueChanged += new System.EventHandler(this.numWidth_ValueChanged);
             // 
             // tbObjId
             // 
@@ -513,26 +568,6 @@
             this.label13.Size = new System.Drawing.Size(52, 17);
             this.label13.TabIndex = 13;
             this.label13.Text = "Delay :";
-            // 
-            // tbObjX
-            // 
-            this.tbObjX.Location = new System.Drawing.Point(566, 27);
-            this.tbObjX.Margin = new System.Windows.Forms.Padding(4);
-            this.tbObjX.Name = "tbObjX";
-            this.tbObjX.ReadOnly = true;
-            this.tbObjX.Size = new System.Drawing.Size(60, 22);
-            this.tbObjX.TabIndex = 12;
-            this.tbObjX.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // tbObjY
-            // 
-            this.tbObjY.Location = new System.Drawing.Point(664, 28);
-            this.tbObjY.Margin = new System.Windows.Forms.Padding(4);
-            this.tbObjY.Name = "tbObjY";
-            this.tbObjY.ReadOnly = true;
-            this.tbObjY.Size = new System.Drawing.Size(55, 22);
-            this.tbObjY.TabIndex = 11;
-            this.tbObjY.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label11
             // 
@@ -594,22 +629,6 @@
             this.label8.TabIndex = 3;
             this.label8.Text = "Width : ";
             // 
-            // numWidth
-            // 
-            this.numWidth.Location = new System.Drawing.Point(340, 26);
-            this.numWidth.Name = "numWidth";
-            this.numWidth.Size = new System.Drawing.Size(64, 22);
-            this.numWidth.TabIndex = 18;
-            this.numWidth.ValueChanged += new System.EventHandler(this.numWidth_ValueChanged);
-            // 
-            // numHeight
-            // 
-            this.numHeight.Location = new System.Drawing.Point(469, 25);
-            this.numHeight.Name = "numHeight";
-            this.numHeight.Size = new System.Drawing.Size(61, 22);
-            this.numHeight.TabIndex = 19;
-            this.numHeight.ValueChanged += new System.EventHandler(this.numHeight_ValueChanged);
-            // 
             // MapEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -647,9 +666,11 @@
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numObjDelay)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numWidth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numWidth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numObjDelay)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -691,8 +712,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numObjDelay;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox tbObjX;
-        private System.Windows.Forms.TextBox tbObjY;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox tbObjName;
@@ -703,6 +722,8 @@
         private System.Windows.Forms.TextBox tbObjId;
         private System.Windows.Forms.NumericUpDown numHeight;
         private System.Windows.Forms.NumericUpDown numWidth;
+        private System.Windows.Forms.NumericUpDown numY;
+        private System.Windows.Forms.NumericUpDown numX;
     }
 }
 

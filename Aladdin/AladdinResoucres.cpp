@@ -1557,7 +1557,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(20010);
 	ani->Add(20011);
 	ani->Add(20012);
-	ani->Add(10013);
+	ani->Add(20013);
 	animations->Add(-101, ani);
 
 	ani = new CAnimation(100);		// HP 3

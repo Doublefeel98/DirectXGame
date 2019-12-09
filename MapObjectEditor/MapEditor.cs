@@ -66,6 +66,7 @@ namespace MapEditor
             listViewOB.Items.Add("StoneBar", 15);
             listViewOB.Items.Add("Wood", 16);
             listViewOB.Items.Add("Ground", 17);
+            listViewOB.Items.Add("Heart", 18);
 
             //imageListOB.TransparentColor = Color.Transparent;
 
@@ -189,6 +190,10 @@ namespace MapEditor
                     else if (imgIndex == 16)
                     {
                         imageCursor = Utilities.ResizeImage(imageCursor, 46, 15);
+                    }
+                    else if (imgIndex == 18)
+                    {
+                        imageCursor = Utilities.ResizeImage(imageCursor, 32, 42);
                     }
                 }
             }
@@ -316,10 +321,10 @@ namespace MapEditor
 
                         string id = listObject.ElementAt(i).Id.ToString();
                         string name = listObject.ElementAt(i).Name;
-                        string posX = listObject.ElementAt(i).PosX.ToString();
-                        string posY = listObject.ElementAt(i).PosY.ToString();
-                        string w = listObject.ElementAt(i).Width.ToString();
-                        string h = listObject.ElementAt(i).Height.ToString();
+                        int posX = (int)listObject.ElementAt(i).PosX;
+                        int posY = (int)listObject.ElementAt(i).PosY;
+                        int w = listObject.ElementAt(i).Width;
+                        int h = listObject.ElementAt(i).Height;
                         int delay = listObject.ElementAt(i).delay;
 
                         setOjectInfo(id, name, posX, posY, w, h, delay);
@@ -332,18 +337,18 @@ namespace MapEditor
 
         private void resetObjInfo()
         {
-            setOjectInfo("", "", "", "", "", "", 0);
             objectIndexInfo = -1;
+            setOjectInfo("", "", 0, 0, 0, 0, 0);
         }
 
-        private void setOjectInfo(string id, string name, string posX, string posY, string w, string h, int delay)
+        private void setOjectInfo(string id, string name, int posX, int posY, int w, int h, int delay)
         {
             tbObjId.Text = id;
             tbObjName.Text = name;
-            tbObjX.Text = posX;
-            tbObjY.Text = posY;
-            numWidth.Text = w;
-            numHeight.Text = h;
+            numX.Value = posX;
+            numY.Value = posY;
+            numWidth.Value = w;
+            numHeight.Value = h;
             numObjDelay.Value = delay;
         }
 
@@ -499,6 +504,10 @@ namespace MapEditor
             {
                 image = Utilities.ResizeImage(image, 46, 15);
             }
+            else if (imgIndex == 18)
+            {
+                image = Utilities.ResizeImage(imageCursor, 32, 42);
+            }
             return image;
         }
 
@@ -624,6 +633,22 @@ namespace MapEditor
             if (objectIndexInfo != -1)
             {
                 listObject.ElementAt(objectIndexInfo).Height = (int)numHeight.Value;
+            }
+        }
+
+        private void numX_ValueChanged(object sender, EventArgs e)
+        {
+            if (objectIndexInfo != -1)
+            {
+                listObject.ElementAt(objectIndexInfo).PosX = (int)numX.Value;
+            }
+        }
+
+        private void numY_ValueChanged(object sender, EventArgs e)
+        {
+            if (objectIndexInfo != -1)
+            {
+                listObject.ElementAt(objectIndexInfo).PosY = (int)numY.Value;
             }
         }
 

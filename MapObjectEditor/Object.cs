@@ -13,23 +13,23 @@ namespace MapEditor
 
         public int Id { get; set; }
 
-        public int Index{ get; set; }
+        public int Index { get; set; }
 
         public string Name { get; set; }
 
         public float PosX { get; set; }
 
         public float PosY { get; set; }
-        
+
         public int Width { get; set; }
-        
+
         public int Height { get; set; }
 
         public PictureBox Pic { get; set; }
 
         public int delay { get; set; }
-        
-        public Object(PictureBox Pic, int Id, string Name, int index,int PosX, int PosY, int delay = 0)
+
+        public Object(PictureBox Pic, int Id, string Name, int index, int PosX, int PosY, int delay = 0)
         {
             this.Id = Id;
             this.Index = index;
@@ -122,12 +122,12 @@ namespace MapEditor
             }
             else if (this.Id == 19)
             {
-                Name = "Pilar";
+                Name = "Heart";
             }
             this.PosX = PosX;
             this.PosY = PosY;
             this.Width = Width;
-            this.Height = Height;            
+            this.Height = Height;
         }
 
         public Object(PictureBox Pic, string Name, int index, int PosX, int PosY, int Width, int Height, int delay = 0)
@@ -144,7 +144,7 @@ namespace MapEditor
             {
                 this.Id = 2;
             }
-            else if(Name.Equals("GenieFace"))
+            else if (Name.Equals("GenieFace"))
             {
                 this.Id = 3;
             }
@@ -208,7 +208,7 @@ namespace MapEditor
             {
                 this.Id = 18;
             }
-            else if (Name.Equals("Pilar"))
+            else if (Name.Equals("Heart"))
             {
                 this.Id = 19;
             }
@@ -294,7 +294,7 @@ namespace MapEditor
             {
                 objectId = 18;
             }
-            else if (objectName.Equals("Pilar"))
+            else if (objectName.Equals("Heart"))
             {
                 objectId = 19;
             }

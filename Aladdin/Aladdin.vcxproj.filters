@@ -116,6 +116,9 @@
     <ClCompile Include="StoneBar.cpp" />
     <ClCompile Include="Chains.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Statue.cpp">
+      <Filter>Source\Object\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aladdin.h">
@@ -250,6 +253,9 @@
     <ClInclude Include="StoneBar.h" />
     <ClInclude Include="Chains.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="Statue.h">
+      <Filter>Source\Object\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">

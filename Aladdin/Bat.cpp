@@ -75,11 +75,11 @@ Bat::Bat() :CEnemy()
 	wait = true; fly = false; rotate = false; die = false;
 	hp = BAT_MAX_HP;
 
-	AddAnimation(230);		// wait
+	AddAnimation(231);		// wait
 
-	AddAnimation(231);		// swing
+	AddAnimation(232);		// swing
 
-	AddAnimation(232);		// fly
+	AddAnimation(233);		// fly
 }
 
 Bat::~Bat() {

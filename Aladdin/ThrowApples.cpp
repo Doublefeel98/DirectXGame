@@ -18,7 +18,7 @@ ThrowApples::ThrowApples() :CGameObject() {
 	//AddAnimation(2203);
 	//AddAnimation(2204);
 	isEnable = false;
-	damage = 5;
+	damage = 1;
 }
 ThrowApples::~ThrowApples() {
 

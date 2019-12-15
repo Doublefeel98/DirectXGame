@@ -59,11 +59,14 @@ NormalPalaceGuard::NormalPalaceGuard() : CEnemy()
 	AddAnimation(215);		// wait right
 	AddAnimation(216);		// wait left
 
-	AddAnimation(217);		// attack right
-	AddAnimation(218);		// attack left
+	AddAnimation(217);		// attack stab right
+	AddAnimation(218);		// attack stab left
 
-	AddAnimation(219);		// suprise right
-	AddAnimation(220);		// suprise left
+	AddAnimation(219);		// attack slash right
+	AddAnimation(220);		// attack slash left
+
+	AddAnimation(221);		// suprise right
+	AddAnimation(222);		// suprise left
 
 }
 

@@ -29,6 +29,19 @@ void AladdinResoucres::LoadTextures()
 	//skeleton
 	textures->Add(ID_TEX_SKELETON, L"resources\\textures\\skeleton.png", D3DCOLOR_XRGB(255, 0, 255));
 
+	//EnemyExplosions
+	textures->Add(ID_TEX_ENEMY_EXPLOSIONS, L"resources\\textures\\EnemyExplosions.png", D3DCOLOR_XRGB(186, 254, 202));
+
+	//jafar
+	textures->Add(ID_TEX_JAFAR, L"resources\\textures\\boss.png", D3DCOLOR_XRGB(255, 0, 255));
+
+	//iago
+	textures->Add(ID_TEX_IAGO_RIGHT, L"resources\\textures\\iagoRight.png", D3DCOLOR_XRGB(84, 109, 142));
+	textures->Add(ID_TEX_IAGO_LEFT, L"resources\\textures\\iagoLeft.png", D3DCOLOR_XRGB(84, 109, 142));
+
+	//statue
+	textures->Add(ID_TEX_IAGO_RIGHT, L"resources\\textures\\ShivaStatueRight.png", D3DCOLOR_XRGB(84, 109, 142));
+	textures->Add(ID_TEX_IAGO_LEFT, L"resources\\textures\\ShivaStatueRight.png", D3DCOLOR_XRGB(84, 109, 142));
 }
 
 void AladdinResoucres::LoadSprites()
@@ -37,6 +50,23 @@ void AladdinResoucres::LoadSprites()
 	LPDIRECT3DTEXTURE9 texAladdinGoLeft = textures->Get(ID_TEX_ALADDIN_GO_LEFT);
 	LPDIRECT3DTEXTURE9 texAladdinFullRight = textures->Get(ID_TEX_ALADDIN_FULL_RIGHT);
 	LPDIRECT3DTEXTURE9 texAladdinFullLeft = textures->Get(ID_TEX_ALADDIN_FULL_LEFT);
+	LPDIRECT3DTEXTURE9 texEnemyExplosions = textures->Get(ID_TEX_ENEMY_EXPLOSIONS);
+
+	LPDIRECT3DTEXTURE9 texItem = textures->Get(ID_TEX_ITEM);
+
+	LPDIRECT3DTEXTURE9 texGuard = textures->Get(ID_TEX_GUARD);
+
+	LPDIRECT3DTEXTURE9 texBat = textures->Get(ID_TEX_BAT);
+
+	LPDIRECT3DTEXTURE9 texSkeleton = textures->Get(ID_TEX_SKELETON);
+
+	LPDIRECT3DTEXTURE9 texJafar = textures->Get(ID_TEX_JAFAR);
+
+	LPDIRECT3DTEXTURE9 texIagoRight = textures->Get(ID_TEX_IAGO_RIGHT);
+	LPDIRECT3DTEXTURE9 texIagoLeft = textures->Get(ID_TEX_IAGO_LEFT);
+
+	LPDIRECT3DTEXTURE9 texStatueRight = textures->Get(ID_TEX_STATUE_RIGHT);
+	LPDIRECT3DTEXTURE9 texStatueLeft = textures->Get(ID_TEX_STATUE_LEFT);
 
 	sprites->Add(10001, 3, 9, 41, 59, texAladdinGoRight);		// idle right
 
@@ -364,16 +394,18 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(11424, 884, 1005, 936, 1064, texAladdinGoLeft);
 	sprites->Add(11425, 828, 1005, 868, 1064, texAladdinGoLeft);
 
-	sprites->Add(10501, 11, 1358, 40, 1450, texAladdinGoRight);		// climbing right
-	sprites->Add(10502, 53, 1358, 81, 1450, texAladdinGoRight);
-	sprites->Add(10503, 94, 1358, 122, 1450, texAladdinGoRight);
-	sprites->Add(10504, 133, 1358, 175, 1450, texAladdinGoRight);
-	sprites->Add(10505, 186, 1358, 217, 1450, texAladdinGoRight);
-	sprites->Add(10506, 231, 1358, 260, 1450, texAladdinGoRight);
-	sprites->Add(10507, 274, 1358, 302, 1450, texAladdinGoRight);
-	sprites->Add(10508, 314, 1358, 346, 1450, texAladdinGoRight);
-	sprites->Add(10509, 356, 1358, 398, 1450, texAladdinGoRight);
-	sprites->Add(10510, 406, 1358, 434, 1450, texAladdinGoRight);
+	sprites->Add(10501, 11, 1358, 40, 1450, texAladdinGoRight, -5, -35);		// climbing
+	sprites->Add(10502, 53, 1358, 81, 1450, texAladdinGoRight, -6, -38);
+	sprites->Add(10503, 94, 1358, 122, 1450, texAladdinGoRight, -4, -23);
+	sprites->Add(10504, 133, 1358, 175, 1450, texAladdinGoRight, -18, -11);
+	sprites->Add(10505, 186, 1358, 217, 1450, texAladdinGoRight, -7, -25);
+	sprites->Add(10506, 231, 1358, 260, 1450, texAladdinGoRight, -8, -35);
+	sprites->Add(10507, 274, 1358, 302, 1450, texAladdinGoRight, -7, -28);
+	sprites->Add(10508, 314, 1358, 346, 1450, texAladdinGoRight, -6, -12);
+	sprites->Add(10509, 356, 1358, 398, 1450, texAladdinGoRight, -7, -11);
+	sprites->Add(10510, 406, 1358, 434, 1450, texAladdinGoRight, -5, -30);
+
+
 
 	sprites->Add(10521, 10, 1866, 44, 1950, texAladdinGoRight);		// falling after climbing
 	sprites->Add(10522, 65, 1866, 90, 1950, texAladdinGoRight);
@@ -615,134 +647,8 @@ void AladdinResoucres::LoadSprites()
 	sprites->AddByWidthHeight(20502, 817, 1144, 32, 744, texObstacle); // pilar 3
 	sprites->AddByWidthHeight(20503, 1169, 1144, 32, 192, texObstacle); // pilar 4
 
-	//LPDIRECT3DTEXTURE9 texBat = textures->Get(ID_TEX_BAT);
-	//sprites->Add(21000,9	,10	,16	,36	  ,texBat);		//wait
-
-	//sprites->Add(21010,10	,52 ,34	,92	  ,texBat);		//fly
-	//sprites->Add(21011,39	,52 ,52	,92	  ,texBat);
-	//sprites->Add(21012,56	,52 ,86	,92	  ,texBat);
-	//sprites->Add(21013,89	,52 ,121,	92,texBat);
-	//sprites->Add(21014,128,52 ,136,	92,texBat);
-	//sprites->Add(21015,143,52 ,163,	92,texBat);
-	//sprites->Add(21016,165,52 ,207,	92,texBat);
-
-	//sprites->Add(21020,20	,10 ,41	,36	  ,texBat);		//rotate
-	//sprites->Add(21021,48	,10 ,67	,36	  ,texBat);
-	//sprites->Add(21022,76	,10 ,97	,36	  ,texBat);
-
-	//sprites->Add(21030,10	,100,	23	,159,texBat);	//die
-	//sprites->Add(21031,38	,100,	89	,159,texBat);
-	//sprites->Add(21032,93	,100,	115	,159,texBat);
-	//sprites->Add(21033,128,100,	146	,159,texBat);
-	//sprites->Add(21034,160,100,	189	,159,texBat);
-	//sprites->Add(21035,199,100,	228	,159,texBat);
-	//sprites->Add(21036,233,100,	266	,159,texBat);
-	//sprites->Add(21037,275,100,	298	,159,texBat);
-	//sprites->Add(21038,306,100,	335	,159,texBat);
-
-
-	//LPDIRECT3DTEXTURE9 texGuard = textures->Get(ID_TEX_GUARD);
-	//sprites->Add(22001,0	,300	,150	,375	 ,texGuard);	//wait
-	//sprites->Add(22002, 150	,300	,300	,375 ,texGuard);
-	//sprites->Add(22003, 300	,300	,450	,375 ,texGuard);
-	//sprites->Add(22004,0	,375	,150	,450,texGuard);
-	//sprites->Add(22005,150,	375	,300	,450,texGuard);
-	//sprites->Add(22006,300,	375	,450	,450,texGuard);
-
-	//sprites->Add(22010, 0	,450,150	,525 ,texGuard);		//tab
-	//sprites->Add(22011, 150	,450,300	,525 ,texGuard);
-	//sprites->Add(22012,300	,450,450	,525 ,texGuard);
-	//sprites->Add(22013,0	,525,150	,600 ,texGuard);
-	//sprites->Add(22014,150	,525,300	,600 ,texGuard);
-	//sprites->Add(22015,300	,525,450	,600 ,texGuard);
-
-	//sprites->Add(22020,0	,600,150	,675 ,texGuard);		//wave
-	//sprites->Add(22021,150	,600,300	,675 ,texGuard);
-	//sprites->Add(22022,300	,600,450	,675 ,texGuard);
-	//sprites->Add(22023,0	,675,150	,750 ,texGuard);
-	//sprites->Add(22024, 150, 675, 300, 750, texGuard);
-
-	//sprites->Add(22030,0	,750,150	,825 ,texGuard);		//suprise
-	//sprites->Add(22031,150	,750,300	,825 ,texGuard);
-	//sprites->Add(22032,300	,750,450	,825 ,texGuard);
-	//sprites->Add(22033,0	,825,150	,900 ,texGuard);
-	//sprites->Add(22034,150	,825,300	,900 ,texGuard);
-	//sprites->Add(22035,300	,825,450	,900 ,texGuard);
-
-	//sprites->Add(22040,0	,900,150	,975 ,texGuard);		//jupm
-	//sprites->Add(22041,150	,900,300	,975 ,texGuard);
-	//sprites->Add(22042,300	,900,450	,975 ,texGuard);
-	//sprites->Add(22043,0	,975,150	,1050,texGuard);
-	//sprites->Add(22044,150	,975,300	,1050,texGuard);
-	//sprites->Add(22045,300	,975,450	,1050,texGuard);
-	//sprites->Add(22046,0	,1050,150	,1125,texGuard);
-	//sprites->Add(22047,150	,1050,300	,1125,texGuard);
-	//sprites->Add(22048,300	,1050,450	,1125,texGuard);
-
-	//sprites->Add(22050,0	,1125,150	,1200,texGuard);		//lie
-	//sprites->Add(22051,150	,1125,300	,1200,texGuard);
-	//sprites->Add(22052,300	,1125,450	,1200,texGuard);
-	//sprites->Add(22053,0	,1200,150	,1275,texGuard);
-
-	//sprites->Add(22060,150	,1200,300	,1275,texGuard);	//lie_shadow
-	//sprites->Add(22061,300	,1200,450	,1275,texGuard);
-	//sprites->Add(22062,0	,1275,150	,1350,texGuard);
-	//sprites->Add(22063,150	,1275,300	,1350,texGuard);
-
-	//LPDIRECT3DTEXTURE9 texTGuard = textures->Get(ID_TEX_THIN_GUARD);
-	//sprites->Add(23000,0	,0	,150	,75	,texTGuard);		//walk
-	//sprites->Add(23001,150	,0	,300	,75	,texTGuard);
-	//sprites->Add(23002,300	,0	,450	,75	,texTGuard);
-	//sprites->Add(23003,0	,75	,150	,150,texTGuard);
-	//sprites->Add(23004,150	,75	,300	,150,texTGuard);
-	//sprites->Add(23005,300	,75	,450	,150,texTGuard);
-	//sprites->Add(23006,0	,150,	150	,225,texTGuard);
-	//sprites->Add(23007,150	,150,	300	,225,texTGuard);
-
-	//sprites->Add(23010,0	,225,	150	,300,texTGuard);		//wave
-	//sprites->Add(23011,150	,225,	300	,300,texTGuard);
-	//sprites->Add(23012,300	,225,	450	,300,texTGuard);
-	//sprites->Add(23013,0	,300,	150	,375,texTGuard);
-	//sprites->Add(23014,150	,300,	300	,375,texTGuard);
-	//sprites->Add(23015,300	,300,	450	,375,texTGuard);
-
-	//sprites->Add(23020,0	,375,	150	,450,texTGuard);		//die
-	//sprites->Add(23021,150	,375,	300	,450,texTGuard);
-	//sprites->Add(23022,300	,375,	450	,450,texTGuard);
-	//sprites->Add(23023,0	,450,	150	,525,texTGuard);
-	//sprites->Add(23024,150	,450,	300	,525,texTGuard);
-	//sprites->Add(23025,300	,450,	450	,525,texTGuard);
-	//sprites->Add(23026,0	,525,	150	,600,texTGuard);
-	//sprites->Add(23027,150	,525,	300	,600,texTGuard);
-	//sprites->Add(23028,300	,525,	450	,600,texTGuard);
-
-	//sprites->Add(23030, 0, 375, 150, 450, texTGuard);		//wait
-
-	//LPDIRECT3DTEXTURE9 texSkeleton = textures->Get(ID_TEX_SKELETON);
-	//sprites->Add(24001,0	,200	,100,	300,texSkeleton);	//skeleton
-	//sprites->Add(24002,100,	200	,200,	300,texSkeleton);
-	//sprites->Add(24003,200,	200	,300,	300,texSkeleton);
-	//sprites->Add(24004,300,	200	,400,	300,texSkeleton);
-	//sprites->Add(24005,400,	200	,500,	300,texSkeleton);
-	//sprites->Add(24006,500,	200	,600,	300,texSkeleton);
-	//sprites->Add(24007,600,	200	,700,	300,texSkeleton);
-	//sprites->Add(24008,700,	200	,800,	300,texSkeleton);
-	//sprites->Add(24009,600,	100	,700,	200,texSkeleton);
-	//sprites->Add(24010,500,	100	,600,	200,texSkeleton);
-	//sprites->Add(24011,400,	100	,500,	200,texSkeleton);
-	//sprites->Add(24012,300,	100	,400,	200,texSkeleton);
-	//sprites->Add(24012,200,	100	,300,	200,texSkeleton);
-	//sprites->Add(24013,700,	0	,800,	100,texSkeleton);
-	//sprites->Add(24014,600,	0	,700,	100,texSkeleton);
-	//sprites->Add(24015,500,	0	,600,	100,texSkeleton);
-	//sprites->Add(24016,400,	0	,500,	100,texSkeleton);
-	//sprites->Add(24017,300,	0	,400,	100,texSkeleton);
-	//sprites->Add(24018,200,	0	,300,	100,texSkeleton);
-	//sprites->Add(24019,100,	0	,200,	100,texSkeleton);
-	//sprites->Add(24020,0	,0,	100	,100,texSkeleton);
 
 	//item
-	LPDIRECT3DTEXTURE9 texItem = textures->Get(ID_TEX_ITEM);
 
 	sprites->Add(21100, 340, 107, 356, 128, texItem);		//penny
 	sprites->Add(21101, 363, 107, 379, 128, texItem);
@@ -774,7 +680,15 @@ void AladdinResoucres::LoadSprites()
 
 	sprites->Add(21140, 19, 424, 38, 461, texItem);
 
+
 	sprites->Add(21150, 341, 17, 353, 29, texItem);		//apple
+
+	sprites->AddByWidthHeight(21161, 80, 31, 38, 21, texEnemyExplosions, -14, -10);	//item effect
+	sprites->AddByWidthHeight(21162, 128, 39, 17, 13, texEnemyExplosions, -8, -6);
+	sprites->AddByWidthHeight(21163, 152, 28, 39, 24, texEnemyExplosions, -19, -12);
+	sprites->AddByWidthHeight(21164, 200, 36, 30, 16, texEnemyExplosions, -15, -8);
+	sprites->AddByWidthHeight(21165, 240, 49, 3, 3, texEnemyExplosions, -1, -1);
+
 
 	sprites->Add(21170, 343, 171, 361, 196, texItem);		//heart
 	sprites->Add(21171, 366, 171, 382, 196, texItem);
@@ -788,200 +702,204 @@ void AladdinResoucres::LoadSprites()
 
 	sprites->AddByWidthHeight(22000, 373, 24, 7, 7, texAladdinGoRight);		// throw apple
 
-	sprites->AddByWidthHeight(22001, 394, 13, 23, 27, texAladdinGoRight);	// throw apple break
-	sprites->AddByWidthHeight(22002, 414, 13, 18, 27, texAladdinGoRight);
-	sprites->AddByWidthHeight(22003, 444, 13, 29, 27, texAladdinGoRight);
-	sprites->AddByWidthHeight(22004, 485, 13, 31, 27, texAladdinGoRight);
-	sprites->AddByWidthHeight(22005, 532, 13, 30, 27, texAladdinGoRight);
+	sprites->AddByWidthHeight(22001, 394, 23, 7, 10, texAladdinGoRight, -3, -5);	// throw apple break
+	sprites->AddByWidthHeight(22002, 414, 18, 20, 18, texAladdinGoRight, -10, -9);
+	sprites->AddByWidthHeight(22003, 444, 16, 29, 22, texAladdinGoRight, -14, -11);
+	sprites->AddByWidthHeight(22004, 485, 14, 31, 25, texAladdinGoRight, -15, -12);
+	sprites->AddByWidthHeight(22005, 532, 13, 30, 27, texAladdinGoRight, -15, -13);
 
-	LPDIRECT3DTEXTURE9 texThinGuard = textures->Get(ID_TEX_GUARD);
+	//thin guard
 
-	sprites->AddByWidthHeight(30000, 940, 160, 44, 73, texThinGuard);	// idle right
+	sprites->AddByWidthHeight(30000, 940, 160, 44, 73, texGuard);	// idle right
 
-	sprites->AddByWidthHeight(31000, 8, 160, 44, 73, texThinGuard);	// idle left
+	sprites->AddByWidthHeight(31000, 8, 160, 44, 73, texGuard);	// idle left
 
-	sprites->AddByWidthHeight(30001, 945, 9, 45, 67, texThinGuard);	// walk right
-	sprites->AddByWidthHeight(30002, 894, 9, 45, 67, texThinGuard);
-	sprites->AddByWidthHeight(30003, 837, 9, 46, 67, texThinGuard);
-	sprites->AddByWidthHeight(30004, 783, 9, 45, 67, texThinGuard);
-	sprites->AddByWidthHeight(30005, 741, 9, 37, 67, texThinGuard);
-	sprites->AddByWidthHeight(30006, 690, 9, 43, 67, texThinGuard);
-	sprites->AddByWidthHeight(30007, 634, 9, 50, 67, texThinGuard);
-	sprites->AddByWidthHeight(30008, 593, 9, 36, 67, texThinGuard);
+	sprites->AddByWidthHeight(30001, 945, 9, 45, 67, texGuard);	// walk right
+	sprites->AddByWidthHeight(30002, 894, 9, 45, 67, texGuard);
+	sprites->AddByWidthHeight(30003, 837, 9, 46, 67, texGuard);
+	sprites->AddByWidthHeight(30004, 783, 9, 45, 67, texGuard);
+	sprites->AddByWidthHeight(30005, 741, 9, 37, 67, texGuard);
+	sprites->AddByWidthHeight(30006, 690, 9, 43, 67, texGuard);
+	sprites->AddByWidthHeight(30007, 634, 9, 50, 67, texGuard);
+	sprites->AddByWidthHeight(30008, 593, 9, 36, 67, texGuard);
 
-	sprites->AddByWidthHeight(31001, 2, 9, 45, 67, texThinGuard);	// walk left
-	sprites->AddByWidthHeight(31002, 53, 9, 45, 67, texThinGuard);
-	sprites->AddByWidthHeight(31003, 109, 9, 46, 67, texThinGuard);
-	sprites->AddByWidthHeight(31004, 164, 9, 45, 67, texThinGuard);
-	sprites->AddByWidthHeight(31005, 214, 9, 37, 67, texThinGuard);
-	sprites->AddByWidthHeight(31006, 259, 9, 43, 67, texThinGuard);
-	sprites->AddByWidthHeight(31007, 308, 9, 50, 67, texThinGuard);
-	sprites->AddByWidthHeight(31008, 363, 9, 36, 67, texThinGuard);
+	sprites->AddByWidthHeight(31001, 2, 9, 45, 67, texGuard);	// walk left
+	sprites->AddByWidthHeight(31002, 53, 9, 45, 67, texGuard);
+	sprites->AddByWidthHeight(31003, 109, 9, 46, 67, texGuard);
+	sprites->AddByWidthHeight(31004, 164, 9, 45, 67, texGuard);
+	sprites->AddByWidthHeight(31005, 214, 9, 37, 67, texGuard);
+	sprites->AddByWidthHeight(31006, 259, 9, 43, 67, texGuard);
+	sprites->AddByWidthHeight(31007, 308, 9, 50, 67, texGuard);
+	sprites->AddByWidthHeight(31008, 363, 9, 36, 67, texGuard);
 
-	sprites->AddByWidthHeight(30011, 946, 82, 37, 74, texThinGuard);	// attack right
-	sprites->AddByWidthHeight(30012, 890, 82, 49, 74, texThinGuard, -10);
-	sprites->AddByWidthHeight(30013, 791, 82, 92, 74, texThinGuard);
-	sprites->AddByWidthHeight(30014, 703, 82, 86, 74, texThinGuard);
-	sprites->AddByWidthHeight(30015, 623, 82, 77, 74, texThinGuard);
-	sprites->AddByWidthHeight(30016, 569, 82, 96, 74, texThinGuard);
+	sprites->AddByWidthHeight(30011, 946, 82, 37, 74, texGuard);	// attack right
+	sprites->AddByWidthHeight(30012, 890, 82, 49, 74, texGuard, -10);
+	sprites->AddByWidthHeight(30013, 791, 82, 92, 74, texGuard);
+	sprites->AddByWidthHeight(30014, 703, 82, 86, 74, texGuard);
+	sprites->AddByWidthHeight(30015, 623, 82, 77, 74, texGuard);
+	sprites->AddByWidthHeight(30016, 569, 82, 96, 74, texGuard);
 
-	sprites->AddByWidthHeight(31011, 9, 82, 37, 74, texThinGuard);		// attack left
-	sprites->AddByWidthHeight(31012, 53, 82, 49, 74, texThinGuard, -8);
-	sprites->AddByWidthHeight(31013, 109, 82, 92, 74, texThinGuard, -60);
-	sprites->AddByWidthHeight(31014, 203, 82, 86, 74, texThinGuard, 55);
-	sprites->AddByWidthHeight(31015, 292, 82, 77, 74, texThinGuard, -44);
-	sprites->AddByWidthHeight(31016, 382, 82, 96, 74, texThinGuard, -6);
+	sprites->AddByWidthHeight(31011, 9, 82, 37, 74, texGuard);		// attack left
+	sprites->AddByWidthHeight(31012, 53, 82, 49, 74, texGuard, -8);
+	sprites->AddByWidthHeight(31013, 109, 82, 92, 74, texGuard, -60);
+	sprites->AddByWidthHeight(31014, 203, 82, 86, 74, texGuard, 55);
+	sprites->AddByWidthHeight(31015, 292, 82, 77, 74, texGuard, -44);
+	sprites->AddByWidthHeight(31016, 382, 82, 96, 74, texGuard, -6);
 
-	sprites->AddByWidthHeight(30021, 940, 160, 44, 73, texThinGuard, -3);	// suprise right
-	sprites->AddByWidthHeight(30022, 893, 160, 40, 73, texThinGuard);
-	sprites->AddByWidthHeight(30023, 839, 160, 39, 73, texThinGuard);
-	sprites->AddByWidthHeight(30024, 790, 160, 41, 73, texThinGuard);
-	sprites->AddByWidthHeight(30025, 736, 160, 46, 73, texThinGuard);
-	sprites->AddByWidthHeight(30026, 682, 160, 42, 73, texThinGuard);
-	sprites->AddByWidthHeight(30027, 627, 160, 47, 73, texThinGuard);
-	sprites->AddByWidthHeight(30028, 574, 160, 40, 73, texThinGuard);
-	sprites->AddByWidthHeight(30029, 514, 160, 45, 73, texThinGuard, -8);
+	sprites->AddByWidthHeight(30021, 940, 160, 44, 73, texGuard, -3);	// suprise right
+	sprites->AddByWidthHeight(30022, 893, 160, 40, 73, texGuard);
+	sprites->AddByWidthHeight(30023, 839, 160, 39, 73, texGuard);
+	sprites->AddByWidthHeight(30024, 790, 160, 41, 73, texGuard);
+	sprites->AddByWidthHeight(30025, 736, 160, 46, 73, texGuard);
+	sprites->AddByWidthHeight(30026, 682, 160, 42, 73, texGuard);
+	sprites->AddByWidthHeight(30027, 627, 160, 47, 73, texGuard);
+	sprites->AddByWidthHeight(30028, 574, 160, 40, 73, texGuard);
+	sprites->AddByWidthHeight(30029, 514, 160, 45, 73, texGuard, -8);
 
-	sprites->AddByWidthHeight(31021, 8, 160, 44, 73, texThinGuard, -7);		// suprise left
-	sprites->AddByWidthHeight(31022, 59, 160, 40, 73, texThinGuard, -3);
-	sprites->AddByWidthHeight(31023, 114, 160, 39, 73, texThinGuard);
-	sprites->AddByWidthHeight(31024, 161, 160, 41, 73, texThinGuard, -4);
-	sprites->AddByWidthHeight(31025, 210, 160, 46, 73, texThinGuard, -7);
-	sprites->AddByWidthHeight(31026, 268, 160, 42, 73, texThinGuard, -8);
-	sprites->AddByWidthHeight(31027, 318, 160, 47, 73, texThinGuard, -7);
-	sprites->AddByWidthHeight(31028, 378, 160, 40, 73, texThinGuard, -3);
-	sprites->AddByWidthHeight(31029, 433, 160, 45, 73, texThinGuard);
+	sprites->AddByWidthHeight(31021, 8, 160, 44, 73, texGuard, -7);		// suprise left
+	sprites->AddByWidthHeight(31022, 59, 160, 40, 73, texGuard, -3);
+	sprites->AddByWidthHeight(31023, 114, 160, 39, 73, texGuard);
+	sprites->AddByWidthHeight(31024, 161, 160, 41, 73, texGuard, -4);
+	sprites->AddByWidthHeight(31025, 210, 160, 46, 73, texGuard, -7);
+	sprites->AddByWidthHeight(31026, 268, 160, 42, 73, texGuard, -8);
+	sprites->AddByWidthHeight(31027, 318, 160, 47, 73, texGuard, -7);
+	sprites->AddByWidthHeight(31028, 378, 160, 40, 73, texGuard, -3);
+	sprites->AddByWidthHeight(31029, 433, 160, 45, 73, texGuard);
 
-	LPDIRECT3DTEXTURE9 texNormalGuard = textures->Get(ID_TEX_GUARD);
+	// normal guard
 
-	sprites->AddByWidthHeight(30100, 943, 388, 44, 53, texNormalGuard);	// idle right
+	sprites->AddByWidthHeight(30100, 943, 388, 44, 53, texGuard);	// idle right
 
-	sprites->AddByWidthHeight(31100, 5, 388, 44, 53, texNormalGuard);	// idle left
+	sprites->AddByWidthHeight(31100, 5, 388, 44, 53, texGuard);	// idle left
 
-	sprites->AddByWidthHeight(30101, 943, 316, 47, 56, texNormalGuard);	// walk right
-	sprites->AddByWidthHeight(30102, 885, 316, 52, 56, texNormalGuard);
-	sprites->AddByWidthHeight(30103, 825, 316, 56, 56, texNormalGuard);
-	sprites->AddByWidthHeight(30104, 768, 316, 51, 56, texNormalGuard);
-	sprites->AddByWidthHeight(30105, 713, 316, 49, 56, texNormalGuard);
-	sprites->AddByWidthHeight(30106, 666, 316, 42, 56, texNormalGuard);
-	sprites->AddByWidthHeight(30107, 614, 316, 44, 56, texNormalGuard);
-	sprites->AddByWidthHeight(30108, 563, 316, 47, 56, texNormalGuard);
+	sprites->AddByWidthHeight(30101, 943, 316, 47, 56, texGuard);	// walk right
+	sprites->AddByWidthHeight(30102, 885, 316, 52, 56, texGuard);
+	sprites->AddByWidthHeight(30103, 825, 316, 56, 56, texGuard);
+	sprites->AddByWidthHeight(30104, 768, 316, 51, 56, texGuard);
+	sprites->AddByWidthHeight(30105, 713, 316, 49, 56, texGuard);
+	sprites->AddByWidthHeight(30106, 666, 316, 42, 56, texGuard);
+	sprites->AddByWidthHeight(30107, 614, 316, 44, 56, texGuard);
+	sprites->AddByWidthHeight(30108, 563, 316, 47, 56, texGuard);
 
-	sprites->AddByWidthHeight(31101, 2, 316, 47, 56, texNormalGuard);	// walk left
-	sprites->AddByWidthHeight(31102, 55, 316, 52, 56, texNormalGuard);
-	sprites->AddByWidthHeight(31103, 111, 316, 56, 56, texNormalGuard);
-	sprites->AddByWidthHeight(31104, 173, 316, 51, 56, texNormalGuard);
-	sprites->AddByWidthHeight(31105, 230, 316, 49, 56, texNormalGuard);
-	sprites->AddByWidthHeight(31106, 284, 316, 42, 56, texNormalGuard);
-	sprites->AddByWidthHeight(31107, 334, 316, 44, 56, texNormalGuard);
-	sprites->AddByWidthHeight(31108, 382, 316, 47, 56, texNormalGuard);
+	sprites->AddByWidthHeight(31101, 2, 316, 47, 56, texGuard);	// walk left
+	sprites->AddByWidthHeight(31102, 55, 316, 52, 56, texGuard);
+	sprites->AddByWidthHeight(31103, 111, 316, 56, 56, texGuard);
+	sprites->AddByWidthHeight(31104, 173, 316, 51, 56, texGuard);
+	sprites->AddByWidthHeight(31105, 230, 316, 49, 56, texGuard);
+	sprites->AddByWidthHeight(31106, 284, 316, 42, 56, texGuard);
+	sprites->AddByWidthHeight(31107, 334, 316, 44, 56, texGuard);
+	sprites->AddByWidthHeight(31108, 382, 316, 47, 56, texGuard);
 
-	sprites->AddByWidthHeight(30111, 943, 448, 44, 54, texNormalGuard);	// wait right
-	sprites->AddByWidthHeight(30112, 899, 448, 37, 54, texNormalGuard);
-	sprites->AddByWidthHeight(30113, 840, 448, 54, 54, texNormalGuard);
-	sprites->AddByWidthHeight(30114, 777, 448, 58, 54, texNormalGuard);
-	sprites->AddByWidthHeight(30115, 722, 448, 49, 54, texNormalGuard);
-	sprites->AddByWidthHeight(30116, 670, 448, 44, 54, texNormalGuard);
+	sprites->AddByWidthHeight(30111, 943, 448, 44, 54, texGuard);	// wait right
+	sprites->AddByWidthHeight(30112, 899, 448, 37, 54, texGuard);
+	sprites->AddByWidthHeight(30113, 840, 448, 54, 54, texGuard);
+	sprites->AddByWidthHeight(30114, 777, 448, 58, 54, texGuard);
+	sprites->AddByWidthHeight(30115, 722, 448, 49, 54, texGuard);
+	sprites->AddByWidthHeight(30116, 670, 448, 44, 54, texGuard);
 
-	sprites->AddByWidthHeight(31111, 5, 448, 44, 54, texNormalGuard, -19);	// wait left
-	sprites->AddByWidthHeight(31112, 56, 448, 37, 54, texNormalGuard, -12);
-	sprites->AddByWidthHeight(31113, 98, 448, 54, 54, texNormalGuard, -29);
-	sprites->AddByWidthHeight(31114, 157, 448, 58, 54, texNormalGuard, -33);
-	sprites->AddByWidthHeight(31115, 221, 448, 49, 54, texNormalGuard, -24);
-	sprites->AddByWidthHeight(31116, 278, 448, 44, 54, texNormalGuard, -19);
+	sprites->AddByWidthHeight(31111, 5, 448, 44, 54, texGuard, -19);	// wait left
+	sprites->AddByWidthHeight(31112, 56, 448, 37, 54, texGuard, -12);
+	sprites->AddByWidthHeight(31113, 98, 448, 54, 54, texGuard, -29);
+	sprites->AddByWidthHeight(31114, 157, 448, 58, 54, texGuard, -33);
+	sprites->AddByWidthHeight(31115, 221, 448, 49, 54, texGuard, -24);
+	sprites->AddByWidthHeight(31116, 278, 448, 44, 54, texGuard, -19);
 
-	sprites->AddByWidthHeight(30121, 931, 552, 55, 73, texNormalGuard - 4);	//attack right
-	sprites->AddByWidthHeight(30122, 860, 552, 67, 73, texNormalGuard - 5);
-	sprites->AddByWidthHeight(30123, 782, 552, 70, 73, texNormalGuard - 6);
-	sprites->AddByWidthHeight(30124, 701, 552, 75, 73, texNormalGuard - 7);
-	sprites->AddByWidthHeight(30125, 607, 552, 88, 73, texNormalGuard - 7);
-	sprites->AddByWidthHeight(30126, 502, 552, 95, 73, texNormalGuard - 7);
+	sprites->AddByWidthHeight(31121, 6, 552, 55, 73, texGuard, -25);		//attack left
 
-	sprites->AddByWidthHeight(30127, 943, 629, 43, 73, texNormalGuard - 15);
-	sprites->AddByWidthHeight(30128, 888, 629, 43, 73, texNormalGuard - 18);
-	sprites->AddByWidthHeight(30129, 824, 629, 52, 73, texNormalGuard - 24);
-	sprites->AddByWidthHeight(30130, 700, 629, 114, 73, texNormalGuard - 19);
-	sprites->AddByWidthHeight(30131, 601, 629, 91, 73, texNormalGuard - 15);
+	sprites->AddByWidthHeight(30121, 931, 552, 55, 73, texGuard, -4);		//attack stab right
+	sprites->AddByWidthHeight(30122, 860, 552, 67, 73, texGuard, -5);
+	sprites->AddByWidthHeight(30123, 782, 552, 70, 73, texGuard, -6);
+	sprites->AddByWidthHeight(30124, 701, 552, 75, 73, texGuard, -7);
+	sprites->AddByWidthHeight(30125, 607, 552, 88, 73, texGuard, -7);
+	sprites->AddByWidthHeight(30126, 502, 552, 95, 73, texGuard, -7);
 
-	sprites->AddByWidthHeight(31121, 6, 552, 55, 73, texNormalGuard, -25);	//attack left
-	sprites->AddByWidthHeight(31122, 65, 552, 67, 73, texNormalGuard, -36);
-	sprites->AddByWidthHeight(31123, 140, 552, 70, 73, texNormalGuard, -38);
-	sprites->AddByWidthHeight(31124, 216, 552, 75, 73, texNormalGuard, -42);
-	sprites->AddByWidthHeight(31125, 297, 552, 88, 73, texNormalGuard, -55);
-	sprites->AddByWidthHeight(31126, 395, 552, 95, 73, texNormalGuard, -61);
+	sprites->AddByWidthHeight(31121, 6, 552, 55, 73, texGuard, -25);		//attack stab left
+	sprites->AddByWidthHeight(31122, 65, 552, 67, 73, texGuard, -36);
+	sprites->AddByWidthHeight(31123, 140, 552, 70, 73, texGuard, -38);
+	sprites->AddByWidthHeight(31124, 216, 552, 75, 73, texGuard, -42);
+	sprites->AddByWidthHeight(31125, 297, 552, 88, 73, texGuard, -55);
+	sprites->AddByWidthHeight(31126, 395, 552, 95, 73, texGuard, -61);
 
-	sprites->AddByWidthHeight(31127, 6, 629, 43, 73, texNormalGuard, -4);
-	sprites->AddByWidthHeight(31128, 61, 629, 43, 73,texNormalGuard, -1);
-	sprites->AddByWidthHeight(31129, 116, 629, 52, 73, texNormalGuard, -4);
-	sprites->AddByWidthHeight(31130, 178, 629, 114, 73, texNormalGuard, -71);
-	sprites->AddByWidthHeight(31131, 300, 629, 91, 73, texNormalGuard, -52);
+	sprites->AddByWidthHeight(31127, 6, 629, 43, 73, texGuard, -4);
+	sprites->AddByWidthHeight(31128, 61, 629, 43, 73, texGuard, -1);
+	sprites->AddByWidthHeight(30127, 943, 629, 43, 73, texGuard, -15);	//attack slash right
+	sprites->AddByWidthHeight(30128, 888, 629, 43, 73, texGuard, -18);
+	sprites->AddByWidthHeight(30129, 824, 629, 52, 73, texGuard, -24);
+	sprites->AddByWidthHeight(30130, 700, 629, 114, 73, texGuard, -19);
+	sprites->AddByWidthHeight(30131, 601, 629, 91, 73, texGuard, -15);
 
-	sprites->AddByWidthHeight(30141, 932, 789, 54, 71, texNormalGuard);	// suprise right
-	sprites->AddByWidthHeight(30142, 858, 789, 63, 71, texNormalGuard, -18);
-	sprites->AddByWidthHeight(30143, 789, 789, 65, 71, texNormalGuard, -23);
-	sprites->AddByWidthHeight(30144, 711, 789, 71, 71, texNormalGuard, -26);
-	sprites->AddByWidthHeight(30145, 628, 789, 74, 71, texNormalGuard, -26);
-	sprites->AddByWidthHeight(30146, 544, 789, 66, 71, texNormalGuard, -13);
+	sprites->AddByWidthHeight(31127, 6, 629, 43, 73, texGuard, -4);		//attack slash left
+	sprites->AddByWidthHeight(31128, 61, 629, 43, 73, texGuard, -1);
+	sprites->AddByWidthHeight(31129, 116, 629, 52, 73, texGuard, -4);
+	sprites->AddByWidthHeight(31130, 178, 629, 114, 73, texGuard, -71);
+	sprites->AddByWidthHeight(31131, 300, 629, 91, 73, texGuard, -52);
 
-	sprites->AddByWidthHeight(31141, 6, 789, 54, 71, texNormalGuard, -21);	// suprise left
-	sprites->AddByWidthHeight(31142, 71, 789, 63, 71, texNormalGuard, -18);
-	sprites->AddByWidthHeight(31143, 138, 789, 65, 71, texNormalGuard, -18);
-	sprites->AddByWidthHeight(31144, 210, 789, 71, 71, texNormalGuard, -20);
-	sprites->AddByWidthHeight(31145, 290, 789, 74, 71, texNormalGuard, -24);
-	sprites->AddByWidthHeight(31146, 382, 789, 66, 71, texNormalGuard, -19);
+	sprites->AddByWidthHeight(30141, 932, 789, 54, 71, texGuard);	// suprise right
+	sprites->AddByWidthHeight(30142, 858, 789, 63, 71, texGuard, -18);
+	sprites->AddByWidthHeight(30143, 789, 789, 65, 71, texGuard, -23);
+	sprites->AddByWidthHeight(30144, 711, 789, 71, 71, texGuard, -26);
+	sprites->AddByWidthHeight(30145, 628, 789, 74, 71, texGuard, -26);
+	sprites->AddByWidthHeight(30146, 544, 789, 66, 71, texGuard, -13);
 
-	LPDIRECT3DTEXTURE9 texFatGuard = textures->Get(ID_TEX_GUARD);
-	sprites->AddByWidthHeight(30200, 940, 943, 43, 50, texFatGuard);	// idle right
+	sprites->AddByWidthHeight(31141, 6, 789, 54, 71, texGuard, -21);	// suprise left
+	sprites->AddByWidthHeight(31142, 71, 789, 63, 71, texGuard, -18);
+	sprites->AddByWidthHeight(31143, 138, 789, 65, 71, texGuard, -18);
+	sprites->AddByWidthHeight(31144, 210, 789, 71, 71, texGuard, -20);
+	sprites->AddByWidthHeight(31145, 290, 789, 74, 71, texGuard, -24);
+	sprites->AddByWidthHeight(31146, 382, 789, 66, 71, texGuard, -19);
 
-	sprites->AddByWidthHeight(31200, 9, 943, 43, 50, texFatGuard);	// idle left
+	// fat guard
+	sprites->AddByWidthHeight(30200, 940, 943, 43, 50, texGuard);	// idle right
 
-	sprites->AddByWidthHeight(30201, 948, 1056, 37, 60, texFatGuard);	// walk right
-	sprites->AddByWidthHeight(30202, 905, 1056, 35, 60, texFatGuard);
-	sprites->AddByWidthHeight(30203, 862, 1056, 37, 60, texFatGuard);
-	sprites->AddByWidthHeight(30204, 820, 1056, 39, 60, texFatGuard);
-	sprites->AddByWidthHeight(30205, 771, 1056, 43, 60, texFatGuard);
-	sprites->AddByWidthHeight(30206, 720, 1056, 39, 60, texFatGuard);
-	sprites->AddByWidthHeight(30207, 674, 1056, 37, 60, texFatGuard);
-	sprites->AddByWidthHeight(30208, 635, 1056, 34, 60, texFatGuard);
+	sprites->AddByWidthHeight(31200, 9, 943, 43, 50, texGuard);	// idle left
 
-	sprites->AddByWidthHeight(31201, 7, 1056, 37, 60, texFatGuard);		// walk left
-	sprites->AddByWidthHeight(31202, 52, 1056, 35, 60, texFatGuard);
-	sprites->AddByWidthHeight(31203, 93, 1056, 37, 60, texFatGuard);
-	sprites->AddByWidthHeight(31204, 133, 1056, 39, 60, texFatGuard);
-	sprites->AddByWidthHeight(31205, 178, 1056, 43, 60, texFatGuard);
-	sprites->AddByWidthHeight(31206, 233, 1056, 39, 60, texFatGuard);
-	sprites->AddByWidthHeight(31207, 281, 1056, 37, 60, texFatGuard);
-	sprites->AddByWidthHeight(31208, 323, 1056, 34, 60, texFatGuard);
+	sprites->AddByWidthHeight(30201, 948, 1056, 37, 60, texGuard);	// walk right
+	sprites->AddByWidthHeight(30202, 905, 1056, 35, 60, texGuard);
+	sprites->AddByWidthHeight(30203, 862, 1056, 37, 60, texGuard);
+	sprites->AddByWidthHeight(30204, 820, 1056, 39, 60, texGuard);
+	sprites->AddByWidthHeight(30205, 771, 1056, 43, 60, texGuard);
+	sprites->AddByWidthHeight(30206, 720, 1056, 39, 60, texGuard);
+	sprites->AddByWidthHeight(30207, 674, 1056, 37, 60, texGuard);
+	sprites->AddByWidthHeight(30208, 635, 1056, 34, 60, texGuard);
 
-	sprites->AddByWidthHeight(30211, 935, 1183, 55, 58, texFatGuard);	// attack right
-	sprites->AddByWidthHeight(30212, 888, 1183, 36, 58, texFatGuard);
-	sprites->AddByWidthHeight(30213, 816, 1183, 61, 58, texFatGuard);
-	sprites->AddByWidthHeight(30214, 764, 1183, 46, 58, texFatGuard);
-	sprites->AddByWidthHeight(30215, 723, 1183, 33, 58, texFatGuard);
+	sprites->AddByWidthHeight(31201, 7, 1056, 37, 60, texGuard);		// walk left
+	sprites->AddByWidthHeight(31202, 52, 1056, 35, 60, texGuard);
+	sprites->AddByWidthHeight(31203, 93, 1056, 37, 60, texGuard);
+	sprites->AddByWidthHeight(31204, 133, 1056, 39, 60, texGuard);
+	sprites->AddByWidthHeight(31205, 178, 1056, 43, 60, texGuard);
+	sprites->AddByWidthHeight(31206, 233, 1056, 39, 60, texGuard);
+	sprites->AddByWidthHeight(31207, 281, 1056, 37, 60, texGuard);
+	sprites->AddByWidthHeight(31208, 323, 1056, 34, 60, texGuard);
 
-	sprites->AddByWidthHeight(31211, 2, 1183, 55, 58, texFatGuard);		// attack right
-	sprites->AddByWidthHeight(31212, 68, 1183, 36, 58, texFatGuard);
-	sprites->AddByWidthHeight(31213, 61, 1183, 61, 58, texFatGuard);
-	sprites->AddByWidthHeight(31214, 182, 1183, 46, 58, texFatGuard);
-	sprites->AddByWidthHeight(31215, 236, 1183, 33, 58, texFatGuard);
+	sprites->AddByWidthHeight(30211, 935, 1183, 55, 58, texGuard);	// attack right
+	sprites->AddByWidthHeight(30212, 888, 1183, 36, 58, texGuard);
+	sprites->AddByWidthHeight(30213, 816, 1183, 61, 58, texGuard);
+	sprites->AddByWidthHeight(30214, 764, 1183, 46, 58, texGuard);
+	sprites->AddByWidthHeight(30215, 723, 1183, 33, 58, texGuard);
 
-	sprites->AddByWidthHeight(30221, 2, 999, 37, 52, texFatGuard);		// suprise right
-	sprites->AddByWidthHeight(30222, 45, 999, 37, 52, texFatGuard);
-	sprites->AddByWidthHeight(30223, 94, 999, 34, 52, texFatGuard);
-	sprites->AddByWidthHeight(30224, 143, 999, 38, 52, texFatGuard);
-	sprites->AddByWidthHeight(30225, 187, 999, 54, 52, texFatGuard);
-	sprites->AddByWidthHeight(30226, 247, 999, 52, 52, texFatGuard);
-	sprites->AddByWidthHeight(30227, 308, 999, 49, 52, texFatGuard);
+	sprites->AddByWidthHeight(31211, 2, 1183, 55, 58, texGuard);		// attack right
+	sprites->AddByWidthHeight(31212, 68, 1183, 36, 58, texGuard);
+	sprites->AddByWidthHeight(31213, 61, 1183, 61, 58, texGuard);
+	sprites->AddByWidthHeight(31214, 182, 1183, 46, 58, texGuard);
+	sprites->AddByWidthHeight(31215, 236, 1183, 33, 58, texGuard);
 
-	sprites->AddByWidthHeight(31221, 953, 999, 37, 52, texFatGuard);		// suprise left
-	sprites->AddByWidthHeight(31222, 910, 999, 37, 52, texFatGuard);
-	sprites->AddByWidthHeight(31223, 864, 999, 34, 52, texFatGuard);
-	sprites->AddByWidthHeight(31224, 811, 999, 38, 52, texFatGuard);
-	sprites->AddByWidthHeight(31225, 751, 999, 54, 52, texFatGuard);
-	sprites->AddByWidthHeight(31226, 693, 999, 52, 52, texFatGuard);
-	sprites->AddByWidthHeight(31227, 644, 999, 49, 52, texFatGuard);
+	sprites->AddByWidthHeight(30221, 2, 999, 37, 52, texGuard);		// suprise right
+	sprites->AddByWidthHeight(30222, 45, 999, 37, 52, texGuard);
+	sprites->AddByWidthHeight(30223, 94, 999, 34, 52, texGuard);
+	sprites->AddByWidthHeight(30224, 143, 999, 38, 52, texGuard);
+	sprites->AddByWidthHeight(30225, 187, 999, 54, 52, texGuard);
+	sprites->AddByWidthHeight(30226, 247, 999, 52, 52, texGuard);
+	sprites->AddByWidthHeight(30227, 308, 999, 49, 52, texGuard);
 
-	LPDIRECT3DTEXTURE9 texBat = textures->Get(ID_TEX_BAT);
+	sprites->AddByWidthHeight(31221, 953, 999, 37, 52, texGuard);		// suprise left
+	sprites->AddByWidthHeight(31222, 910, 999, 37, 52, texGuard);
+	sprites->AddByWidthHeight(31223, 864, 999, 34, 52, texGuard);
+	sprites->AddByWidthHeight(31224, 811, 999, 38, 52, texGuard);
+	sprites->AddByWidthHeight(31225, 751, 999, 54, 52, texGuard);
+	sprites->AddByWidthHeight(31226, 693, 999, 52, 52, texGuard);
+	sprites->AddByWidthHeight(31227, 644, 999, 49, 52, texGuard);
+
+	// bat
 	sprites->AddByWidthHeight(30301, 9, 10, 7, 26, texBat);					// wait
 
 	sprites->AddByWidthHeight(30302, 20, 10, 21, 26, texBat);				// swing
@@ -1006,7 +924,7 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(30327, 275, 100, 298, 159, texBat);
 	sprites->Add(30328, 306, 100, 335, 159, texBat);
 
-	LPDIRECT3DTEXTURE9 texSkeleton = textures->Get(ID_TEX_SKELETON);
+	//skeleton
 	sprites->AddByWidthHeight(30400, 876, 8, 86, 91, texSkeleton);			// wait right
 
 	sprites->AddByWidthHeight(31400, 774, 8, 86, 91, texSkeleton);			// wait left
@@ -1052,6 +970,97 @@ void AladdinResoucres::LoadSprites()
 	sprites->AddByWidthHeight(31418, 411, 115, 81, 91, texSkeleton);
 	sprites->AddByWidthHeight(31419, 294, 115, 95, 91, texSkeleton);
 	sprites->AddByWidthHeight(31420, 215, 115, 60, 91, texSkeleton);
+
+	// jafar
+	sprites->AddByWidthHeight(40000, 870, 9, 64, 71, texJafar);		//idle right
+
+	sprites->AddByWidthHeight(41000, 791, 9, 64, 71, texJafar, -19);		//idle left
+
+	sprites->AddByWidthHeight(40001, 942, 9, 57, 71, texJafar);		//attack right
+	sprites->AddByWidthHeight(40002, 1006, 9, 55, 71, texJafar);
+	sprites->AddByWidthHeight(40003, 1070, 9, 51, 71, texJafar);
+	sprites->AddByWidthHeight(40004, 1134, 9, 64, 71, texJafar);
+	sprites->AddByWidthHeight(40005, 1206, 9, 82, 71, texJafar);
+	sprites->AddByWidthHeight(40006, 1302, 9, 85, 71, texJafar);
+	sprites->AddByWidthHeight(40007, 1398, 9, 69, 71, texJafar);
+
+	sprites->AddByWidthHeight(41001, 726, 9, 57, 71, texJafar, -13);		//attack left
+	sprites->AddByWidthHeight(41002, 664, 9, 55, 71, texJafar, -11);
+	sprites->AddByWidthHeight(41003, 604, 9, 51, 71, texJafar, -7);
+	sprites->AddByWidthHeight(41004, 527, 9, 64, 71, texJafar, -21);
+	sprites->AddByWidthHeight(41005, 437, 9, 82, 71, texJafar, -59);
+	sprites->AddByWidthHeight(41006, 338, 9, 85, 71, texJafar, -42);
+	sprites->AddByWidthHeight(41007, 259, 9, 69, 71, texJafar, -25);
+
+	sprites->AddByWidthHeight(40011, 870, 484, 75, 51, texJafar);		//fire right
+	sprites->AddByWidthHeight(40012, 958, 484, 79, 51, texJafar);
+	sprites->AddByWidthHeight(40013, 1051, 484, 94, 51, texJafar);
+	sprites->AddByWidthHeight(40014, 1158, 484, 90, 51, texJafar);
+	sprites->AddByWidthHeight(40015, 1262, 484, 77, 51, texJafar);
+	sprites->AddByWidthHeight(40016, 1350, 484, 73, 51, texJafar);
+	sprites->AddByWidthHeight(40017, 1430, 484, 64, 51, texJafar);
+	sprites->AddByWidthHeight(40018, 1507, 484, 64, 51, texJafar);
+
+	sprites->AddByWidthHeight(41011, 780, 484, 75, 51, texJafar);		//fire left
+	sprites->AddByWidthHeight(41012, 958, 688, 79, 51, texJafar);
+	sprites->AddByWidthHeight(41013, 580, 484, 94, 51, texJafar);
+	sprites->AddByWidthHeight(41014, 477, 484, 90, 51, texJafar);
+	sprites->AddByWidthHeight(41015, 386, 484, 77, 51, texJafar);
+	sprites->AddByWidthHeight(41016, 302, 484, 73, 51, texJafar);
+	sprites->AddByWidthHeight(41017, 231, 484, 64, 51, texJafar);
+	sprites->AddByWidthHeight(41018, 154, 484, 64, 51, texJafar);
+
+	//iago
+
+	sprites->AddByWidthHeight(40101, 10, 10, 43, 59, texIagoRight);		//fly right
+	sprites->AddByWidthHeight(40102, 71, 10, 62, 59, texIagoRight);
+	sprites->AddByWidthHeight(40103, 144, 10, 61, 59, texIagoRight);
+	sprites->AddByWidthHeight(40104, 217, 10, 61, 59, texIagoRight);
+	sprites->AddByWidthHeight(40105, 291, 10, 60, 59, texIagoRight);
+	sprites->AddByWidthHeight(40106, 375, 10, 60, 59, texIagoRight);
+	sprites->AddByWidthHeight(40107, 439, 10, 61, 59, texIagoRight);
+	sprites->AddByWidthHeight(40108, 512, 10, 61, 59, texIagoRight);
+
+	sprites->AddByWidthHeight(41101, 581, 10, 43, 59, texIagoLeft);		//fly left
+	sprites->AddByWidthHeight(41102, 501, 10, 62, 59, texIagoLeft);
+	sprites->AddByWidthHeight(41103, 429, 10, 61, 59, texIagoLeft);
+	sprites->AddByWidthHeight(41104, 356, 10, 61, 59, texIagoLeft);
+	sprites->AddByWidthHeight(41105, 283, 10, 60, 59, texIagoLeft);
+	sprites->AddByWidthHeight(41106, 209, 10, 60, 59, texIagoLeft);
+	sprites->AddByWidthHeight(41107, 134, 10, 61, 59, texIagoLeft);
+	sprites->AddByWidthHeight(41108, 61, 10, 61, 59, texIagoLeft);
+
+	sprites->AddByWidthHeight(40111, 13, 78, 51, 70, texIagoRight);		//die right
+	sprites->AddByWidthHeight(40112, 77, 78, 48, 70, texIagoRight);
+	sprites->AddByWidthHeight(40113, 139, 78, 81, 70, texIagoRight);
+	sprites->AddByWidthHeight(40114, 236, 78, 47, 70, texIagoRight);
+
+	sprites->AddByWidthHeight(41111, 570, 78, 51, 70, texIagoLeft);		//die left
+	sprites->AddByWidthHeight(41112, 509, 78, 48, 70, texIagoLeft);
+	sprites->AddByWidthHeight(41113, 414, 78, 81, 70, texIagoLeft);
+	sprites->AddByWidthHeight(41114, 351, 78, 47, 70, texIagoLeft);
+
+	//statue
+
+	sprites->AddByWidthHeight(40200, 10, 7, 51, 76, texStatueRight);		//idle right
+
+	sprites->AddByWidthHeight(41200, 599, 7, 51, 76, texStatueLeft, -16);		//idle left
+
+	sprites->AddByWidthHeight(40201, 75, 7, 44, 76, texStatueRight);		//attack right
+	sprites->AddByWidthHeight(40202, 135, 7, 43, 76, texStatueRight);
+	sprites->AddByWidthHeight(40203, 190, 7, 42, 76, texStatueRight);
+	sprites->AddByWidthHeight(40204, 245, 7, 45, 76, texStatueRight);
+	sprites->AddByWidthHeight(40205, 307, 7, 71, 76, texStatueRight);
+	sprites->AddByWidthHeight(40206, 392, 7, 59, 76, texStatueRight);
+	sprites->AddByWidthHeight(40207, 465, 7, 49, 76, texStatueRight);
+
+	sprites->AddByWidthHeight(41201, 541, 7, 44, 76, texStatueLeft, -6);		//attack left
+	sprites->AddByWidthHeight(41202, 482, 7, 43, 76, texStatueLeft, -3);
+	sprites->AddByWidthHeight(41203, 428, 7, 42, 76, texStatueLeft);
+	sprites->AddByWidthHeight(41204, 370, 7, 45, 76, texStatueLeft, -7);
+	sprites->AddByWidthHeight(41205, 282, 7, 71, 76, texStatueLeft, -35);
+	sprites->AddByWidthHeight(41206, 209, 7, 59, 76, texStatueLeft, -23);
+	sprites->AddByWidthHeight(41207, 146, 7, 49, 76, texStatueLeft, -12);
 }
 
 void AladdinResoucres::LoadAnimations()
@@ -1442,16 +1451,16 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(11425);
 	animations->Add(145, ani);
 
-	ani = new CAnimation(100);	// climbing
+	ani = new CAnimation(80);	// climbing
 	ani->Add(10501);
 	ani->Add(10502);
 	ani->Add(10503);
-	ani->Add(10504);
+	//ani->Add(10504, 50);
 	ani->Add(10505);
 	ani->Add(10506);
 	ani->Add(10507);
 	ani->Add(10508);
-	ani->Add(10509);
+	//ani->Add(10509, 50);
 	ani->Add(10510);
 	animations->Add(150, ani);
 
@@ -1695,159 +1704,6 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(20430, 0);
 	animations->Add(2043, ani);
 
-	//ani = new CAnimation(100);		// Bat
-	//ani->Add(21000);
-	//animations->Add(2100, ani);
-
-	//ani = new CAnimation(100);		
-	//ani->Add(21010);
-	//ani->Add(21011);
-	//ani->Add(21012);
-	//ani->Add(21013);
-	//ani->Add(21014);
-	//ani->Add(21015);
-	//ani->Add(21016);
-	//animations->Add(2101, ani);
-
-	//ani = new CAnimation(100);		
-	//ani->Add(21020);
-	//ani->Add(21021);
-	//ani->Add(21022);
-	//animations->Add(2102, ani);
-
-	//ani = new CAnimation(100);		
-	//ani->Add(21030);
-	//ani->Add(21031);
-	//ani->Add(21032);
-	//ani->Add(21033);
-	//ani->Add(21034);
-	//ani->Add(21035);
-	//ani->Add(21036);
-	//ani->Add(21037);
-	//ani->Add(21038);
-	//animations->Add(2103, ani);
-
-	//ani = new CAnimation(100);			//Guard
-	//ani->Add(22001);
-	//ani->Add(22002);
-	//ani->Add(22003);
-	//ani->Add(22004);
-	//ani->Add(22005);
-	//ani->Add(22006);
-	//animations->Add(2200, ani);
-
-	//ani = new CAnimation(100);
-	//ani->Add(22010);
-	//ani->Add(22011);
-	//ani->Add(22012);
-	//ani->Add(22013);
-	//ani->Add(22014);
-	//ani->Add(22015);
-	//animations->Add(2201, ani);
-	//	
-	//ani = new CAnimation(100);
-	//ani->Add(22020);
-	//ani->Add(22021);
-	//ani->Add(22022);
-	//ani->Add(22023);
-	//ani->Add(22024);
-	//animations->Add(2202, ani);
-
-	//ani = new CAnimation(100);
-	//ani->Add(22030);
-	//ani->Add(22031);
-	//ani->Add(22032);
-	//ani->Add(22033);
-	//ani->Add(22034);
-	//ani->Add(22035);
-	//animations->Add(2203, ani);
-
-	//ani = new CAnimation(100);
-	//ani->Add(22040);
-	//ani->Add(22041);
-	//ani->Add(22042);
-	//ani->Add(22043);
-	//ani->Add(22044);
-	//ani->Add(22045);
-	//ani->Add(22046);
-	//ani->Add(22047);
-	//ani->Add(22048);
-	//animations->Add(2204, ani);
-
-	//ani = new CAnimation(100);
-	//ani->Add(22050);
-	//ani->Add(22051);
-	//ani->Add(22052);
-	//ani->Add(22053);
-	//animations->Add(2205, ani);
-
-	//ani = new CAnimation(100);
-	//ani->Add(22060);
-	//ani->Add(22061);
-	//ani->Add(22062);
-	//ani->Add(22063);
-	//animations->Add(2206, ani);
-
-	//ani = new CAnimation(100);			// thin guard
-	//ani->Add(23000);
-	//ani->Add(23001);
-	//ani->Add(23002);
-	//ani->Add(23003);
-	//ani->Add(23004);
-	//ani->Add(23005);
-	//ani->Add(23006);
-	//ani->Add(23007);
-	//animations->Add(2300, ani);
-
-	//ani = new CAnimation(100);
-	//ani->Add(23010);
-	//ani->Add(23011);
-	//ani->Add(23012);
-	//ani->Add(23013);
-	//ani->Add(23014);
-	//ani->Add(23015);
-	//animations->Add(2301, ani);
-
-	//ani = new CAnimation(100);
-	//ani->Add(23020);
-	//ani->Add(23021);
-	//ani->Add(23022);
-	//ani->Add(23023);
-	//ani->Add(23024);
-	//ani->Add(23025);
-	//ani->Add(23026);
-	//ani->Add(23027);
-	//ani->Add(23028);
-	//animations->Add(2302, ani);
-
-	//ani = new CAnimation(100);
-	//ani->Add(23030);
-	//animations->Add(2303, ani);
-
-	//ani = new CAnimation(100);		//skeleton
-	//ani->Add(24001);
-	//ani->Add(24002);
-	//ani->Add(24003);
-	//ani->Add(24004);
-	//ani->Add(24005);
-	//ani->Add(24006);
-	//ani->Add(24007);
-	//ani->Add(24008);
-	//ani->Add(24009);
-	//ani->Add(24010);
-	//ani->Add(24011);
-	//ani->Add(24012);
-	//ani->Add(24012);
-	//ani->Add(24013);
-	//ani->Add(24014);
-	//ani->Add(24015);
-	//ani->Add(24016);
-	//ani->Add(24017);
-	//ani->Add(24018);
-	//ani->Add(24019);
-	//ani->Add(24020);
-	//animations->Add(2400, ani);
-
 	ani = new CAnimation(100);		//penny
 	ani->Add(21100);
 	ani->Add(21101);
@@ -1893,6 +1749,14 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(21150);
 	animations->Add(2115, ani);
 
+	ani = new CAnimation(100, false);		//item effect
+	ani->Add(21161);
+	ani->Add(21162);
+	ani->Add(21163);
+	ani->Add(21164);
+	ani->Add(21165);
+	animations->Add(2116, ani);
+
 	ani = new CAnimation(100);		//heart
 	ani->Add(21170);
 	ani->Add(21171);
@@ -1913,6 +1777,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(22002);
 	ani->Add(22003);
 	ani->Add(22004);
+	ani->Add(22005);
 	animations->Add(2201, ani);
 
 
@@ -2040,7 +1905,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(31116);
 	animations->Add(216, ani);
 
-	ani = new CAnimation(100);		// attack right
+	ani = new CAnimation(100);		// attack stab right
 	ani->Add(30121);
 	ani->Add(30122);
 	ani->Add(30123);
@@ -2056,8 +1921,9 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(30130);
 	ani->Add(30131);
 	animations->Add(2171, ani);
+	animations->Add(217, ani);
 
-	ani = new CAnimation(100);		// attack left
+	ani = new CAnimation(100);		// attack stab left
 	ani->Add(31121);
 	ani->Add(31122);
 	ani->Add(31123);
@@ -2067,12 +1933,24 @@ void AladdinResoucres::LoadAnimations()
 	animations->Add(2180, ani);
 
 	ani = new CAnimation(100);
+	animations->Add(218, ani);
+
+	ani = new CAnimation(100);		// attack slash right
+	ani->Add(30127);
+	ani->Add(30128);
+	ani->Add(30129);
+	ani->Add(30130);
+	ani->Add(30131);
+	animations->Add(219, ani);
+
+	ani = new CAnimation(100);		//attack slash left
 	ani->Add(31127);
 	ani->Add(31128);
 	ani->Add(31129);
 	ani->Add(31130);
 	ani->Add(31131);
 	animations->Add(2181, ani);
+	animations->Add(220, ani);
 
 	ani = new CAnimation(100);		// suprise right
 	ani->Add(30141);
@@ -2081,7 +1959,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(30144);
 	ani->Add(30145);
 	ani->Add(30146);
-	animations->Add(219, ani);
+	animations->Add(221, ani);
 
 	ani = new CAnimation(100);		// suprise left
 	ani->Add(31141);
@@ -2090,17 +1968,17 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(31144);
 	ani->Add(31145);
 	ani->Add(31146);
-	animations->Add(220, ani);
+	animations->Add(222, ani);
 
 	// fat guard
 
 	ani = new CAnimation(100);		// idle right
 	ani->Add(30200);
-	animations->Add(221, ani);
+	animations->Add(223, ani);
 
 	ani = new CAnimation(100);		// idle left
 	ani->Add(31200);
-	animations->Add(222, ani);
+	animations->Add(224, ani);
 
 	ani = new CAnimation(100);		// walk right
 	ani->Add(30201);
@@ -2111,7 +1989,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(30206);
 	ani->Add(30207);
 	ani->Add(30208);
-	animations->Add(223, ani);
+	animations->Add(225, ani);
 
 	ani = new CAnimation(100);		// walk left
 	ani->Add(31201);
@@ -2122,7 +2000,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(31206);
 	ani->Add(31207);
 	ani->Add(31208);
-	animations->Add(224, ani);
+	animations->Add(226, ani);
 
 	ani = new CAnimation(100);		// attack right
 	ani->Add(30211);
@@ -2130,7 +2008,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(30213);
 	ani->Add(30214);
 	ani->Add(30215);
-	animations->Add(225, ani);
+	animations->Add(227, ani);
 
 	ani = new CAnimation(100);		// attack left
 	ani->Add(31211);
@@ -2138,7 +2016,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(31213);
 	ani->Add(31214);
 	ani->Add(31215);
-	animations->Add(226, ani);
+	animations->Add(228, ani);
 
 	ani = new CAnimation(100);		// suprise right
 	ani->Add(30221);
@@ -2148,7 +2026,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(30225);
 	ani->Add(30226);
 	ani->Add(30227);
-	animations->Add(227, ani);
+	animations->Add(229, ani);
 
 	ani = new CAnimation(100);		// suprise left
 	ani->Add(31221);
@@ -2158,18 +2036,18 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(31225);
 	ani->Add(31226);
 	ani->Add(31227);
-	animations->Add(228, ani);
+	animations->Add(230, ani);
 
 	// bat
 	ani = new CAnimation(100);		// wait
 	ani->Add(30301);
-	animations->Add(230, ani);
+	animations->Add(231, ani);
 
 	ani = new CAnimation(100);		// swing
 	ani->Add(30302);
 	ani->Add(30303);
 	ani->Add(30304);
-	animations->Add(231, ani);
+	animations->Add(232, ani);
 
 	ani = new CAnimation(100);		// fly
 	ani->Add(30311);
@@ -2179,7 +2057,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(30315);
 	ani->Add(30316);
 	ani->Add(30317);
-	animations->Add(232, ani);
+	animations->Add(233, ani);
 
 	ani = new CAnimation(100);		// die
 	ani->Add(30320);
@@ -2245,6 +2123,124 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(31419);
 	ani->Add(31420);
 	animations->Add(243, ani);
+
+	//jafar
+	ani = new CAnimation(100);		// idle right
+	ani->Add(40000);
+	animations->Add(300, ani);
+
+	ani = new CAnimation(100);		// idle left
+	ani->Add(41000);
+	animations->Add(301, ani);
+
+	ani = new CAnimation(100);		// attack right
+	ani->Add(40001);
+	ani->Add(40002);
+	ani->Add(40003);
+	ani->Add(40004);
+	ani->Add(40005);
+	ani->Add(40006);
+	ani->Add(40007);
+	animations->Add(302, ani);
+
+	ani = new CAnimation(100);		// attack left
+	ani->Add(41001);
+	ani->Add(41002);
+	ani->Add(41003);
+	ani->Add(41004);
+	ani->Add(41005);
+	ani->Add(41006);
+	ani->Add(41007);
+	animations->Add(303, ani);
+
+	ani = new CAnimation(100);		// fire right
+	ani->Add(40001);
+	ani->Add(40002);
+	ani->Add(40003);
+	ani->Add(40004);
+	ani->Add(40005);
+	ani->Add(40006);
+	ani->Add(40007);
+	ani->Add(40008);
+	animations->Add(304, ani);
+
+	ani = new CAnimation(100);		// fire left
+	ani->Add(41001);
+	ani->Add(41002);
+	ani->Add(41003);
+	ani->Add(41004);
+	ani->Add(41005);
+	ani->Add(41006);
+	ani->Add(41007);
+	ani->Add(41008);
+	animations->Add(305, ani);
+
+	// iago
+
+	ani = new CAnimation(100);		// fly right
+	ani->Add(40101);
+	ani->Add(40102);
+	ani->Add(40103);
+	ani->Add(40104);
+	ani->Add(40105);
+	ani->Add(40106);
+	ani->Add(40107);
+	ani->Add(40108);
+	animations->Add(310, ani);
+
+	ani = new CAnimation(100);		// fly left
+	ani->Add(41101);
+	ani->Add(41102);
+	ani->Add(41103);
+	ani->Add(41104);
+	ani->Add(41105);
+	ani->Add(41106);
+	ani->Add(41107);
+	ani->Add(41108);
+	animations->Add(311, ani);
+
+	ani = new CAnimation(100);		// die right
+	ani->Add(40111);
+	ani->Add(40112);
+	ani->Add(40113);
+	ani->Add(40114);
+	animations->Add(312, ani);
+
+	ani = new CAnimation(100);		// die left
+	ani->Add(40111);
+	ani->Add(40112);
+	ani->Add(40113);
+	ani->Add(40114);
+	animations->Add(313, ani);
+
+	//statue
+	ani = new CAnimation(100);		// idle right
+	ani->Add(40200);
+	animations->Add(320, ani);
+
+	ani = new CAnimation(100);		// idle left
+	ani->Add(41200);
+	animations->Add(321, ani);
+
+	ani = new CAnimation(100);		// attack right
+	ani->Add(40201);
+	ani->Add(40202);
+	ani->Add(40203);
+	ani->Add(40204);
+	ani->Add(40205);
+	ani->Add(40206);
+	ani->Add(40207);
+	animations->Add(322, ani);
+
+	ani = new CAnimation(100);		// attack left
+	ani->Add(41201);
+	ani->Add(41202);
+	ani->Add(41203);
+	ani->Add(41204);
+	ani->Add(41205);
+	ani->Add(41206);
+	ani->Add(41207);
+	animations->Add(323, ani);
 }
 
 AladdinResoucres::AladdinResoucres()

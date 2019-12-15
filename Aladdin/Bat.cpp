@@ -194,9 +194,9 @@ Bat::Bat() :CEnemy()
 	type = TYPE_BAT;
 	finalAni = reverse = false; init = true;
 
-	AddAnimation(230);		// wait
+	AddAnimation(231);		// wait
 
-	AddAnimation(231);		// swing
+	AddAnimation(232);		// swing
 
 	AddAnimation(232);		// fly
 

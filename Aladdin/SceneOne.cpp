@@ -6,8 +6,8 @@
 SceneOne::SceneOne(Aladdin* aladdin)
 {
 	this->aladdin = aladdin;
-	//this->aladdin->SetPosition(/*1200*/ 0, 900);
 	this->aladdin->SetPosition(1200, 900);
+	//this->aladdin->SetPosition(432, 580);
 
 	CSprites* sprites = CSprites::GetInstance();
 	mapWidth = 2144.0f;

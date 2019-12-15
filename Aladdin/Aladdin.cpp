@@ -6,6 +6,14 @@
 #include "../Framework/debug.h"
 #include "WreckingBall.h"
 #include "Trap.h"
+#include "Chains.h"
+#include "Apple.h"
+
+#include "Brick.h"
+#include "Wood.h"
+#include "Ground.h"
+#include "StoneBar.h"
+
 Aladdin* Aladdin::__instance = NULL;
 bool Aladdin::IsMoveCameraWhenLookingUp()
 {
@@ -32,8 +40,17 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
-	// Simple fall down
-	vy += ALADDIN_GRAVITY * dt;
+	if (IsClimb == true)
+	{
+		vy = 0;
+	}
+	else {
+		vy += ALADDIN_GRAVITY * dt;
+	}
+	/*if ((IsClimb != true && IsGround == false) || IsHurt)
+		vy += ALADDIN_GRAVITY * dt;*/
+
+
 
 	throwApple->Update(dt, coObjects);
 	sword->Update(dt, coObjects);
@@ -42,6 +59,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (this->GetState() == ALADDIN_STATE_IDLE)
 	{
 		IsSit = false;
+		//IsClimb = false;
 		ResetAnimationsSitDown();
 	}
 	else {
@@ -349,8 +367,6 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//	}
 	//}
 
-
-
 	if (dy == 0)
 	{
 		IsJump = false;
@@ -383,7 +399,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			SetState(ALADDIN_STATE_IDLE);
 		}
 	}
-
+	canAbleClimb = false;
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
 		if (dynamic_cast<Trap*>(coObjects->at(i)))
@@ -451,7 +467,36 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					}
 				}
 			}
+			else if (dynamic_cast<Apple*>(coObjects->at(i)))
+			{
+				Apple* apple = dynamic_cast<Apple*>(coObjects->at(i));
+				float l1, t1, r1, b1, l2, t2, r2, b2;
+				GetBoundingBox(l1, t1, r1, b1);
+				ball->GetBoundingBox(l2, t2, r2, b2);
+				if (CGame::isColliding(l1, t1, r1, b1, l2, t2, r2, b2)) {
+					if (apple->IsEnable() && !apple->IsAte())
+					{
+						apple->setAte(true);
+						addApple(1);
+					}
+				}
+			}
 		}
+		else if (dynamic_cast<Chains*>(coObjects->at(i)))
+		{
+			Chains* ball = dynamic_cast<Chains*>(coObjects->at(i));
+			float l1, t1, r1, b1, l2, t2, r2, b2;
+			GetBoundingBox(l1, t1, r1, b1);
+			ball->GetBoundingBox(l2, t2, r2, b2);
+			if (CGame::isColliding(l1, t1, r1, b1, l2, t2, r2, b2)) {
+				canAbleClimb = true;
+			}
+		}
+	}
+
+	if (!canAbleClimb)
+	{
+		IsClimb = false;
 	}
 
 	// No collision occured, proceed normally
@@ -465,13 +510,6 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		float min_tx, min_ty, nx = 0, ny;
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-
-		// block 
-		x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-		y += min_ty * dy + ny * 0.4f;
-
-		if (nx != 0) vx = 0;
-		if (ny != 0) vy = 0;
 
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
@@ -540,6 +578,40 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						}
 					}
 				}
+			}
+			else if (dynamic_cast<Apple*>(e->obj))
+			{
+				Apple* apple = dynamic_cast<Apple*>(e->obj);
+
+				if (e->nx != 0)
+				{
+					if (apple->IsEnable() && !apple->IsAte())
+					{
+						apple->setAte(true);
+						addApple(1);
+					}
+				}
+			}
+
+			if (dynamic_cast<Brick*>(e->obj) || dynamic_cast<StoneBar*>(e->obj) || dynamic_cast<Ground*>(e->obj) || dynamic_cast<Wood*>(e->obj))
+			{
+				if (e->ny < 0)
+				{
+					// block 
+					x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+					y += min_ty * dy + ny * 0.4f;
+
+					if (nx != 0) vx = 0;
+					if (ny != 0) vy = 0;
+				}
+			}
+			else
+			{
+				x += dx;
+				if (ny < 0)
+					y += dy + ny * 0.7f;
+				else if (ny > 0)
+					y += dy + ny * -0.7f;
 			}
 		}
 	}
@@ -763,6 +835,15 @@ void Aladdin::Render()
 				}
 			}
 		}
+		if (IsClimb) {
+			ani = ALADDIN_ANI_CLIMBING;
+			if (IsClimbing) {
+				animations[ani]->start();
+			}
+			else {
+				animations[ani]->pause();
+			}
+		}
 		if (IsHurt) {
 			if (nx > 0)
 			{
@@ -773,6 +854,7 @@ void Aladdin::Render()
 				ani = ALADDIN_ANI_BE_ATTACKED_LEFT;
 			}
 		}
+
 	}
 	int alpha = 255;
 	if (untouchable) alpha = 128;
@@ -928,6 +1010,18 @@ void Aladdin::SetState(int state)
 			timeJumpThrowStart = 0;
 		}
 		break;
+	case ALADDIN_STATE_CLIMB_UP:
+		vx = 0;
+		vy = -ALADDIN_CLIMB_SPEED_Y;
+		IsClimb = true;
+		IsClimbing = true;
+		break;
+	case ALADDIN_STATE_CLIMB_DOWN:
+		vx = 0;
+		vy = ALADDIN_CLIMB_SPEED_Y;
+		IsClimb = true;
+		IsClimbing = true;
+		break;
 	case ALADDIN_STATE_BE_ATTACKED:
 		IsGround = false;
 		/*if (nx > 0)
@@ -1014,6 +1108,11 @@ void Aladdin::ResetAllAnimation()
 	ResetAnimationsJump();
 }
 
+void Aladdin::OnClimbHandle()
+{
+
+}
+
 
 //void Aladdin::ResetAnimation()
 //{
@@ -1061,6 +1160,9 @@ Aladdin::Aladdin() : CGameObject()
 	IsStand = false;
 	IsThrow = false;
 	IsGround = false;
+	IsClimb = false;
+	canAbleClimb = false;
+	IsClimbing = false;;
 	untouchable = 0;
 
 	throwApple = new ThrowApples();
@@ -1081,6 +1183,8 @@ Aladdin::Aladdin() : CGameObject()
 	timeJumpThrowStart = 0;
 
 	hp = ALADDIN_MAX_HP;
+
+	countApple = 10;
 
 	AddAnimation(100);		// idle right
 	AddAnimation(101);		//idle left

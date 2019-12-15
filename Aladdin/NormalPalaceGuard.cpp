@@ -22,7 +22,7 @@ void NormalPalaceGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 		//} 
 	}
 	else {
-		if ((state == NGUARD_STATE_SURPRISE && (left||right)) || (state != NGUARD_STATE_SURPRISE)) {
+		if ((state == NGUARD_STATE_SURPRISE && (left || right)) || (state != NGUARD_STATE_SURPRISE)) {
 			if (abs(this->x - x) < 100) SetState(rand() % 2 == 0 ? NGUARD_STATE_WAVE : NGUARD_STATE_STAB);
 			else { SetState(NGUARD_STATE_IDLE); }
 		}
@@ -51,7 +51,7 @@ void NormalPalaceGuard::GetBoundingBox(float& left, float& top, float& right, fl
 		bottom = y + GUARD_BBOX_HEIGHT;
 }
 void NormalPalaceGuard::SetState(int stateNew)
-{	
+{
 	//if (stateNew != NGUARD_STATE_SURPRISE) {
 	//	
 	//}
@@ -65,7 +65,7 @@ void NormalPalaceGuard::SetState(int stateNew)
 	if (left || right) {
 		CGameObject::SetState(stateNew);
 	}
-	
+
 	//CEnemy::SetState(stateNew);
 
 }
@@ -119,7 +119,7 @@ void NormalPalaceGuard::Render()
 				break;
 			}
 		}
-	} 
+	}
 }
 
 NormalPalaceGuard::NormalPalaceGuard() : CEnemy()
@@ -136,20 +136,26 @@ NormalPalaceGuard::NormalPalaceGuard() : CEnemy()
 	//AddAnimation(211);		// idle right
 	//AddAnimation(212);		// idle left
 
+	AddAnimation(213);		// walk right
+	AddAnimation(214);		// walk left
+
 	AddAnimation(215);		// wait right
 	AddAnimation(216);		// wait left
 
-	AddAnimation(2170);		// stab right
-	AddAnimation(2180);		// stab lefts
+	AddAnimation(217);		// stab right
+	AddAnimation(218);		// stab lefts
 
-	AddAnimation(2171);		// wave right
-	AddAnimation(2181);		// wave left
+	AddAnimation(219);		// wave right
+	AddAnimation(220);		// wave left
 
-	AddAnimation(219);		// suprise right
-	AddAnimation(220);		// suprise left
+	AddAnimation(221);		// attack stab right
+	AddAnimation(222);		// attack stab left
 
-	AddAnimation(213);		// walk right
-	AddAnimation(214);		// walk left
+	AddAnimation(223);		// attack slash right
+	AddAnimation(224);		// attack slash left
+
+	AddAnimation(225);		// suprise right
+	AddAnimation(226);		// suprise left
 }
 
 NormalPalaceGuard::~NormalPalaceGuard()

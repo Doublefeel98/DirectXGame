@@ -5,7 +5,7 @@
 class Apple : public CGameObject
 {
 private:
-	bool enabled;
+	bool isAte;
 public:
 	Apple();
 	~Apple();
@@ -14,7 +14,6 @@ public:
 	virtual void Render();
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
-
-	bool IsEnabled() { return enabled; }
-	void SetEnabled(bool en) { enabled = en; }
+	void setAte(bool ate) { isAte = ate; }
+	bool IsAte() { return isAte; }
 };

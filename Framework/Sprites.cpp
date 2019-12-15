@@ -16,9 +16,9 @@ CSprite::CSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEX
 
 
 
-CSprites * CSprites::__instance = NULL;
+CSprites* CSprites::__instance = NULL;
 
-CSprites *CSprites::GetInstance()
+CSprites* CSprites::GetInstance()
 {
 	if (__instance == NULL) __instance = new CSprites();
 	return __instance;
@@ -26,7 +26,7 @@ CSprites *CSprites::GetInstance()
 
 void CSprite::Draw(float x, float y, int alpha)
 {
-	CGame * game = CGame::GetInstance();
+	CGame* game = CGame::GetInstance();
 	game->Draw(x + dx, y + dy, texture, left, top, right, bottom, alpha);
 }
 
@@ -105,7 +105,7 @@ LPSPRITE CSprites::Get(int id)
 void CAnimation::Add(int spriteId, DWORD time)
 {
 	int t = time;
-	if (time == 0) t=this->defaultTime;
+	if (time == 0) t = this->defaultTime;
 
 	LPSPRITE sprite = CSprites::GetInstance()->Get(spriteId);
 	LPANIMATION_FRAME frame = new CAnimationFrame(sprite, t);
@@ -145,27 +145,29 @@ void CAnimation::Render(float x, float y, int alpha, bool isFollow)
 	}
 	else
 	{
-		DWORD t = frames[currentFrame]->GetTime();
-		if (now - lastFrameTime > t)
+		if (!paused)
 		{
-			if(IsLastFrame && !IsLoop){}
-			else{
-				currentFrame++;
-			}
-			lastFrameTime = now;
-			if (currentFrame == frames.size())
+			DWORD t = frames[currentFrame]->GetTime();
+			if (now - lastFrameTime > t)
 			{
-				if (IsLoop) {
-					currentFrame = 0;
+				if (IsLastFrame && !IsLoop) {}
+				else {
+					currentFrame++;
 				}
-				else
+				lastFrameTime = now;
+				if (currentFrame == frames.size())
 				{
-					currentFrame = frames.size() - 1;
-					IsLastFrame = true;
+					if (IsLoop) {
+						currentFrame = 0;
+					}
+					else
+					{
+						currentFrame = frames.size() - 1;
+						IsLastFrame = true;
+					}
 				}
-			}	
+			}
 		}
-
 	}
 	if (isFollow)
 	{
@@ -200,9 +202,9 @@ void CAnimation::RenderFlipOx(float x, float y, int alpha)
 }
 
 
-CAnimations * CAnimations::__instance = NULL;
+CAnimations* CAnimations::__instance = NULL;
 
-CAnimations * CAnimations::GetInstance()
+CAnimations* CAnimations::GetInstance()
 {
 	if (__instance == NULL) __instance = new CAnimations();
 	return __instance;

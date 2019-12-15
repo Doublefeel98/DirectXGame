@@ -5,6 +5,7 @@
 #include "WreckingBall.h"
 #include "StoneBar.h"
 #include "Wood.h"
+#include "Chains.h"
 
 
 AladdinObjects::AladdinObjects()
@@ -210,24 +211,28 @@ void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, i
 		listObject->push_back(obj);
 	}
 	break;
-	//case OBJECT_CHAINS:
-	//	Ground* obj = new Ground();
-	//	obj->SetId(id);
-	//	obj->SetType(type);
-	//	obj->SetPosition(x, y);
-	//	obj->SetWidth(width);
-	//	obj->SetHeight(height);
-	//	listObject->push_back(obj);
-	//	break;
-	//case OBJECT_FENCE:
-	//	Ground* obj = new Ground();
-	//	obj->SetId(id);
-	//	obj->SetType(type);
-	//	obj->SetPosition(x, y);
-	//	obj->SetWidth(width);
-	//	obj->SetHeight(height);
-	//	listObject->push_back(obj);
-	//	break;
+	case OBJECT_CHAINS:
+	{
+		Chains* obj = new Chains();
+		obj->SetId(id);
+		obj->SetType(type);
+		obj->SetPosition(x, y);
+		obj->SetWidth(width);
+		obj->SetHeight(height);
+		listObject->push_back(obj);
+	}
+
+	break;
+
+	/*case OBJECT_FENCE:
+		Ground* obj = new Ground();
+		obj->SetId(id);
+		obj->SetType(type);
+		obj->SetPosition(x, y);
+		obj->SetWidth(width);
+		obj->SetHeight(height);
+		listObject->push_back(obj);
+		break;*/
 	case OBJECT_ROCK_BAR:
 	{
 		StoneBar* obj = new StoneBar();

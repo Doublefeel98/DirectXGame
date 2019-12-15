@@ -194,8 +194,8 @@
 
 
 // apple
-#define THROW_APPLE_GRAVITY							0.002f
-#define THROW_APPLE_SPEED							0.5f
+#define THROW_APPLE_GRAVITY							0.0002f
+#define THROW_APPLE_SPEED							0.05f
 
 #define THROW_APPLE_STATE_RIGHT						0
 #define THROW_APPLE_STATE_LEFT						1
@@ -245,6 +245,7 @@
 #define BAT_ANI_WAIT								0
 #define BAT_ANI_SWING								1
 #define BAT_ANI_FLY									2			
+#define BAT_ANI_DIE									3			
 
 
 #define THIN_GUARD_ANI_IDLE_RIGHT					0
@@ -258,14 +259,16 @@
 
 #define NORMAL_GUARD_ANI_IDLE_RIGHT					0
 #define NORMAL_GUARD_ANI_IDLE_LEFT					1			
-#define NORMAL_GUARD_ANI_WALK_RIGHT					2
-#define NORMAL_GUARD_ANI_WALK_LEFT					3
-#define NORMAL_GUARD_ANI_WAIT_RIGHT					4
-#define NORMAL_GUARD_ANI_WAIT_LEFT					5
-#define NORMAL_GUARD_ANI_ATTACK_RIGHT				6
-#define NORMAL_GUARD_ANI_ATTACK_LEFT				7
-#define NORMAL_GUARD_ANI_SUPRISE_RIGH				8
-#define NORMAL_GUARD_ANI_SUPRISE_LEFT				9
+#define NORMAL_GUARD_ANI_STAB_RIGHT					2
+#define NORMAL_GUARD_ANI_STAB_LEFT					3
+#define NORMAL_GUARD_ANI_WAVE_RIGHT					4
+#define NORMAL_GUARD_ANI_WAVE_LEFT					5
+#define NORMAL_GUARD_ANI_SUPRISE_RIGHT				6
+#define NORMAL_GUARD_ANI_SUPRISE_LEFT				7
+#define NORMAL_GUARD_ANI_WALK_RIGHT					8
+#define NORMAL_GUARD_ANI_WALK_LEFT					9
+
+
 
 #define FAT_GUARD_ANI_IDLE_RIGHT					0
 #define FAT_GUARD_ANI_IDLE_LEFT						1
@@ -354,7 +357,22 @@
 
 //MAX_HP 
 #define BAT_MAX_HP 1
-#define GUARD_MAX_HP 3
+#define GUARD_MAX_HP 5
 #define THIN_GUARD_MAX_HP 2
 #define SKELETON_MAX_HP 2
 
+//Type of enemy
+#define TYPE_BAT 0
+#define TYPE_NORMAL_GUARD 1
+#define TYPE_APPLE 2
+//Bat
+#define BAT_STATE_WAIT 0
+#define BAT_STATE_FLY 2
+#define BAT_STATE_SWING 3
+#define BAT_STATE_DIE 4
+
+//Normal guard
+#define NGUARD_STATE_IDLE		0
+#define NGUARD_STATE_STAB 		1
+#define NGUARD_STATE_WAVE 		2
+#define NGUARD_STATE_SURPRISE	3

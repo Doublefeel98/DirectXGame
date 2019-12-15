@@ -46,6 +46,17 @@ void Sword::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							enemy->SetHP(enemy->GetHP() - this->damage);
 							this->isEnable = false;
 							DebugOut(L"[INFO] enemm hp: %d\n", enemy->GetHP());
+							
+							int typeEnemy = enemy->GetType() - 5;
+							switch (typeEnemy) {
+							case TYPE_BAT:
+								enemy->SetState(BAT_STATE_DIE);
+								
+								break;
+							case TYPE_NORMAL_GUARD:
+								enemy->state = NGUARD_STATE_SURPRISE;
+								break;
+							}
 						}
 					}
 				}

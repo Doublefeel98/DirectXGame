@@ -18,7 +18,9 @@ ThrowApples::ThrowApples() :CGameObject() {
 	//AddAnimation(2203);
 	//AddAnimation(2204);
 	isEnable = false;
-	damage = 5;
+	damage = 1;
+
+	type = TYPE_APPLE;
 }
 ThrowApples::~ThrowApples() {
 
@@ -60,7 +62,7 @@ void ThrowApples::Render() {
 	}
 }
 void ThrowApples::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
-	
+	int type;
 	if (isEnable) {
 		CGameObject::Update(dt);
 
@@ -105,6 +107,15 @@ void ThrowApples::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 					//enemy->GetColliderEffect()->SetEnable(true);
 					if (enemy->isEnable) {
 						enemy->SetHP(enemy->GetHP() - this->damage);
+						type = enemy->GetType()-5;
+						switch (type) {
+						case TYPE_BAT:
+							enemy->SetState(BAT_STATE_DIE);
+							break;
+						case TYPE_NORMAL_GUARD:
+							enemy->state = NGUARD_STATE_SURPRISE;
+							break;
+						}
 					}
 				}
 			}

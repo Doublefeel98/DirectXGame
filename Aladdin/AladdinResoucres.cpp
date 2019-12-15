@@ -29,6 +29,9 @@ void AladdinResoucres::LoadTextures()
 	//skeleton
 	textures->Add(ID_TEX_SKELETON, L"resources\\textures\\skeleton.png", D3DCOLOR_XRGB(255, 0, 255));
 
+	//EnemyExplosions
+	textures->Add(ID_TEX_ENEMY_EXPLOSIONS, L"resources\\textures\\EnemyExplosions.png", D3DCOLOR_XRGB(186, 254, 202));
+
 }
 
 void AladdinResoucres::LoadSprites()
@@ -37,6 +40,7 @@ void AladdinResoucres::LoadSprites()
 	LPDIRECT3DTEXTURE9 texAladdinGoLeft = textures->Get(ID_TEX_ALADDIN_GO_LEFT);
 	LPDIRECT3DTEXTURE9 texAladdinFullRight = textures->Get(ID_TEX_ALADDIN_FULL_RIGHT);
 	LPDIRECT3DTEXTURE9 texAladdinFullLeft = textures->Get(ID_TEX_ALADDIN_FULL_LEFT);
+	LPDIRECT3DTEXTURE9 texEnemyExplosions = textures->Get(ID_TEX_ENEMY_EXPLOSIONS);
 
 	sprites->Add(10001, 3, 9, 41, 59, texAladdinGoRight);		// idle right
 
@@ -364,16 +368,18 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(11424, 884, 1005, 936, 1064, texAladdinGoLeft);
 	sprites->Add(11425, 828, 1005, 868, 1064, texAladdinGoLeft);
 
-	sprites->Add(10501, 11, 1358, 40, 1450, texAladdinGoRight);		// climbing right
-	sprites->Add(10502, 53, 1358, 81, 1450, texAladdinGoRight);
-	sprites->Add(10503, 94, 1358, 122, 1450, texAladdinGoRight);
-	sprites->Add(10504, 133, 1358, 175, 1450, texAladdinGoRight);
-	sprites->Add(10505, 186, 1358, 217, 1450, texAladdinGoRight);
-	sprites->Add(10506, 231, 1358, 260, 1450, texAladdinGoRight);
-	sprites->Add(10507, 274, 1358, 302, 1450, texAladdinGoRight);
-	sprites->Add(10508, 314, 1358, 346, 1450, texAladdinGoRight);
-	sprites->Add(10509, 356, 1358, 398, 1450, texAladdinGoRight);
-	sprites->Add(10510, 406, 1358, 434, 1450, texAladdinGoRight);
+	sprites->Add(10501, 11, 1358, 40, 1450, texAladdinGoRight, -5, -35);		// climbing
+	sprites->Add(10502, 53, 1358, 81, 1450, texAladdinGoRight, -6, -38);
+	sprites->Add(10503, 94, 1358, 122, 1450, texAladdinGoRight, -4, -23);
+	sprites->Add(10504, 133, 1358, 175, 1450, texAladdinGoRight, -18, -11);
+	sprites->Add(10505, 186, 1358, 217, 1450, texAladdinGoRight, -7, -25);
+	sprites->Add(10506, 231, 1358, 260, 1450, texAladdinGoRight, -8, -35);
+	sprites->Add(10507, 274, 1358, 302, 1450, texAladdinGoRight, -7, -28);
+	sprites->Add(10508, 314, 1358, 346, 1450, texAladdinGoRight, -6, -12);
+	sprites->Add(10509, 356, 1358, 398, 1450, texAladdinGoRight, -7, -11);
+	sprites->Add(10510, 406, 1358, 434, 1450, texAladdinGoRight, -5, -30);
+
+
 
 	sprites->Add(10521, 10, 1866, 44, 1950, texAladdinGoRight);		// falling after climbing
 	sprites->Add(10522, 65, 1866, 90, 1950, texAladdinGoRight);
@@ -774,7 +780,15 @@ void AladdinResoucres::LoadSprites()
 
 	sprites->Add(21140, 19, 424, 38, 461, texItem);
 
+
 	sprites->Add(21150, 341, 17, 353, 29, texItem);		//apple
+
+	sprites->AddByWidthHeight(21161, 80, 31, 38, 21, texEnemyExplosions, -14, -10);	//item effect
+	sprites->AddByWidthHeight(21162, 128, 39, 17, 13, texEnemyExplosions, -8, -6);
+	sprites->AddByWidthHeight(21163, 152, 28, 39, 24, texEnemyExplosions, -19, -12);
+	sprites->AddByWidthHeight(21164, 200, 36, 30, 16, texEnemyExplosions, -15, -8);
+	sprites->AddByWidthHeight(21165, 240, 49, 3, 3, texEnemyExplosions, -1, -1);
+
 
 	sprites->Add(21170, 343, 171, 361, 196, texItem);		//heart
 	sprites->Add(21171, 366, 171, 382, 196, texItem);
@@ -788,11 +802,11 @@ void AladdinResoucres::LoadSprites()
 
 	sprites->AddByWidthHeight(22000, 373, 24, 7, 7, texAladdinGoRight);		// throw apple
 
-	sprites->AddByWidthHeight(22001, 394, 13, 23, 27, texAladdinGoRight);	// throw apple break
-	sprites->AddByWidthHeight(22002, 414, 13, 18, 27, texAladdinGoRight);
-	sprites->AddByWidthHeight(22003, 444, 13, 29, 27, texAladdinGoRight);
-	sprites->AddByWidthHeight(22004, 485, 13, 31, 27, texAladdinGoRight);
-	sprites->AddByWidthHeight(22005, 532, 13, 30, 27, texAladdinGoRight);
+	sprites->AddByWidthHeight(22001, 394, 23, 7, 10, texAladdinGoRight, -3, -5);	// throw apple break
+	sprites->AddByWidthHeight(22002, 414, 18, 20, 18, texAladdinGoRight, -10, -9);
+	sprites->AddByWidthHeight(22003, 444, 16, 29, 22, texAladdinGoRight, -14, -11);
+	sprites->AddByWidthHeight(22004, 485, 14, 31, 25, texAladdinGoRight, -15, -12);
+	sprites->AddByWidthHeight(22005, 532, 13, 30, 27, texAladdinGoRight, -15, -13);
 
 	LPDIRECT3DTEXTURE9 texThinGuard = textures->Get(ID_TEX_GUARD);
 
@@ -909,7 +923,7 @@ void AladdinResoucres::LoadSprites()
 	sprites->AddByWidthHeight(31125, 297, 552, 88, 73, texNormalGuard, -55);
 	sprites->AddByWidthHeight(31126, 395, 552, 95, 73, texNormalGuard, -61);
 	sprites->AddByWidthHeight(31127, 6, 629, 43, 73, texNormalGuard, -4);
-	sprites->AddByWidthHeight(31128, 61, 629, 43, 73,texNormalGuard, -1);
+	sprites->AddByWidthHeight(31128, 61, 629, 43, 73, texNormalGuard, -1);
 	sprites->AddByWidthHeight(31129, 116, 629, 52, 73, texNormalGuard, -4);
 	sprites->AddByWidthHeight(31130, 178, 629, 114, 73, texNormalGuard, -71);
 	sprites->AddByWidthHeight(31131, 300, 629, 91, 73, texNormalGuard, -52);
@@ -1430,16 +1444,16 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(11425);
 	animations->Add(145, ani);
 
-	ani = new CAnimation(100);	// climbing
+	ani = new CAnimation(80);	// climbing
 	ani->Add(10501);
 	ani->Add(10502);
 	ani->Add(10503);
-	ani->Add(10504);
+	//ani->Add(10504, 50);
 	ani->Add(10505);
 	ani->Add(10506);
 	ani->Add(10507);
 	ani->Add(10508);
-	ani->Add(10509);
+	//ani->Add(10509, 50);
 	ani->Add(10510);
 	animations->Add(150, ani);
 
@@ -1881,6 +1895,14 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(21150);
 	animations->Add(2115, ani);
 
+	ani = new CAnimation(100, false);		//item effect
+	ani->Add(21161);
+	ani->Add(21162);
+	ani->Add(21163);
+	ani->Add(21164);
+	ani->Add(21165);
+	animations->Add(2116, ani);
+
 	ani = new CAnimation(100);		//heart
 	ani->Add(21170);
 	ani->Add(21171);
@@ -1901,6 +1923,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(22002);
 	ani->Add(22003);
 	ani->Add(22004);
+	ani->Add(22005);
 	animations->Add(2201, ani);
 
 

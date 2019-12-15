@@ -25,6 +25,7 @@ class Aladdin : public CGameObject
 	ThrowApples* throwApple;
 	Sword* sword;
 	int hp;
+	int countApple;
 	Aladdin();
 public:
 	bool IsSit;
@@ -35,6 +36,9 @@ public:
 	bool IsStand;
 	bool IsThrow;
 	bool IsHurt;
+	bool IsClimb;
+	bool canAbleClimb;
+	bool IsClimbing;
 	bool IsMoveCameraWhenLookingUp();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();
@@ -51,6 +55,9 @@ public:
 	void ResetAnimationsJump();
 	void ResetAnimationsLookUp();
 	void ResetAllAnimation();
+	void OnClimbHandle();
+	int GetCountApple() { return countApple; }
+	void addApple(int count) { countApple += count; }
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	~Aladdin();

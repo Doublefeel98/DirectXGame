@@ -36,7 +36,7 @@ void NormalPalaceGuard::Render()
 {
 	if (isEnable)
 	{
-		animations[NORMAL_GUARD_ANI_WAIT_LEFT]->Render(x, y, 255);
+		animations[5]->Render(x, y, 255);
 		CEnemy::Render();
 		RenderBoundingBox();
 	}

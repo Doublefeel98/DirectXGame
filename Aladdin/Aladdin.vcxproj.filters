@@ -114,6 +114,8 @@
     </ClCompile>
     <ClCompile Include="Wood.cpp" />
     <ClCompile Include="StoneBar.cpp" />
+    <ClCompile Include="Chains.cpp" />
+    <ClCompile Include="Item.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aladdin.h">
@@ -246,6 +248,8 @@
       <Filter>Source\Object\maps</Filter>
     </ClInclude>
     <ClInclude Include="StoneBar.h" />
+    <ClInclude Include="Chains.h" />
+    <ClInclude Include="Item.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">

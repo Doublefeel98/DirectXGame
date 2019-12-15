@@ -7,8 +7,8 @@ using namespace std;
 
 class CSprite
 {
-public: 
-	int id;				
+public:
+	int id;
 	int left;
 	int top;
 	int right;
@@ -18,22 +18,22 @@ public:
 	LPDIRECT3DTEXTURE9 texture;
 	CSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex, int dx = 0, int dy = 0);
 	void Draw(float x, float y, int alpha = 255);
-	void Draw(D3DXVECTOR3 &pos, RECT &rect, int alpha = 255);
-	void Draw(D3DXVECTOR3 &pos, int alpha=255);
+	void Draw(D3DXVECTOR3& pos, RECT& rect, int alpha = 255);
+	void Draw(D3DXVECTOR3& pos, int alpha = 255);
 	void DrawFlipOx(float x, float y, int alpha = 255);
 	void DrawWithoutCamera(float x, float y, int alpha = 255);
 	void DrawWithoutCamera(D3DXVECTOR3& pos, RECT& rect, int alpha = 255);
 	void DrawWithoutCamera(D3DXVECTOR3& pos, int alpha = 255);
 };
 
-typedef CSprite * LPSPRITE;
+typedef CSprite* LPSPRITE;
 
 /*
 	Manage sprite database
 */
 class CSprites
 {
-	static CSprites * __instance;
+	static CSprites* __instance;
 
 	unordered_map<int, LPSPRITE> sprites;
 
@@ -42,7 +42,7 @@ public:
 	void AddByWidthHeight(int id, int left, int top, int width, int height, LPDIRECT3DTEXTURE9 tex, int dx = 0, int dy = 0);
 	LPSPRITE Get(int id);
 
-	static CSprites * GetInstance();
+	static CSprites* GetInstance();
 };
 
 /*
@@ -59,31 +59,36 @@ public:
 	LPSPRITE GetSprite() { return sprite; }
 };
 
-typedef CAnimationFrame *LPANIMATION_FRAME;
+typedef CAnimationFrame* LPANIMATION_FRAME;
 
 class CAnimation
 {
 public:	DWORD lastFrameTime;
 public: int defaultTime;
 public: int currentFrame;
-	vector<LPANIMATION_FRAME> frames;
-	bool IsLoop;
-	bool IsLastFrame = false;
+	  vector<LPANIMATION_FRAME> frames;
+	  bool IsLoop;
+	  bool IsLastFrame = false;
+	  bool paused = false;
 public:
-	CAnimation(int defaultTime, bool IsLoop = true) 
-	{ this->IsLoop = IsLoop; this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; }
+	CAnimation(int defaultTime, bool IsLoop = true)
+	{
+		this->IsLoop = IsLoop; this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1;
+	}
 	void Add(int spriteId, DWORD time = 0);
 	virtual void Render(float x, float y, int alpha = 255, bool isFollow = true);
 	virtual void RenderFlipOx(float x, float y, int alpha = 255);
 	int getCurrentFrame() { return currentFrame; }
 	void reset() { currentFrame = -1; lastFrameTime = -1; IsLastFrame = false; }
+	void pause() { paused = true; }
+	void start() { paused = false; }
 };
 
-typedef CAnimation *LPANIMATION;
+typedef CAnimation* LPANIMATION;
 
 class CAnimations
 {
-	static CAnimations * __instance;
+	static CAnimations* __instance;
 
 	unordered_map<int, LPANIMATION> animations;
 
@@ -91,6 +96,6 @@ public:
 	void Add(int id, LPANIMATION ani);
 	LPANIMATION Get(int id);
 
-	static CAnimations * GetInstance();
+	static CAnimations* GetInstance();
 };
 

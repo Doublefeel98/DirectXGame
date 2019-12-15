@@ -122,9 +122,18 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_DOWN:
-		aladdin->SetState(ALADDIN_STATE_IDLE);
+		if (aladdin->IsClimb) {
+			aladdin->IsClimbing = false;
+		}
+		else {
+			aladdin->SetState(ALADDIN_STATE_IDLE);
+		}
+
 		break;
 	case DIK_UP:
+		if (aladdin->IsClimb) {
+			aladdin->IsClimbing = false;
+		}
 		break;
 	}
 }
@@ -134,21 +143,32 @@ void CSampleKeyHander::KeyState(BYTE* states)
 	// disable control key when Mario die 
 	if (aladdin->GetState() == ALADDIN_STATE_DIE) return;
 	if (game->IsKeyDown(DIK_RIGHT)) {
-		if (!aladdin->IsSit)
+		if (!aladdin->IsSit && !aladdin->IsClimb)
 			aladdin->SetState(ALADDIN_STATE_WALKING_RIGHT);
 	}
 	else if (game->IsKeyDown(DIK_LEFT)) {
-		if (!aladdin->IsSit)
+		if (!aladdin->IsSit && !aladdin->IsClimb)
 			aladdin->SetState(ALADDIN_STATE_WALKING_LEFT);
 	}
 	else if (game->IsKeyDown(DIK_DOWN)) {
-		if (!aladdin->IsJump) {
+		if (aladdin->canAbleClimb)
+		{
+			aladdin->SetState(ALADDIN_STATE_CLIMB_DOWN);
+		}
+		else if (!aladdin->IsJump) {
 			aladdin->SetState(ALADDIN_STATE_SIT_DOWN);
 		}
 	}
 	else if (game->IsKeyDown(DIK_UP))
 	{
-		aladdin->SetState(ALADDIN_STATE_LOOKING_UP);
+		if (aladdin->canAbleClimb)
+		{
+			aladdin->SetState(ALADDIN_STATE_CLIMB_UP);
+		}
+		else if (!aladdin->IsJump && !aladdin->IsSit) {
+			aladdin->SetState(ALADDIN_STATE_LOOKING_UP);
+		}
+
 	}
 	else {
 		if (aladdin->GetState() != ALADDIN_STATE_STANDING_SLASH)

@@ -2,13 +2,13 @@
 #include "../Framework/GameObject.h"
 #include "Define.h"
 
-class Iago : public CGameObject
+class Statue : public CGameObject
 {
 private:
 
 public:
-	Iago();
-	~Iago();
+	Statue();
+	~Statue();
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObject = NULL);
 	virtual void Render();

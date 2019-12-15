@@ -124,6 +124,7 @@
   <ItemGroup>
     <ClInclude Include="AladdinResoucres.h" />
     <ClInclude Include="Apple.h" />
+    <ClInclude Include="Statue.h" />
     <ClInclude Include="StoneBar.h" />
     <ClInclude Include="Sword.h" />
     <ClInclude Include="Wood.h" />
@@ -165,6 +166,7 @@
   <ItemGroup>
     <ClCompile Include="AladdinResoucres.cpp" />
     <ClCompile Include="Apple.cpp" />
+    <ClCompile Include="Statue.cpp" />
     <ClCompile Include="StoneBar.cpp" />
     <ClCompile Include="Sword.cpp" />
     <ClCompile Include="Wood.cpp" />

@@ -933,14 +933,9 @@ void AladdinResoucres::LoadSprites()
 	sprites->AddByWidthHeight(31124, 216, 552, 75, 73, texNormalGuard, -42);
 	sprites->AddByWidthHeight(31125, 297, 552, 88, 73, texNormalGuard, -55);
 	sprites->AddByWidthHeight(31126, 395, 552, 95, 73, texNormalGuard, -61);
-<<<<<<< HEAD
-	sprites->AddByWidthHeight(31127, 6, 629, 43, 73, texNormalGuard, -4);
-	sprites->AddByWidthHeight(31128, 61, 629, 43, 73, texNormalGuard, -1);
-=======
 
 	sprites->AddByWidthHeight(31127, 6, 629, 43, 73, texNormalGuard, -4);		//attack slash right
-	sprites->AddByWidthHeight(31128, 61, 629, 43, 73,texNormalGuard, -1);
->>>>>>> f63678d7370e451cc2217bae8eeaf9a99a623ec0
+	sprites->AddByWidthHeight(31128, 61, 629, 43, 73, texNormalGuard, -1);
 	sprites->AddByWidthHeight(31129, 116, 629, 52, 73, texNormalGuard, -4);
 	sprites->AddByWidthHeight(31130, 178, 629, 114, 73, texNormalGuard, -71);
 	sprites->AddByWidthHeight(31131, 300, 629, 91, 73, texNormalGuard, -52);
@@ -1072,7 +1067,7 @@ void AladdinResoucres::LoadSprites()
 	sprites->AddByWidthHeight(31419, 294, 115, 95, 91, texSkeleton);
 	sprites->AddByWidthHeight(31420, 215, 115, 60, 91, texSkeleton);
 
-	LPDIRECT3DTEXTURE9 texJafar = textures->Get(ID_TEX_JAFAR);	
+	LPDIRECT3DTEXTURE9 texJafar = textures->Get(ID_TEX_JAFAR);
 	sprites->AddByWidthHeight(40000, 870, 9, 64, 71, texJafar);		//idle right
 
 	sprites->AddByWidthHeight(41000, 791, 9, 64, 71, texJafar, -19);		//idle left
@@ -1147,9 +1142,9 @@ void AladdinResoucres::LoadSprites()
 	LPDIRECT3DTEXTURE9 texStatueLeft = textures->Get(ID_TEX_STATUE_LEFT);
 
 	sprites->AddByWidthHeight(40200, 10, 7, 51, 76, texStatueRight);		//idle right
-	
+
 	sprites->AddByWidthHeight(41200, 599, 7, 51, 76, texStatueLeft, -16);		//idle left
-		
+
 	sprites->AddByWidthHeight(40201, 75, 7, 44, 76, texStatueRight);		//attack right
 	sprites->AddByWidthHeight(40202, 135, 7, 43, 76, texStatueRight);
 	sprites->AddByWidthHeight(40203, 190, 7, 42, 76, texStatueRight);

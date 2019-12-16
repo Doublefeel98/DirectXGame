@@ -23,7 +23,7 @@ void NormalPalaceGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 	}
 	else {
 		if ((state == NGUARD_STATE_SURPRISE && (left || right)) || (state != NGUARD_STATE_SURPRISE)) {
-			if (abs(this->x - x) < 100) SetState(rand() % 2 == 0 ? NGUARD_STATE_WAVE : NGUARD_STATE_STAB);
+			if (abs(this->x - x) < 100) SetState(rand() % 2 == 0 ? NGUARD_STATE_SLASH : NGUARD_STATE_STAB);
 			else { SetState(NGUARD_STATE_IDLE); }
 		}
 		else {
@@ -86,15 +86,15 @@ void NormalPalaceGuard::Render()
 				RenderBoundingBox();
 				break;
 			case NGUARD_STATE_STAB:
-				animations[NORMAL_GUARD_ANI_STAB_LEFT]->Render(x, y, 255);
+				animations[NORMAL_GUARD_ANI_ATTACK_STAB_LEFT]->Render(x, y, 255);
 				RenderBoundingBox();
 				break;
-			case NGUARD_STATE_WAVE:
-				animations[NORMAL_GUARD_ANI_WAVE_LEFT]->Render(x, y, 255);
+			case NGUARD_STATE_SLASH:
+				animations[NORMAL_GUARD_ANI_ATTACK_SLASH_LEFT]->Render(x, y, 255);
 				RenderBoundingBox();
 				break;
 			case NGUARD_STATE_SURPRISE:
-				animations[NORMAL_GUARD_ANI_SUPRISE_LEFT]->Render(x, y, 255);
+				animations[NORMAL_GUARD_ANI_SURPRISE_LEFT]->Render(x, y, 255);
 				RenderBoundingBox();
 				break;
 			}
@@ -106,15 +106,15 @@ void NormalPalaceGuard::Render()
 				RenderBoundingBox();
 				break;
 			case NGUARD_STATE_STAB:
-				animations[NORMAL_GUARD_ANI_STAB_RIGHT]->Render(x, y, 255);
+				animations[NORMAL_GUARD_ANI_ATTACK_STAB_RIGHT]->Render(x, y, 255);
 				RenderBoundingBox();
 				break;
-			case NGUARD_STATE_WAVE:
-				animations[NORMAL_GUARD_ANI_WAVE_RIGHT]->Render(x, y, 255);
+			case NGUARD_STATE_SLASH:
+				animations[NORMAL_GUARD_ANI_ATTACK_SLASH_RIGHT]->Render(x, y, 255);
 				RenderBoundingBox();
 				break;
 			case NGUARD_STATE_SURPRISE:
-				animations[NORMAL_GUARD_ANI_SUPRISE_RIGHT]->Render(x, y, 255);
+				animations[NORMAL_GUARD_ANI_SURPRISE_RIGHT]->Render(x, y, 255);
 				RenderBoundingBox();
 				break;
 			}
@@ -142,20 +142,14 @@ NormalPalaceGuard::NormalPalaceGuard() : CEnemy()
 	AddAnimation(304);		// wait right
 	AddAnimation(305);		// wait left
 
-	AddAnimation(306);		// wave right
-	AddAnimation(307);		// wave left
+	AddAnimation(306);		// attack stab right
+	AddAnimation(307);		// attack stab left
 
-	AddAnimation(308);		// stab right
-	AddAnimation(309);		// stab left
+	AddAnimation(308);		// attack slash right
+	AddAnimation(329);		// attack slash left
 
-	AddAnimation(310);		// attack stab right
-	AddAnimation(311);		// attack stab left
-
-	AddAnimation(312);		// attack slash right
-	AddAnimation(313);		// attack slash left
-
-	AddAnimation(314);		// suprise right
-	AddAnimation(315);		// suprise left
+	AddAnimation(312);		// surprise right
+	AddAnimation(311);		// surprise left
 }
 
 NormalPalaceGuard::~NormalPalaceGuard()

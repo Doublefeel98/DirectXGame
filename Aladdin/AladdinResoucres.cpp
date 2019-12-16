@@ -746,7 +746,7 @@ void AladdinResoucres::LoadSprites()
 	sprites->AddByWidthHeight(31015, 292, 82, 77, 74, texGuard, -44);
 	sprites->AddByWidthHeight(31016, 382, 82, 96, 74, texGuard, -6);
 
-	sprites->AddByWidthHeight(30021, 940, 160, 44, 73, texGuard, -3);	// suprise right
+	sprites->AddByWidthHeight(30021, 940, 160, 44, 73, texGuard, -3);	// surprise right
 	sprites->AddByWidthHeight(30022, 893, 160, 40, 73, texGuard);
 	sprites->AddByWidthHeight(30023, 839, 160, 39, 73, texGuard);
 	sprites->AddByWidthHeight(30024, 790, 160, 41, 73, texGuard);
@@ -756,7 +756,7 @@ void AladdinResoucres::LoadSprites()
 	sprites->AddByWidthHeight(30028, 574, 160, 40, 73, texGuard);
 	sprites->AddByWidthHeight(30029, 514, 160, 45, 73, texGuard, -8);
 
-	sprites->AddByWidthHeight(31021, 8, 160, 44, 73, texGuard, -7);		// suprise left
+	sprites->AddByWidthHeight(31021, 8, 160, 44, 73, texGuard, -7);		// surprise left
 	sprites->AddByWidthHeight(31022, 59, 160, 40, 73, texGuard, -3);
 	sprites->AddByWidthHeight(31023, 114, 160, 39, 73, texGuard);
 	sprites->AddByWidthHeight(31024, 161, 160, 41, 73, texGuard, -4);
@@ -804,8 +804,6 @@ void AladdinResoucres::LoadSprites()
 	sprites->AddByWidthHeight(31115, 221, 448, 49, 54, texGuard, -24);
 	sprites->AddByWidthHeight(31116, 278, 448, 44, 54, texGuard, -19);
 
-	sprites->AddByWidthHeight(31121, 6, 552, 55, 73, texGuard, -25);		//attack left
-
 	sprites->AddByWidthHeight(30121, 931, 552, 55, 73, texGuard, -4);		//attack stab right
 	sprites->AddByWidthHeight(30122, 860, 552, 67, 73, texGuard, -5);
 	sprites->AddByWidthHeight(30123, 782, 552, 70, 73, texGuard, -6);
@@ -820,8 +818,6 @@ void AladdinResoucres::LoadSprites()
 	sprites->AddByWidthHeight(31125, 297, 552, 88, 73, texGuard, -55);
 	sprites->AddByWidthHeight(31126, 395, 552, 95, 73, texGuard, -61);
 
-	sprites->AddByWidthHeight(31127, 6, 629, 43, 73, texGuard, -4);
-	sprites->AddByWidthHeight(31128, 61, 629, 43, 73, texGuard, -1);
 	sprites->AddByWidthHeight(30127, 943, 629, 43, 73, texGuard, -15);	//attack slash right
 	sprites->AddByWidthHeight(30128, 888, 629, 43, 73, texGuard, -18);
 	sprites->AddByWidthHeight(30129, 824, 629, 52, 73, texGuard, -24);
@@ -841,7 +837,7 @@ void AladdinResoucres::LoadSprites()
 	sprites->AddByWidthHeight(30145, 628, 789, 74, 71, texGuard, -26);
 	sprites->AddByWidthHeight(30146, 544, 789, 66, 71, texGuard, -13);
 
-	sprites->AddByWidthHeight(31141, 6, 789, 54, 71, texGuard, -21);	// suprise left
+	sprites->AddByWidthHeight(31141, 6, 789, 54, 71, texGuard, -21);	// surprise left
 	sprites->AddByWidthHeight(31142, 71, 789, 63, 71, texGuard, -18);
 	sprites->AddByWidthHeight(31143, 138, 789, 65, 71, texGuard, -18);
 	sprites->AddByWidthHeight(31144, 210, 789, 71, 71, texGuard, -20);
@@ -883,7 +879,7 @@ void AladdinResoucres::LoadSprites()
 	sprites->AddByWidthHeight(31214, 182, 1183, 46, 58, texGuard);
 	sprites->AddByWidthHeight(31215, 236, 1183, 33, 58, texGuard);
 
-	sprites->AddByWidthHeight(30221, 2, 999, 37, 52, texGuard);		// suprise right
+	sprites->AddByWidthHeight(30221, 2, 999, 37, 52, texGuard);		// surprise right
 	sprites->AddByWidthHeight(30222, 45, 999, 37, 52, texGuard);
 	sprites->AddByWidthHeight(30223, 94, 999, 34, 52, texGuard);
 	sprites->AddByWidthHeight(30224, 143, 999, 38, 52, texGuard);
@@ -891,7 +887,7 @@ void AladdinResoucres::LoadSprites()
 	sprites->AddByWidthHeight(30226, 247, 999, 52, 52, texGuard);
 	sprites->AddByWidthHeight(30227, 308, 999, 49, 52, texGuard);
 
-	sprites->AddByWidthHeight(31221, 953, 999, 37, 52, texGuard);		// suprise left
+	sprites->AddByWidthHeight(31221, 953, 999, 37, 52, texGuard);		// surprise left
 	sprites->AddByWidthHeight(31222, 910, 999, 37, 52, texGuard);
 	sprites->AddByWidthHeight(31223, 864, 999, 34, 52, texGuard);
 	sprites->AddByWidthHeight(31224, 811, 999, 38, 52, texGuard);
@@ -1616,7 +1612,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(31016);
 	animations->Add(206, ani);
 
-	ani = new CAnimation(100);		// suprise right
+	ani = new CAnimation(100);		// surprise right
 	ani->Add(30021);
 	ani->Add(30022);
 	ani->Add(30023);
@@ -1628,7 +1624,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(30029);
 	animations->Add(207, ani);
 
-	ani = new CAnimation(100);		// suprise left
+	ani = new CAnimation(100);		// surprise left
 	ani->Add(31021);
 	ani->Add(31022);
 	ani->Add(31023);
@@ -1690,7 +1686,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(31116);
 	animations->Add(305, ani);
 
-	ani = new CAnimation(100);		// wave right
+	ani = new CAnimation(100);		// attack stab right
 	ani->Add(31121);
 	ani->Add(31122);
 	ani->Add(31123);
@@ -1699,7 +1695,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(31126);
 	animations->Add(306, ani);
 
-	ani = new CAnimation(100);		// wave left
+	ani = new CAnimation(100);		// attack stab left
 	ani->Add(31121);
 	ani->Add(31122);
 	ani->Add(31123);
@@ -1708,48 +1704,13 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(31126);
 	animations->Add(307, ani);
 
-	ani = new CAnimation(100);		// stab right
-	ani->Add(30121);
-	ani->Add(30122);
-	ani->Add(30123);
-	ani->Add(30124);
-	ani->Add(30125);
-	ani->Add(30126);
-	animations->Add(308, ani);
-
-	ani = new CAnimation(100);		// stab left
-	ani->Add(30127);
-	ani->Add(30128);
-	ani->Add(30129);
-	ani->Add(30130);
-	ani->Add(30131);
-	animations->Add(309, ani);
-
-	ani = new CAnimation(100);		// attack stab right
-	ani->Add(31121);
-	ani->Add(31122);
-	ani->Add(31123);
-	ani->Add(31124);
-	ani->Add(31125);
-	ani->Add(31126);
-	animations->Add(310, ani);
-
-	ani = new CAnimation(100);		// attack stab left
-	ani->Add(31121);
-	ani->Add(31122);
-	ani->Add(31123);
-	ani->Add(31124);
-	ani->Add(31125);
-	ani->Add(31126);
-	animations->Add(311, ani);
-
 	ani = new CAnimation(100);		// attack slash right
 	ani->Add(30127);
 	ani->Add(30128);
 	ani->Add(30129);
 	ani->Add(30130);
 	ani->Add(30131);
-	animations->Add(312, ani);
+	animations->Add(308, ani);
 
 	ani = new CAnimation(100);		//attack slash left
 	ani->Add(31127);
@@ -1757,26 +1718,25 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(31129);
 	ani->Add(31130);
 	ani->Add(31131);
-	animations->Add(313, ani);
+	animations->Add(309, ani);
 
-	ani = new CAnimation(100);		// suprise right
+	ani = new CAnimation(100);		// surprise right
 	ani->Add(30141);
 	ani->Add(30142);
 	ani->Add(30143);
 	ani->Add(30144);
 	ani->Add(30145);
 	ani->Add(30146);
-	animations->Add(314, ani);
+	animations->Add(310, ani);
 
-	ani = new CAnimation(100);		// suprise left
+	ani = new CAnimation(100);		// surprise left
 	ani->Add(31141);
 	ani->Add(31142);
 	ani->Add(31143);
 	ani->Add(31144);
 	ani->Add(31145);
 	ani->Add(31146);
-	animations->Add(315, ani);
-
+	animations->Add(311, ani);
 
 	// fat guard
 
@@ -1826,7 +1786,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(31215);
 	animations->Add(405, ani);
 
-	ani = new CAnimation(100);		// suprise right
+	ani = new CAnimation(100);		// surprise right
 	ani->Add(30221);
 	ani->Add(30222);
 	ani->Add(30223);
@@ -1836,7 +1796,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(30227);
 	animations->Add(406, ani);
 
-	ani = new CAnimation(100);		// suprise left
+	ani = new CAnimation(100);		// surprise left
 	ani->Add(31221);
 	ani->Add(31222);
 	ani->Add(31223);

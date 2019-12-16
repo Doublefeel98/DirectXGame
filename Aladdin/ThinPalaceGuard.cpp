@@ -69,7 +69,7 @@ void ThinPalaceGuard::Render() {
 	//}
 	if (isEnable)
 	{
-		animations[THIN_GUARD_ANI_SUPRISE_RIGHT]->Render(x, y);
+		animations[THIN_GUARD_ANI_SURPRISE_RIGHT]->Render(x, y);
 		CEnemy::Render();
 		RenderBoundingBox();
 	}
@@ -96,8 +96,8 @@ ThinPalaceGuard::ThinPalaceGuard() : CEnemy()
 	AddAnimation(205);		// attack right
 	AddAnimation(206);		// attack left
 
-	AddAnimation(207);		// suprise right
-	AddAnimation(208);		// suprise left
+	AddAnimation(207);		// surprise right
+	AddAnimation(208);		// surprise left
 
 }
 ThinPalaceGuard::~ThinPalaceGuard() {

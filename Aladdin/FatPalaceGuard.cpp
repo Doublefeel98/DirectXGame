@@ -42,8 +42,8 @@ FatPalaceGuard::FatPalaceGuard() : CEnemy()
 	AddAnimation(404);		// attack right
 	AddAnimation(405);		// attack left
 
-	AddAnimation(406);		// suprise right
-	AddAnimation(407);		// suprise left
+	AddAnimation(406);		// surprise right
+	AddAnimation(407);		// surprise left
 
 }
 

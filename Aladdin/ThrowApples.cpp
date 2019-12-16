@@ -19,8 +19,6 @@ ThrowApples::ThrowApples() :CGameObject() {
 	//AddAnimation(2204);
 	isEnable = false;
 	damage = 1;
-
-	type = TYPE_APPLE;
 }
 ThrowApples::~ThrowApples() {
 
@@ -109,10 +107,10 @@ void ThrowApples::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 						enemy->SetHP(enemy->GetHP() - this->damage);
 						type = enemy->GetType()-5;
 						switch (type) {
-						case TYPE_BAT:
+						case OBJECT_BAT:
 							enemy->SetState(BAT_STATE_DIE);
 							break;
-						case TYPE_NORMAL_GUARD:
+						case OBJECT_NORMAL_PALACE_GUARD:
 							enemy->state = NGUARD_STATE_SURPRISE;
 							break;
 						}

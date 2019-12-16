@@ -21,6 +21,7 @@ CEnemy::CEnemy() : CGameObject()
 	isEnable = true;
 	isDead = false;
 }
+
 CEnemy::CEnemy(int hp) : CGameObject()
 {
 	this->hp = hp;

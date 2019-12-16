@@ -8,6 +8,8 @@
 #include "Trap.h"
 #include "Chains.h"
 #include "Apple.h"
+#include "Bat.h"
+#include "../Framework/Enemy.h"
 
 #include "Brick.h"
 #include "Wood.h"
@@ -39,6 +41,16 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	DWORD now = GetTickCount();
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
+
+	if (IsBatHurt)
+	{
+		if (now - timeBatHurt > 1000)
+		{
+			IsBatHurt = false;
+			SetState(ALADDIN_STATE_IDLE);
+		}
+		return;
+	}
 
 	if (IsClimb == true)
 	{
@@ -467,18 +479,18 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					}
 				}
 			}
-			else if (dynamic_cast<Apple*>(coObjects->at(i)))
-			{
-				Apple* apple = dynamic_cast<Apple*>(coObjects->at(i));
-				float l1, t1, r1, b1, l2, t2, r2, b2;
-				GetBoundingBox(l1, t1, r1, b1);
-				ball->GetBoundingBox(l2, t2, r2, b2);
-				if (CGame::isColliding(l1, t1, r1, b1, l2, t2, r2, b2)) {
-					if (apple->IsEnable() && !apple->IsAte())
-					{
-						apple->setAte(true);
-						addApple(1);
-					}
+		}
+		else if (dynamic_cast<Apple*>(coObjects->at(i)))
+		{
+			Apple* apple = dynamic_cast<Apple*>(coObjects->at(i));
+			float l1, t1, r1, b1, l2, t2, r2, b2;
+			GetBoundingBox(l1, t1, r1, b1);
+			apple->GetBoundingBox(l2, t2, r2, b2);
+			if (CGame::isColliding(l1, t1, r1, b1, l2, t2, r2, b2)) {
+				if (apple->IsEnable() && !apple->IsAte())
+				{
+					apple->setAte(true);
+					addApple(1);
 				}
 			}
 		}
@@ -592,6 +604,30 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					}
 				}
 			}
+			else if (dynamic_cast<CEnemy*>(e->obj))
+			{
+				CEnemy* enemy = dynamic_cast<CEnemy*>(e->obj);
+
+				if (e->nx != 0)
+				{
+					if (enemy->IsEnable())
+					{
+						this->hp -= enemy->GetDamage();
+						if (enemy->GetType() != OBJECT_BAT)
+						{
+							StartUntouchable();
+							StartHurting();
+							SetState(ALADDIN_STATE_BE_ATTACKED);
+						}
+						else {
+							IsBatHurt = true;
+							timeBatHurt = now;
+							enemy->SetDead(true);
+						}
+
+					}
+				}
+			}
 
 			if (dynamic_cast<Brick*>(e->obj) || dynamic_cast<StoneBar*>(e->obj) || dynamic_cast<Ground*>(e->obj) || dynamic_cast<Wood*>(e->obj))
 			{
@@ -623,6 +659,11 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void Aladdin::Render()
 {
+	if (IsBatHurt)
+	{
+		return;
+	}
+
 	DWORD now = GetTickCount();
 	float posX = x, posY = y;
 	int ani;
@@ -871,6 +912,11 @@ void Aladdin::Render()
 
 void Aladdin::SetState(int state)
 {
+	if (IsBatHurt)
+	{
+		return;
+	}
+
 	CGameObject::SetState(state);
 	DWORD currentTime = GetTickCount();
 	switch (state)
@@ -1185,6 +1231,9 @@ Aladdin::Aladdin() : CGameObject()
 	hp = ALADDIN_MAX_HP;
 
 	countApple = 10;
+
+	IsBatHurt = false;
+	timeBatHurt = 0;
 
 	AddAnimation(100);		// idle right
 	AddAnimation(101);		//idle left

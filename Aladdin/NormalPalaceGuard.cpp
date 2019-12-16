@@ -130,7 +130,7 @@ NormalPalaceGuard::NormalPalaceGuard() : CEnemy()
 	//wait = false; stab = false; wave = false; jump = false; surprise = false; die = true;
 	hp = GUARD_MAX_HP;
 	state = NGUARD_STATE_IDLE;
-	type = TYPE_NORMAL_GUARD;
+	type = OBJECT_NORMAL_PALACE_GUARD;
 	finalAni = false;
 
 	AddAnimation(300);		// idle right

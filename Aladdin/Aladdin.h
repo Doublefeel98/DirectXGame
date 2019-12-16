@@ -20,6 +20,7 @@ class Aladdin : public CGameObject
 	DWORD timeRunJumpStart;
 	DWORD timeJumpSlashStart;
 	DWORD timeJumpThrowStart;
+	DWORD timeBatHurt;
 	int hurtable;
 	DWORD timeHurtableStart;
 	ThrowApples* throwApple;
@@ -39,6 +40,7 @@ public:
 	bool IsClimb;
 	bool canAbleClimb;
 	bool IsClimbing;
+	bool IsBatHurt;
 	bool IsMoveCameraWhenLookingUp();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();

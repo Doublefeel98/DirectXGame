@@ -1566,6 +1566,491 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(11706);
 	animations->Add(166, ani);
 
+	// enemy
+	// thin guard
+	ani = new CAnimation(100);		// idle right
+	ani->Add(30000);
+	animations->Add(201, ani);
+
+	ani = new CAnimation(100);		// idle left
+	ani->Add(31000);
+	animations->Add(202, ani);
+
+	ani = new CAnimation(100);		// walk right
+	ani->Add(30001);
+	ani->Add(30002);
+	ani->Add(30003);
+	ani->Add(30004);
+	ani->Add(30005);
+	ani->Add(30006);
+	ani->Add(30007);
+	ani->Add(30008);
+	animations->Add(203, ani);
+
+	ani = new CAnimation(100);		// walk left
+	ani->Add(31001);
+	ani->Add(31002);
+	ani->Add(31003);
+	ani->Add(31004);
+	ani->Add(31005);
+	ani->Add(31006);
+	ani->Add(31007);
+	ani->Add(31008);
+	animations->Add(204, ani);
+
+	ani = new CAnimation(100);		// attack right
+	ani->Add(30011);
+	ani->Add(30012);
+	ani->Add(30013);
+	ani->Add(30014);
+	ani->Add(30015);
+	ani->Add(30016);
+	animations->Add(205, ani);
+
+	ani = new CAnimation(100);		// attack left
+	ani->Add(31011);
+	ani->Add(31012);
+	ani->Add(31013);
+	ani->Add(31014);
+	ani->Add(31015);
+	ani->Add(31016);
+	animations->Add(206, ani);
+
+	ani = new CAnimation(100);		// suprise right
+	ani->Add(30021);
+	ani->Add(30022);
+	ani->Add(30023);
+	ani->Add(30024);
+	ani->Add(30025);
+	ani->Add(30026);
+	ani->Add(30027);
+	ani->Add(30028);
+	ani->Add(30029);
+	animations->Add(207, ani);
+
+	ani = new CAnimation(100);		// suprise left
+	ani->Add(31021);
+	ani->Add(31022);
+	ani->Add(31023);
+	ani->Add(31024);
+	ani->Add(31025);
+	ani->Add(31026);
+	ani->Add(31027);
+	ani->Add(31028);
+	ani->Add(31029);
+	animations->Add(208, ani);
+
+	// nomal guard
+
+	ani = new CAnimation(100);		// idle right
+	ani->Add(30100);
+	animations->Add(300, ani);
+
+	ani = new CAnimation(100);		// idle left
+	ani->Add(31100);
+	animations->Add(301, ani);
+
+	ani = new CAnimation(100);		// walk right
+	ani->Add(30101);
+	ani->Add(30102);
+	ani->Add(30103);
+	ani->Add(30104);
+	ani->Add(30105);
+	ani->Add(30106);
+	ani->Add(30107);
+	ani->Add(30108);
+	animations->Add(302, ani);
+
+	ani = new CAnimation(100);		// walk left
+	ani->Add(31101);
+	ani->Add(31102);
+	ani->Add(31103);
+	ani->Add(31104);
+	ani->Add(31105);
+	ani->Add(31106);
+	ani->Add(31107);
+	ani->Add(31108);
+	animations->Add(303, ani);
+
+	ani = new CAnimation(100);		// wait right
+	ani->Add(30111);
+	ani->Add(30112);
+	ani->Add(30113);
+	ani->Add(30114);
+	ani->Add(30115);
+	ani->Add(30116);
+	animations->Add(304, ani);
+
+	ani = new CAnimation(100);		// wait left
+	ani->Add(31111);
+	ani->Add(31112);
+	ani->Add(31113);
+	ani->Add(31114);
+	ani->Add(31115);
+	ani->Add(31116);
+	animations->Add(305, ani);
+
+	ani = new CAnimation(100);		// wave right
+	ani->Add(31121);
+	ani->Add(31122);
+	ani->Add(31123);
+	ani->Add(31124);
+	ani->Add(31125);
+	ani->Add(31126);
+	animations->Add(306, ani);
+
+	ani = new CAnimation(100);		// wave left
+	ani->Add(31121);
+	ani->Add(31122);
+	ani->Add(31123);
+	ani->Add(31124);
+	ani->Add(31125);
+	ani->Add(31126);
+	animations->Add(307, ani);
+
+	ani = new CAnimation(100);		// stab right
+	ani->Add(30121);
+	ani->Add(30122);
+	ani->Add(30123);
+	ani->Add(30124);
+	ani->Add(30125);
+	ani->Add(30126);
+	animations->Add(308, ani);
+
+	ani = new CAnimation(100);		// stab left
+	ani->Add(30127);
+	ani->Add(30128);
+	ani->Add(30129);
+	ani->Add(30130);
+	ani->Add(30131);
+	animations->Add(309, ani);
+
+	ani = new CAnimation(100);		// attack stab right
+	ani->Add(31121);
+	ani->Add(31122);
+	ani->Add(31123);
+	ani->Add(31124);
+	ani->Add(31125);
+	ani->Add(31126);
+	animations->Add(310, ani);
+
+	ani = new CAnimation(100);		// attack stab left
+	ani->Add(31121);
+	ani->Add(31122);
+	ani->Add(31123);
+	ani->Add(31124);
+	ani->Add(31125);
+	ani->Add(31126);
+	animations->Add(311, ani);
+
+	ani = new CAnimation(100);		// attack slash right
+	ani->Add(30127);
+	ani->Add(30128);
+	ani->Add(30129);
+	ani->Add(30130);
+	ani->Add(30131);
+	animations->Add(312, ani);
+
+	ani = new CAnimation(100);		//attack slash left
+	ani->Add(31127);
+	ani->Add(31128);
+	ani->Add(31129);
+	ani->Add(31130);
+	ani->Add(31131);
+	animations->Add(313, ani);
+
+	ani = new CAnimation(100);		// suprise right
+	ani->Add(30141);
+	ani->Add(30142);
+	ani->Add(30143);
+	ani->Add(30144);
+	ani->Add(30145);
+	ani->Add(30146);
+	animations->Add(314, ani);
+
+	ani = new CAnimation(100);		// suprise left
+	ani->Add(31141);
+	ani->Add(31142);
+	ani->Add(31143);
+	ani->Add(31144);
+	ani->Add(31145);
+	ani->Add(31146);
+	animations->Add(315, ani);
+
+
+	// fat guard
+
+	ani = new CAnimation(100);		// idle right
+	ani->Add(30200);
+	animations->Add(400, ani);
+
+	ani = new CAnimation(100);		// idle left
+	ani->Add(31200);
+	animations->Add(401, ani);
+
+	ani = new CAnimation(100);		// walk right
+	ani->Add(30201);
+	ani->Add(30202);
+	ani->Add(30203);
+	ani->Add(30204);
+	ani->Add(30205);
+	ani->Add(30206);
+	ani->Add(30207);
+	ani->Add(30208);
+	animations->Add(402, ani);
+
+	ani = new CAnimation(100);		// walk left
+	ani->Add(31201);
+	ani->Add(31202);
+	ani->Add(31203);
+	ani->Add(31204);
+	ani->Add(31205);
+	ani->Add(31206);
+	ani->Add(31207);
+	ani->Add(31208);
+	animations->Add(403, ani);
+
+	ani = new CAnimation(100);		// attack right
+	ani->Add(30211);
+	ani->Add(30212);
+	ani->Add(30213);
+	ani->Add(30214);
+	ani->Add(30215);
+	animations->Add(404, ani);
+
+	ani = new CAnimation(100);		// attack left
+	ani->Add(31211);
+	ani->Add(31212);
+	ani->Add(31213);
+	ani->Add(31214);
+	ani->Add(31215);
+	animations->Add(405, ani);
+
+	ani = new CAnimation(100);		// suprise right
+	ani->Add(30221);
+	ani->Add(30222);
+	ani->Add(30223);
+	ani->Add(30224);
+	ani->Add(30225);
+	ani->Add(30226);
+	ani->Add(30227);
+	animations->Add(406, ani);
+
+	ani = new CAnimation(100);		// suprise left
+	ani->Add(31221);
+	ani->Add(31222);
+	ani->Add(31223);
+	ani->Add(31224);
+	ani->Add(31225);
+	ani->Add(31226);
+	ani->Add(31227);
+	animations->Add(407, ani);
+
+	// bat
+	ani = new CAnimation(100);		// wait
+	ani->Add(30301);
+	animations->Add(500, ani);
+
+	ani = new CAnimation(100);		// swing
+	ani->Add(30302);
+	ani->Add(30303);
+	ani->Add(30304);
+	animations->Add(501, ani);
+
+	ani = new CAnimation(100);		// fly
+	ani->Add(30311);
+	ani->Add(30312);
+	ani->Add(30313);
+	ani->Add(30314);
+	ani->Add(30315);
+	ani->Add(30316);
+	ani->Add(30317);
+	animations->Add(502, ani);
+
+	ani = new CAnimation(100);		// die
+	ani->Add(30320);
+	ani->Add(30321);
+	ani->Add(30322);
+	ani->Add(30323);
+	ani->Add(30324);
+	ani->Add(30325);
+	ani->Add(30326);
+	animations->Add(503, ani);
+
+	// skeleton
+	ani = new CAnimation(100);		// wait right
+	ani->Add(30400);
+	animations->Add(600, ani);
+
+	ani = new CAnimation(100);		// wait left
+	ani->Add(31400);
+	animations->Add(601, ani);
+
+	ani = new CAnimation(100);		// stand up right
+	ani->Add(30401);
+	ani->Add(30402);
+	ani->Add(30403);
+	ani->Add(30404);
+	ani->Add(30405);
+	ani->Add(30406);
+	ani->Add(30407);
+	ani->Add(30408);
+	ani->Add(30409);
+	ani->Add(30410);
+	ani->Add(30411);
+	ani->Add(30412);
+	ani->Add(30413);
+	ani->Add(30414);
+	ani->Add(30415);
+	ani->Add(30416);
+	ani->Add(30417);
+	ani->Add(30418);
+	ani->Add(30419);
+	ani->Add(30420);
+	animations->Add(602, ani);
+
+	ani = new CAnimation(100);		// stand up left
+	ani->Add(31401);
+	ani->Add(31402);
+	ani->Add(31403);
+	ani->Add(31404);
+	ani->Add(31405);
+	ani->Add(31406);
+	ani->Add(31407);
+	ani->Add(31408);
+	ani->Add(31409);
+	ani->Add(31410);
+	ani->Add(31411);
+	ani->Add(31412);
+	ani->Add(31413);
+	ani->Add(31414);
+	ani->Add(31415);
+	ani->Add(31416);
+	ani->Add(31417);
+	ani->Add(31418);
+	ani->Add(31419);
+	ani->Add(31420);
+	animations->Add(603, ani);
+
+	//jafar
+	ani = new CAnimation(100);		// idle right
+	ani->Add(40000);
+	animations->Add(700, ani);
+
+	ani = new CAnimation(100);		// idle left
+	ani->Add(41000);
+	animations->Add(701, ani);
+
+	ani = new CAnimation(100);		// attack right
+	ani->Add(40001);
+	ani->Add(40002);
+	ani->Add(40003);
+	ani->Add(40004);
+	ani->Add(40005);
+	ani->Add(40006);
+	ani->Add(40007);
+	animations->Add(702, ani);
+
+	ani = new CAnimation(100);		// attack left
+	ani->Add(41001);
+	ani->Add(41002);
+	ani->Add(41003);
+	ani->Add(41004);
+	ani->Add(41005);
+	ani->Add(41006);
+	ani->Add(41007);
+	animations->Add(703, ani);
+
+	ani = new CAnimation(100);		// fire right
+	ani->Add(40001);
+	ani->Add(40002);
+	ani->Add(40003);
+	ani->Add(40004);
+	ani->Add(40005);
+	ani->Add(40006);
+	ani->Add(40007);
+	ani->Add(40008);
+	animations->Add(704, ani);
+
+	ani = new CAnimation(100);		// fire left
+	ani->Add(41001);
+	ani->Add(41002);
+	ani->Add(41003);
+	ani->Add(41004);
+	ani->Add(41005);
+	ani->Add(41006);
+	ani->Add(41007);
+	ani->Add(41008);
+	animations->Add(705, ani);
+
+	// iago
+
+	ani = new CAnimation(100);		// fly right
+	ani->Add(40101);
+	ani->Add(40102);
+	ani->Add(40103);
+	ani->Add(40104);
+	ani->Add(40105);
+	ani->Add(40106);
+	ani->Add(40107);
+	ani->Add(40108);
+	animations->Add(800, ani);
+
+	ani = new CAnimation(100);		// fly left
+	ani->Add(41101);
+	ani->Add(41102);
+	ani->Add(41103);
+	ani->Add(41104);
+	ani->Add(41105);
+	ani->Add(41106);
+	ani->Add(41107);
+	ani->Add(41108);
+	animations->Add(801, ani);
+
+	ani = new CAnimation(100);		// die right
+	ani->Add(40111);
+	ani->Add(40112);
+	ani->Add(40113);
+	ani->Add(40114);
+	animations->Add(802, ani);
+
+	ani = new CAnimation(100);		// die left
+	ani->Add(40111);
+	ani->Add(40112);
+	ani->Add(40113);
+	ani->Add(40114);
+	animations->Add(803, ani);
+
+	//statue
+	ani = new CAnimation(100);		// idle right
+	ani->Add(40200);
+	animations->Add(900, ani);
+
+	ani = new CAnimation(100);		// idle left
+	ani->Add(41200);
+	animations->Add(901, ani);
+
+	ani = new CAnimation(100);		// attack right
+	ani->Add(40201);
+	ani->Add(40202);
+	ani->Add(40203);
+	ani->Add(40204);
+	ani->Add(40205);
+	ani->Add(40206);
+	ani->Add(40207);
+	animations->Add(902, ani);
+
+	ani = new CAnimation(100);		// attack left
+	ani->Add(41201);
+	ani->Add(41202);
+	ani->Add(41203);
+	ani->Add(41204);
+	ani->Add(41205);
+	ani->Add(41206);
+	ani->Add(41207);
+	animations->Add(903, ani);
+
+
 	//item
 	ani = new CAnimation(100);		// HP 1
 	ani->Add(20000);
@@ -1626,6 +2111,7 @@ void AladdinResoucres::LoadAnimations()
 	ani = new CAnimation(100);		// HP 9
 	ani->Add(20080);
 	animations->Add(-108, ani);
+
 
 	ani = new CAnimation(100);		// Pilar 1
 	ani->Add(20500);
@@ -1779,468 +2265,6 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(22004);
 	ani->Add(22005);
 	animations->Add(2201, ani);
-
-
-	// enemy
-	// thin guard
-	ani = new CAnimation(100);		// idle right
-	ani->Add(30000);
-	animations->Add(201, ani);
-
-	ani = new CAnimation(100);		// idle left
-	ani->Add(31000);
-	animations->Add(202, ani);
-
-	ani = new CAnimation(100);		// walk right
-	ani->Add(30001);
-	ani->Add(30002);
-	ani->Add(30003);
-	ani->Add(30004);
-	ani->Add(30005);
-	ani->Add(30006);
-	ani->Add(30007);
-	ani->Add(30008);
-	animations->Add(203, ani);
-
-	ani = new CAnimation(100);		// walk left
-	ani->Add(31001);
-	ani->Add(31002);
-	ani->Add(31003);
-	ani->Add(31004);
-	ani->Add(31005);
-	ani->Add(31006);
-	ani->Add(31007);
-	ani->Add(31008);
-	animations->Add(204, ani);
-
-	ani = new CAnimation(100);		// attack right
-	ani->Add(30011);
-	ani->Add(30012);
-	ani->Add(30013);
-	ani->Add(30014);
-	ani->Add(30015);
-	ani->Add(30016);
-	animations->Add(205, ani);
-
-	ani = new CAnimation(100);		// attack left
-	ani->Add(31011);
-	ani->Add(31012);
-	ani->Add(31013);
-	ani->Add(31014);
-	ani->Add(31015);
-	ani->Add(31016);
-	animations->Add(206, ani);
-
-	ani = new CAnimation(100);		// suprise right
-	ani->Add(30021);
-	ani->Add(30022);
-	ani->Add(30023);
-	ani->Add(30024);
-	ani->Add(30025);
-	ani->Add(30026);
-	ani->Add(30027);
-	ani->Add(30028);
-	ani->Add(30029);
-	animations->Add(207, ani);
-
-	ani = new CAnimation(100);		// suprise left
-	ani->Add(31021);
-	ani->Add(31022);
-	ani->Add(31023);
-	ani->Add(31024);
-	ani->Add(31025);
-	ani->Add(31026);
-	ani->Add(31027);
-	ani->Add(31028);
-	ani->Add(31029);
-	animations->Add(208, ani);
-
-	// nomal guard
-
-	ani = new CAnimation(100);		// idle right
-	ani->Add(30100);
-	animations->Add(211, ani);
-
-	ani = new CAnimation(100);		// idle left
-	ani->Add(31100);
-	animations->Add(212, ani);
-
-	ani = new CAnimation(100);		// walk right
-	ani->Add(30101);
-	ani->Add(30102);
-	ani->Add(30103);
-	ani->Add(30104);
-	ani->Add(30105);
-	ani->Add(30106);
-	ani->Add(30107);
-	ani->Add(30108);
-	animations->Add(213, ani);
-
-	ani = new CAnimation(100);		// walk right
-	ani->Add(31101);
-	ani->Add(31102);
-	ani->Add(31103);
-	ani->Add(31104);
-	ani->Add(31105);
-	ani->Add(31106);
-	ani->Add(31107);
-	ani->Add(31108);
-	animations->Add(214, ani);
-
-	ani = new CAnimation(100);		// wait right
-	ani->Add(30111);
-	ani->Add(30112);
-	ani->Add(30113);
-	ani->Add(30114);
-	ani->Add(30115);
-	ani->Add(30116);
-	animations->Add(215, ani);
-
-	ani = new CAnimation(100);		// wait left
-	ani->Add(31111);
-	ani->Add(31112);
-	ani->Add(31113);
-	ani->Add(31114);
-	ani->Add(31115);
-	ani->Add(31116);
-	animations->Add(216, ani);
-
-	ani = new CAnimation(100);		// attack stab right
-	ani->Add(30121);
-	ani->Add(30122);
-	ani->Add(30123);
-	ani->Add(30124);
-	ani->Add(30125);
-	ani->Add(30126);
-	animations->Add(2170, ani);
-
-	ani = new CAnimation(100);
-	ani->Add(30127);
-	ani->Add(30128);
-	ani->Add(30129);
-	ani->Add(30130);
-	ani->Add(30131);
-	animations->Add(2171, ani);
-	animations->Add(217, ani);
-
-	ani = new CAnimation(100);		// attack stab left
-	ani->Add(31121);
-	ani->Add(31122);
-	ani->Add(31123);
-	ani->Add(31124);
-	ani->Add(31125);
-	ani->Add(31126);
-	animations->Add(2180, ani);
-
-	ani = new CAnimation(100);
-	animations->Add(218, ani);
-
-	ani = new CAnimation(100);		// attack slash right
-	ani->Add(30127);
-	ani->Add(30128);
-	ani->Add(30129);
-	ani->Add(30130);
-	ani->Add(30131);
-	animations->Add(219, ani);
-
-	ani = new CAnimation(100);		//attack slash left
-	ani->Add(31127);
-	ani->Add(31128);
-	ani->Add(31129);
-	ani->Add(31130);
-	ani->Add(31131);
-	animations->Add(2181, ani);
-	animations->Add(220, ani);
-
-	ani = new CAnimation(100);		// suprise right
-	ani->Add(30141);
-	ani->Add(30142);
-	ani->Add(30143);
-	ani->Add(30144);
-	ani->Add(30145);
-	ani->Add(30146);
-	animations->Add(221, ani);
-
-	ani = new CAnimation(100);		// suprise left
-	ani->Add(31141);
-	ani->Add(31142);
-	ani->Add(31143);
-	ani->Add(31144);
-	ani->Add(31145);
-	ani->Add(31146);
-	animations->Add(222, ani);
-
-	// fat guard
-
-	ani = new CAnimation(100);		// idle right
-	ani->Add(30200);
-	animations->Add(223, ani);
-
-	ani = new CAnimation(100);		// idle left
-	ani->Add(31200);
-	animations->Add(224, ani);
-
-	ani = new CAnimation(100);		// walk right
-	ani->Add(30201);
-	ani->Add(30202);
-	ani->Add(30203);
-	ani->Add(30204);
-	ani->Add(30205);
-	ani->Add(30206);
-	ani->Add(30207);
-	ani->Add(30208);
-	animations->Add(225, ani);
-
-	ani = new CAnimation(100);		// walk left
-	ani->Add(31201);
-	ani->Add(31202);
-	ani->Add(31203);
-	ani->Add(31204);
-	ani->Add(31205);
-	ani->Add(31206);
-	ani->Add(31207);
-	ani->Add(31208);
-	animations->Add(226, ani);
-
-	ani = new CAnimation(100);		// attack right
-	ani->Add(30211);
-	ani->Add(30212);
-	ani->Add(30213);
-	ani->Add(30214);
-	ani->Add(30215);
-	animations->Add(227, ani);
-
-	ani = new CAnimation(100);		// attack left
-	ani->Add(31211);
-	ani->Add(31212);
-	ani->Add(31213);
-	ani->Add(31214);
-	ani->Add(31215);
-	animations->Add(228, ani);
-
-	ani = new CAnimation(100);		// suprise right
-	ani->Add(30221);
-	ani->Add(30222);
-	ani->Add(30223);
-	ani->Add(30224);
-	ani->Add(30225);
-	ani->Add(30226);
-	ani->Add(30227);
-	animations->Add(229, ani);
-
-	ani = new CAnimation(100);		// suprise left
-	ani->Add(31221);
-	ani->Add(31222);
-	ani->Add(31223);
-	ani->Add(31224);
-	ani->Add(31225);
-	ani->Add(31226);
-	ani->Add(31227);
-	animations->Add(230, ani);
-
-	// bat
-	ani = new CAnimation(100);		// wait
-	ani->Add(30301);
-	animations->Add(231, ani);
-
-	ani = new CAnimation(100);		// swing
-	ani->Add(30302);
-	ani->Add(30303);
-	ani->Add(30304);
-	animations->Add(232, ani);
-
-	ani = new CAnimation(100);		// fly
-	ani->Add(30311);
-	ani->Add(30312);
-	ani->Add(30313);
-	ani->Add(30314);
-	ani->Add(30315);
-	ani->Add(30316);
-	ani->Add(30317);
-	animations->Add(233, ani);
-
-	ani = new CAnimation(100);		// die
-	ani->Add(30320);
-	ani->Add(30321);
-	ani->Add(30322);
-	ani->Add(30323);
-	ani->Add(30324);
-	ani->Add(30325);
-	ani->Add(30326);
-	animations->Add(233, ani);
-
-	// skeleton
-	ani = new CAnimation(100);		// wait right
-	ani->Add(30400);
-	animations->Add(240, ani);
-
-	ani = new CAnimation(100);		// wait left
-	ani->Add(31400);
-	animations->Add(241, ani);
-
-	ani = new CAnimation(100);		// stand up right
-	ani->Add(30401);
-	ani->Add(30402);
-	ani->Add(30403);
-	ani->Add(30404);
-	ani->Add(30405);
-	ani->Add(30406);
-	ani->Add(30407);
-	ani->Add(30408);
-	ani->Add(30409);
-	ani->Add(30410);
-	ani->Add(30411);
-	ani->Add(30412);
-	ani->Add(30413);
-	ani->Add(30414);
-	ani->Add(30415);
-	ani->Add(30416);
-	ani->Add(30417);
-	ani->Add(30418);
-	ani->Add(30419);
-	ani->Add(30420);
-	animations->Add(242, ani);
-
-	ani = new CAnimation(100);		// stand up left
-	ani->Add(31401);
-	ani->Add(31402);
-	ani->Add(31403);
-	ani->Add(31404);
-	ani->Add(31405);
-	ani->Add(31406);
-	ani->Add(31407);
-	ani->Add(31408);
-	ani->Add(31409);
-	ani->Add(31410);
-	ani->Add(31411);
-	ani->Add(31412);
-	ani->Add(31413);
-	ani->Add(31414);
-	ani->Add(31415);
-	ani->Add(31416);
-	ani->Add(31417);
-	ani->Add(31418);
-	ani->Add(31419);
-	ani->Add(31420);
-	animations->Add(243, ani);
-
-	//jafar
-	ani = new CAnimation(100);		// idle right
-	ani->Add(40000);
-	animations->Add(300, ani);
-
-	ani = new CAnimation(100);		// idle left
-	ani->Add(41000);
-	animations->Add(301, ani);
-
-	ani = new CAnimation(100);		// attack right
-	ani->Add(40001);
-	ani->Add(40002);
-	ani->Add(40003);
-	ani->Add(40004);
-	ani->Add(40005);
-	ani->Add(40006);
-	ani->Add(40007);
-	animations->Add(302, ani);
-
-	ani = new CAnimation(100);		// attack left
-	ani->Add(41001);
-	ani->Add(41002);
-	ani->Add(41003);
-	ani->Add(41004);
-	ani->Add(41005);
-	ani->Add(41006);
-	ani->Add(41007);
-	animations->Add(303, ani);
-
-	ani = new CAnimation(100);		// fire right
-	ani->Add(40001);
-	ani->Add(40002);
-	ani->Add(40003);
-	ani->Add(40004);
-	ani->Add(40005);
-	ani->Add(40006);
-	ani->Add(40007);
-	ani->Add(40008);
-	animations->Add(304, ani);
-
-	ani = new CAnimation(100);		// fire left
-	ani->Add(41001);
-	ani->Add(41002);
-	ani->Add(41003);
-	ani->Add(41004);
-	ani->Add(41005);
-	ani->Add(41006);
-	ani->Add(41007);
-	ani->Add(41008);
-	animations->Add(305, ani);
-
-	// iago
-
-	ani = new CAnimation(100);		// fly right
-	ani->Add(40101);
-	ani->Add(40102);
-	ani->Add(40103);
-	ani->Add(40104);
-	ani->Add(40105);
-	ani->Add(40106);
-	ani->Add(40107);
-	ani->Add(40108);
-	animations->Add(310, ani);
-
-	ani = new CAnimation(100);		// fly left
-	ani->Add(41101);
-	ani->Add(41102);
-	ani->Add(41103);
-	ani->Add(41104);
-	ani->Add(41105);
-	ani->Add(41106);
-	ani->Add(41107);
-	ani->Add(41108);
-	animations->Add(311, ani);
-
-	ani = new CAnimation(100);		// die right
-	ani->Add(40111);
-	ani->Add(40112);
-	ani->Add(40113);
-	ani->Add(40114);
-	animations->Add(312, ani);
-
-	ani = new CAnimation(100);		// die left
-	ani->Add(40111);
-	ani->Add(40112);
-	ani->Add(40113);
-	ani->Add(40114);
-	animations->Add(313, ani);
-
-	//statue
-	ani = new CAnimation(100);		// idle right
-	ani->Add(40200);
-	animations->Add(320, ani);
-
-	ani = new CAnimation(100);		// idle left
-	ani->Add(41200);
-	animations->Add(321, ani);
-
-	ani = new CAnimation(100);		// attack right
-	ani->Add(40201);
-	ani->Add(40202);
-	ani->Add(40203);
-	ani->Add(40204);
-	ani->Add(40205);
-	ani->Add(40206);
-	ani->Add(40207);
-	animations->Add(322, ani);
-
-	ani = new CAnimation(100);		// attack left
-	ani->Add(41201);
-	ani->Add(41202);
-	ani->Add(41203);
-	ani->Add(41204);
-	ani->Add(41205);
-	ani->Add(41206);
-	ani->Add(41207);
-	animations->Add(323, ani);
 }
 
 AladdinResoucres::AladdinResoucres()

@@ -133,29 +133,29 @@ NormalPalaceGuard::NormalPalaceGuard() : CEnemy()
 	type = TYPE_NORMAL_GUARD;
 	finalAni = false;
 
-	//AddAnimation(211);		// idle right
-	//AddAnimation(212);		// idle left
+	AddAnimation(300);		// idle right
+	AddAnimation(301);		// idle left
 
-	AddAnimation(213);		// walk right
-	AddAnimation(214);		// walk left
+	AddAnimation(302);		// walk right
+	AddAnimation(303);		// walk left
 
-	AddAnimation(215);		// wait right
-	AddAnimation(216);		// wait left
+	AddAnimation(304);		// wait right
+	AddAnimation(305);		// wait left
 
-	AddAnimation(217);		// stab right
-	AddAnimation(218);		// stab lefts
+	AddAnimation(306);		// wave right
+	AddAnimation(307);		// wave left
 
-	AddAnimation(219);		// wave right
-	AddAnimation(220);		// wave left
+	AddAnimation(308);		// stab right
+	AddAnimation(309);		// stab left
 
-	AddAnimation(221);		// attack stab right
-	AddAnimation(222);		// attack stab left
+	AddAnimation(310);		// attack stab right
+	AddAnimation(311);		// attack stab left
 
-	AddAnimation(223);		// attack slash right
-	AddAnimation(224);		// attack slash left
+	AddAnimation(312);		// attack slash right
+	AddAnimation(313);		// attack slash left
 
-	AddAnimation(225);		// suprise right
-	AddAnimation(226);		// suprise left
+	AddAnimation(314);		// suprise right
+	AddAnimation(315);		// suprise left
 }
 
 NormalPalaceGuard::~NormalPalaceGuard()

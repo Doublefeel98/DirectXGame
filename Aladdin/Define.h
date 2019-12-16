@@ -279,6 +279,14 @@
 #define BAT_DIE_BBOX_WIDTH	20
 #define BAT_DIE_BBOX_HEIGHT	53
 
+#define BAT_VX	0.1
+#define BAT_VY	0.0005
+#define BAT_DELTA_X	80
+#define BAT_DELTA_Y	100
+#define BAT_DELTA_X_REVERSE	80
+#define BAT_DELTA_X_ATTACK	50
+#define BAT_TIME_REVERSE	1000
+
 // Thin guard
 
 #define THIN_GUARD_ANI_IDLE_RIGHT					0
@@ -429,8 +437,3 @@
 #define SKELETON_MAX_HP 1
 #define IAGO_MAX_HP 1
 #define STATUE_MAX_HP 1
-
-//Type of enemy
-#define TYPE_BAT 0
-#define TYPE_NORMAL_GUARD 1
-#define TYPE_APPLE 2

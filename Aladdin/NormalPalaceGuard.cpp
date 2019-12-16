@@ -43,7 +43,7 @@ void NormalPalaceGuard::GetBoundingBox(float& left, float& top, float& right, fl
 {
 	left = x;
 	top = y;
-	right = x + GUARD_BBOX_WIDTH_WAIT;
+	right = x + GUARD_BBOX_WIDTH;
 
 	if (!isDead)
 		bottom = y + 0;
@@ -86,11 +86,11 @@ void NormalPalaceGuard::Render()
 				RenderBoundingBox();
 				break;
 			case NGUARD_STATE_STAB:
-				animations[NORMAL_GUARD_ANI_ATTACK_STAB_LEFT]->Render(x, y, 255);
+				animations[NORMAL_GUARD_ANI_ATTACK_STAB_LEFT]->Render(x, y - 21, 255);
 				RenderBoundingBox();
 				break;
 			case NGUARD_STATE_SLASH:
-				animations[NORMAL_GUARD_ANI_ATTACK_SLASH_LEFT]->Render(x, y, 255);
+				animations[NORMAL_GUARD_ANI_ATTACK_SLASH_LEFT]->Render(x, y - 23, 255);
 				RenderBoundingBox();
 				break;
 			case NGUARD_STATE_SURPRISE:
@@ -106,11 +106,11 @@ void NormalPalaceGuard::Render()
 				RenderBoundingBox();
 				break;
 			case NGUARD_STATE_STAB:
-				animations[NORMAL_GUARD_ANI_ATTACK_STAB_RIGHT]->Render(x, y, 255);
+				animations[NORMAL_GUARD_ANI_ATTACK_STAB_RIGHT]->Render(x, y - 21, 255);
 				RenderBoundingBox();
 				break;
 			case NGUARD_STATE_SLASH:
-				animations[NORMAL_GUARD_ANI_ATTACK_SLASH_RIGHT]->Render(x, y, 255);
+				animations[NORMAL_GUARD_ANI_ATTACK_SLASH_RIGHT]->Render(x, y - 23, 255);
 				RenderBoundingBox();
 				break;
 			case NGUARD_STATE_SURPRISE:
@@ -124,7 +124,7 @@ void NormalPalaceGuard::Render()
 
 NormalPalaceGuard::NormalPalaceGuard() : CEnemy()
 {
-	width = GUARD_BBOX_WIDTH_WAIT;
+	width = GUARD_BBOX_WIDTH;
 	height = GUARD_BBOX_HEIGHT;
 
 	//wait = false; stab = false; wave = false; jump = false; surprise = false; die = true;
@@ -146,9 +146,9 @@ NormalPalaceGuard::NormalPalaceGuard() : CEnemy()
 	AddAnimation(307);		// attack stab left
 
 	AddAnimation(308);		// attack slash right
-	AddAnimation(329);		// attack slash left
+	AddAnimation(309);		// attack slash left
 
-	AddAnimation(312);		// surprise right
+	AddAnimation(310);		// surprise right
 	AddAnimation(311);		// surprise left
 }
 

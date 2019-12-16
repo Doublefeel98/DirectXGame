@@ -770,7 +770,7 @@ void AladdinResoucres::LoadSprites()
 
 	sprites->AddByWidthHeight(30100, 943, 388, 44, 53, texGuard);	// idle right
 
-	sprites->AddByWidthHeight(31100, 5, 388, 44, 53, texGuard);	// idle left
+	sprites->AddByWidthHeight(31100, 5, 388, 44, 53, texGuard, -20);	// idle left
 
 	sprites->AddByWidthHeight(30101, 943, 316, 47, 56, texGuard);	// walk right
 	sprites->AddByWidthHeight(30102, 885, 316, 52, 56, texGuard);
@@ -830,7 +830,7 @@ void AladdinResoucres::LoadSprites()
 	sprites->AddByWidthHeight(31130, 178, 629, 114, 73, texGuard, -71);
 	sprites->AddByWidthHeight(31131, 300, 629, 91, 73, texGuard, -52);
 
-	sprites->AddByWidthHeight(30141, 932, 789, 54, 71, texGuard);	// suprise right
+	sprites->AddByWidthHeight(30141, 932, 789, 54, 71, texGuard);		// suprise right
 	sprites->AddByWidthHeight(30142, 858, 789, 63, 71, texGuard, -18);
 	sprites->AddByWidthHeight(30143, 789, 789, 65, 71, texGuard, -23);
 	sprites->AddByWidthHeight(30144, 711, 789, 71, 71, texGuard, -26);

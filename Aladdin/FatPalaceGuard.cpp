@@ -33,17 +33,17 @@ FatPalaceGuard::FatPalaceGuard() : CEnemy()
 	wait = false; stab = false; wave = false; jump = false; surprise = false; die = true;
 	hp = GUARD_MAX_HP;
 
-	AddAnimation(223);		// idle right
-	AddAnimation(224);		// idle left
+	AddAnimation(400);		// idle right
+	AddAnimation(401);		// idle left
 
-	AddAnimation(225);		// walk right
-	AddAnimation(226);		// walk left
+	AddAnimation(402);		// walk right
+	AddAnimation(403);		// walk left
 
-	AddAnimation(227);		// attack right
-	AddAnimation(228);		// attack left
+	AddAnimation(404);		// attack right
+	AddAnimation(405);		// attack left
 
-	AddAnimation(229);		// suprise right
-	AddAnimation(230);		// suprise left
+	AddAnimation(406);		// suprise right
+	AddAnimation(407);		// suprise left
 
 }
 

@@ -30,14 +30,14 @@ Jafar::Jafar() : CGameObject()
 	width = JAFAR_BBOX_WIDTH;
 	height = JAFAR_BBOX_HEIGHT;
 
-	AddAnimation(300);		// idle right
-	AddAnimation(301);		// idle left
+	AddAnimation(700);		// idle right
+	AddAnimation(701);		// idle left
 				 
-	AddAnimation(302);		// attack right
-	AddAnimation(303);		// attack left
+	AddAnimation(702);		// attack right
+	AddAnimation(703);		// attack left
 
-	AddAnimation(304);		// fire right
-	AddAnimation(305);		// fire left
+	AddAnimation(704);		// fire right
+	AddAnimation(705);		// fire left
 }
 
 Jafar::~Jafar()

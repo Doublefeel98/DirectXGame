@@ -30,11 +30,11 @@ Iago::Iago() : CGameObject()
 	width = IAGO_BBOX_WIDTH;
 	height = IAGO_BBOX_HEIGHT;
 
-	AddAnimation(310);		// fly right
-	AddAnimation(311);		// fly left
+	AddAnimation(800);		// fly right
+	AddAnimation(801);		// fly left
 
-	AddAnimation(312);		// die right
-	AddAnimation(313);		// die left
+	AddAnimation(802);		// die right
+	AddAnimation(803);		// die left
 }
 
 Iago::~Iago()

@@ -60,11 +60,11 @@ ExplodingSkeleton::ExplodingSkeleton() : CEnemy()
 
 	hp = SKELETON_MAX_HP;
 
-	AddAnimation(240);		// wait right
-	AddAnimation(241);		// wait left
+	AddAnimation(600);		// wait right
+	AddAnimation(601);		// wait left
 
-	AddAnimation(242);		// stand up right
-	AddAnimation(243);		// stand up left
+	AddAnimation(602);		// stand up right
+	AddAnimation(603);		// stand up left
 }
 
 ExplodingSkeleton::~ExplodingSkeleton() {

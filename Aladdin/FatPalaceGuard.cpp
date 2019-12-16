@@ -27,7 +27,7 @@ void FatPalaceGuard::Render()
 
 FatPalaceGuard::FatPalaceGuard() : CEnemy()
 {
-	width = GUARD_BBOX_WIDTH_WAIT;
+	width = GUARD_BBOX_WIDTH;
 	height = GUARD_BBOX_HEIGHT;
 
 	wait = false; stab = false; wave = false; jump = false; surprise = false; die = true;
@@ -42,8 +42,8 @@ FatPalaceGuard::FatPalaceGuard() : CEnemy()
 	AddAnimation(404);		// attack right
 	AddAnimation(405);		// attack left
 
-	AddAnimation(406);		// suprise right
-	AddAnimation(407);		// suprise left
+	AddAnimation(406);		// surprise right
+	AddAnimation(407);		// surprise left
 
 }
 

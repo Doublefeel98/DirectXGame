@@ -86,26 +86,26 @@ void Bat::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 		if (wait) {
 			left = x;
 			top = y + 5;
-			right = left + BAT_BBOX_WIDTH_WAIT;
-			bottom = top + BAT_BBOX_HEIGHT;
+			right = left + BAT_WAIT_BBOX_WIDTH;
+			bottom = top + BAT_WAIT_BBOX_HEIGHT;
 		}
 		else if (fly) {
 			left = x;
 			top = y + 10;
-			right = left + BAT_BBOX_WIDTH_FLY;
-			bottom = top + BAT_BBOX_HEIGHT;
+			right = left + BAT_FLY_BBOX_WIDTH;
+			bottom = top + BAT_FLY_BBOX_HEIGHT;
 		}
 		else if (swing) {
 			left = x;
 			top = y + 10;
-			right = left + BAT_BBOX_WIDTH_ROTATE;
-			bottom = top + BAT_BBOX_HEIGHT;
+			right = left + BAT_ROLATE_BBOX_WIDTH;
+			bottom = top + BAT_ROLATE_BBOX_HEIGHT;
 		}
 		else {
 			left = x;
 			top = y;
-			right = left + BAT_BBOX_WIDTH_DIE;
-			bottom = top + BAT_BBOX_HEIGHT;
+			right = left + BAT_DIE_BBOX_WIDTH;
+			bottom = top + BAT_DIE_BBOX_HEIGHT;
 		}
 	}
 
@@ -134,10 +134,10 @@ void Bat::Render()
 	}
 }
 
-Bat::Bat() :CEnemy()
-{
-	width = BAT_BBOX_WIDTH_WAIT;
-	height = BAT_BBOX_HEIGHT;
+Bat::Bat() :CEnemy() 
+{	
+	width = BAT_WAIT_BBOX_WIDTH;
+	height = BAT_WAIT_BBOX_HEIGHT;
 
 	//wait = true; fly = false; swing = false; die = false;
 	state = BAT_STATE_WAIT;

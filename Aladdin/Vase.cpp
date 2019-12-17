@@ -7,21 +7,23 @@ Vase::Vase() :CGameObject() {
 	width =	VASE_BBOX_WIDTH;
 	height =VASE_BBOX_HEIGHT;
 
-	enabled = true;
+	isEnable = true;
+	isAte = false;
 
-	AddAnimation(2114);
-	AddAnimation(2113);
+	AddAnimation(2114);		//idle
+	AddAnimation(2119);		//stop
+	AddAnimation(2113);		//active
 }
 Vase::~Vase() {
 
 }
 void Vase::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (enabled) {
+	if (isEnable && !isAte) {
 		left = x;
 		top = y;
-		right = left + VASE_BBOX_WIDTH;
-		bottom = top + VASE_BBOX_HEIGHT;
+		right = left + width;
+		bottom = top + height;
 	}
 	else {
 		left = 0;
@@ -30,19 +32,24 @@ void Vase::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 		bottom = 0;
 	}
 }
-void Vase::Render() {
-	//if (enabled) {
-	//	animations[VASE_ANI_WAIT]->Render(x, y, 255);
-	//	RenderBoundingBox();
-	//}
-	//else {
-	//	animations[VASE_ANI_ACTIVE]->Render(x, y, 255);
-	//	RenderBoundingBox();
-	//}
-	
-	animations[VASE_ANI_ACTIVE]->Render(x, y, 255);
+void Vase::Render()
+{
+	if (isEnable && !isAte)
+	{
+		animations[0]->Render(x, y, 255);
+	}
+	else if (isEnable && isAte)
+	{
+		animations[2]->Render(x, y, 255);
+	}
+	else if (!isEnable)
+	{
+		animations[1]->Render(x, y);
+	}
 }
 void Vase::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject) {
 	CGameObject::Update(dt);
-
+	if (animations[2]->IsLastFrame) {
+		isEnable = false;		
+	}
 }

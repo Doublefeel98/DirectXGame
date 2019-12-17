@@ -8,6 +8,9 @@
 #include "Trap.h"
 #include "Chains.h"
 #include "Apple.h"
+#include "Penny.h"
+#include "Vase.h"
+#include "GenieBonusLevel.h"
 #include "Bat.h"
 #include "../Framework/Enemy.h"
 
@@ -494,6 +497,48 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 			}
 		}
+		else if (dynamic_cast<Penny*>(coObjects->at(i)))
+		{
+			Penny* penny = dynamic_cast<Penny*>(coObjects->at(i));
+			float l1, t1, r1, b1, l2, t2, r2, b2;
+			GetBoundingBox(l1, t1, r1, b1);
+			penny->GetBoundingBox(l2, t2, r2, b2);
+			if (CGame::isColliding(l1, t1, r1, b1, l2, t2, r2, b2)) {
+				if (penny->IsEnable() && !penny->IsAte())
+				{
+					penny->setAte(true);
+					addPenny(1);
+				}
+			}
+		}
+		else if (dynamic_cast<GenieBonusLevel*>(coObjects->at(i)))
+		{
+			GenieBonusLevel* genie = dynamic_cast<GenieBonusLevel*>(coObjects->at(i));
+			float l1, t1, r1, b1, l2, t2, r2, b2;
+			GetBoundingBox(l1, t1, r1, b1);
+			genie->GetBoundingBox(l2, t2, r2, b2);
+			if (CGame::isColliding(l1, t1, r1, b1, l2, t2, r2, b2)) {
+				if (genie->IsEnable() && !genie->IsAte())
+				{
+					genie->setAte(true);
+				}
+			}
+		}
+		else if (dynamic_cast<Vase*>(coObjects->at(i)))
+		{
+		Vase* vase = dynamic_cast<Vase*>(coObjects->at(i));
+		float l1, t1, r1, b1, l2, t2, r2, b2;
+		GetBoundingBox(l1, t1, r1, b1);
+		vase->GetBoundingBox(l2, t2, r2, b2);
+		if (CGame::isColliding(l1, t1, r1, b1, l2, t2, r2, b2)) {
+			if (vase->IsEnable() && !vase->IsAte())
+			{
+				vase->setAte(true);
+				checkPointX = this->x;
+				checkPointY = this->y;
+			}
+		}
+		}
 		else if (dynamic_cast<Chains*>(coObjects->at(i)))
 		{
 			Chains* ball = dynamic_cast<Chains*>(coObjects->at(i));
@@ -633,6 +678,45 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						addApple(1);
 					}
 				}
+			}
+			else if (dynamic_cast<Penny*>(e->obj))
+			{
+				Penny* penny = dynamic_cast<Penny*>(e->obj);
+
+				if (e->nx != 0)
+				{
+					if (penny->IsEnable() && !penny->IsAte())
+					{
+						penny->setAte(true);
+						addPenny(1);
+					}
+				}
+			}
+			else if (dynamic_cast<GenieBonusLevel*>(e->obj))
+			{
+				GenieBonusLevel* genie = dynamic_cast<GenieBonusLevel*>(e->obj);
+
+				if (e->nx != 0)
+				{
+					if (genie->IsEnable() && !genie->IsAte())
+					{
+						genie->setAte(true);
+					}
+				}
+			}
+			else if (dynamic_cast<Vase*>(e->obj))
+			{
+			Vase* vase = dynamic_cast<Vase*>(e->obj);
+
+			if (e->nx != 0)
+			{
+				if (vase->IsEnable() && !vase->IsAte())
+				{
+					vase->setAte(true);
+					checkPointX = this->x;
+					checkPointY = this->y;
+				}
+			}
 			}
 			else if (dynamic_cast<CEnemy*>(e->obj))
 			{
@@ -1238,8 +1322,11 @@ Aladdin::Aladdin() : CGameObject()
 	IsGround = false;
 	IsClimb = false;
 	canAbleClimb = false;
-	IsClimbing = false;;
+	IsClimbing = false;
 	untouchable = 0;
+
+	checkPointX = x;
+	checkPointY = y;
 
 	throwApple = new ThrowApples();
 	sword = new Sword();
@@ -1334,4 +1421,11 @@ Aladdin* Aladdin::GetInstance()
 {
 	if (__instance == NULL) __instance = new Aladdin();
 	return __instance;
+}
+
+void Aladdin::SetPosition(float x, float y)
+{
+	CGameObject::SetPosition(x, y);
+	checkPointX = x;
+	checkPointY = y;
 }

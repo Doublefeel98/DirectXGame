@@ -6,7 +6,7 @@
 SceneOne::SceneOne(Aladdin* aladdin)
 {
 	this->aladdin = aladdin;
-	this->aladdin->SetPosition(1100, 900);
+	this->aladdin->SetPosition(1300, 900);
 	//this->aladdin->SetPosition(432, 580);
 
 	CSprites* sprites = CSprites::GetInstance();
@@ -58,6 +58,9 @@ SceneOne::SceneOne(Aladdin* aladdin)
 	pilar = new Pilar();
 	pilar->SetState(PILAR_STATE_5);
 	pilar->SetPosition(1402, 363);
+	pilar->SetWidth(PILAR_BBOX_WIDTH_5);
+	pilar->SetHeight(PILAR_BBOX_HEIGHT_5);
+	pilar->SetId(objects.size() + 1);
 	objects.push_back(pilar);
 
 	for (int i = 1; i < objects.size(); i++)

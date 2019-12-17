@@ -16,7 +16,7 @@ bool Grid::checkExistCell(int cellX, int cellY)
 Grid::Grid(int widthmap, int heightmap, int cellSize)
 {
 	this->cellSize = cellSize;
-	numYCells = heightmap / cellSize + ((heightmap % cellSize > 0) ?  1 : 0);
+	numYCells = heightmap / cellSize + ((heightmap % cellSize > 0) ? 1 : 0);
 	numXCells = widthmap / cellSize + ((widthmap % cellSize > 0) ? 1 : 0);
 
 	cells = new Cell * [numXCells];
@@ -75,7 +75,7 @@ Grid::~Grid()
 {
 }
 
-void Grid::Add(vector <LPGAMEOBJECT> *listObject)
+void Grid::Add(vector <LPGAMEOBJECT>* listObject)
 {
 	LPGAMEOBJECT object;
 	float left, top, right, bottom;
@@ -127,7 +127,7 @@ void Grid::Add(vector <LPGAMEOBJECT> *listObject)
 		{
 			if (cellTop == cellBottom)
 			{
-				if(checkExistCell(cellLeft, cellTop))
+				if (checkExistCell(cellLeft, cellTop))
 					cells[cellLeft][cellTop].Insert(object);
 			}
 			else {
@@ -167,7 +167,7 @@ void Grid::AddById(vector<LPGAMEOBJECT>* listObject)
 
 }
 
-bool checkContainId(vector<LPGAMEOBJECT> *list_object, LPGAMEOBJECT e)
+bool checkContainId(vector<LPGAMEOBJECT>* list_object, LPGAMEOBJECT e)
 {
 	LPGAMEOBJECT temp;
 	for (int i = 0; i < list_object->size(); i++)
@@ -190,11 +190,11 @@ void Grid::GetListOfObjects(vector<LPGAMEOBJECT>* list_object, int screenWidth, 
 	left = (int)camera->GetCameraPosition().x / cellSize;
 	top = (int)camera->GetCameraPosition().y / cellSize;
 
-	right = (int)(camera->GetCameraPosition().x + screenWidth) / cellSize 
-			+ ((int)(camera->GetCameraPosition().x + screenWidth) % cellSize ? 1 : 0);
+	right = (int)(camera->GetCameraPosition().x + screenWidth) / cellSize
+		+ ((int)(camera->GetCameraPosition().x + screenWidth) % cellSize ? 1 : 0);
 
-	bottom = (int)(camera->GetCameraPosition().y + screenHeight) / cellSize 
-			+ ((int)(camera->GetCameraPosition().y + screenHeight) % cellSize ? 1 : 0);
+	bottom = (int)(camera->GetCameraPosition().y + screenHeight) / cellSize
+		+ ((int)(camera->GetCameraPosition().y + screenHeight) % cellSize ? 1 : 0);
 
 	LPGAMEOBJECT e;
 
@@ -212,6 +212,6 @@ void Grid::GetListOfObjects(vector<LPGAMEOBJECT>* list_object, int screenWidth, 
 				}
 		}
 	}
-		
+
 }
 

@@ -18,6 +18,7 @@
 #include "Wood.h"
 #include "Ground.h"
 #include "StoneBar.h"
+#include "Pilar.h"
 
 Aladdin* Aladdin::__instance = NULL;
 bool Aladdin::IsMoveCameraWhenLookingUp()
@@ -526,18 +527,18 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		else if (dynamic_cast<Vase*>(coObjects->at(i)))
 		{
-		Vase* vase = dynamic_cast<Vase*>(coObjects->at(i));
-		float l1, t1, r1, b1, l2, t2, r2, b2;
-		GetBoundingBox(l1, t1, r1, b1);
-		vase->GetBoundingBox(l2, t2, r2, b2);
-		if (CGame::isColliding(l1, t1, r1, b1, l2, t2, r2, b2)) {
-			if (vase->IsEnable() && !vase->IsAte())
-			{
-				vase->setAte(true);
-				checkPointX = this->x;
-				checkPointY = this->y;
+			Vase* vase = dynamic_cast<Vase*>(coObjects->at(i));
+			float l1, t1, r1, b1, l2, t2, r2, b2;
+			GetBoundingBox(l1, t1, r1, b1);
+			vase->GetBoundingBox(l2, t2, r2, b2);
+			if (CGame::isColliding(l1, t1, r1, b1, l2, t2, r2, b2)) {
+				if (vase->IsEnable() && !vase->IsAte())
+				{
+					vase->setAte(true);
+					checkPointX = this->x;
+					checkPointY = this->y;
+				}
 			}
-		}
 		}
 		else if (dynamic_cast<Chains*>(coObjects->at(i)))
 		{
@@ -706,17 +707,17 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			else if (dynamic_cast<Vase*>(e->obj))
 			{
-			Vase* vase = dynamic_cast<Vase*>(e->obj);
+				Vase* vase = dynamic_cast<Vase*>(e->obj);
 
-			if (e->nx != 0)
-			{
-				if (vase->IsEnable() && !vase->IsAte())
+				if (e->nx != 0)
 				{
-					vase->setAte(true);
-					checkPointX = this->x;
-					checkPointY = this->y;
+					if (vase->IsEnable() && !vase->IsAte())
+					{
+						vase->setAte(true);
+						checkPointX = this->x;
+						checkPointY = this->y;
+					}
 				}
-			}
 			}
 			else if (dynamic_cast<CEnemy*>(e->obj))
 			{
@@ -743,7 +744,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 			}
 
-			if (dynamic_cast<Brick*>(e->obj) || dynamic_cast<StoneBar*>(e->obj) || dynamic_cast<Ground*>(e->obj) || dynamic_cast<Wood*>(e->obj))
+			if (dynamic_cast<Brick*>(e->obj) || dynamic_cast<StoneBar*>(e->obj) || dynamic_cast<Ground*>(e->obj) || dynamic_cast<Wood*>(e->obj) || dynamic_cast<Pilar*>(e->obj))
 			{
 				if (e->ny < 0)
 				{

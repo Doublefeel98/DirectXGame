@@ -27,7 +27,10 @@ class Aladdin : public CGameObject
 	Sword* sword;
 	int hp;
 	int countApple;
+	int countPenny;
 	Aladdin();
+	int checkPointX;
+	int checkPointY;
 public:
 	bool IsSit;
 	bool IsLookingUp;
@@ -60,8 +63,10 @@ public:
 	void OnClimbHandle();
 	int GetCountApple() { return countApple; }
 	void addApple(int count) { countApple += count; }
-
+	int GetCountPenny() { return countPenny; }
+	void addPenny(int count) { countPenny += count; }
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	~Aladdin();
 	static Aladdin* GetInstance();
+	void SetPosition(float x, float y);
 };

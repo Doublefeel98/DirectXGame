@@ -7,21 +7,23 @@ GenieBonusLevel::GenieBonusLevel() :CGameObject() {
 	width = GENNIE_BBOX_WIDTH;
 	height = GENNIE_BBOX_HEIGHT;
 
-	enabled = true;
+	isEnable = true;
+	isAte = false;
 
 	AddAnimation(2112);
 	AddAnimation(2111);
+	AddAnimation(2117);
 }
 GenieBonusLevel::~GenieBonusLevel() {
 
 }
 void GenieBonusLevel::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (enabled) {
+	if (isEnable && !isAte) {
 		left = x;
 		top = y;
-		right = left + GENNIE_BBOX_WIDTH;
-		bottom = top + GENNIE_BBOX_HEIGHT;
+		right = left + width;
+		bottom = top + height;
 	}
 	else {
 		left = 0;
@@ -30,18 +32,21 @@ void GenieBonusLevel::GetBoundingBox(float& left, float& top, float& right, floa
 		bottom = 0;
 	}
 }
-void GenieBonusLevel::Render() {
-	//if (enabled) {
-	//	animations[GENNIE_ANI_WAIT]->Render(x, y, 255);
-	//	RenderBoundingBox();
-	//}
-	//else {
-	//	animations[GENNIE_ANI_ACTIVE]->Render(x, y, 255);
-	//	RenderBoundingBox();
-	//}
-	animations[GENNIE_ANI_ACTIVE]->Render(x, y, 255);
+void GenieBonusLevel::Render() 
+{
+	if (isEnable && !isAte)
+	{
+		animations[0]->Render(x, y, 255);
+	}
+	else if (isEnable && isAte)
+	{
+		animations[GENNIE_ANI_EFFECT]->Render(x, y, 255);
+	}
 }
-void GenieBonusLevel::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject) {
+void GenieBonusLevel::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject) 
+{
 	CGameObject::Update(dt);
-
+	if (animations[GENNIE_ANI_EFFECT]->IsLastFrame) {
+		isEnable = false;
+	}
 }

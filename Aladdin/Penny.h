@@ -5,7 +5,7 @@
 class Penny : public CGameObject
 {
 private:
-	bool enabled;
+	bool isAte;
 public:
 	Penny();
 	~Penny();
@@ -15,6 +15,6 @@ public:
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 
-	bool IsEnabled() { return enabled; }
-	void SetEnabled(bool en) { enabled = en; }
+	void setAte(bool ate) { isAte = ate; }
+	bool IsAte() { return isAte; }
 };

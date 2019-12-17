@@ -35,16 +35,19 @@ void Apple::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 }
 void Apple::Render()
 {
+	
 	if (isEnable && !isAte)
 	{
 		animations[0]->Render(x, y, 255);
 	}
 	else if (isEnable && isAte)
 	{
+
 		animations[1]->Render(x, y, 255);
 	}
 }
-void Apple::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject) {
+void Apple::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject) 
+{
 	CGameObject::Update(dt);
 	if (animations[1]->IsLastFrame) {
 		isEnable = false;

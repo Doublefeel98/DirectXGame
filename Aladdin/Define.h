@@ -393,21 +393,20 @@
 #define PENNY_BBOX_WIDTH  17
 
 #define VASE_ANI_WAIT								0
+#define VASE_ANI_STOP								1
+#define VASE_ANI_ACTIVE								2
 #define VASE_BBOX_HEIGHT 30
 #define VASE_BBOX_WIDTH 20
 
 #define GENNIE_ANI_WAIT								0
+#define GENNIE_ANI_ACTIVE							1
+#define GENNIE_ANI_EFFECT							2
 #define	GENNIE_BBOX_WIDTH 35
 #define	GENNIE_BBOX_HEIGHT 50
 
 #define HEART_ANI_WAIT								0
 #define	HEART_BBOX_WIDTH 20
 #define	HEART_BBOX_HEIGH 20
-
-
-#define VASE_ANI_ACTIVE								1
-
-#define GENNIE_ANI_ACTIVE							1
 
 #define BRICK_BBOX_WIDTH  36
 #define BRICK_BBOX_HEIGHT 14

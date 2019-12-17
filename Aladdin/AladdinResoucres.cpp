@@ -665,7 +665,7 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(21112, 443, 45, 486, 97, texItem);
 	sprites->Add(21113, 497, 45, 541, 97, texItem);
 
-	sprites->Add(21120, 335, 45, 372, 96, texItem);
+	sprites->Add(21120, 335, 45, 372, 97, texItem);
 
 	sprites->Add(21130, 19, 424, 38, 461, texItem);		//vase
 	sprites->Add(21131, 49, 424, 72, 461, texItem);
@@ -680,6 +680,8 @@ void AladdinResoucres::LoadSprites()
 
 	sprites->Add(21140, 19, 424, 38, 461, texItem);
 
+	sprites->Add(21141, 302, 424, 324, 461, texItem);	// vase stop
+
 
 	sprites->Add(21150, 341, 17, 353, 29, texItem);		//apple
 
@@ -689,6 +691,25 @@ void AladdinResoucres::LoadSprites()
 	sprites->AddByWidthHeight(21164, 200, 36, 30, 16, texEnemyExplosions, -15, -8);
 	sprites->AddByWidthHeight(21165, 240, 49, 3, 3, texEnemyExplosions, -1, -1);
 
+	sprites->AddByWidthHeight(21181, 296, 9, 6, 43, texEnemyExplosions);	//genie effect
+	sprites->AddByWidthHeight(21182, 312, 9, 19, 43, texEnemyExplosions);
+	sprites->AddByWidthHeight(21183, 344, 9, 26, 43, texEnemyExplosions);
+	sprites->AddByWidthHeight(21184, 384, 9, 30, 43, texEnemyExplosions);
+	sprites->AddByWidthHeight(21185, 424, 9, 43, 43, texEnemyExplosions);
+	sprites->AddByWidthHeight(21186, 480, 9, 37, 43, texEnemyExplosions);
+	sprites->AddByWidthHeight(21187, 528, 9, 42, 43, texEnemyExplosions);
+	sprites->AddByWidthHeight(21188, 584, 9, 41, 43, texEnemyExplosions);
+	sprites->AddByWidthHeight(21189, 8, 67, 43, 43, texEnemyExplosions);
+	sprites->AddByWidthHeight(21190, 64, 67, 42, 43, texEnemyExplosions);
+	sprites->AddByWidthHeight(21191, 120, 67, 43, 43, texEnemyExplosions);
+	sprites->AddByWidthHeight(21192, 176, 67, 43, 43, texEnemyExplosions);
+	sprites->AddByWidthHeight(21193, 232, 67, 42, 43, texEnemyExplosions);
+	sprites->AddByWidthHeight(21194, 288, 67, 43, 43, texEnemyExplosions);
+	sprites->AddByWidthHeight(21195, 344, 67, 41, 43, texEnemyExplosions);
+	sprites->AddByWidthHeight(21196, 392, 67, 36, 43, texEnemyExplosions);
+	sprites->AddByWidthHeight(21197, 440, 67, 39, 43, texEnemyExplosions);
+	sprites->AddByWidthHeight(21198, 488, 67, 26, 43, texEnemyExplosions);
+	sprites->AddByWidthHeight(21199, 528, 67, 20, 43, texEnemyExplosions);
 
 	sprites->Add(21170, 343, 171, 361, 196, texItem);		//heart
 	sprites->Add(21171, 366, 171, 382, 196, texItem);
@@ -2173,7 +2194,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(21120);
 	animations->Add(2112, ani);
 
-	ani = new CAnimation(100);		//vase
+	ani = new CAnimation(100, false);		//vase
 	ani->Add(21130);
 	ani->Add(21131);
 	ani->Add(21132);
@@ -2190,6 +2211,9 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(21140);
 	animations->Add(2114, ani);
 
+	ani = new CAnimation(100);		// vase stop
+	ani->Add(21141);
+	animations->Add(2119, ani);
 
 	ani = new CAnimation(100);		//apple
 	ani->Add(21150);
@@ -2203,6 +2227,28 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(21165);
 	animations->Add(2116, ani);
 
+	ani = new CAnimation(100, false);		//genie effect
+	ani->Add(21181);
+	ani->Add(21182);
+	ani->Add(21183);
+	ani->Add(21184);
+	ani->Add(21185);
+	ani->Add(21186);
+	ani->Add(21187);
+	ani->Add(21188);
+	ani->Add(21189);
+	ani->Add(21190);
+	ani->Add(21191);
+	ani->Add(21192);
+	ani->Add(21193);
+	ani->Add(21194);
+	ani->Add(21195);
+	ani->Add(21196);
+	ani->Add(21197);
+	ani->Add(21198);
+	ani->Add(21199);
+	animations->Add(2117, ani);
+
 	ani = new CAnimation(100);		//heart
 	ani->Add(21170);
 	ani->Add(21171);
@@ -2212,7 +2258,8 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(21175);
 	ani->Add(21176);
 	ani->Add(21177);
-	animations->Add(2117, ani);
+	animations->Add(2118, ani);
+
 
 	ani = new CAnimation(100);		// throw apple
 	ani->Add(22000);

@@ -1318,6 +1318,7 @@ Aladdin::Aladdin() : CGameObject()
 	hp = ALADDIN_MAX_HP;
 
 	countApple = 10;
+	countPenny = 8;
 
 	IsBatHurt = false;
 	timeBatHurt = 0;

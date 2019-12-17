@@ -32,6 +32,22 @@ ScoreBoard::ScoreBoard(Aladdin* aladdin, int bossHP)
 	score = new Score();
 	score->x = SCREEN_WIDTH - 70;
 	score->y = 10;
+
+	appleCount = new AppleCount(0);
+	appleCount->x = SCREEN_WIDTH - 70;
+	appleCount->y = SCREEN_HEIGHT - 60;
+
+	appleNumber = new AppleNumber();
+	appleNumber->x = SCREEN_WIDTH - 55;
+	appleNumber->y = SCREEN_HEIGHT - 57;
+
+	pennyCount = new PennyCount(0);
+	pennyCount->x = SCREEN_WIDTH - 110;
+	pennyCount->y = SCREEN_HEIGHT - 65;
+
+	pennyNumber = new PennyNumber();
+	pennyNumber->x = SCREEN_WIDTH - 90;
+	pennyNumber->y = SCREEN_HEIGHT - 57;
 }
 
 ScoreBoard::~ScoreBoard()
@@ -45,6 +61,8 @@ void ScoreBoard::Update(int bossHP, int time, int life, int stage)
 	this->bossHP = bossHP;
 
 	wstring timeString = to_wstring(this->time);
+	wstring appleNumberString = to_wstring(aladdin->GetCountApple());
+	wstring pennyNumberString = to_wstring(aladdin->GetCountPenny());
 
 	while (timeString.length() < 4)
 		timeString = L"0" + timeString;
@@ -58,6 +76,8 @@ void ScoreBoard::Update(int bossHP, int time, int life, int stage)
 
 	score->Update(timeString);
 	hp->Update(aladdin->GetHP());
+	appleNumber->Update(appleNumberString);
+	pennyNumber->Update(pennyNumberString);
 }
 
 void ScoreBoard::Render()
@@ -67,4 +87,8 @@ void ScoreBoard::Render()
 	font->DrawText(spriteHandler, information.c_str(), -1, &rect, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));*/
 	score->Render();
 	hp->Render();
+	appleCount->Render();
+	appleNumber->Render();
+	pennyCount->Render();
+	pennyNumber->Render();
 }

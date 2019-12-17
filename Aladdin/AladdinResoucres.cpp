@@ -15,7 +15,8 @@ void AladdinResoucres::LoadTextures()
 
 	//map
 	//textures->Add(ID_TEX_MAP_ONE, L"resources\\mapread\\lv1\\lv1.png", D3DCOLOR_XRGB(163, 73, 164));
-	textures->Add(ID_TEX_MAP_ONE, L"resources\\map\\lv1\\titlemaplv1.png", D3DCOLOR_XRGB(163, 73, 164));
+	//textures->Add(ID_TEX_MAP_ONE, L"resources\\map\\lv1\\titlemaplv1.png", D3DCOLOR_XRGB(163, 73, 164));
+	textures->Add(ID_TEX_MAP_ONE, L"resources\\map\\lv1\\mapgamelv1.png", D3DCOLOR_XRGB(163, 73, 164));
 
 	//Obstacle
 	textures->Add(ID_TEX_OBSTACLE, L"resources\\textures\\Aladdin_Sultan_ Dungeon.png", D3DCOLOR_XRGB(163, 73, 164));
@@ -480,7 +481,7 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(ID_SPRITE_MAP_ONE, 0, 0, 2144, 1024, textMapOne);*/
 
 	LPDIRECT3DTEXTURE9 textMapOne = textures->Get(ID_TEX_MAP_ONE);
-	sprites->Add(ID_SPRITE_MAP_ONE, 0, 0, 256, 8144, textMapOne);
+	sprites->Add(ID_SPRITE_MAP_ONE, 0, 0, 256, 8304, textMapOne);
 
 	// item hp
 	sprites->AddByWidthHeight(20000, 17, 3007, 120, 32, texAladdinFullRight); //hp aladdin 1

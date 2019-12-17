@@ -24,7 +24,7 @@ namespace MapEditor
         private List<Bitmap> listtam; // danh sach tile da loc cua bg
         private Bitmap background;
 
-        
+
 
         public Background()
         {
@@ -34,7 +34,7 @@ namespace MapEditor
             panel1.HorizontalScroll.Visible = true;
             panel2.AutoScroll = true;
             panel2.HorizontalScroll.Enabled = true;
-            panel2.VerticalScroll.Enabled = true; 
+            panel2.VerticalScroll.Enabled = true;
 
             if (pictureBoxAfter.Image == null)
             {
@@ -66,23 +66,24 @@ namespace MapEditor
             openFile.FilterIndex = 1;
             openFile.Title = "Open file background";
 
-          
 
-            if (  openFile.ShowDialog() == DialogResult.OK)
-            {            
+
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
 
                 Image image = Image.FromFile(openFile.FileName);
                 pictureBoxBG.Image = image;
                 pictureBoxBG.SizeMode = PictureBoxSizeMode.AutoSize;
 
-                if (openFile.FileName.Trim() !="")
+                if (openFile.FileName.Trim() != "")
                 {
                     textBoxBGWidth.Text = "     " + image.Size.Width.ToString() + " pixel";
-                    textBoxBGHeigth.Text = "     " +  image.Size.Height.ToString() + " pixel";
-                } else
+                    textBoxBGHeigth.Text = "     " + image.Size.Height.ToString() + " pixel";
+                }
+                else
                 {
                     textBoxBGWidth.Text = "     ";
-                    textBoxBGHeigth.Text = "     " ;
+                    textBoxBGHeigth.Text = "     ";
                 }
                 buttonSlipt.Enabled = true;
             }
@@ -144,7 +145,7 @@ namespace MapEditor
                     images.Add(bitmap);
 
                 }
-                            
+
                 int final_height;
                 int numTileInWidth = BGSLIPT_WEIDTH / TILE_WEIDTH;
                 if (images.Count % 8 == 0)
@@ -240,14 +241,14 @@ namespace MapEditor
                 }
             }
             textBoxDaLoc.Text = after.ToString() + " tile ( Width : 16 tile)";
-            textBoxChuaLoc.Text = before.ToString() +" tile";
+            textBoxChuaLoc.Text = before.ToString() + " tile";
             pictureBoxAfter.Image = Combine(list);
             pictureBoxAfter.SizeMode = PictureBoxSizeMode.AutoSize;
             Cursor = Cursors.Default;
             buttonSave.Enabled = true;
             textBox3.Text = " 16 pixel ";
             textBox4.Text = " 16 pixel ";
-            textBoxBGWidth.Text += "  ( " + bg_width +" tile)";
+            textBoxBGWidth.Text += "  ( " + bg_width + " tile)";
             textBoxBGHeigth.Text += "  ( " + bg_height + " tile)";
         }
 
@@ -255,7 +256,7 @@ namespace MapEditor
         {
             Cursor = Cursors.AppStarting;
             int lis_x = 0;
-            int lis_y = 0;           
+            int lis_y = 0;
 
             List<ObjectTile> listObject = new List<ObjectTile>();
 
@@ -265,7 +266,7 @@ namespace MapEditor
                 {
                     if (Compare(listtam[i], list[j]))
                     {
-                        lis[lis_x, lis_y] = j;                      
+                        lis[lis_x, lis_y] = j;
                         if (lis_x < bg_width - 1)
                         {
                             lis_x++;
@@ -281,7 +282,7 @@ namespace MapEditor
 
             int row = pictureBoxBG.Image.Width / TILE_WEIDTH;
             int col = pictureBoxBG.Image.Height / TILE_HEIGTH;
-            FileTool.writeFileBG(saveFileDialog1, lis, row,col);
+            FileTool.writeFileBG(saveFileDialog1, lis, row, col);
             //ghi file png
             Combine(list).Save(saveFileDialog1.FileName.ToString());
             Cursor = Cursors.Default;
@@ -295,7 +296,7 @@ namespace MapEditor
                 saveFileDialog1.Filter = "PNG Files (*.png)|*.png|All files (*.*)|*.*";
                 saveFileDialog1.FilterIndex = 1;
                 saveFileDialog1.ShowDialog();
-            } 
+            }
         }
 
         private void groupBox3_Enter(object sender, EventArgs e)

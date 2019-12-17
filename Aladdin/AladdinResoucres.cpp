@@ -2269,7 +2269,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(22000);
 	animations->Add(2200, ani);
 
-	ani = new CAnimation(100);		// throw apple break
+	ani = new CAnimation(100, false);		// throw apple break
 	ani->Add(22001);
 	ani->Add(22002);
 	ani->Add(22003);

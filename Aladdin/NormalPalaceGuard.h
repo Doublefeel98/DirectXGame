@@ -9,6 +9,15 @@ class NormalPalaceGuard : public CEnemy
 private:
 	bool finalAni;	// indicate which state a bat object is currently in
 	int direction = LEFT;
+	float startX, startY;
+	bool init;
+	DWORD timeSlash;
+	DWORD timeStab;
+	DWORD timeBeAttack;
+	void resetAniSlash();
+	void resetAniStab();
+	void resetAniSurprise();
+	int ani;
 public:
 	NormalPalaceGuard();
 	~NormalPalaceGuard();

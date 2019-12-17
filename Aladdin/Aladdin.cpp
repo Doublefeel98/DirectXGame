@@ -549,6 +549,36 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				canAbleClimb = true;
 			}
 		}
+		else if (dynamic_cast<CEnemy*>(coObjects->at(i)))
+		{
+			CEnemy* enemy = dynamic_cast<CEnemy*>(coObjects->at(i));
+
+			float l1, t1, r1, b1, l2, t2, r2, b2;
+			GetBoundingBox(l1, t1, r1, b1);
+			enemy->GetBoundingBox(l2, t2, r2, b2);
+			if (CGame::isColliding(l1, t1, r1, b1, l2, t2, r2, b2))
+			{
+				if (untouchable == 0)
+				{
+					if (enemy->IsEnable())
+					{
+						this->hp -= enemy->GetDamage();
+						if (enemy->GetType() != OBJECT_BAT)
+						{
+							StartUntouchable();
+							StartHurting();
+							SetState(ALADDIN_STATE_BE_ATTACKED);
+						}
+						else {
+							IsBatHurt = true;
+							timeBatHurt = now;
+							enemy->SetDead(true);
+						}
+
+					}
+				}
+			}
+		}
 	}
 
 	if (!canAbleClimb)

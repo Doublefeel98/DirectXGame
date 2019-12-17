@@ -2262,7 +2262,7 @@ void AladdinResoucres::LoadAnimations()
 
 	ani = new CAnimation(100);		//penny count
 	ani->Add(21100);
-	animations->Add(2119, ani);
+	animations->Add(2120, ani);
 
 
 	ani = new CAnimation(100);		// throw apple

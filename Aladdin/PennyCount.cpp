@@ -17,5 +17,5 @@ void PennyCount::GetBoundingBox(float& l, float& t, float& r, float& b)
 PennyCount::PennyCount(int pennyCount)
 {
 	this->pennyCount = pennyCount;
-	AddAnimation(2119);
+	AddAnimation(2120);
 }

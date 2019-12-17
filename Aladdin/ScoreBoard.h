@@ -6,6 +6,10 @@
 #include "HP.h"
 #include "Life.h"
 #include "Score.h"
+#include "AppleCount.h"
+#include "AppleNumber.h"
+#include "PennyCount.h"
+#include "PennyNumber.h"
 
 class ScoreBoard
 {
@@ -19,6 +23,10 @@ class ScoreBoard
 
 	HP *hp;
 	Score* score;
+	AppleCount* appleCount;
+	AppleNumber* appleNumber;
+	PennyCount* pennyCount;
+	PennyNumber* pennyNumber;
 
 	int bossHP;
 	int time;

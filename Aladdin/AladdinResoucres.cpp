@@ -651,15 +651,15 @@ void AladdinResoucres::LoadSprites()
 
 	//item
 
-	sprites->Add(21100, 340, 107, 356, 128, texItem);		//penny
-	sprites->Add(21101, 363, 107, 379, 128, texItem);
-	sprites->Add(21102, 386, 107, 402, 128, texItem);
-	sprites->Add(21103, 409, 107, 425, 128, texItem);
-	sprites->Add(21104, 432, 107, 448, 128, texItem);
-	sprites->Add(21105, 454, 107, 485, 128, texItem);
-	sprites->Add(21106, 492, 107, 514, 128, texItem);
-	sprites->Add(21107, 522, 107, 538, 128, texItem);
-	sprites->Add(21108, 545, 107, 561, 128, texItem);
+	sprites->Add(21100, 340, 107, 357, 128, texItem);		//penny
+	sprites->Add(21101, 363, 107, 380, 128, texItem);
+	sprites->Add(21102, 386, 107, 403, 128, texItem);
+	sprites->Add(21103, 409, 107, 426, 128, texItem);
+	sprites->Add(21104, 432, 107, 449, 128, texItem);
+	sprites->Add(21105, 454, 107, 487, 128, texItem);
+	sprites->Add(21106, 492, 107, 515, 128, texItem);
+	sprites->Add(21107, 522, 107, 539, 128, texItem);
+	sprites->Add(21108, 545, 107, 562, 128, texItem);
 
 	sprites->Add(21110, 335, 45, 372, 97, texItem);		//genie face
 	sprites->Add(21111, 389, 45, 431, 97, texItem);
@@ -2260,6 +2260,10 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(21176);
 	ani->Add(21177);
 	animations->Add(2118, ani);
+
+	ani = new CAnimation(100);		//penny count
+	ani->Add(21100);
+	animations->Add(2120, ani);
 
 
 	ani = new CAnimation(100);		// throw apple

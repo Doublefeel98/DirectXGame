@@ -1002,7 +1002,7 @@ void Aladdin::Render()
 		}
 		if (IsHurt) {
 			if (nx > 0)
-			{
+			{				
 				ani = ALADDIN_ANI_BE_ATTACKED_RIGHT;
 			}
 			else
@@ -1289,24 +1289,33 @@ void Aladdin::OnClimbHandle()
 
 void Aladdin::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	/*if (IsSit) {
-		left = x;
-		top = y - 16;
-		right = left + ALADDIN_SIT_BBOX_WIDTH;
-		bottom = top + ALADDIN_SIT_BBOX_HEIGHT;
+	if (isDead) 
+	{
+		left = 0;
+		top = 0;
+		right = left + 0;
+		bottom = top + 0;
 	}
-	else {
+	else 
+	{
+		int boxWidth = ALADDIN_BBOX_WIDTH;
+		int boxHeight = ALADDIN_BBOX_HEIGHT;
+		switch (state)
+		{
+		case ALADDIN_STATE_JUMP:
+			boxWidth = ALADDIN_JUMP_BBOX_WIDTH;
+			boxHeight = ALADDIN_JUMP_BBOX_HEIGHT;
+			break;
+		case ALADDIN_STATE_RUN_JUMP:
+			boxWidth = ALADDIN_JUMP_BBOX_WIDTH;
+			boxHeight = ALADDIN_JUMP_BBOX_HEIGHT;
+			break;
+		}
 		left = x;
 		top = y;
-		right = left + ALADDIN_BBOX_WIDTH;
-		bottom = top + ALADDIN_BBOX_HEIGHT;
-	}*/
-
-	left = x;
-	top = y;
-	right = left + ALADDIN_BBOX_WIDTH;
-	bottom = top + ALADDIN_BBOX_HEIGHT;
-
+		right = left + boxWidth;
+		bottom = top + boxHeight;
+	}
 }
 
 Aladdin::Aladdin() : CGameObject()
@@ -1349,6 +1358,7 @@ Aladdin::Aladdin() : CGameObject()
 	hp = ALADDIN_MAX_HP;
 
 	countApple = 10;
+	countPenny = 8;
 
 	IsBatHurt = false;
 	timeBatHurt = 0;

@@ -119,6 +119,18 @@
     <ClCompile Include="Statue.cpp">
       <Filter>Source\Object\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="AppleCount.cpp">
+      <Filter>Source\Object\ScoreBoard</Filter>
+    </ClCompile>
+    <ClCompile Include="AppleNumber.cpp">
+      <Filter>Source\Object\ScoreBoard</Filter>
+    </ClCompile>
+    <ClCompile Include="PennyCount.cpp">
+      <Filter>Source\Object\ScoreBoard</Filter>
+    </ClCompile>
+    <ClCompile Include="PennyNumber.cpp">
+      <Filter>Source\Object\ScoreBoard</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aladdin.h">
@@ -255,6 +267,18 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="Statue.h">
       <Filter>Source\Object\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="AppleCount.h">
+      <Filter>Source\Object\ScoreBoard</Filter>
+    </ClInclude>
+    <ClInclude Include="AppleNumber.h">
+      <Filter>Source\Object\ScoreBoard</Filter>
+    </ClInclude>
+    <ClInclude Include="PennyCount.h">
+      <Filter>Source\Object\ScoreBoard</Filter>
+    </ClInclude>
+    <ClInclude Include="PennyNumber.h">
+      <Filter>Source\Object\ScoreBoard</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

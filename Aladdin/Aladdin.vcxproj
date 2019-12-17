@@ -136,8 +136,12 @@
   <ItemGroup>
     <ClInclude Include="AladdinResoucres.h" />
     <ClInclude Include="Apple.h" />
+    <ClInclude Include="AppleCount.h" />
+    <ClInclude Include="AppleNumber.h" />
     <ClInclude Include="Chains.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="PennyCount.h" />
+    <ClInclude Include="PennyNumber.h" />
     <ClInclude Include="Statue.h" />
     <ClInclude Include="StoneBar.h" />
     <ClInclude Include="Sword.h" />
@@ -180,8 +184,12 @@
   <ItemGroup>
     <ClCompile Include="AladdinResoucres.cpp" />
     <ClCompile Include="Apple.cpp" />
+    <ClCompile Include="AppleCount.cpp" />
+    <ClCompile Include="AppleNumber.cpp" />
     <ClCompile Include="Chains.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="PennyCount.cpp" />
+    <ClCompile Include="PennyNumber.cpp" />
     <ClCompile Include="Statue.cpp" />
     <ClCompile Include="StoneBar.cpp" />
     <ClCompile Include="Sword.cpp" />

@@ -4,21 +4,25 @@
 
 #include "../Framework/Game.h"
 #include "../Framework/Enemy.h"
+#include "Brick.h"
+#include "WreckingBall.h"
+#include "Trap.h"
 
 ThrowApples::ThrowApples() :CGameObject() {
 	x = -5;
 	y = -5;
-	width =	THROW_APPLE_BBOX_WIDTH;
+	width = THROW_APPLE_BBOX_WIDTH;
 	height = THROW_APPLE_BBOX_HEIGHT;
 
 	AddAnimation(2200);		// throw apple
-	
+
 	AddAnimation(2201);		// throw apple break
 	//AddAnimation(2202);
 	//AddAnimation(2203);
 	//AddAnimation(2204);
 	isEnable = false;
 	damage = 1;
+	isBreak = false;
 }
 ThrowApples::~ThrowApples() {
 
@@ -55,17 +59,34 @@ void ThrowApples::SetState(int state)
 }
 void ThrowApples::Render() {
 	if (isEnable) {
-		animations[0]->Render(x, y);
-		RenderBoundingBox();
+		if (isBreak)
+		{
+			animations[1]->Render(x, y);
+		}
+		else {
+			animations[0]->Render(x, y);
+			RenderBoundingBox();
+		}
 	}
 }
 void ThrowApples::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
-	int type;
+
 	if (isEnable) {
+		if (animations[1]->IsLastFrame && isBreak) {
+			isEnable = false;
+			isBreak = false;
+			animations[1]->reset();
+			return;
+		}
+		if (isBreak)
+		{
+			return;
+		}
 		CGameObject::Update(dt);
 
 		// Simple fall down
-		vy += THROW_APPLE_GRAVITY * (dt/2);
+		vy += THROW_APPLE_GRAVITY * (dt / 2);
+
 
 		vector<LPCOLLISIONEVENT> coEvents;
 		vector<LPCOLLISIONEVENT> coEventsResult;
@@ -73,6 +94,15 @@ void ThrowApples::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		coEvents.clear();
 
 		CalcPotentialCollisions(coObjects, coEvents);
+
+		for (UINT i = 0; i < coEvents.size(); i++)
+		{
+			LPCOLLISIONEVENT e = coEvents[i];
+			if (dynamic_cast<Brick*>(e->obj) || dynamic_cast<WreckingBall*>(e->obj) || dynamic_cast<Trap*>(e->obj))
+			{
+				coEvents.erase(coEvents.begin() + i);
+			}
+		}
 
 		// No collision occured, proceed normally
 		if (coEvents.size() == 0)
@@ -104,21 +134,25 @@ void ThrowApples::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 					//enemy->GetColliderEffect()->SetEnable(true);
 					if (enemy->isEnable) {
+						int typeObject;
 						enemy->SetHP(enemy->GetHP() - this->damage);
-						type = enemy->GetType()-5;
-						switch (type) {
+						typeObject = enemy->GetType();
+						switch (typeObject) {
 						case OBJECT_BAT:
 							enemy->SetState(BAT_STATE_DIE);
 							break;
 						case OBJECT_NORMAL_PALACE_GUARD:
-							enemy->state = NGUARD_STATE_SURPRISE;
+							enemy->SetState(NGUARD_STATE_SURPRISE);
 							break;
 						}
+						isBreak = true;
 					}
 				}
 			}
-
-			isEnable = false;
+			if (!isBreak)
+			{
+				isEnable = false;
+			}
 		}
 	}
 	else {

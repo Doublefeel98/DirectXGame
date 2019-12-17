@@ -43,16 +43,19 @@ void Sword::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					{
 						//enemy->GetColliderEffect()->SetEnable(true);
 						if (enemy->isEnable) {
+							int typeObject;
 							enemy->SetHP(enemy->GetHP() - this->damage);
-							this->isEnable = false;
-							DebugOut(L"[INFO] enemm hp: %d\n", enemy->GetHP());
-
-							int typeEnemy = enemy->GetType() - 5;
-							switch (typeEnemy) {
+							typeObject = enemy->GetType();
+							switch (typeObject) {
+							case OBJECT_BAT:
+								enemy->SetState(BAT_STATE_DIE);
+								break;
 							case OBJECT_NORMAL_PALACE_GUARD:
-								enemy->state = NGUARD_STATE_SURPRISE;
+								enemy->SetState(NGUARD_STATE_SURPRISE);
 								break;
 							}
+
+							this->isEnable = false;
 						}
 					}
 				}

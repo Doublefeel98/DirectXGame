@@ -5,6 +5,7 @@ class ThrowApples : public CGameObject
 {
 private:
 	int damage;
+	int isBreak;
 public:
 	ThrowApples();
 	~ThrowApples();

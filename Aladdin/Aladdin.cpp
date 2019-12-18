@@ -46,14 +46,14 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
-	if (IsBatHurt)
+	if (IsEnemyHurt)
 	{
-		if (now - timeBatHurt > 1000)
+		if (now - timeEnemyHurt > 1000)
 		{
-			IsBatHurt = false;
+			IsEnemyHurt = false;
 			SetState(ALADDIN_STATE_IDLE);
 		}
-		return;
+		//return;
 	}
 
 	if (IsClimb == true)
@@ -563,19 +563,11 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					if (enemy->IsEnable())
 					{
-						this->hp -= enemy->GetDamage();
-						if (enemy->GetType() != OBJECT_BAT)
+						EnemyHurted(enemy->GetDamage());
+						if (enemy->GetType() == OBJECT_BAT)
 						{
-							StartUntouchable();
-							StartHurting();
-							SetState(ALADDIN_STATE_BE_ATTACKED);
-						}
-						else {
-							IsBatHurt = true;
-							timeBatHurt = now;
 							enemy->SetDead(true);
 						}
-
 					}
 				}
 			}
@@ -728,18 +720,11 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					if (enemy->IsEnable())
 					{
 						this->hp -= enemy->GetDamage();
-						if (enemy->GetType() != OBJECT_BAT)
+						EnemyHurted(enemy->GetDamage());
+						if (enemy->GetType() == OBJECT_BAT)
 						{
-							StartUntouchable();
-							StartHurting();
-							SetState(ALADDIN_STATE_BE_ATTACKED);
-						}
-						else {
-							IsBatHurt = true;
-							timeBatHurt = now;
 							enemy->SetDead(true);
 						}
-
 					}
 				}
 			}
@@ -774,7 +759,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void Aladdin::Render()
 {
-	if (IsBatHurt)
+	if (IsEnemyHurt)
 	{
 		return;
 	}
@@ -1002,7 +987,7 @@ void Aladdin::Render()
 		}
 		if (IsHurt) {
 			if (nx > 0)
-			{				
+			{
 				ani = ALADDIN_ANI_BE_ATTACKED_RIGHT;
 			}
 			else
@@ -1027,7 +1012,7 @@ void Aladdin::Render()
 
 void Aladdin::SetState(int state)
 {
-	if (IsBatHurt)
+	if (IsEnemyHurt)
 	{
 		return;
 	}
@@ -1269,9 +1254,12 @@ void Aladdin::ResetAllAnimation()
 	ResetAnimationsJump();
 }
 
-void Aladdin::OnClimbHandle()
+void Aladdin::EnemyHurted(int damage)
 {
-
+	this->hp -= damage;
+	IsEnemyHurt = true;
+	timeEnemyHurt = GetTickCount();
+	ResetAllAnimation();
 }
 
 
@@ -1289,14 +1277,14 @@ void Aladdin::OnClimbHandle()
 
 void Aladdin::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (isDead) 
+	if (isDead)
 	{
 		left = 0;
 		top = 0;
 		right = left + 0;
 		bottom = top + 0;
 	}
-	else 
+	else
 	{
 		int boxWidth = ALADDIN_BBOX_WIDTH;
 		int boxHeight = ALADDIN_BBOX_HEIGHT;
@@ -1360,8 +1348,8 @@ Aladdin::Aladdin() : CGameObject()
 	countApple = 10;
 	countPenny = 8;
 
-	IsBatHurt = false;
-	timeBatHurt = 0;
+	IsEnemyHurt = false;
+	timeEnemyHurt = 0;
 
 	AddAnimation(100);		// idle right
 	AddAnimation(101);		//idle left

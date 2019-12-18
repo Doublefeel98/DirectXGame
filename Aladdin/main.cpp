@@ -35,6 +35,8 @@
 #include "Ground.h"
 #include "AladdinResoucres.h"
 
+#include <ctime>
+
 CCamera* camera;
 
 CGame* game;
@@ -374,6 +376,8 @@ int Run()
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
+	srand(time(0));
+
 	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	game = CGame::GetInstance();

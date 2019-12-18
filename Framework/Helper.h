@@ -2,6 +2,9 @@
 #include <vector>
 #include <sstream>
 #include <iostream>
+
+#include <stdio.h>
+#include <stdlib.h>
 /*
 std::string split implementation by using delimeter as a character.
 */
@@ -39,20 +42,14 @@ public:
 		}
 		return splittedString;
 	}
+
+	static int random(int minN, int maxN) {
+		return minN + rand() % (maxN + 1 - minN);
+	}
+
+	static float float_rand(float min, float max)
+	{
+		float scale = rand() / (float)RAND_MAX; /* [0, 1.0] */
+		return min + scale * (max - min);      /* [min, max] */
+	}
 };
-
-
-
-//int main()
-//{
-//	std::string str = "Lets split this line using split functions";
-//	// Spliting the string by ''
-//	std::vector<std::string> splittedStrings = split(str, ' ');
-//	for (int i = 0; i < splittedStrings.size(); i++)
-//		std::cout << splittedStrings[i] << std::endl;
-//	// Spliting the string by an another std::string
-//	std::vector<std::string> splittedStrings_2 = split(str, "split");
-//	for (int i = 0; i < splittedStrings_2.size(); i++)
-//		std::cout << splittedStrings_2[i] << std::endl;
-//	return 0;
-//}

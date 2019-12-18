@@ -363,12 +363,14 @@
 #define SKELETON_BBOX_HEIGHT						80
 #define SKELETON_BBOX_WIDTH_WIDE					80
 
-#define SKELETON_DELTA_X							200
-#define SKELETON_DELTA_Y							200
+#define SKELETON_DELTA_X							150
+#define SKELETON_DELTA_Y							150
+
+#define COUNT_BONE									5
 
 //bone
-#define BONE_BBOX_WIDTH				6
-#define BONE_BBOX_HEIGHT			8
+#define BONE_BBOX_WIDTH				12
+#define BONE_BBOX_HEIGHT			10
 
 #define BONE_STATE_IDLE			0
 #define BONE_STATE_FLY			1
@@ -376,8 +378,14 @@
 #define BONE_STATE_DIE			3
 
 #define BONE_GRAVITY			0.002f
-#define BONE_SPEED_X			0.1f
-#define BONE_SPEED_Y			0.5f
+
+#define BONE_MIN_SPEED_X		0.05f
+#define BONE_MAX_SPEED_X		0.8f
+
+#define BONE_MIN_SPEED_Y		0.05f
+#define BONE_MAX_SPEED_Y		0.5f
+
+#define BONE_DAMAGE				1
 
 // Boss
 
@@ -399,10 +407,10 @@
 #define IAGO_BBOX_WIDTH 62
 #define IAGO_BBOX_HEIGHT 40
 
-#define STATUE _ANI_IDLE_RIGHT						0
-#define STATUE _ANI_IDLE_LEFT						1
-#define STATUE _ANI_ATTACK_RIGHT					2
-#define STATUE _ANI_ATTACK_LEFT						3
+#define STATUE_ANI_IDLE_RIGHT						0
+#define STATUE_ANI_IDLE_LEFT						1
+#define STATUE_ANI_ATTACK_RIGHT						2
+#define STATUE_ANI_ATTACK_LEFT						3
 
 #define STATUE_BBOX_WIDTH 71
 #define STATUE_BBOX_HEIGHT 75

@@ -18,17 +18,27 @@ void ExplodingSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 		CEnemy::Update(dt, coObject);
 		D3DXVECTOR3 alaPosition = Aladdin::GetInstance()->GetPosition();
 
-		if (bones->IsEnable())
+		if (enableBones)
 		{
-			bones->Update(dt, coObject);
+			for (int i = 0; i < COUNT_BONE; i++)
+			{
+				bones[i]->Update(dt, coObject);
+			}
 		}
 
 		nx = this->x >= alaPosition.x ? -1 : 1;
 
 		if (animations[2]->IsLastFrame || animations[3]->IsLastFrame) {
-			bones->SetPosition(x, y);
-			bones->SetEnable(true);
-			bones->SetState(BONE_STATE_FLY);
+			if (!enableBones)
+			{
+				for (int i = 0; i < COUNT_BONE; i++)
+				{
+					bones[i]->SetPosition(x + SKELETON_BBOX_WIDTH / 2, y + SKELETON_BBOX_HEIGHT / 2);
+					bones[i]->SetEnable(true);
+					bones[i]->SetState(BONE_STATE_FLY);
+				}
+				enableBones = true;
+			}
 		}
 
 		if (abs(this->x - alaPosition.x) < SKELETON_DELTA_X && abs(this->y - alaPosition.y) < SKELETON_DELTA_Y)
@@ -59,14 +69,21 @@ void ExplodingSkeleton::GetBoundingBox(float& left, float& top, float& right, fl
 	//	bottom = top + SKELETON_BBOX_HEIGHT;
 	//}
 
-	left = x;
-	top = y;
-	right = x + SKELETON_BBOX_WIDTH;
-
-	if (isDead)
-		bottom = y + 0;
-	else
+	if (!enableBones)
+	{
+		left = x;
+		top = y;
+		right = x + SKELETON_BBOX_WIDTH;
 		bottom = y + SKELETON_BBOX_HEIGHT;
+	}
+	else
+	{
+		left = 0;
+		top = 0;
+		right = 0;
+		bottom = 0;
+	}
+
 }
 void ExplodingSkeleton::SetState(int state)
 {
@@ -101,13 +118,20 @@ void ExplodingSkeleton::Render()
 			break;
 		}
 
-		animations[ani]->Render(posX, posY);
-		RenderBoundingBox();
-
-		if (bones->IsEnable())
+		if (!enableBones)
 		{
-			bones->Render();
+			animations[ani]->Render(posX, posY);
+			RenderBoundingBox();
 		}
+
+
+		if (enableBones) {
+			for (int i = 0; i < COUNT_BONE; i++)
+			{
+				bones[i]->Render();
+			}
+		}
+
 	}
 }
 
@@ -124,7 +148,12 @@ ExplodingSkeleton::ExplodingSkeleton() : CEnemy()
 	AddAnimation(602);		// stand up right
 	AddAnimation(603);		// stand up left
 
-	bones = new Bone();
+	for (int i = 0; i < COUNT_BONE; i++)
+	{
+		bones[i] = new Bone();
+	}
+
+	enableBones = false;
 }
 
 ExplodingSkeleton::~ExplodingSkeleton() {

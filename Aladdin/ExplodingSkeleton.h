@@ -5,7 +5,8 @@
 class ExplodingSkeleton : public CEnemy
 {
 private:
-	Bone* bones;
+	Bone* bones[COUNT_BONE];
+	bool enableBones;
 	int ani;
 public:
 	ExplodingSkeleton();

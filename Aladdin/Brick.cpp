@@ -1,4 +1,5 @@
 #include "Brick.h"
+#include "Aladdin.h"
 
 void Brick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 {
@@ -36,12 +37,21 @@ void Brick::Render()
 
 void Brick::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (animations[0]->currentFrame >= 4 && animations[0]->currentFrame <= 6) 
-	{
-		left = x;
-		top = y;
-		right = x + BRICK_BBOX_WIDTH;
-		bottom = y + BRICK_BBOX_HEIGHT;
+	Aladdin* aladdin = Aladdin::GetInstance();
+	if (aladdin->y + ALADDIN_BBOX_HEIGHT < this->y) {
+		if (animations[0]->currentFrame >= 4 && animations[0]->currentFrame <= 6)
+		{
+			left = x;
+			top = y;
+			right = x + BRICK_BBOX_WIDTH;
+			bottom = y + BRICK_BBOX_HEIGHT;
+		}
+		else {
+			left = 0;
+			top = 0;
+			right = 0;
+			bottom = 0;
+		}
 	}
 	else {
 		left = 0;
@@ -49,7 +59,7 @@ void Brick::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 		right = 0;
 		bottom = 0;
 	}
-	
+
 }
 
 Brick::Brick() :CGameObject() {

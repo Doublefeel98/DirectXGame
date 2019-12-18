@@ -1,10 +1,21 @@
 #include "Bone.h"
 #include "Aladdin.h"
+#include "../Framework/debug.h"
+#include "Ground.h"
+#include "StoneBar.h"
+#include "Wood.h"
+#include "../Framework/Helper.h"
 
-Bone::Bone()
+Bone::Bone() : CGameObject()
 {
 	AddAnimation(604);
 	isEnable = false;
+
+	velocityRamdomX = 0;
+	velocityRamdomY = 0;
+	aladdin = Aladdin::GetInstance();
+	objects.push_back(aladdin);
+	damage = BONE_DAMAGE;
 }
 
 Bone::~Bone()
@@ -20,69 +31,36 @@ void Bone::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		CGameObject::Update(dt);
 
 		// Simple fall down
-		//vy += BONE_GRAVITY * dt;
+		if (state != BONE_STATE_DIE)
+			vy += BONE_GRAVITY * dt;
 
-		x += dx;
-		y += dy;
 
 		vector<LPCOLLISIONEVENT> coEvents;
 		vector<LPCOLLISIONEVENT> coEventsResult;
 
 		coEvents.clear();
 
-		// turn off collision when die 
-		//if (state != BONE_STATE_DIE)
-		//	CalcPotentialCollisions(coObjects, coEvents);
+		CalcPotentialCollisions(&objects, coEvents);
 
-		//// No collision occured, proceed normally
-		//if (coEvents.size() == 0)
-		//{
-		//	x += dx;
-		//	y += dy;
-		//}
-		//else
-		//{
-		//	float min_tx, min_ty, nx = 0, ny;
+		// No collision occured, proceed normally
+		if (coEvents.size() == 0)
+		{
+			x += dx;
+			y += dy;
+		}
+		else
+		{
+			aladdin->EnemyHurted(damage);
 
-		//	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+			isEnable = false;
+		}
 
-		//	// block 
-		//	/*x += min_tx * dx + nx * 0.4f;
-		//	y += min_ty * dy + ny * 0.4f;
-
-		//	if (nx != 0) vx = 0;
-		//	if (ny != 0) vy = 0;*/
-
-		//	// Collision logic with Goombas
-		//	for (UINT i = 0; i < coEventsResult.size(); i++)
-		//	{
-		//		LPCOLLISIONEVENT e = coEventsResult[i];
-
-		//		if (dynamic_cast<Aladdin*>(e->obj)) // if e->obj is Goomba 
-		//		{
-		//			if (e->nx != 0)
-		//			{
-		//				/*if (untouchable == 0)
-		//				{
-		//					if (goomba->GetState() != GOOMBA_STATE_DIE)
-		//					{
-		//						if (level > MARIO_LEVEL_SMALL)
-		//						{
-		//							level = MARIO_LEVEL_SMALL;
-		//							StartUntouchable();
-		//						}
-		//						else
-		//							SetState(MARIO_STATE_DIE);
-		//					}
-		//				}*/
-		//			}
-		//		}
-		//	}
-		//	isEnable = false;
-		//}
-
-		//// clean up collision events
-		//for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+		// clean up collision events
+		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	}
+	else {
+		x = 0;
+		y = 0;
 	}
 }
 
@@ -97,10 +75,20 @@ void Bone::Render()
 
 void Bone::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	left = x;
-	top = y;
-	right = left + BONE_BBOX_WIDTH;
-	bottom = top + BONE_BBOX_HEIGHT;
+	if (isEnable)
+	{
+		left = x;
+		top = y;
+		right = left + BONE_BBOX_WIDTH;
+		bottom = top + BONE_BBOX_HEIGHT;
+	}
+	else {
+		left = 0;
+		top = 0;
+		right = 0;
+		bottom = 0;
+	}
+
 }
 
 void Bone::SetState(int state)
@@ -109,14 +97,26 @@ void Bone::SetState(int state)
 	switch (state)
 	{
 	case BONE_STATE_FLY:
-		vx = BONE_SPEED_X;
-		vy = -BONE_SPEED_Y;
-		nx = 1;
+		nx = Helper::random(0, 1) == 0 ? -1 : 1;
+
+		velocityRamdomX = Helper::float_rand(BONE_MIN_SPEED_X, BONE_MAX_SPEED_X);
+		velocityRamdomY = Helper::float_rand(BONE_MIN_SPEED_Y, BONE_MAX_SPEED_Y);
+
+		DebugOut(L"[INFO] bone nx: %d\n", nx);
+
+		DebugOut(L"[INFO] bone velocityRamdomX: %f\n", velocityRamdomX);
+		DebugOut(L"[INFO] bone velocityRamdomY: %f\n", velocityRamdomY);
+
+
+		vx = nx * velocityRamdomX;
+		vy = -velocityRamdomY;
+		timeStartFly = GetTickCount();
 		break;
-	case BONE_STATE_THROW:
-		vx = BONE_SPEED_X;
-		vy = 0;
-		nx = 1;
-		break;
+		//case BONE_STATE_THROW:
+		//	vx = velocityRamdomX;
+		//	vy = 0;
+		//	break;
 	}
 }
+
+

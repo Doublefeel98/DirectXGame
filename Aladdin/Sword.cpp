@@ -53,6 +53,9 @@ void Sword::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							case OBJECT_NORMAL_PALACE_GUARD:
 								enemy->SetState(NGUARD_STATE_SURPRISE);
 								break;
+							case OBJECT_THIN_PALACE_GUARD:
+								enemy->SetState(TGUARD_STATE_SURPRISE);
+								break;
 							}
 
 							this->isEnable = false;

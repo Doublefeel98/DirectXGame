@@ -1,11 +1,22 @@
 #pragma once
 #include "../Framework/Enemy.h"
 #include "Define.h"
+#include "Aladdin.h"
+#define LEFT false
+#define RIGHT true
 
 class ThinPalaceGuard : public CEnemy
 {
 private:
-	bool wait, wave, walk, surprise;	// indicate which state a bat object is currently in
+	bool finalAni;	// indicate which state a bat object is currently in
+	int direction = LEFT;
+	float startX, startY;
+	bool init;
+	DWORD timeAttack;
+	DWORD timeBeAttack;
+	void resetAniAttack();
+	void resetAniSurprise();
+	int ani;
 public:
 	ThinPalaceGuard();
 	~ThinPalaceGuard();

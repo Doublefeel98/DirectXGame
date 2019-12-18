@@ -6,85 +6,212 @@
 
 void ThinPalaceGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject) {
 	CEnemy::Update(dt, coObject);
-	if (isDead) {
-		x = -5;
-		y = -5;
-		vx = 0;
-		vy = 0;
+	if (!isDead) {
+		CEnemy::Update(dt, coObject);
+		D3DXVECTOR3 alaPosition = Aladdin::GetInstance()->GetPosition();
+
+		nx = this->x >= alaPosition.x ? -1 : 1;
+
+		if (state == TGUARD_STATE_WALK)
+		{
+			x += dx;
+			y += dy;
+		}
+		else if (state == TGUARD_STATE_SURPRISE)
+		{
+			if (GetTickCount() - timeBeAttack > 890)
+			{
+				state = TGUARD_STATE_ATTACK;
+				timeBeAttack = GetTickCount();
+				resetAniAttack();
+			}
+			return;
+		}
+
+
+		if (abs(this->x - alaPosition.x) < GUARD_DELTA_X /*&& y - this->y < BAT_DELTA_Y*/)
+		{
+			if (!init)
+			{
+				init = true;
+				startX = this->x;
+				startY = this->y;
+
+				SetState(TGUARD_STATE_WALK);
+			}
+			else if (abs(startX - this->x) < GUARD_DELTA_WALK_X) {
+				SetState(TGUARD_STATE_WALK);
+			}
+			else {
+				DWORD now = GetTickCount();
+				if (timeAttack == 0)
+				{
+					timeAttack = now;
+					SetState(TGUARD_STATE_ATTACK);
+				}
+				else if (now - timeAttack > 590)
+				{
+					timeAttack = 0;
+					resetAniAttack();
+				}
+			}
+		}
+		else {
+			SetState(TGUARD_STATE_IDLE);
+		}
 	}
 }
 
 void ThinPalaceGuard::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	//if (wait) {
-	//	left = x + 65;
-	//	top = y + 25;
-	//	right = left + THIN_GUARD_BBOX_WIDTH_WAIT;
-	//	bottom = top + THIN_GUARD_BBOX_HEIGHT;
-	//}
-	//else if (wave) {
-	//	left = x + 15;
-	//	top = y + 25;
-	//	right = left + THIN_GUARD_BBOX_WIDTH_WAVE;
-	//	bottom = top + THIN_GUARD_BBOX_HEIGHT;
-	//}
-	//else  if (walk){
-	//	left = x + 50;
-	//	top = y + 25;
-	//	right = left + THIN_GUARD_BBOX_WIDTH_WALK;
-	//	bottom = top + THIN_GUARD_BBOX_HEIGHT;
-	//}
-	//else {
-	//	left = x + 60;
-	//	top = y + 25;
-	//	right = left + THIN_GUARD_BBOX_WIDTH_SURPISE;
-	//	bottom = top + THIN_GUARD_BBOX_HEIGHT;
-	//}
+	if (isDead) {
+		left = 0;
+		top = 0;
+		right = left + 0;
+		bottom = top + 0;
+	}
+	else {
+		int boxWidth = THIN_GUARD_BBOX_WIDTH;
+		int boxHeight = THIN_GUARD_BBOX_HEIGHT;
+		switch (state)
+		{
+		case TGUARD_STATE_WALK:
 
-	left = x;
-	top = y;
-	right = x + THIN_GUARD_BBOX_WIDTH;
-
-	if (isDead)
-		bottom = y + 0;
-	else
-		bottom = y + THIN_GUARD_BBOX_HEIGHT;
+			break;
+		case TGUARD_STATE_ATTACK:
+			boxWidth = THIN_GUARD_ATTACK_BBOX_WIDTH;
+			boxHeight = THIN_GUARD_ATTACK_BBOX_HEIGHT;
+			break;
+		case TGUARD_STATE_SURPRISE:
+			boxWidth = THIN_GUARD_SURPRISE_BBOX_WIDTH;
+			boxHeight = THIN_GUARD_SURPRISE_BBOX_HEIGHT;
+			break;
+		default:
+			break;
+		}
+		if (ani == -1)
+		{
+			left = x;
+			top = y;
+			right = left + boxWidth;
+			bottom = top + boxHeight;
+		}
+		else {
+			int currentFrame = animations[ani]->getCurrentFrame();
+			if (currentFrame != -1)
+			{
+				left = x + animations[ani]->frames[currentFrame]->GetSprite()->dx;
+				top = y + animations[ani]->frames[currentFrame]->GetSprite()->dy;
+			}
+			else {
+				left = x;
+				top = y;
+			}
+			right = left + boxWidth;
+			bottom = top + boxHeight;
+		}
+	}
 }
-void ThinPalaceGuard::SetState(int state)
+
+void ThinPalaceGuard::SetState(int stateNew)
 {
-	CEnemy::SetState(state);
-}
-void ThinPalaceGuard::Render() {
-	//if (wait) {
-	//	animations[THIN_GUARD_ANI_WAIT]->Render(x, y, 255);
-	//}
-	//else if (wave) {
-	//	animations[THIN_GUARD_ANI_WAVE]->Render(x, y, 255);
-	//}
-	//else if(walk){
-	//	animations[THIN_GUARD_ANI_WALK]->Render(x, y, 255);
-	//}
-	//else {
-	//	animations[THIN_GUARD_ANI_SURPRISE]->Render(x, y, 255);
-	//}
-	if (isEnable)
+	CEnemy::SetState(stateNew);
+	switch (stateNew)
 	{
-		animations[THIN_GUARD_ANI_SURPRISE_RIGHT]->Render(x, y);
-		CEnemy::Render();
+	case TGUARD_STATE_IDLE:
+		vx = 0;
+		break;
+	case TGUARD_STATE_WALK:
+		if (nx > 0)
+		{
+			vx = GUARD_WALKING_SPEED;
+		}
+		else {
+			vx = -GUARD_WALKING_SPEED;
+		}
+		break;
+	case TGUARD_STATE_ATTACK:
+		vx = 0;
+		break;
+	case TGUARD_STATE_SURPRISE:
+		timeBeAttack = GetTickCount();
+		vx = 0;
+		break;
+	default:
+		break;
+	}
+}
+
+void ThinPalaceGuard::Render() 
+{
+	if (!isDead) {
+		int posX = x, posY = y;
+		switch (state)
+		{
+		case TGUARD_STATE_IDLE:
+			if (nx > 0)
+			{
+				ani = THIN_GUARD_ANI_IDLE_RIGHT;
+			}
+			else {
+				ani = THIN_GUARD_ANI_IDLE_LEFT;
+			}
+			break;
+		case TGUARD_STATE_WALK:
+			if (nx > 0)
+			{
+				ani = THIN_GUARD_ANI_WALK_RIGHT;
+			}
+			else {
+				ani = THIN_GUARD_ANI_WALK_LEFT;
+			}
+			break;
+		case TGUARD_STATE_ATTACK:
+			posY = y;
+			if (nx > 0)
+			{
+				ani = THIN_GUARD_ANI_ATTACK_RIGHT;
+			}
+			else {
+				ani = THIN_GUARD_ANI_ATTACK_LEFT;
+			}
+			break;
+		case TGUARD_STATE_SURPRISE:
+			posY = y;
+			if (nx > 0)
+			{
+				ani = THIN_GUARD_ANI_SURPRISE_RIGHT;
+			}
+			else {
+				ani = THIN_GUARD_ANI_SURPRISE_LEFT;
+			}
+			break;
+		default:
+			break;
+		}
+
+		animations[ani]->Render(posX, posY);
 		RenderBoundingBox();
 	}
 }
 
+void ThinPalaceGuard::resetAniAttack()
+{
+	animations[THIN_GUARD_ANI_ATTACK_RIGHT]->reset();
+	animations[THIN_GUARD_ANI_ATTACK_LEFT]->reset();
+}
+
+void ThinPalaceGuard::resetAniSurprise()
+{
+	animations[THIN_GUARD_ANI_SURPRISE_RIGHT]->reset();
+	animations[THIN_GUARD_ANI_SURPRISE_LEFT]->reset();
+}
 
 ThinPalaceGuard::ThinPalaceGuard() : CEnemy() 
 {
 	width = THIN_GUARD_BBOX_WIDTH;
 	height = THIN_GUARD_BBOX_HEIGHT;
 
-	wait = false;
-	wave = false; 
-	walk = false; 
-	surprise = true;
 	hp = THIN_GUARD_MAX_HP;
 
 	AddAnimation(201);		// idle right

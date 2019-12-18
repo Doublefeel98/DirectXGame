@@ -559,7 +559,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			enemy->GetBoundingBox(l2, t2, r2, b2);
 			if (CGame::isColliding(l1, t1, r1, b1, l2, t2, r2, b2))
 			{
-				if (untouchable == 0)
+				if (untouchable == 0 && !IsEnemyHurt)
 				{
 					if (enemy->IsEnable())
 					{
@@ -601,7 +601,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 				if (e->nx != 0)
 				{
-					if (untouchable == 0)
+					if (untouchable == 0 && !IsEnemyHurt)
 					{
 						if (trap->IsEnable())
 						{
@@ -633,7 +633,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 				if (e->nx != 0)
 				{
-					if (untouchable == 0)
+					if (untouchable == 0 && !IsEnemyHurt)
 					{
 						if (ball->IsEnable())
 						{
@@ -714,16 +714,18 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			else if (dynamic_cast<CEnemy*>(e->obj))
 			{
 				CEnemy* enemy = dynamic_cast<CEnemy*>(e->obj);
-
-				if (e->nx != 0)
+				if (untouchable == 0 && !IsEnemyHurt)
 				{
-					if (enemy->IsEnable())
+					if (e->nx != 0)
 					{
-						this->hp -= enemy->GetDamage();
-						EnemyHurted(enemy->GetDamage());
-						if (enemy->GetType() == OBJECT_BAT)
+						if (enemy->IsEnable())
 						{
-							enemy->SetDead(true);
+							this->hp -= enemy->GetDamage();
+							EnemyHurted(enemy->GetDamage());
+							if (enemy->GetType() == OBJECT_BAT)
+							{
+								enemy->SetDead(true);
+							}
 						}
 					}
 				}

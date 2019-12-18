@@ -449,8 +449,8 @@
 #define PILAR_STATE_4								3
 #define PILAR_STATE_5								5
 
-#define PILAR_BBOX_WIDTH_5				78
-#define PILAR_BBOX_HEIGHT_5				761
+#define PILAR_BBOX_WIDTH_5				80
+#define PILAR_BBOX_HEIGHT_5				734
 
 //MAX_HP 
 #define BAT_MAX_HP 1

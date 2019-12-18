@@ -177,15 +177,15 @@ void CSampleKeyHander::KeyState(BYTE* states)
 		}
 	}
 
-	// CCamera* camera = CCamera::GetInstance();
-	// if (game->IsKeyDown(DIK_RIGHT))
-	// 	camera->SetCameraPosition(camera->GetCameraPosition().x + 10, camera->GetCameraPosition().y);
-	// else if (game->IsKeyDown(DIK_LEFT))
-	// 	camera->SetCameraPosition(camera->GetCameraPosition().x - 10, camera->GetCameraPosition().y);
-	// else if (game->IsKeyDown(DIK_UP))
-	// 	camera->SetCameraPosition(camera->GetCameraPosition().x, camera->GetCameraPosition().y - 10);
-	// else if (game->IsKeyDown(DIK_DOWN))
-	// 	camera->SetCameraPosition(camera->GetCameraPosition().x, camera->GetCameraPosition().y + 10);
+	 //CCamera* camera = CCamera::GetInstance();
+	 //if (game->IsKeyDown(DIK_RIGHT))
+	 //	camera->SetCameraPosition(camera->GetCameraPosition().x + 10, camera->GetCameraPosition().y);
+	 //else if (game->IsKeyDown(DIK_LEFT))
+	 //	camera->SetCameraPosition(camera->GetCameraPosition().x - 10, camera->GetCameraPosition().y);
+	 //else if (game->IsKeyDown(DIK_UP))
+	 //	camera->SetCameraPosition(camera->GetCameraPosition().x, camera->GetCameraPosition().y - 10);
+	 //else if (game->IsKeyDown(DIK_DOWN))
+	 //	camera->SetCameraPosition(camera->GetCameraPosition().x, camera->GetCameraPosition().y + 10);
 }
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

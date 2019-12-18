@@ -16,11 +16,13 @@ SceneOne::SceneOne(Aladdin* aladdin)
 	mapWidth = 2272.0f;
 	mapHeight = 1152.0f;
 	spriteMap = sprites->Get(ID_SPRITE_MAP_ONE);
-	fileResoucre = "resources\\map\\lv1\\new_obj.txt";
-	fileGrid = "resources\\map\\lv1\\new_grid.txt";
+	//fileResoucre = "resources\\map\\lv1\\new_obj.txt";
+	//fileGrid = "resources\\map\\lv1\\new_grid.txt";
 	//fileMap = "resources\\map\\lv1\\titlemaplv1_bg.txt";
 	//fileMap = "resources\\map\\lv1\\mapgamelv1_bg.txt";
 	fileMap = "resources\\map\\lv1\\tilemapgamelv1.txt";
+	fileResoucre = "resources\\map\\lv1\\text_obj.txt";
+	fileGrid = "resources\\map\\lv1\\text_grid.txt";
 	tileWidth = 16.0f;
 	tileHeight = 16.0f;
 	screenWidth = SCREEN_WIDTH;
@@ -42,27 +44,27 @@ SceneOne::SceneOne(Aladdin* aladdin)
 
 	Pilar* pilar = new Pilar();
 	pilar->SetState(PILAR_STATE_1);
-	pilar->SetPosition(159, 690);
+	pilar->SetPosition(161, 773);
 	pilars.push_back(pilar);
 
 	pilar = new Pilar();
 	pilar->SetState(PILAR_STATE_2);
-	pilar->SetPosition(463, 863);
+	pilar->SetPosition(481, 957);
 	pilars.push_back(pilar);
 
 	pilar = new Pilar();
 	pilar->SetState(PILAR_STATE_3);
-	pilar->SetPosition(766, 335);
+	pilar->SetPosition(801, 373);
 	pilars.push_back(pilar);
 
 	pilar = new Pilar();
 	pilar->SetState(PILAR_STATE_4);
-	pilar->SetPosition(1098, 834);
+	pilar->SetPosition(1153, 925);
 	pilars.push_back(pilar);
 
 	pilar = new Pilar();
 	pilar->SetState(PILAR_STATE_5);
-	pilar->SetPosition(1402, 363);
+	pilar->SetPosition(1490, 405);
 	pilar->SetWidth(PILAR_BBOX_WIDTH_5);
 	pilar->SetHeight(PILAR_BBOX_HEIGHT_5);
 	pilar->SetId(objects.size() + 1);
@@ -88,6 +90,11 @@ void SceneOne::Render()
 		coObjects[i]->Render();
 	}
 
+	//for (int i = 1; i < objects.size(); i++)
+	//{
+	//	objects[i]->Render();
+	//}
+
 	aladdin->Render();
 
 	for (int i = 0; i < pilars.size(); i++)
@@ -107,6 +114,12 @@ void SceneOne::Update(DWORD dt)
 	{
 		coObjects[i]->Update(dt, &coObjects);
 	}
+
+	//aladdin->Update(dt, &coObjects);
+	//for (int i = 1; i < coObjects.size(); i++)
+	//{
+	//	coObjects[i]->Update(dt, &coObjects);
+	//}
 
 	time += dt;
 	scoreboard->Update(0, 500 - time * 0.001, 3, 2);

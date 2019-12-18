@@ -6,8 +6,7 @@
 
 void NormalPalaceGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 {
-	CEnemy::Update(dt, coObject);
-	D3DXVECTOR3 alaPosition = Aladdin::GetInstance()->GetPosition();
+
 	//int x = alaPosition.x, y = alaPosition.y;
 
 	//if (this->x < x) direction = RIGHT;
@@ -41,6 +40,8 @@ void NormalPalaceGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 
 
 	if (!isDead) {
+		CEnemy::Update(dt, coObject);
+		D3DXVECTOR3 alaPosition = Aladdin::GetInstance()->GetPosition();
 
 		nx = this->x >= alaPosition.x ? -1 : 1;
 

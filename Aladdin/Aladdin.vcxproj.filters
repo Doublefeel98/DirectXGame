@@ -131,6 +131,7 @@
     <ClCompile Include="PennyNumber.cpp">
       <Filter>Source\Object\ScoreBoard</Filter>
     </ClCompile>
+    <ClCompile Include="Bone.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aladdin.h">
@@ -280,6 +281,7 @@
     <ClInclude Include="PennyNumber.h">
       <Filter>Source\Object\ScoreBoard</Filter>
     </ClInclude>
+    <ClInclude Include="Bone.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -314,6 +316,9 @@
     </Filter>
     <Filter Include="Source\Object\maps">
       <UniqueIdentifier>{ae36649e-40e2-4fbb-af59-9bf646f63262}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Object\Enemies\weapons">
+      <UniqueIdentifier>{6bc27124-45d2-4060-bc5c-5b4bc4fb98c3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

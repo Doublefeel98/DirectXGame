@@ -16,7 +16,8 @@ void AladdinResoucres::LoadTextures()
 	//map
 	//textures->Add(ID_TEX_MAP_ONE, L"resources\\mapread\\lv1\\lv1.png", D3DCOLOR_XRGB(163, 73, 164));
 	//textures->Add(ID_TEX_MAP_ONE, L"resources\\map\\lv1\\titlemaplv1.png", D3DCOLOR_XRGB(163, 73, 164));
-	textures->Add(ID_TEX_MAP_ONE, L"resources\\map\\lv1\\mapgamelv1.png", D3DCOLOR_XRGB(163, 73, 164));
+	//textures->Add(ID_TEX_MAP_ONE, L"resources\\map\\lv1\\mapgamelv1.png", D3DCOLOR_XRGB(163, 73, 164));
+	textures->Add(ID_TEX_MAP_ONE, L"resources\\map\\lv1\\maplv1.png", D3DCOLOR_XRGB(163, 73, 164));
 
 	//Obstacle
 	textures->Add(ID_TEX_OBSTACLE, L"resources\\textures\\Aladdin_Sultan_ Dungeon.png", D3DCOLOR_XRGB(163, 73, 164));
@@ -68,6 +69,14 @@ void AladdinResoucres::LoadSprites()
 
 	LPDIRECT3DTEXTURE9 texStatueRight = textures->Get(ID_TEX_STATUE_RIGHT);
 	LPDIRECT3DTEXTURE9 texStatueLeft = textures->Get(ID_TEX_STATUE_LEFT);
+
+
+	LPDIRECT3DTEXTURE9 textMapOne = textures->Get(ID_TEX_MAP_ONE);
+	//sprites->Add(ID_SPRITE_MAP_ONE, 0, 0, 2144, 1024, textMapOne);
+	//sprites->Add(ID_SPRITE_MAP_ONE, 0, 0, 256, 8304, textMapOne);
+	sprites->Add(ID_SPRITE_MAP_ONE, 0, 0, 2272, 1152, textMapOne);
+
+
 
 	sprites->Add(10001, 3, 9, 41, 59, texAladdinGoRight);		// idle right
 
@@ -473,15 +482,6 @@ void AladdinResoucres::LoadSprites()
 	sprites->AddByWidthHeight(11704, 852, 2160, 80, 52, texAladdinGoLeft);
 	sprites->AddByWidthHeight(11705, 778, 2160, 62, 52, texAladdinGoLeft);
 	sprites->AddByWidthHeight(11706, 711, 2160, 59, 52, texAladdinGoLeft);
-
-
-
-
-	/*LPDIRECT3DTEXTURE9 textMapOne = textures->Get(ID_TEX_MAP_ONE);
-	sprites->Add(ID_SPRITE_MAP_ONE, 0, 0, 2144, 1024, textMapOne);*/
-
-	LPDIRECT3DTEXTURE9 textMapOne = textures->Get(ID_TEX_MAP_ONE);
-	sprites->Add(ID_SPRITE_MAP_ONE, 0, 0, 256, 8304, textMapOne);
 
 	// item hp
 	sprites->AddByWidthHeight(20000, 17, 3007, 120, 32, texAladdinFullRight); //hp aladdin 1
@@ -988,6 +988,14 @@ void AladdinResoucres::LoadSprites()
 	sprites->AddByWidthHeight(31418, 411, 115, 81, 91, texSkeleton);
 	sprites->AddByWidthHeight(31419, 294, 115, 95, 91, texSkeleton);
 	sprites->AddByWidthHeight(31420, 215, 115, 60, 91, texSkeleton);
+
+	sprites->AddByWidthHeight(31433, 1533, 129, 16, 5, texSkeleton);	// bond 1
+	sprites->AddByWidthHeight(31432, 1556, 122, 6, 15, texSkeleton);		// bond 2
+	sprites->AddByWidthHeight(31431, 1568, 122, 12, 13, texSkeleton);	// bond 3
+	sprites->AddByWidthHeight(31430, 1586, 126, 6, 8, texSkeleton);		// bond 4
+
+
+
 
 	// jafar
 	sprites->AddByWidthHeight(40000, 870, 9, 64, 71, texJafar);		//idle right
@@ -1868,7 +1876,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(31400);
 	animations->Add(601, ani);
 
-	ani = new CAnimation(100);		// stand up right
+	ani = new CAnimation(100, false);		// stand up right
 	ani->Add(30401);
 	ani->Add(30402);
 	ani->Add(30403);
@@ -1891,7 +1899,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(30420);
 	animations->Add(602, ani);
 
-	ani = new CAnimation(100);		// stand up left
+	ani = new CAnimation(100, false);		// stand up left
 	ani->Add(31401);
 	ani->Add(31402);
 	ani->Add(31403);
@@ -1913,6 +1921,13 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(31419);
 	ani->Add(31420);
 	animations->Add(603, ani);
+
+	ani = new CAnimation(100);		// bond
+	ani->Add(31430);
+	ani->Add(31431);
+	ani->Add(31432);
+	ani->Add(31433);
+	animations->Add(604, ani);
 
 	//jafar
 	ani = new CAnimation(100);		// idle right

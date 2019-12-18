@@ -351,15 +351,33 @@
 #define FAT_GUARD_ANI_SURPRISE_LEFT					7
 
 // Skeleton
+#define SKELETON_STATE_WAIT				0
+#define SKELETON_STATE_STAND_UP 		1
 
 #define SKELETON_ANI_WAIT_RIGHT						0
 #define SKELETON_ANI_WAIT_LEFT						1
 #define SKELETON_ANI_STAND_UP_RIGHT					2
 #define SKELETON_ANI_STAND_UP_LEFT					3
 
-#define SKELETON_BBOX_WIDTH 40
-#define SKELETON_BBOX_HEIGHT 80
-#define SKELETON_BBOX_WIDTH_WIDE 80
+#define SKELETON_BBOX_WIDTH							40
+#define SKELETON_BBOX_HEIGHT						80
+#define SKELETON_BBOX_WIDTH_WIDE					80
+
+#define SKELETON_DELTA_X							200
+#define SKELETON_DELTA_Y							200
+
+//bone
+#define BONE_BBOX_WIDTH				6
+#define BONE_BBOX_HEIGHT			8
+
+#define BONE_STATE_IDLE			0
+#define BONE_STATE_FLY			1
+#define BONE_STATE_THROW		2
+#define BONE_STATE_DIE			3
+
+#define BONE_GRAVITY			0.002f
+#define BONE_SPEED_X			0.1f
+#define BONE_SPEED_Y			0.5f
 
 // Boss
 

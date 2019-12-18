@@ -1,10 +1,12 @@
 #pragma once
 #include "../Framework/Enemy.h"
 #include "Define.h"
-
+#include "Bone.h"
 class ExplodingSkeleton : public CEnemy
 {
 private:
+	Bone* bones;
+	int ani;
 public:
 	ExplodingSkeleton();
 	~ExplodingSkeleton();

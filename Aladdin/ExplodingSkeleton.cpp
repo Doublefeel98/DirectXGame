@@ -3,6 +3,7 @@
 #include "../Framework/debug.h"
 
 #include "../Framework/Game.h"
+#include "Aladdin.h"
 
 void ExplodingSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 {
@@ -12,6 +13,34 @@ void ExplodingSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 		y = -5;
 		vx = 0;
 		vy = 0;
+	}
+	else {
+		CEnemy::Update(dt, coObject);
+		D3DXVECTOR3 alaPosition = Aladdin::GetInstance()->GetPosition();
+
+		if (bones->IsEnable())
+		{
+			bones->Update(dt, coObject);
+		}
+
+		nx = this->x >= alaPosition.x ? -1 : 1;
+
+		if (animations[2]->IsLastFrame || animations[3]->IsLastFrame) {
+			bones->SetPosition(x, y);
+			bones->SetEnable(true);
+			bones->SetState(BONE_STATE_FLY);
+		}
+
+		if (abs(this->x - alaPosition.x) < SKELETON_DELTA_X && abs(this->y - alaPosition.y) < SKELETON_DELTA_Y)
+		{
+			SetState(SKELETON_STATE_STAND_UP);
+		}
+		else {
+			SetState(SKELETON_STATE_WAIT);
+
+			animations[2]->reset();
+			animations[3]->reset();
+		}
 	}
 }
 
@@ -43,13 +72,42 @@ void ExplodingSkeleton::SetState(int state)
 {
 	CEnemy::SetState(state);
 }
-void ExplodingSkeleton::Render() 
+void ExplodingSkeleton::Render()
 {
-	if (isEnable)
+	if (isEnable && !isDead)
 	{
-		animations[SKELETON_ANI_STAND_UP_RIGHT]->Render(x, y);
-		CEnemy::Render();
+		int posX = x, posY = y;
+		switch (state)
+		{
+		case SKELETON_STATE_WAIT:
+			if (nx > 0)
+			{
+				ani = SKELETON_ANI_WAIT_RIGHT;
+			}
+			else {
+				ani = SKELETON_ANI_WAIT_LEFT;
+			}
+			break;
+		case SKELETON_STATE_STAND_UP:
+			if (nx > 0)
+			{
+				ani = SKELETON_ANI_STAND_UP_RIGHT;
+			}
+			else {
+				ani = SKELETON_ANI_STAND_UP_LEFT;
+			}
+			break;
+		default:
+			break;
+		}
+
+		animations[ani]->Render(posX, posY);
 		RenderBoundingBox();
+
+		if (bones->IsEnable())
+		{
+			bones->Render();
+		}
 	}
 }
 
@@ -65,6 +123,8 @@ ExplodingSkeleton::ExplodingSkeleton() : CEnemy()
 
 	AddAnimation(602);		// stand up right
 	AddAnimation(603);		// stand up left
+
+	bones = new Bone();
 }
 
 ExplodingSkeleton::~ExplodingSkeleton() {

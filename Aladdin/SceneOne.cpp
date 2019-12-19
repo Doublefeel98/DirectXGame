@@ -6,7 +6,7 @@
 SceneOne::SceneOne(Aladdin* aladdin)
 {
 	this->aladdin = aladdin;
-	this->aladdin->SetPosition(1200, 1052);
+	this->aladdin->SetPosition(300, 1052);
 	//this->aladdin->SetPosition(1030, 750);
 	//this->aladdin->SetPosition(432, 580);
 
@@ -21,9 +21,11 @@ SceneOne::SceneOne(Aladdin* aladdin)
 	//fileGrid = "resources\\map\\lv1\\new_grid.txt";
 	//fileMap = "resources\\map\\lv1\\titlemaplv1_bg.txt";
 	//fileMap = "resources\\map\\lv1\\mapgamelv1_bg.txt";
+
 	fileMap = "resources\\map\\lv1\\tilemapgamelv1.txt";
 	fileResoucre = "resources\\map\\lv1\\text_obj.txt";
 	fileGrid = "resources\\map\\lv1\\text_grid.txt";
+
 	tileWidth = 16.0f;
 	tileHeight = 16.0f;
 	screenWidth = SCREEN_WIDTH;

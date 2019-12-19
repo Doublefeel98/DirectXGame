@@ -203,6 +203,7 @@ void Grid::GetListOfObjects(vector<LPGAMEOBJECT>* list_object, int screenWidth, 
 		for (j = top; j < bottom; j++)
 		{
 			if (cells[i][j].GetListObjects().size() != 0)
+			{
 				for (k = 0; k < cells[i][j].GetListObjects().size(); k++)
 				{
 					e = cells[i][j].GetListObjects().at(k);
@@ -210,6 +211,7 @@ void Grid::GetListOfObjects(vector<LPGAMEOBJECT>* list_object, int screenWidth, 
 						list_object->push_back(e);
 					}
 				}
+			}
 		}
 	}
 

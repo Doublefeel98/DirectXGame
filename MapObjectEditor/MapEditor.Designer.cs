@@ -506,7 +506,7 @@
             // 
             this.numHeight.Location = new System.Drawing.Point(469, 25);
             this.numHeight.Maximum = new decimal(new int[] {
-            1000,
+            5000,
             0,
             0,
             0});
@@ -519,7 +519,7 @@
             // 
             this.numWidth.Location = new System.Drawing.Point(340, 26);
             this.numWidth.Maximum = new decimal(new int[] {
-            1000,
+            5000,
             0,
             0,
             0});

@@ -9,6 +9,7 @@ Wood::Wood()
 
 void Wood::Render()
 {
+	RenderBoundingBox();
 }
 
 void Wood::GetBoundingBox(float& l, float& t, float& r, float& b)

@@ -109,7 +109,6 @@
     <ClCompile Include="ThrowApples.cpp">
       <Filter>Source\Object\wepons</Filter>
     </ClCompile>
-    <ClCompile Include="Chains.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Statue.cpp">
       <Filter>Source\Object\Enemies</Filter>
@@ -134,6 +133,9 @@
       <Filter>Source\Object\maps</Filter>
     </ClCompile>
     <ClCompile Include="Wood.cpp">
+      <Filter>Source\Object\maps</Filter>
+    </ClCompile>
+    <ClCompile Include="Chains.cpp">
       <Filter>Source\Object\maps</Filter>
     </ClCompile>
   </ItemGroup>
@@ -266,7 +268,6 @@
     <ClInclude Include="Peddler.h">
       <Filter>Source\Object\maps</Filter>
     </ClInclude>
-    <ClInclude Include="Chains.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Statue.h">
       <Filter>Source\Object\Enemies</Filter>
@@ -288,6 +289,9 @@
       <Filter>Source\Object\maps</Filter>
     </ClInclude>
     <ClInclude Include="Wood.h">
+      <Filter>Source\Object\maps</Filter>
+    </ClInclude>
+    <ClInclude Include="Chains.h">
       <Filter>Source\Object\maps</Filter>
     </ClInclude>
   </ItemGroup>

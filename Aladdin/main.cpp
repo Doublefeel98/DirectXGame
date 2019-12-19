@@ -153,24 +153,23 @@ void CSampleKeyHander::KeyState(BYTE* states)
 			aladdin->SetState(ALADDIN_STATE_WALKING_LEFT);
 	}
 	else if (game->IsKeyDown(DIK_DOWN)) {
-		if (aladdin->canAbleClimb)
+		if (aladdin->canAbleClimbDown)
 		{
 			aladdin->SetState(ALADDIN_STATE_CLIMB_DOWN);
 		}
-		else if (!aladdin->IsJump) {
+		else if (aladdin->GetState() == ALADDIN_STATE_IDLE) {
 			aladdin->SetState(ALADDIN_STATE_SIT_DOWN);
 		}
 	}
 	else if (game->IsKeyDown(DIK_UP))
 	{
-		if (aladdin->canAbleClimb)
+		if (aladdin->canAbleClimbUp)
 		{
 			aladdin->SetState(ALADDIN_STATE_CLIMB_UP);
 		}
 		else if (!aladdin->IsJump && !aladdin->IsSit) {
 			aladdin->SetState(ALADDIN_STATE_LOOKING_UP);
 		}
-
 	}
 	else {
 		if (aladdin->GetState() != ALADDIN_STATE_STANDING_SLASH)
@@ -179,15 +178,15 @@ void CSampleKeyHander::KeyState(BYTE* states)
 		}
 	}
 
-	 //CCamera* camera = CCamera::GetInstance();
-	 //if (game->IsKeyDown(DIK_RIGHT))
-	 //	camera->SetCameraPosition(camera->GetCameraPosition().x + 10, camera->GetCameraPosition().y);
-	 //else if (game->IsKeyDown(DIK_LEFT))
-	 //	camera->SetCameraPosition(camera->GetCameraPosition().x - 10, camera->GetCameraPosition().y);
-	 //else if (game->IsKeyDown(DIK_UP))
-	 //	camera->SetCameraPosition(camera->GetCameraPosition().x, camera->GetCameraPosition().y - 10);
-	 //else if (game->IsKeyDown(DIK_DOWN))
-	 //	camera->SetCameraPosition(camera->GetCameraPosition().x, camera->GetCameraPosition().y + 10);
+	//CCamera* camera = CCamera::GetInstance();
+	//if (game->IsKeyDown(DIK_RIGHT))
+	//	camera->SetCameraPosition(camera->GetCameraPosition().x + 10, camera->GetCameraPosition().y);
+	//else if (game->IsKeyDown(DIK_LEFT))
+	//	camera->SetCameraPosition(camera->GetCameraPosition().x - 10, camera->GetCameraPosition().y);
+	//else if (game->IsKeyDown(DIK_UP))
+	//	camera->SetCameraPosition(camera->GetCameraPosition().x, camera->GetCameraPosition().y - 10);
+	//else if (game->IsKeyDown(DIK_DOWN))
+	//	camera->SetCameraPosition(camera->GetCameraPosition().x, camera->GetCameraPosition().y + 10);
 }
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

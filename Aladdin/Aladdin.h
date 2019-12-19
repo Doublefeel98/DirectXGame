@@ -3,6 +3,7 @@
 #include "Define.h"
 #include "ThrowApples.h"
 #include "Sword.h"
+#include "Chains.h"
 
 class Aladdin : public CGameObject
 {
@@ -29,8 +30,8 @@ class Aladdin : public CGameObject
 	int countApple;
 	int countPenny;
 	Aladdin();
-	int checkPointX;
-	int checkPointY;
+	int checkPointX, checkPointY;
+	Chains* chainsCanAble;
 public:
 	bool IsSit;
 	bool IsLookingUp;
@@ -42,8 +43,11 @@ public:
 	bool IsHurt;
 	bool IsClimb;
 	bool canAbleClimb;
+	bool canAbleClimbUp;
+	bool canAbleClimbDown;
 	bool IsClimbing;
 	bool IsEnemyHurt;
+	bool fallingAfterClimbing;
 	bool IsMoveCameraWhenLookingUp();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();

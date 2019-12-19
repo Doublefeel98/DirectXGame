@@ -6,13 +6,13 @@ Ground::Ground()
 }
 void Ground::Render()
 {
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 
 void Ground::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x;
 	t = y;
-	r = x + GROUND_BBOX_WIDTH;
-	b = y + GROUND_BBOX_HEIGHT;
+	r = x + width;
+	b = y + height;
 }

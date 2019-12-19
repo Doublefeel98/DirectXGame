@@ -404,18 +404,27 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(11424, 884, 1005, 936, 1064, texAladdinGoLeft);
 	sprites->Add(11425, 828, 1005, 868, 1064, texAladdinGoLeft);
 
-	sprites->Add(10501, 11, 1358, 40, 1450, texAladdinGoRight, -5, -35);		// climbing
-	sprites->Add(10502, 53, 1358, 81, 1450, texAladdinGoRight, -6, -38);
-	sprites->Add(10503, 94, 1358, 122, 1450, texAladdinGoRight, -4, -23);
-	sprites->Add(10504, 133, 1358, 175, 1450, texAladdinGoRight, -18, -11);
-	sprites->Add(10505, 186, 1358, 217, 1450, texAladdinGoRight, -7, -25);
-	sprites->Add(10506, 231, 1358, 260, 1450, texAladdinGoRight, -8, -35);
-	sprites->Add(10507, 274, 1358, 302, 1450, texAladdinGoRight, -7, -28);
-	sprites->Add(10508, 314, 1358, 346, 1450, texAladdinGoRight, -6, -12);
-	sprites->Add(10509, 356, 1358, 398, 1450, texAladdinGoRight, -7, -11);
-	sprites->Add(10510, 406, 1358, 434, 1450, texAladdinGoRight, -5, -30);
+	//sprites->Add(10501, 11, 1358, 40, 1450, texAladdinGoRight, -5, -35);		// climbing
+	//sprites->Add(10502, 53, 1358, 81, 1450, texAladdinGoRight, -6, -38);
+	//sprites->Add(10503, 94, 1358, 122, 1450, texAladdinGoRight, -4, -23);
+	//sprites->Add(10504, 133, 1358, 175, 1450, texAladdinGoRight, -18, -11);
+	//sprites->Add(10505, 186, 1358, 217, 1450, texAladdinGoRight, -7, -25);
+	//sprites->Add(10506, 231, 1358, 260, 1450, texAladdinGoRight, -8, -35);
+	//sprites->Add(10507, 274, 1358, 302, 1450, texAladdinGoRight, -7, -28);
+	//sprites->Add(10508, 314, 1358, 346, 1450, texAladdinGoRight, -6, -12);
+	//sprites->Add(10509, 356, 1358, 398, 1450, texAladdinGoRight, -7, -11);
+	//sprites->Add(10510, 406, 1358, 434, 1450, texAladdinGoRight, -5, -30);
 
-
+	sprites->Add(10501, 11, 1358, 40, 1450, texAladdinGoRight, 0, -35);		// climbing
+	sprites->Add(10502, 53, 1358, 81, 1450, texAladdinGoRight, 0, -38);
+	sprites->Add(10503, 94, 1358, 122, 1450, texAladdinGoRight, 0, -23);
+	sprites->Add(10504, 133, 1358, 175, 1450, texAladdinGoRight, 0, -11);
+	sprites->Add(10505, 186, 1358, 217, 1450, texAladdinGoRight, 0, -25);
+	sprites->Add(10506, 231, 1358, 260, 1450, texAladdinGoRight, 0, -35);
+	sprites->Add(10507, 274, 1358, 302, 1450, texAladdinGoRight, 0, -28);
+	sprites->Add(10508, 314, 1358, 346, 1450, texAladdinGoRight, 0, -12);
+	sprites->Add(10509, 356, 1358, 398, 1450, texAladdinGoRight, 0, -11);
+	sprites->Add(10510, 406, 1358, 434, 1450, texAladdinGoRight, 0, -30);
 
 	sprites->Add(10521, 10, 1866, 44, 1950, texAladdinGoRight);		// falling after climbing
 	sprites->Add(10522, 65, 1866, 90, 1950, texAladdinGoRight);

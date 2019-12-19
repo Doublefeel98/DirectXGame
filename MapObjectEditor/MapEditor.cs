@@ -177,7 +177,7 @@ namespace MapEditor
                     }
                     else if (imgIndex == 13)
                     {
-                        imageCursor = Utilities.ResizeImage(imageCursor, 13, 122);
+                        imageCursor = Utilities.ResizeImage(imageCursor, 10, 122);
                     }
                     else if (imgIndex == 14)
                     {

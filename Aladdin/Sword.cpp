@@ -124,7 +124,6 @@ void Sword::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 			right = x;
 			bottom = top + SWORD_BBOX_LOOKUP_HEIGHT;
 			break;
-
 		case SWORD_STATE_RUN_RIGHT:
 			right = left + SWORD_BBOX_RUN_WIDTH;
 			bottom = top + SWORD_BBOX_RUN_HEIGHT;
@@ -133,6 +132,15 @@ void Sword::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 			left = x - SWORD_BBOX_RUN_WIDTH;
 			right = x;
 			bottom = top + SWORD_BBOX_RUN_HEIGHT;
+			break;
+		case SWORD_STATE_CLIMB_RIGHT:
+			right = left + SWORD_BBOX_CLIMB_WIDTH;
+			bottom = top + SWORD_BBOX_CLIMB_HEIGHT;
+			break;
+		case SWORD_STATE_CLIMB_LEFT:
+			left = x - SWORD_BBOX_CLIMB_WIDTH;
+			right = x;
+			bottom = top + SWORD_BBOX_CLIMB_HEIGHT;
 			break;
 		default:
 			break;

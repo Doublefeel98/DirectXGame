@@ -58,6 +58,10 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (IsClimb == true)
 	{
+		if (chainsCanAble != nullptr)
+		{
+			x = chainsCanAble->x + chainsCanAble->width / 2 - width / 2;
+		}
 		vy = 0;
 	}
 	else {
@@ -208,6 +212,46 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				SetState(ALADDIN_STATE_IDLE);
 			}
 		}
+		else if (IsClimb)
+		{
+			if (nx > 0)
+			{
+				sword->SetState(SWORD_STATE_JUMP_RIGHT);
+				sword->SetPosition(x + ALADDIN_BBOX_WIDTH, y);
+			}
+			else {
+				sword->SetState(SWORD_STATE_JUMP_LEFT);
+				sword->SetPosition(x, y);
+			}
+			if (now - timeAttackStart >= ALADDIN_CLIMB_ENABLE_SWORD_TIME && now - timeAttackStart < ALADDIN_CLIMB_ENABLE_SWORD_TIME + 100)
+			{
+				if (!sword->IsFighting())
+				{
+					sword->SetEnable(true);
+					sword->SetFighting(true);
+				}
+			}
+			if (now - timeAttackStart >= ALADDIN_CLIMB_ENABLE_SWORD_TIME + 200)
+			{
+				if (!sword->IsFighting())
+				{
+					sword->SetEnable(true);
+					sword->SetFighting(true);
+				}
+			}
+			if (now - timeAttackStart >= 600)
+			{
+				sword->SetEnable(false);
+			}
+			if (now - timeAttackStart > ALADDIN_CLIMB_SLASH_TIME)
+			{
+				ResetAnimationsSlash();
+				timeAttackStart = 0;
+				IsSlash = false;
+
+				SetState(ALADDIN_STATE_CLIMB);
+			}
+		}
 		else if (vx != 0)
 		{
 			if (now - timeAttackStart >= ALADDIN_RUN_ENABLE_SWORD_TIME)
@@ -296,6 +340,28 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 		}
 		else if (IsJump)
+		{
+			if (now - timeThrowStart > ALADDIN_JUMP_THROW_TIME)
+			{
+				throwApple->SetEnable(true);
+				if (nx > 0)
+				{
+					throwApple->SetState(THROW_APPLE_STATE_RIGHT);
+					throwApple->SetPosition(x + ALADDIN_BBOX_WIDTH + 3, y);
+				}
+				else {
+					throwApple->SetState(THROW_APPLE_STATE_LEFT);
+					throwApple->SetPosition(x - 3, y);
+				}
+
+				ResetAnimationsThrow();
+				timeThrowStart = 0;
+				IsThrow = false;
+				IsJump = false;
+				SetState(ALADDIN_STATE_IDLE);
+			}
+		}
+		else if (IsClimb)
 		{
 			if (now - timeThrowStart > ALADDIN_JUMP_THROW_TIME)
 			{
@@ -542,12 +608,13 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		else if (dynamic_cast<Chains*>(coObjects->at(i)))
 		{
-			Chains* ball = dynamic_cast<Chains*>(coObjects->at(i));
+			Chains* chains = dynamic_cast<Chains*>(coObjects->at(i));
 			float l1, t1, r1, b1, l2, t2, r2, b2;
 			GetBoundingBox(l1, t1, r1, b1);
-			ball->GetBoundingBox(l2, t2, r2, b2);
+			chains->GetBoundingBox(l2, t2, r2, b2);
 			if (CGame::isColliding(l1, t1, r1, b1, l2, t2, r2, b2)) {
 				canAbleClimb = true;
+				chainsCanAble = chains;
 			}
 		}
 		else if (dynamic_cast<CEnemy*>(coObjects->at(i)))
@@ -577,6 +644,21 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (!canAbleClimb)
 	{
 		IsClimb = false;
+		chainsCanAble = nullptr;
+		canAbleClimbUp = false;
+		canAbleClimbDown = false;
+	}
+	else {
+		canAbleClimbUp = true;
+		canAbleClimbDown = true;
+		if (y < chainsCanAble->y)
+		{
+			canAbleClimbUp = false;
+		}
+		else if (y + 1 > chainsCanAble->y + chainsCanAble->height)
+		{
+			canAbleClimbDown = false;
+		}
 	}
 
 	// No collision occured, proceed normally
@@ -741,6 +823,8 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 					if (nx != 0) vx = 0;
 					if (ny != 0) vy = 0;
+
+					fallingAfterClimbing = false;
 				}
 			}
 			else
@@ -773,52 +857,6 @@ void Aladdin::Render()
 		ani = ALADDIN_ANI_DIE;
 	else
 	{
-		if (vx == 0)
-		{
-			DWORD dt = now - timeIdleStart;
-			if (nx > 0)
-			{
-				ani = ALADDIN_ANI_IDLE_RIGHT;
-
-				if (dt >= ALADDIN_LOOKAROUND_TIME && dt < ALADDIN_STAND_TIME)
-				{
-					posY = y - 3;
-					ani = ALADDIN_ANI_LOOK_AROUND_RIGHT;
-
-				}
-				else if (dt > ALADDIN_STAND_TIME)
-				{
-					posY = y - 25;
-					ani = ALADDIN_ANI_STANDING_RIGHT;
-				}
-			}
-			else
-			{
-				ani = ALADDIN_ANI_IDLE_LEFT;
-				if (dt >= ALADDIN_LOOKAROUND_TIME && dt < ALADDIN_STAND_TIME)
-				{
-					posY = y - 3;
-					ani = ALADDIN_ANI_LOOK_AROUND_LEFT;
-
-				}
-				else if (dt > ALADDIN_STAND_TIME)
-				{
-					posY = y - 25;
-					ani = ALADDIN_ANI_STANDING_LEFT;
-				}
-			}
-		}
-		else if (vx > 0)
-		{
-			posY = y - 7;
-			ani = ALADDIN_ANI_WALKING_RIGHT;
-		}
-		else
-		{
-			posY = y - 7;
-			ani = ALADDIN_ANI_WALKING_LEFT;
-		}
-
 		if (IsSit)
 		{
 			if (IsSlash)
@@ -849,69 +887,78 @@ void Aladdin::Render()
 					ani = ALADDIN_ANI_SIT_DOWN_LEFT;
 			}
 		}
-		else {
+		else if (IsClimb) {
+
 			if (IsSlash)
 			{
 				if (nx > 0)
 				{
-					if (vx > 0)
-					{
-						posY = y - 8;
-						ani = ALADDIN_ANI_RUN_SLASH_RIGHT;
-					}
-					else
-					{
-						ani = ALADDIN_ANI_STANDING_SLASH_RIGHT;
-						posY = y - 23;
-					}
+					ani = ALADDIN_ANI_CLIMBING_SLASH_RIGHT;
 				}
-				else
-				{
-					if (vx < 0)
-					{
-						posY = y - 8;
-						ani = ALADDIN_ANI_RUN_SLASH_LEFT;
-					}
-					else
-					{
-						ani = ALADDIN_ANI_STANDING_SLASH_LEFT;
-						posY = y - 23;
-					}
+				else {
+					ani = ALADDIN_ANI_CLIMBING_SLASH_LEFT;
 				}
 			}
+			else if (IsThrow)
+			{
+				if (nx > 0)
+				{
+					ani = ALADDIN_ANI_CLIMBING_THROW_APPLE_RIGHT;
+				}
+				else {
+					ani = ALADDIN_ANI_CLIMBING_THROW_APPLE_LEFT;
+				}
+			}
+			else {
+				ani = ALADDIN_ANI_CLIMBING;
+				if (IsClimbing) {
+					animations[ani]->start();
+				}
+				else {
+					animations[ani]->pause();
+				}
+			}
+
 		}
-		if (IsJump)
+		else if (IsJump)
 		{
-			if (nx > 0)
+			if (fallingAfterClimbing)
 			{
-				if (IsSlash)
+				ani = ALADDIN_ANI_FALLING_AFTER_CLIMBING;
+			}
+			else {
+				if (nx > 0)
 				{
-					ani = ALADDIN_ANI_JUMPING_SLASH_RIGHT;
+					if (IsSlash)
+					{
+						ani = ALADDIN_ANI_JUMPING_SLASH_RIGHT;
+					}
+					else
+					{
+						if (vx > 0)
+							ani = ALADDIN_ANI_RUN_JUMP_RIGHT;
+						else
+							ani = ALADDIN_ANI_JUMPING_RIGHT;
+					}
 				}
 				else
 				{
-					if (vx > 0)
-						ani = ALADDIN_ANI_RUN_JUMP_RIGHT;
+					if (IsSlash)
+					{
+						ani = ALADDIN_ANI_JUMPING_SLASH_LEFT;
+					}
 					else
-						ani = ALADDIN_ANI_JUMPING_RIGHT;
+					{
+						if (vx < 0)
+							ani = ALADDIN_ANI_RUN_JUMP_LEFT;
+						else
+							ani = ALADDIN_ANI_JUMPING_LEFT;
+					}
 				}
 			}
-			else
-			{
-				if (IsSlash)
-				{
-					ani = ALADDIN_ANI_JUMPING_SLASH_LEFT;
-				}
-				else
-				{
-					if (vx < 0)
-						ani = ALADDIN_ANI_RUN_JUMP_LEFT;
-					else
-						ani = ALADDIN_ANI_JUMPING_LEFT;
-				}
-			}
+
 		}
-		if (IsLookingUp)
+		else if (IsLookingUp)
 		{
 			if (IsSlash)
 			{
@@ -931,7 +978,7 @@ void Aladdin::Render()
 					ani = ALADDIN_ANI_LOOKING_UP_LEFT;
 			}
 		}
-		if (IsThrow)
+		else if (IsThrow)
 		{
 			if (IsSit)
 			{
@@ -978,16 +1025,7 @@ void Aladdin::Render()
 				}
 			}
 		}
-		if (IsClimb) {
-			ani = ALADDIN_ANI_CLIMBING;
-			if (IsClimbing) {
-				animations[ani]->start();
-			}
-			else {
-				animations[ani]->pause();
-			}
-		}
-		if (IsHurt) {
+		else if (IsHurt) {
 			if (nx > 0)
 			{
 				ani = ALADDIN_ANI_BE_ATTACKED_RIGHT;
@@ -995,6 +1033,86 @@ void Aladdin::Render()
 			else
 			{
 				ani = ALADDIN_ANI_BE_ATTACKED_LEFT;
+			}
+		}
+		else {
+			if (vx == 0)
+			{
+				DWORD dt = now - timeIdleStart;
+				if (nx > 0)
+				{
+					ani = ALADDIN_ANI_IDLE_RIGHT;
+
+					if (dt >= ALADDIN_LOOKAROUND_TIME && dt < ALADDIN_STAND_TIME)
+					{
+						posY = y - 3;
+						ani = ALADDIN_ANI_LOOK_AROUND_RIGHT;
+
+					}
+					else if (dt > ALADDIN_STAND_TIME)
+					{
+						posY = y - 25;
+						ani = ALADDIN_ANI_STANDING_RIGHT;
+					}
+				}
+				else
+				{
+					ani = ALADDIN_ANI_IDLE_LEFT;
+					if (dt >= ALADDIN_LOOKAROUND_TIME && dt < ALADDIN_STAND_TIME)
+					{
+						posY = y - 3;
+						ani = ALADDIN_ANI_LOOK_AROUND_LEFT;
+
+					}
+					else if (dt > ALADDIN_STAND_TIME)
+					{
+						posY = y - 25;
+						ani = ALADDIN_ANI_STANDING_LEFT;
+					}
+				}
+
+			}
+			else if (vx != 0)
+			{
+				if (vx > 0)
+				{
+					posY = y - 7;
+					ani = ALADDIN_ANI_WALKING_RIGHT;
+				}
+				else
+				{
+					posY = y - 7;
+					ani = ALADDIN_ANI_WALKING_LEFT;
+				}
+			}
+			if (IsSlash)
+			{
+				if (nx > 0)
+				{
+					if (vx > 0)
+					{
+						posY = y - 8;
+						ani = ALADDIN_ANI_RUN_SLASH_RIGHT;
+					}
+					else
+					{
+						ani = ALADDIN_ANI_STANDING_SLASH_RIGHT;
+						posY = y - 23;
+					}
+				}
+				else
+				{
+					if (vx < 0)
+					{
+						posY = y - 8;
+						ani = ALADDIN_ANI_RUN_SLASH_LEFT;
+					}
+					else
+					{
+						ani = ALADDIN_ANI_STANDING_SLASH_LEFT;
+						posY = y - 23;
+					}
+				}
 			}
 		}
 
@@ -1035,6 +1153,12 @@ void Aladdin::SetState(int state)
 		//IsSit = false;
 		IsJump = true;
 		IsGround = false;
+		if (IsClimb)
+		{
+			fallingAfterClimbing = true;
+			IsClimb = false;
+			IsClimbing = false;
+		}
 		vy = -ALADDIN_JUMP_SPEED_Y;
 	case ALADDIN_STATE_IDLE:
 		IsSit = false;
@@ -1158,6 +1282,12 @@ void Aladdin::SetState(int state)
 			timeJumpThrowStart = 0;
 		}
 		break;
+	case ALADDIN_STATE_CLIMB:
+		vx = 0;
+		vy = 0;
+		IsClimb = true;
+		IsClimbing = false;
+		break;
 	case ALADDIN_STATE_CLIMB_UP:
 		vx = 0;
 		vy = -ALADDIN_CLIMB_SPEED_Y;
@@ -1199,6 +1329,9 @@ void Aladdin::ResetAnimationsSlash()
 
 	resetAni(ALADDIN_ANI_RUN_SLASH_LEFT);
 	resetAni(ALADDIN_ANI_RUN_SLASH_RIGHT);
+
+	resetAni(ALADDIN_ANI_CLIMBING_SLASH_RIGHT);
+	resetAni(ALADDIN_ANI_CLIMBING_SLASH_LEFT);
 }
 
 void Aladdin::ResetAnimationsSitDown()
@@ -1232,6 +1365,9 @@ void Aladdin::ResetAnimationsThrow()
 
 	resetAni(ALADDIN_ANI_RUN_THROW_LEFT);
 	resetAni(ALADDIN_ANI_RUN_THROW_RIGHT);
+
+	resetAni(ALADDIN_ANI_CLIMBING_THROW_APPLE_RIGHT);
+	resetAni(ALADDIN_ANI_CLIMBING_THROW_APPLE_LEFT);
 }
 
 void Aladdin::ResetAnimationsJump()
@@ -1321,8 +1457,14 @@ Aladdin::Aladdin() : CGameObject()
 	IsThrow = false;
 	IsGround = false;
 	IsClimb = false;
+
 	canAbleClimb = false;
 	IsClimbing = false;
+	canAbleClimbUp = false;
+	canAbleClimbDown = false;
+
+	fallingAfterClimbing = false;
+
 	untouchable = 0;
 
 	checkPointX = x;

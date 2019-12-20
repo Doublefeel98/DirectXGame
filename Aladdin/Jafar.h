@@ -1,8 +1,9 @@
 #pragma once
 #include "../Framework/GameObject.h"
 #include "Define.h"
+#include "../Framework/Enemy.h"
 
-class Jafar : public CGameObject
+class Jafar : public CEnemy
 {
 private:
 

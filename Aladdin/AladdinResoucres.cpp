@@ -19,6 +19,9 @@ void AladdinResoucres::LoadTextures()
 	//textures->Add(ID_TEX_MAP_ONE, L"resources\\map\\lv1\\mapgamelv1.png", D3DCOLOR_XRGB(163, 73, 164));
 	textures->Add(ID_TEX_MAP_ONE, L"resources\\map\\lv1\\maplv1.png", D3DCOLOR_XRGB(163, 73, 164));
 
+	//textures->Add(ID_TEX_MAP_BOSS, L"resources\\map\\lv_boss\\tileset.png", D3DCOLOR_XRGB(249, 245, 248));
+	textures->Add(ID_TEX_MAP_BOSS, L"resources\\map\\lv_boss\\lv_boss.png", D3DCOLOR_XRGB(250, 246, 249));
+
 	//Obstacle
 	textures->Add(ID_TEX_OBSTACLE, L"resources\\textures\\Aladdin_Sultan_ Dungeon.png", D3DCOLOR_XRGB(163, 73, 164));
 
@@ -76,6 +79,9 @@ void AladdinResoucres::LoadSprites()
 	//sprites->Add(ID_SPRITE_MAP_ONE, 0, 0, 256, 8304, textMapOne);
 	sprites->Add(ID_SPRITE_MAP_ONE, 0, 0, 2272, 1152, textMapOne);
 
+	LPDIRECT3DTEXTURE9 textMapBoss = textures->Get(ID_TEX_MAP_BOSS);
+	/*sprites->Add(ID_SPRITE_MAP_BOSS, 0, 0, 512, 800, textMapBoss);*/
+	sprites->Add(ID_SPRITE_MAP_BOSS, 0, 0, 960, 416, textMapBoss);
 
 
 	sprites->Add(10001, 3, 9, 41, 59, texAladdinGoRight);		// idle right

@@ -31,11 +31,10 @@ SceneOne::SceneOne(Aladdin* aladdin)
 	screenWidth = SCREEN_WIDTH;
 	screenHeight = SCREEN_HEIGHT;
 
-	aladinObjects = new AladdinObjects();
-
 	tilemap = new TileMap(mapWidth, mapHeight, spriteMap, 16.0f, 16.0f);
 	tilemap->LoadListTileFromFile(fileMap);
 
+	aladinObjects = new AladdinObjects();
 	aladinObjects->Load(fileResoucre, &objects);
 
 	//for (int i = 0; i < 67; i++)
@@ -73,7 +72,7 @@ SceneOne::SceneOne(Aladdin* aladdin)
 	pilar->SetId(objects.size() + 1);
 	objects.push_back(pilar);
 
-	for (int i = 1; i < objects.size(); i++)
+	for (int i = 0; i < objects.size(); i++)
 		coObjects.push_back(objects[i]);
 
 	grid = new Grid((int)mapWidth, (int)mapHeight, 160);

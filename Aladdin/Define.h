@@ -29,11 +29,15 @@
 #define ID_TEX_STATUE_LEFT	-110
 
 #define ID_TEX_MAP_ONE -10
+#define ID_TEX_MAP_BOSS -11
 
 //ID SPRITES
 #define ID_SPRITE_MAP_ONE -10
+#define ID_SPRITE_MAP_BOSS	-11
 
-//ID ANIMATIONS
+
+// config game
+#define DEVIATION_X						18
 
 
 //ID OBJECTS

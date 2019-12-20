@@ -19,6 +19,8 @@
 #include "Ground.h"
 #include "StoneBar.h"
 #include "Pilar.h"
+#include "../Framework/MapCollision.h"
+#include "Spitfire.h"
 
 Aladdin* Aladdin::__instance = NULL;
 bool Aladdin::IsMoveCameraWhenLookingUp()
@@ -813,7 +815,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 			}
 
-			if (dynamic_cast<Brick*>(e->obj) || dynamic_cast<StoneBar*>(e->obj) || dynamic_cast<Ground*>(e->obj) || dynamic_cast<Wood*>(e->obj) || dynamic_cast<Pilar*>(e->obj))
+			if (dynamic_cast<Brick*>(e->obj) || dynamic_cast<StoneBar*>(e->obj) || dynamic_cast<Ground*>(e->obj) || dynamic_cast<Wood*>(e->obj) || dynamic_cast<Pilar*>(e->obj) || dynamic_cast<MapCollision*>(e->obj) || dynamic_cast<Spitfire*>(e->obj))
 			{
 				if (e->ny < 0)
 				{

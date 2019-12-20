@@ -125,7 +125,6 @@
     <ClCompile Include="PennyNumber.cpp">
       <Filter>Source\Object\ScoreBoard</Filter>
     </ClCompile>
-    <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Brick.cpp">
       <Filter>Source\Object\maps</Filter>
     </ClCompile>
@@ -137,6 +136,12 @@
     </ClCompile>
     <ClCompile Include="Chains.cpp">
       <Filter>Source\Object\maps</Filter>
+    </ClCompile>
+    <ClCompile Include="Bone.cpp">
+      <Filter>Source\Object\Enemies\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Spitfire.cpp">
+      <Filter>Source\Object\Enemies\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -284,7 +289,6 @@
     <ClInclude Include="PennyNumber.h">
       <Filter>Source\Object\ScoreBoard</Filter>
     </ClInclude>
-    <ClInclude Include="Bone.h" />
     <ClInclude Include="StoneBar.h">
       <Filter>Source\Object\maps</Filter>
     </ClInclude>
@@ -293,6 +297,12 @@
     </ClInclude>
     <ClInclude Include="Chains.h">
       <Filter>Source\Object\maps</Filter>
+    </ClInclude>
+    <ClInclude Include="Bone.h">
+      <Filter>Source\Object\Enemies\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Spitfire.h">
+      <Filter>Source\Object\Enemies\Boss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

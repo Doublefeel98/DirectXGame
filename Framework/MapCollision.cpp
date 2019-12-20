@@ -5,19 +5,15 @@
 
 MapCollision::MapCollision()
 {
-	CTextures* textures = CTextures::GetInstance();
-	textures->Add(ID_TEX_BBOX, L"textures\\black.png", D3DCOLOR_XRGB(0 ,0 ,0));
 }
 
 void MapCollision::Render()
 {
-	CSprites * sprites = CSprites::GetInstance();
-	sprite = sprites->Get(ID_TEX_TRANSPARENT);
-	sprite->Draw(x,y);
+	RenderBoundingBox();
 }
 
 
-void MapCollision::GetBoundingBox(float & l, float & t, float & r, float & b)
+void MapCollision::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x;
 	t = y;

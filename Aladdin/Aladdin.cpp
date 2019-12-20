@@ -893,9 +893,13 @@ void Aladdin::Render()
 			{
 				if (nx > 0)
 				{
+					posX = x + 16;
+					posY = y - 28;
 					ani = ALADDIN_ANI_CLIMBING_SLASH_RIGHT;
 				}
 				else {
+					posX = x + 16;
+					posY = y - 28;
 					ani = ALADDIN_ANI_CLIMBING_SLASH_LEFT;
 				}
 			}
@@ -903,18 +907,24 @@ void Aladdin::Render()
 			{
 				if (nx > 0)
 				{
+					posX = x + 16;
+					posY = y - 28;
 					ani = ALADDIN_ANI_CLIMBING_THROW_APPLE_RIGHT;
 				}
 				else {
+					posX = x + 16;
+					posY = y - 28;
 					ani = ALADDIN_ANI_CLIMBING_THROW_APPLE_LEFT;
 				}
 			}
 			else {
 				ani = ALADDIN_ANI_CLIMBING;
 				if (IsClimbing) {
+					posX = x + 5;
 					animations[ani]->start();
 				}
 				else {
+					posX = x + 5;
 					animations[ani]->pause();
 				}
 			}

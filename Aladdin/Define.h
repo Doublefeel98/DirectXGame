@@ -417,21 +417,28 @@
 #define JAFAR_BBOX_WIDTH 85
 #define JAFAR_BBOX_HEIGHT 71
 
-#define IAGO_ANI_FLY_RIGHT							0
-#define IAGO_ANI_FLY_LEFT							1
-#define IAGO_ANI_DIE_RIGHT							2
-#define IAGO_ANI_DIE_LEFT							3
+#define STAR_ANI_RIGHT								0
+#define STAR_ANI_LEFT								1
 
-#define IAGO_BBOX_WIDTH 62
-#define IAGO_BBOX_HEIGHT 40
+#define STAR_BBOX_WIDTH	24
+#define STAR_BBOX_HEIGHT 16
 
-#define STATUE_ANI_IDLE_RIGHT						0
-#define STATUE_ANI_IDLE_LEFT						1
-#define STATUE_ANI_ATTACK_RIGHT						2
-#define STATUE_ANI_ATTACK_LEFT						3
+#define SNAKE_RIGHT									0
+#define SNAKE_RIGHT									1
 
-#define STATUE_BBOX_WIDTH 71
-#define STATUE_BBOX_HEIGHT 75
+#define SNAKE_BBOX_WIDTH	70
+#define SNAKE_BBOX_HEIGHT	84
+
+#define SNAKE_FIRE_RIGHT							0
+#define SNAKE_FIRE_LEFT								1
+
+#define SNAKE_FIRE_BBOX_WIDTH	79
+#define SNAKE_FIRE_BBOX_HEIGHT	50
+
+#define FIRE										0
+
+#define FIRE_BBOX_WIDTH	30
+#define FIRE_BBOX_HEIGHT 53
 
 // Item
 

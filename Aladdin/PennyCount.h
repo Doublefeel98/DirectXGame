@@ -8,6 +8,6 @@ public:
 	void Render();
 	void Update(int hp);
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
-	PennyCount(int appleCount);
+	PennyCount(int pennyCount);
 };
 

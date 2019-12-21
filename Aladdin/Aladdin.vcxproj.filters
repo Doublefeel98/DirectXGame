@@ -138,6 +138,9 @@
     <ClCompile Include="Chains.cpp">
       <Filter>Source\Object\maps</Filter>
     </ClCompile>
+    <ClCompile Include="LifeNumber.cpp">
+      <Filter>Source\Object\ScoreBoard</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aladdin.h">
@@ -293,6 +296,9 @@
     </ClInclude>
     <ClInclude Include="Chains.h">
       <Filter>Source\Object\maps</Filter>
+    </ClInclude>
+    <ClInclude Include="LifeNumber.h">
+      <Filter>Source\Object\ScoreBoard</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

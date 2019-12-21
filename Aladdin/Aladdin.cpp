@@ -1501,6 +1501,7 @@ Aladdin::Aladdin() : CGameObject()
 
 	countApple = 10;
 	countPenny = 8;
+	countLife = 5;
 
 	IsEnemyHurt = false;
 	timeEnemyHurt = 0;

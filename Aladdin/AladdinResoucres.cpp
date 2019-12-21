@@ -730,6 +730,8 @@ void AladdinResoucres::LoadSprites()
 	sprites->Add(21176, 467, 171, 483, 196, texItem);
 	sprites->Add(21177, 486, 171, 502, 196, texItem);
 
+	sprites->AddByWidthHeight(21200, 340, 140, 22, 24, texItem);		//life
+
 
 	sprites->AddByWidthHeight(22000, 373, 24, 7, 7, texAladdinGoRight);		// throw apple
 
@@ -1088,55 +1090,55 @@ void AladdinResoucres::LoadSprites()
 
 	//iago
 
-	sprites->AddByWidthHeight(40101, 10, 10, 43, 59, texIagoRight);		//fly right
-	sprites->AddByWidthHeight(40102, 71, 10, 62, 59, texIagoRight);
-	sprites->AddByWidthHeight(40103, 144, 10, 61, 59, texIagoRight);
-	sprites->AddByWidthHeight(40104, 217, 10, 61, 59, texIagoRight);
-	sprites->AddByWidthHeight(40105, 291, 10, 60, 59, texIagoRight);
-	sprites->AddByWidthHeight(40106, 375, 10, 60, 59, texIagoRight);
-	sprites->AddByWidthHeight(40107, 439, 10, 61, 59, texIagoRight);
-	sprites->AddByWidthHeight(40108, 512, 10, 61, 59, texIagoRight);
+	//sprites->AddByWidthHeight(40101, 10, 10, 43, 59, texIagoRight);		//fly right
+	//sprites->AddByWidthHeight(40102, 71, 10, 62, 59, texIagoRight);
+	//sprites->AddByWidthHeight(40103, 144, 10, 61, 59, texIagoRight);
+	//sprites->AddByWidthHeight(40104, 217, 10, 61, 59, texIagoRight);
+	//sprites->AddByWidthHeight(40105, 291, 10, 60, 59, texIagoRight);
+	//sprites->AddByWidthHeight(40106, 375, 10, 60, 59, texIagoRight);
+	//sprites->AddByWidthHeight(40107, 439, 10, 61, 59, texIagoRight);
+	//sprites->AddByWidthHeight(40108, 512, 10, 61, 59, texIagoRight);
 
-	sprites->AddByWidthHeight(41101, 581, 10, 43, 59, texIagoLeft);		//fly left
-	sprites->AddByWidthHeight(41102, 501, 10, 62, 59, texIagoLeft);
-	sprites->AddByWidthHeight(41103, 429, 10, 61, 59, texIagoLeft);
-	sprites->AddByWidthHeight(41104, 356, 10, 61, 59, texIagoLeft);
-	sprites->AddByWidthHeight(41105, 283, 10, 60, 59, texIagoLeft);
-	sprites->AddByWidthHeight(41106, 209, 10, 60, 59, texIagoLeft);
-	sprites->AddByWidthHeight(41107, 134, 10, 61, 59, texIagoLeft);
-	sprites->AddByWidthHeight(41108, 61, 10, 61, 59, texIagoLeft);
+	//sprites->AddByWidthHeight(41101, 581, 10, 43, 59, texIagoLeft);		//fly left
+	//sprites->AddByWidthHeight(41102, 501, 10, 62, 59, texIagoLeft);
+	//sprites->AddByWidthHeight(41103, 429, 10, 61, 59, texIagoLeft);
+	//sprites->AddByWidthHeight(41104, 356, 10, 61, 59, texIagoLeft);
+	//sprites->AddByWidthHeight(41105, 283, 10, 60, 59, texIagoLeft);
+	//sprites->AddByWidthHeight(41106, 209, 10, 60, 59, texIagoLeft);
+	//sprites->AddByWidthHeight(41107, 134, 10, 61, 59, texIagoLeft);
+	//sprites->AddByWidthHeight(41108, 61, 10, 61, 59, texIagoLeft);
 
-	sprites->AddByWidthHeight(40111, 13, 78, 51, 70, texIagoRight);		//die right
-	sprites->AddByWidthHeight(40112, 77, 78, 48, 70, texIagoRight);
-	sprites->AddByWidthHeight(40113, 139, 78, 81, 70, texIagoRight);
-	sprites->AddByWidthHeight(40114, 236, 78, 47, 70, texIagoRight);
+	//sprites->AddByWidthHeight(40111, 13, 78, 51, 70, texIagoRight);		//die right
+	//sprites->AddByWidthHeight(40112, 77, 78, 48, 70, texIagoRight);
+	//sprites->AddByWidthHeight(40113, 139, 78, 81, 70, texIagoRight);
+	//sprites->AddByWidthHeight(40114, 236, 78, 47, 70, texIagoRight);
 
-	sprites->AddByWidthHeight(41111, 570, 78, 51, 70, texIagoLeft);		//die left
-	sprites->AddByWidthHeight(41112, 509, 78, 48, 70, texIagoLeft);
-	sprites->AddByWidthHeight(41113, 414, 78, 81, 70, texIagoLeft);
-	sprites->AddByWidthHeight(41114, 351, 78, 47, 70, texIagoLeft);
+	//sprites->AddByWidthHeight(41111, 570, 78, 51, 70, texIagoLeft);		//die left
+	//sprites->AddByWidthHeight(41112, 509, 78, 48, 70, texIagoLeft);
+	//sprites->AddByWidthHeight(41113, 414, 78, 81, 70, texIagoLeft);
+	//sprites->AddByWidthHeight(41114, 351, 78, 47, 70, texIagoLeft);
 
-	//statue
+	////statue
 
-	sprites->AddByWidthHeight(40200, 10, 7, 51, 76, texStatueRight);		//idle right
+	//sprites->AddByWidthHeight(40200, 10, 7, 51, 76, texStatueRight);		//idle right
 
-	sprites->AddByWidthHeight(41200, 599, 7, 51, 76, texStatueLeft, -16);		//idle left
+	//sprites->AddByWidthHeight(41200, 599, 7, 51, 76, texStatueLeft, -16);		//idle left
 
-	sprites->AddByWidthHeight(40201, 75, 7, 44, 76, texStatueRight);		//attack right
-	sprites->AddByWidthHeight(40202, 135, 7, 43, 76, texStatueRight);
-	sprites->AddByWidthHeight(40203, 190, 7, 42, 76, texStatueRight);
-	sprites->AddByWidthHeight(40204, 245, 7, 45, 76, texStatueRight);
-	sprites->AddByWidthHeight(40205, 307, 7, 71, 76, texStatueRight);
-	sprites->AddByWidthHeight(40206, 392, 7, 59, 76, texStatueRight);
-	sprites->AddByWidthHeight(40207, 465, 7, 49, 76, texStatueRight);
+	//sprites->AddByWidthHeight(40201, 75, 7, 44, 76, texStatueRight);		//attack right
+	//sprites->AddByWidthHeight(40202, 135, 7, 43, 76, texStatueRight);
+	//sprites->AddByWidthHeight(40203, 190, 7, 42, 76, texStatueRight);
+	//sprites->AddByWidthHeight(40204, 245, 7, 45, 76, texStatueRight);
+	//sprites->AddByWidthHeight(40205, 307, 7, 71, 76, texStatueRight);
+	//sprites->AddByWidthHeight(40206, 392, 7, 59, 76, texStatueRight);
+	//sprites->AddByWidthHeight(40207, 465, 7, 49, 76, texStatueRight);
 
-	sprites->AddByWidthHeight(41201, 541, 7, 44, 76, texStatueLeft, -6);		//attack left
-	sprites->AddByWidthHeight(41202, 482, 7, 43, 76, texStatueLeft, -3);
-	sprites->AddByWidthHeight(41203, 428, 7, 42, 76, texStatueLeft);
-	sprites->AddByWidthHeight(41204, 370, 7, 45, 76, texStatueLeft, -7);
-	sprites->AddByWidthHeight(41205, 282, 7, 71, 76, texStatueLeft, -35);
-	sprites->AddByWidthHeight(41206, 209, 7, 59, 76, texStatueLeft, -23);
-	sprites->AddByWidthHeight(41207, 146, 7, 49, 76, texStatueLeft, -12);
+	//sprites->AddByWidthHeight(41201, 541, 7, 44, 76, texStatueLeft, -6);		//attack left
+	//sprites->AddByWidthHeight(41202, 482, 7, 43, 76, texStatueLeft, -3);
+	//sprites->AddByWidthHeight(41203, 428, 7, 42, 76, texStatueLeft);
+	//sprites->AddByWidthHeight(41204, 370, 7, 45, 76, texStatueLeft, -7);
+	//sprites->AddByWidthHeight(41205, 282, 7, 71, 76, texStatueLeft, -35);
+	//sprites->AddByWidthHeight(41206, 209, 7, 59, 76, texStatueLeft, -23);
+	//sprites->AddByWidthHeight(41207, 146, 7, 49, 76, texStatueLeft, -12);
 }
 
 void AladdinResoucres::LoadAnimations()
@@ -2307,6 +2309,9 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(21100);
 	animations->Add(2120, ani);
 
+	ani = new CAnimation(100);		//life
+	ani->Add(21200);
+	animations->Add(2130, ani);
 
 	ani = new CAnimation(100);		// throw apple
 	ani->Add(22000);

@@ -141,6 +141,7 @@
     <ClInclude Include="Bone.h" />
     <ClInclude Include="Chains.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="LifeNumber.h" />
     <ClInclude Include="PennyCount.h" />
     <ClInclude Include="PennyNumber.h" />
     <ClInclude Include="Statue.h" />
@@ -190,6 +191,7 @@
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Chains.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="LifeNumber.cpp" />
     <ClCompile Include="PennyCount.cpp" />
     <ClCompile Include="PennyNumber.cpp" />
     <ClCompile Include="Statue.cpp" />

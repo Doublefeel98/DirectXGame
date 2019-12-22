@@ -3,11 +3,10 @@
 #include "Aladdin.h"
 #include "Define.h"
 #include "../Framework/Game.h"
-#include "MapStartBackground.h"
-#include "Intro.h"
-#include "PressStart.h"
+#include "MapEndBackground.h"
+#include "Complete.h"
 
-class SceneStartBoard
+class SceneEndBoard
 {
 	RECT rect;
 	ID3DXFont* font;
@@ -16,13 +15,12 @@ class SceneStartBoard
 	CSprite* sprite;
 	wstring information;
 
-	MapStartBackground* mapStartBackground;
-	Intro* intro;
-	PressStart* pressStart;
+	MapEndBackground* mapEndBackground;
+	Complete* complete;
 
 public:
-	SceneStartBoard();
-	~SceneStartBoard();
+	SceneEndBoard();
+	~SceneEndBoard();
 	void Update();
 	void Render();
 };

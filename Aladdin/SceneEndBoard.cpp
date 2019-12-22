@@ -1,6 +1,6 @@
-#include "SceneStartBoard.h"
+#include "SceneEndBoard.h"
 
-SceneStartBoard::SceneStartBoard()
+SceneEndBoard::SceneEndBoard()
 {
 	this->d3ddv = CGame::GetInstance()->d3ddv;
 	this->spriteHandler = CGame::GetInstance()->spriteHandler;
@@ -23,34 +23,29 @@ SceneStartBoard::SceneStartBoard()
 	SetRect(&rect, 0, 20, SCREEN_WIDTH, 85);
 	information = L"SCORE_000000 TIME 0000 STAGE 00\n";
 
-	mapStartBackground = new MapStartBackground();
-	mapStartBackground->x = 0;
-	mapStartBackground->y = 0;
+	mapEndBackground = new MapEndBackground();
+	mapEndBackground->x = 0;
+	mapEndBackground->y = 0;
 
-	intro = new Intro();
-	intro->x = 40;
-	intro->y = 20;
-
-	pressStart = new PressStart();
-	pressStart->x = 65;
-	pressStart->y = 140;
+	complete = new Complete();
+	complete->x = 40;
+	complete->y = 20;
 }
 
-SceneStartBoard::~SceneStartBoard()
+SceneEndBoard::~SceneEndBoard()
 {
 }
 
-void SceneStartBoard::Update()
+void SceneEndBoard::Update()
 {
 }
 
-void SceneStartBoard::Render()
+void SceneEndBoard::Render()
 {
 	/*RECT newRect;
 	SetRect(&newRect, 0, 0, SCREEN_WIDTH, 200);
 	font->DrawText(spriteHandler, information.c_str(), -1, &rect, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));*/
 
-	mapStartBackground->Render();
-	intro->Render();
-	pressStart->Render();
+	mapEndBackground->Render();
+	complete->Render();
 }

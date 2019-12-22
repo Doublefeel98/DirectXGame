@@ -4,12 +4,6 @@
     <ClCompile Include="RestartPoint.cpp">
       <Filter>Source\Object</Filter>
     </ClCompile>
-    <ClCompile Include="SpendThese.cpp">
-      <Filter>Source\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Up.cpp">
-      <Filter>Source\Object</Filter>
-    </ClCompile>
     <ClCompile Include="ScoreBoard.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -162,13 +156,22 @@
     <ClCompile Include="PressStart.cpp">
       <Filter>Source\Object\ScoreBoard</Filter>
     </ClCompile>
+    <ClCompile Include="SceneEnd.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneEndBoard.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="MapEndBackground.cpp">
+      <Filter>Source\Object\ScoreBoard</Filter>
+    </ClCompile>
+    <ClCompile Include="Complete.cpp">
+      <Filter>Source\Object\ScoreBoard</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aladdin.h">
       <Filter>Source\Object\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Up.h">
-      <Filter>Source\Object</Filter>
     </ClInclude>
     <ClInclude Include="GenieBonusLevel.h">
       <Filter>Source\Object</Filter>
@@ -186,9 +189,6 @@
       <Filter>Source\Object</Filter>
     </ClInclude>
     <ClInclude Include="RestartPoint.h">
-      <Filter>Source\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="SpendThese.h">
       <Filter>Source\Object</Filter>
     </ClInclude>
     <ClInclude Include="Define.h">
@@ -340,6 +340,18 @@
       <Filter>Source\Object\ScoreBoard</Filter>
     </ClInclude>
     <ClInclude Include="PressStart.h">
+      <Filter>Source\Object\ScoreBoard</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneEnd.h">
+      <Filter>Source\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneEndBoard.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="MapEndBackground.h">
+      <Filter>Source\Object\ScoreBoard</Filter>
+    </ClInclude>
+    <ClInclude Include="Complete.h">
       <Filter>Source\Object\ScoreBoard</Filter>
     </ClInclude>
   </ItemGroup>

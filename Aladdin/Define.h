@@ -29,7 +29,7 @@
 #define ID_TEX_STATUE_LEFT	-110
 
 #define ID_TEX_MAP_ONE -10
-#define ID_TEX_MAP_START -20
+#define ID_TEX_MAP -20
 
 //ID SPRITES
 #define ID_SPRITE_MAP_ONE -10

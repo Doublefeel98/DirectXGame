@@ -12,8 +12,9 @@ class SceneBoss : public CScene
 	Aladdin* aladdin;
 	AladdinObjects* aladinObjects;
 	ScoreBoard* scoreboard;
-	vector<LPGAMEOBJECT> spitFires;
+	vector<Spitfire*> spitFires;
 	Jafar* jafar;
+	bool IsEnableSpitFire;
 public:
 	SceneBoss(Aladdin* aladdin);
 	void Render();

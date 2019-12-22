@@ -7,6 +7,8 @@
 #include "Brick.h"
 #include "WreckingBall.h"
 #include "Trap.h"
+#include "Jafar.h"
+#include "Ground.h"
 
 ThrowApples::ThrowApples() :CGameObject() {
 	x = -5;
@@ -17,12 +19,11 @@ ThrowApples::ThrowApples() :CGameObject() {
 	AddAnimation(2200);		// throw apple
 
 	AddAnimation(2201);		// throw apple break
-	//AddAnimation(2202);
-	//AddAnimation(2203);
-	//AddAnimation(2204);
+	AddAnimation(5000);		// throw apple break boss
 	isEnable = false;
 	damage = 1;
 	isBreak = false;
+	isBreakBoss = false;
 }
 ThrowApples::~ThrowApples() {
 
@@ -63,6 +64,10 @@ void ThrowApples::Render() {
 		{
 			animations[1]->Render(x, y);
 		}
+		else if (isBreakBoss)
+		{
+			animations[2]->Render(x, y);
+		}
 		else {
 			animations[0]->Render(x, y);
 			RenderBoundingBox();
@@ -82,6 +87,18 @@ void ThrowApples::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		{
 			return;
 		}
+
+		if (animations[2]->IsLastFrame && isBreakBoss) {
+			isEnable = false;
+			isBreakBoss = false;
+			animations[2]->reset();
+			return;
+		}
+		if (isBreakBoss)
+		{
+			return;
+		}
+
 		CGameObject::Update(dt);
 
 		// Simple fall down
@@ -98,7 +115,7 @@ void ThrowApples::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		for (UINT i = 0; i < coEvents.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEvents[i];
-			if (dynamic_cast<Brick*>(e->obj) || dynamic_cast<WreckingBall*>(e->obj) || dynamic_cast<Trap*>(e->obj))
+			if (!dynamic_cast<LPENEMY>(e->obj) && !dynamic_cast<Ground*>(e->obj))
 			{
 				coEvents.erase(coEvents.begin() + i);
 			}
@@ -117,11 +134,11 @@ void ThrowApples::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 			FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
 			// block 
-			//x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-			//y += min_ty * dy + ny * 0.4f;
+			x += min_tx * dx;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+			y += min_ty * dy;
 
-			//if (nx != 0) vx = 0;
-			//if (ny != 0) vy = 0;
+			if (nx != 0) vx = 0;
+			if (ny != 0) vy = 0;
 
 			// Collision logic with Enemy
 			for (UINT i = 0; i < coEventsResult.size(); i++)
@@ -134,28 +151,40 @@ void ThrowApples::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 					//enemy->GetColliderEffect()->SetEnable(true);
 					if (enemy->isEnable) {
-						int typeObject;
 						enemy->SetHP(enemy->GetHP() - this->damage);
-						typeObject = enemy->GetType();
-						switch (typeObject) {
-						case OBJECT_BAT:
-							enemy->SetState(BAT_STATE_DIE);
-							break;
-						case OBJECT_NORMAL_PALACE_GUARD:
-							enemy->SetState(NGUARD_STATE_SURPRISE);
-							break;
-						case OBJECT_THIN_PALACE_GUARD:
-							enemy->SetState(TGUARD_STATE_SURPRISE);
-							break;
+						if (dynamic_cast<Jafar*>(e->obj))
+						{
+							isBreakBoss = true;
+							SetPosition(enemy->x + 3, y);
 						}
-						isBreak = true;
+						else {
+							int typeObject;
+							typeObject = enemy->GetType();
+							switch (typeObject) {
+							case OBJECT_BAT:
+								enemy->SetState(BAT_STATE_DIE);
+								break;
+							case OBJECT_NORMAL_PALACE_GUARD:
+								enemy->SetState(NGUARD_STATE_SURPRISE);
+								break;
+							case OBJECT_THIN_PALACE_GUARD:
+								enemy->SetState(TGUARD_STATE_SURPRISE);
+								break;
+							}
+							isBreak = true;
+						}
+
 					}
 				}
 			}
-			if (!isBreak)
-			{
-				isEnable = false;
-			}
+			//if (!isBreak)
+			//{
+			//	isEnable = false;
+			//}
+			//else if (!isBreakBoss)
+			//{
+			//	isEnable = false;
+			//}
 		}
 	}
 	else {

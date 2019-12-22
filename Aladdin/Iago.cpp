@@ -27,8 +27,8 @@ void Iago::Render()
 
 Iago::Iago() : CGameObject()
 {
-	width = IAGO_BBOX_WIDTH;
-	height = IAGO_BBOX_HEIGHT;
+	/*width = IAGO_BBOX_WIDTH;
+	height = IAGO_BBOX_HEIGHT;*/
 }
 
 Iago::~Iago()

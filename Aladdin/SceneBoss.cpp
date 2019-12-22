@@ -1,8 +1,10 @@
 #include "SceneBoss.h"
-
+#include "../Framework/debug.h"
 
 SceneBoss::SceneBoss(Aladdin* aladdin)
 {
+	IsEnableSpitFire = false;
+
 	this->aladdin = aladdin;
 	this->aladdin->SetPosition(140, 290);
 
@@ -68,7 +70,7 @@ SceneBoss::SceneBoss(Aladdin* aladdin)
 	spitFires.push_back(spitfire);
 
 	jafar = new Jafar();
-	jafar->SetPosition(mapWidth / 2 - JAFAR_BBOX_WIDTH / 2, 288);
+	jafar->SetPosition(mapWidth / 2 - JAFAR_BBOX_WIDTH / 2, 348 - JAFAR_BBOX_HEIGHT);
 	objects.push_back(jafar);
 
 	for (int i = 0; i < objects.size(); i++)
@@ -92,11 +94,40 @@ void SceneBoss::Render()
 
 void SceneBoss::Update(DWORD dt)
 {
+	if (!IsEnableSpitFire)
+	{
+		if (jafar->state == JAFAR_STATE_SNAKE)
+		{
+			for (int i = 0; i < spitFires.size(); i++)
+			{
+				spitFires.at(i)->isEnableFire = true;
+			}
+			IsEnableSpitFire = true;
+		}
+	}
+
 	aladdin->Update(dt, &coObjects);
 	for (int i = 0; i < coObjects.size(); i++)
 	{
 		coObjects[i]->Update(dt, &coObjects);
 	}
+
+	if (aladdin->x < 133 - DEVIATION_X)
+	{
+		aladdin->x = 133 - DEVIATION_X;
+	}
+	else if (aladdin->x > 834 - DEVIATION_X)
+	{
+		aladdin->x = 834 - DEVIATION_X;
+	}
+
+
+	if (abs(aladdin->vx) > ALADDIN_MAX_SPEED)
+	{
+		aladdin->vx = ALADDIN_MAX_SPEED;
+	}
+
+	DebugOut(L"[INFO] aladdin->vx: %d\n", aladdin->vx);
 
 	time += dt;
 	scoreboard->Update(0, 500 - time * 0.001, 3, 2);

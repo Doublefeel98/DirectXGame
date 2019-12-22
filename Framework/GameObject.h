@@ -103,6 +103,7 @@ public:
 	int GetType() { return type; }
 	ColliderEffect* GetColliderEffect() { return collider; }
 	DeadEffect* GetDeadEffect() { return deadeffect; }
+	void ResetAllAnimation();
 	~CGameObject();
 };
 

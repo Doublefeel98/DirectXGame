@@ -27,8 +27,8 @@ void Statue::Render()
 
 Statue::Statue() : CGameObject()
 {
-	width = STATUE_BBOX_WIDTH;
-	height = STATUE_BBOX_HEIGHT;
+	//width = STATUE_BBOX_WIDTH;
+	//height = STATUE_BBOX_HEIGHT;
 }
 
 Statue::~Statue()

@@ -210,6 +210,13 @@ void CGameObject::AddAnimation(int aniId)
 	animations.push_back(temp);
 }
 
+void CGameObject::ResetAllAnimation()
+{
+	for (int i = 0; i < animations.size(); i++)
+	{
+		animations[i]->reset();
+	}
+}
 
 CGameObject::~CGameObject()
 {

@@ -140,10 +140,13 @@
     <ClInclude Include="AppleNumber.h" />
     <ClInclude Include="Bone.h" />
     <ClInclude Include="Chains.h" />
+    <ClInclude Include="Fire.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="PennyCount.h" />
     <ClInclude Include="PennyNumber.h" />
+    <ClInclude Include="SnakeFire.h" />
     <ClInclude Include="Spitfire.h" />
+    <ClInclude Include="Star.h" />
     <ClInclude Include="Statue.h" />
     <ClInclude Include="StoneBar.h" />
     <ClInclude Include="Sword.h" />
@@ -190,10 +193,13 @@
     <ClCompile Include="AppleNumber.cpp" />
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Chains.cpp" />
+    <ClCompile Include="Fire.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="PennyCount.cpp" />
     <ClCompile Include="PennyNumber.cpp" />
+    <ClCompile Include="SnakeFire.cpp" />
     <ClCompile Include="Spitfire.cpp" />
+    <ClCompile Include="Star.cpp" />
     <ClCompile Include="Statue.cpp" />
     <ClCompile Include="StoneBar.cpp" />
     <ClCompile Include="Sword.cpp" />

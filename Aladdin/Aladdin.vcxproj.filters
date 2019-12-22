@@ -137,11 +137,20 @@
     <ClCompile Include="Chains.cpp">
       <Filter>Source\Object\maps</Filter>
     </ClCompile>
+    <ClCompile Include="Spitfire.cpp">
+      <Filter>Source\Object\Enemies\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Fire.cpp">
+      <Filter>Source\Object\Enemies\weapons</Filter>
+    </ClCompile>
     <ClCompile Include="Bone.cpp">
       <Filter>Source\Object\Enemies\weapons</Filter>
     </ClCompile>
-    <ClCompile Include="Spitfire.cpp">
-      <Filter>Source\Object\Enemies\Boss</Filter>
+    <ClCompile Include="SnakeFire.cpp">
+      <Filter>Source\Object\Enemies\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Star.cpp">
+      <Filter>Source\Object\Enemies\weapons</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -303,6 +312,15 @@
     </ClInclude>
     <ClInclude Include="Spitfire.h">
       <Filter>Source\Object\Enemies\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Fire.h">
+      <Filter>Source\Object\Enemies\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="SnakeFire.h">
+      <Filter>Source\Object\Enemies\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Star.h">
+      <Filter>Source\Object\Enemies\weapons</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -64,11 +64,15 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_Z:
-		if (aladdin->GetState() != ALADDIN_STATE_THROW_APPLE)
+		if (aladdin->CanAbleThrow())
 		{
 			if (aladdin->IsSit)
 			{
 				aladdin->SetState(ALADDIN_STATE_SITTING_THROW_APPLE);
+			}
+			else if (aladdin->IsLookingUp)
+			{
+				//aladdin->SetState(ALADDIN_STATE_LOOKING_UP_SLASH);
 			}
 			else
 			{
@@ -77,20 +81,21 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		}
 		break;
 	case DIK_X:
-		if (aladdin->GetState() != ALADDIN_STATE_STANDING_SLASH)
+		if (aladdin->IsSit)
 		{
-			if (aladdin->IsSit)
-			{
-				aladdin->SetState(ALADDIN_STATE_SITTING_SLASH);
-			}
-			else if (aladdin->IsLookingUp)
-			{
-				aladdin->SetState(ALADDIN_STATE_LOOKING_UP_SLASH);
-			}
-			else
-			{
-				aladdin->SetState(ALADDIN_STATE_STANDING_SLASH);
-			}
+			aladdin->SetState(ALADDIN_STATE_SITTING_SLASH);
+		}
+		else if (aladdin->IsJump)
+		{
+			aladdin->SetState(ALADDIN_STATE_JUMPING_SLASH);
+		}
+		else if (aladdin->IsLookingUp)
+		{
+			aladdin->SetState(ALADDIN_STATE_LOOKING_UP_SLASH);
+		}
+		else
+		{
+			aladdin->SetState(ALADDIN_STATE_STANDING_SLASH);
 		}
 		break;
 	case DIK_C:
@@ -124,6 +129,14 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
 	switch (KeyCode)
 	{
+	case DIK_LEFT:
+		aladdin->vx = 0;
+		aladdin->IsRun = false;
+		break;
+	case DIK_RIGHT:
+		aladdin->vx = 0;
+		aladdin->IsRun = false;
+		break;
 	case DIK_DOWN:
 		if (aladdin->IsClimb) {
 			aladdin->IsClimbing = false;
@@ -136,6 +149,9 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 	case DIK_UP:
 		if (aladdin->IsClimb) {
 			aladdin->IsClimbing = false;
+		}
+		else {
+			aladdin->SetState(ALADDIN_STATE_IDLE);
 		}
 		break;
 	}
@@ -168,7 +184,7 @@ void CSampleKeyHander::KeyState(BYTE* states)
 		{
 			aladdin->SetState(ALADDIN_STATE_CLIMB_UP);
 		}
-		else if (!aladdin->IsJump && !aladdin->IsSit) {
+		else if (aladdin->state == ALADDIN_STATE_IDLE) {
 			aladdin->SetState(ALADDIN_STATE_LOOKING_UP);
 		}
 	}
@@ -260,6 +276,8 @@ void Update(DWORD dt)
 	}
 
 	camera->SetCameraPosition(cx, cy);
+
+	DebugOut(L"[INFO] aladdin state: %d\n", aladdin->state);
 }
 
 /*

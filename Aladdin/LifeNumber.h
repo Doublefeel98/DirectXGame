@@ -1,13 +1,12 @@
 #pragma once
 #include "../Framework/GameObject.h"
 
-class PennyCount : public CGameObject
+class LifeNumber : public CGameObject
 {
-	int pennyCount;
+	wstring lifeNumber;
 public:
 	void Render();
-	void Update(int hp);
+	void Update(wstring lifeNumber);
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
-	PennyCount(int pennyCount);
+	LifeNumber();
 };
-

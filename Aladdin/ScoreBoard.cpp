@@ -48,6 +48,14 @@ ScoreBoard::ScoreBoard(Aladdin* aladdin, int bossHP)
 	pennyNumber = new PennyNumber();
 	pennyNumber->x = SCREEN_WIDTH - 90;
 	pennyNumber->y = SCREEN_HEIGHT - 57;
+
+	life = new Life(0);
+	life->x = 20;
+	life->y = SCREEN_HEIGHT - 68;
+
+	lifeNumber = new LifeNumber();
+	lifeNumber->x = 48;
+	lifeNumber->y = SCREEN_HEIGHT - 57;
 }
 
 ScoreBoard::~ScoreBoard()
@@ -63,6 +71,7 @@ void ScoreBoard::Update(int bossHP, int time, int life, int stage)
 	wstring timeString = to_wstring(this->time);
 	wstring appleNumberString = to_wstring(aladdin->GetCountApple());
 	wstring pennyNumberString = to_wstring(aladdin->GetCountPenny());
+	wstring lifeNumberString = to_wstring(aladdin->GetCountLife());
 
 	while (timeString.length() < 4)
 		timeString = L"0" + timeString;
@@ -78,6 +87,7 @@ void ScoreBoard::Update(int bossHP, int time, int life, int stage)
 	hp->Update(aladdin->GetHP());
 	appleNumber->Update(appleNumberString);
 	pennyNumber->Update(pennyNumberString);
+	lifeNumber->Update(lifeNumberString);
 }
 
 void ScoreBoard::Render()
@@ -91,4 +101,6 @@ void ScoreBoard::Render()
 	appleNumber->Render();
 	pennyCount->Render();
 	pennyNumber->Render();
+	life->Render();
+	lifeNumber->Render();
 }

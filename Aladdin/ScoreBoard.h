@@ -10,6 +10,8 @@
 #include "AppleNumber.h"
 #include "PennyCount.h"
 #include "PennyNumber.h"
+#include "Life.h"
+#include "LifeNumber.h"
 
 class ScoreBoard
 {
@@ -27,12 +29,14 @@ class ScoreBoard
 	AppleNumber* appleNumber;
 	PennyCount* pennyCount;
 	PennyNumber* pennyNumber;
+	Life* life;
+	LifeNumber* lifeNumber;
 
 	int bossHP;
 	int time;
 	int item;
 	int energy;
-	int life;
+	//int life;
 	int stage;
 public:
 	ScoreBoard(Aladdin* aladdin, int bossHP);

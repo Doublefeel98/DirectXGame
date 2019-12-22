@@ -33,6 +33,7 @@
 #include "../Framework/SceneManager.h"
 #include "SceneOne.h"
 #include "SceneBoss.h"
+#include "SceneStart.h"
 #include "Ground.h"
 #include "AladdinResoucres.h"
 

@@ -152,6 +152,30 @@
     <ClCompile Include="Star.cpp">
       <Filter>Source\Object\Enemies\weapons</Filter>
     </ClCompile>
+    <ClCompile Include="LifeNumber.cpp">
+      <Filter>Source\Object\ScoreBoard</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneStart.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Exit.cpp">
+      <Filter>Source\Object\maps</Filter>
+    </ClCompile>
+    <ClCompile Include="Fance.cpp">
+      <Filter>Source\Object\maps</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneStartBoard.cpp">
+      <Filter>Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="MapStartBackground.cpp">
+      <Filter>Source\Object\ScoreBoard</Filter>
+    </ClCompile>
+    <ClCompile Include="Intro.cpp">
+      <Filter>Source\Object\ScoreBoard</Filter>
+    </ClCompile>
+    <ClCompile Include="PressStart.cpp">
+      <Filter>Source\Object\ScoreBoard</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aladdin.h">
@@ -321,6 +345,30 @@
     </ClInclude>
     <ClInclude Include="Star.h">
       <Filter>Source\Object\Enemies\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="LifeNumber.h">
+      <Filter>Source\Object\ScoreBoard</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneStart.h">
+      <Filter>Source\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Exit.h">
+      <Filter>Source\Object\maps</Filter>
+    </ClInclude>
+    <ClInclude Include="Fance.h">
+      <Filter>Source\Object\maps</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneStartBoard.h">
+      <Filter>Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="MapStartBackground.h">
+      <Filter>Source\Object\ScoreBoard</Filter>
+    </ClInclude>
+    <ClInclude Include="Intro.h">
+      <Filter>Source\Object\ScoreBoard</Filter>
+    </ClInclude>
+    <ClInclude Include="PressStart.h">
+      <Filter>Source\Object\ScoreBoard</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

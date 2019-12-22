@@ -992,7 +992,6 @@ void Aladdin::Render()
 
 				}
 			}
-
 		}
 		else if (IsLookingUp)
 		{
@@ -1524,6 +1523,7 @@ Aladdin::Aladdin() : CGameObject()
 	indexApple = 0;
 
 	countPenny = 8;
+	countLife = 5;
 
 	IsEnemyHurt = false;
 	timeEnemyHurt = 0;

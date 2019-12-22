@@ -28,6 +28,7 @@ class Aladdin : public CGameObject
 	int hp;
 	int indexApple;
 	int countPenny;
+	int countLife;
 	Aladdin();
 	int checkPointX, checkPointY;
 	Chains* chainsCanAble;
@@ -71,6 +72,7 @@ public:
 	bool CanAbleThrow() { return this->throwApples.size() != indexApple; }
 	int GetCountPenny() { return countPenny; }
 	void addPenny(int count) { countPenny += count; }
+	int GetCountLife() { return countLife; }
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	~Aladdin();
 	static Aladdin* GetInstance();

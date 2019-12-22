@@ -1,5 +1,5 @@
-#include "../Framework/Scene.h";
-#include "ScoreBoard.h";
+#include "../Framework/Scene.h"
+#include "ScoreBoard.h"
 #include "Define.h"
 #include "AladdinObjects.h"
 #include "Aladdin.h"
@@ -10,6 +10,8 @@ class SceneOne : public CScene
 	AladdinObjects * aladinObjects;
 	ScoreBoard* scoreboard;
 	vector<LPGAMEOBJECT> pilars;
+	vector<LPGAMEOBJECT> exit;
+	vector<LPGAMEOBJECT> fances;
 public:
 	SceneOne(Aladdin* aladdin);
 	void Render();

@@ -1,13 +1,11 @@
 #pragma once
 #include "../Framework/GameObject.h"
 
-class PennyCount : public CGameObject
+class MapStartBackground : public CGameObject
 {
-	int pennyCount;
+	int life;
 public:
 	void Render();
-	void Update(int hp);
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
-	PennyCount(int pennyCount);
+	MapStartBackground();
 };
-

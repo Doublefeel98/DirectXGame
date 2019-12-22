@@ -1,13 +1,15 @@
 #include "SceneOne.h"
 #include "Ground.h"
 #include "Pilar.h"
+#include "Exit.h"
+#include "Fance.h"
 #include "../Framework/debug.h"
 
 SceneOne::SceneOne(Aladdin* aladdin)
 {
 	this->aladdin = aladdin;
-	this->aladdin->SetPosition(300, 1052);
-	//this->aladdin->SetPosition(1030, 750);
+	this->aladdin->SetPosition(100, 1052);
+	//this->aladdin->SetPosition(2170, 63);
 	//this->aladdin->SetPosition(432, 580);
 
 	CSprites* sprites = CSprites::GetInstance();
@@ -72,7 +74,144 @@ SceneOne::SceneOne(Aladdin* aladdin)
 	pilar->SetId(objects.size() + 1);
 	objects.push_back(pilar);
 
-	for (int i = 0; i < objects.size(); i++)
+	Exit* exit = new Exit();
+	exit->SetState(EXIT_STATE);
+	exit->SetPosition(2177, 69);
+	exit->SetWidth(EXIT_BBOX_WIDTH);
+	exit->SetHeight(EXIT_BBOX_HEIGHT);
+	exit->SetId(objects.size() + 1);
+	objects.push_back(exit);
+	
+	Fance* fance = new Fance();
+	fance->SetState(FANCE_STATE);
+	fance->SetPosition(10, 881);
+	fances.push_back(fance);
+
+	fance = new Fance();
+	fance->SetState(FANCE_STATE);
+	fance->SetPosition(10, 625);
+
+	fances.push_back(fance);
+
+	fance = new Fance();
+	fance->SetState(FANCE_STATE);
+	fance->SetPosition(10, 396);
+
+	fances.push_back(fance);
+
+	fance = new Fance();
+	fance->SetState(FANCE_STATE);
+	fance->SetPosition(10, 140);
+	fances.push_back(fance);
+
+	fance = new Fance();
+	fance->SetState(FANCE_STATE);
+	fance->SetPosition(10, 1);
+	fances.push_back(fance);
+
+	fance = new Fance();
+	fance->SetState(FANCE_STATE);
+	fance->SetPosition(522, 881);
+	fances.push_back(fance);
+
+	fance = new Fance();
+	fance->SetState(FANCE_STATE);
+	fance->SetPosition(522, 625);
+	fances.push_back(fance);
+
+	fance = new Fance();
+	fance->SetState(FANCE_STATE);
+	fance->SetPosition(522, 396);
+	fances.push_back(fance);
+
+	fance = new Fance();
+	fance->SetState(FANCE_STATE);
+	fance->SetPosition(522, 140);
+	fances.push_back(fance);
+
+	fance = new Fance();
+	fance->SetState(FANCE_STATE);
+	fance->SetPosition(522, 1);
+	fances.push_back(fance);
+
+
+	fance = new Fance();
+	fance->SetState(FANCE_STATE);
+	fance->SetPosition(1034, 881);
+	fances.push_back(fance);
+
+	fance = new Fance();
+	fance->SetState(FANCE_STATE);
+	fance->SetPosition(1034, 625);
+	fances.push_back(fance);
+
+	fance = new Fance();
+	fance->SetState(FANCE_STATE);
+	fance->SetPosition(1034, 396);
+	fances.push_back(fance);
+
+	fance = new Fance();
+	fance->SetState(FANCE_STATE);
+	fance->SetPosition(1034, 140);
+	fances.push_back(fance);
+
+	fance = new Fance();
+	fance->SetState(FANCE_STATE);
+	fance->SetPosition(1034, 1);
+	fances.push_back(fance);
+
+	fance = new Fance();
+	fance->SetState(FANCE_STATE);
+	fance->SetPosition(1546, 881);
+	fances.push_back(fance);
+
+	fance = new Fance();
+	fance->SetState(FANCE_STATE);
+	fance->SetPosition(1546, 625);
+	fances.push_back(fance);
+
+	fance = new Fance();
+	fance->SetState(FANCE_STATE);
+	fance->SetPosition(1546, 396);
+
+	fances.push_back(fance);
+
+	fance = new Fance();
+	fance->SetState(FANCE_STATE);
+	fance->SetPosition(1546, 140);
+	fances.push_back(fance);
+
+	fance = new Fance();
+	fance->SetState(FANCE_STATE);
+	fance->SetPosition(1546, 1);
+	fances.push_back(fance);
+
+	fance = new Fance();
+	fance->SetState(FANCE_STATE);
+	fance->SetPosition(2058, 881);
+	fances.push_back(fance);
+
+	fance = new Fance();
+	fance->SetState(FANCE_STATE);
+	fance->SetPosition(2058, 625);
+	fances.push_back(fance);
+
+	fance = new Fance();
+	fance->SetState(FANCE_STATE);
+	fance->SetPosition(2058, 396);
+	fances.push_back(fance);
+
+	fance = new Fance();
+	fance->SetState(FANCE_STATE);
+	fance->SetPosition(2058, 140);
+	fances.push_back(fance);
+
+	fance = new Fance();
+	fance->SetState(FANCE_STATE);
+	fance->SetPosition(2058, 1);
+	fances.push_back(fance);
+
+	for (int i = 1; i < objects.size(); i++)
 		coObjects.push_back(objects[i]);
 
 	grid = new Grid((int)mapWidth, (int)mapHeight, 160);
@@ -103,6 +242,17 @@ void SceneOne::Render()
 	{
 		pilars[i]->Render();
 	}
+
+	for (int i = 0; i < exit.size(); i++)
+	{
+		exit[i]->Render();
+	}
+
+	for (int i = 0; i < fances.size(); i++)
+	{
+		fances[i]->Render();
+	}
+
 	scoreboard->Render();
 }
 

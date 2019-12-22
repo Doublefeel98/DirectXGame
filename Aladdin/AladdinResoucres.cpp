@@ -19,6 +19,9 @@ void AladdinResoucres::LoadTextures()
 	//textures->Add(ID_TEX_MAP_ONE, L"resources\\map\\lv1\\mapgamelv1.png", D3DCOLOR_XRGB(163, 73, 164));
 	textures->Add(ID_TEX_MAP_ONE, L"resources\\map\\lv1\\maplv1.png", D3DCOLOR_XRGB(163, 73, 164));
 
+	//textures->Add(ID_TEX_MAP_BOSS, L"resources\\map\\lv_boss\\tileset.png", D3DCOLOR_XRGB(249, 245, 248));
+	textures->Add(ID_TEX_MAP_BOSS, L"resources\\map\\lv_boss\\lv_boss.png", D3DCOLOR_XRGB(250, 246, 249));
+
 	//Obstacle
 	textures->Add(ID_TEX_OBSTACLE, L"resources\\textures\\Aladdin_Sultan_ Dungeon.png", D3DCOLOR_XRGB(163, 73, 164));
 
@@ -73,17 +76,26 @@ void AladdinResoucres::LoadSprites()
 	LPDIRECT3DTEXTURE9 texStatueRight = textures->Get(ID_TEX_STATUE_RIGHT);
 	LPDIRECT3DTEXTURE9 texStatueLeft = textures->Get(ID_TEX_STATUE_LEFT);
 
+	LPDIRECT3DTEXTURE9 texObstacle = textures->Get(ID_TEX_OBSTACLE);
+
 
 	LPDIRECT3DTEXTURE9 texMapOne = textures->Get(ID_TEX_MAP_ONE);
 	//sprites->Add(ID_SPRITE_MAP_ONE, 0, 0, 2144, 1024, textMapOne);
 	//sprites->Add(ID_SPRITE_MAP_ONE, 0, 0, 256, 8304, textMapOne);
 	sprites->Add(ID_SPRITE_MAP_ONE, 0, 0, 2272, 1152, texMapOne);
 
+	LPDIRECT3DTEXTURE9 textMapBoss = textures->Get(ID_TEX_MAP_BOSS);
+	/*sprites->Add(ID_SPRITE_MAP_BOSS, 0, 0, 512, 800, textMapBoss);*/
+	sprites->Add(ID_SPRITE_MAP_BOSS, 0, 0, 960, 416, textMapBoss);
+
+
 	LPDIRECT3DTEXTURE9 texMap = textures->Get(ID_TEX_MAP);
 	sprites->AddByWidthHeight(90000, 651, 193, 320, 256, texMap); // map start
+
+
 	sprites->AddByWidthHeight(90100, 9, 12, 243, 90, texAladdinFullRight); // intro
 
-	sprites->AddByWidthHeight(91000, 1, 454, 320, 224, texMap); // map start
+	sprites->AddByWidthHeight(91000, 1, 454, 320, 224, texMap); // map end
 	sprites->AddByWidthHeight(91100, 513, 2851, 232, 149, texAladdinFullRight); // complete
 
 
@@ -617,7 +629,7 @@ void AladdinResoucres::LoadSprites()
 	sprites->AddByWidthHeight(20300, 17, 3435, 11, 16, texAladdinFullRight); //tao
 	sprites->AddByWidthHeight(20301, 285, 3435, 17, 16, texAladdinFullRight); //trung
 
-	LPDIRECT3DTEXTURE9 texObstacle = textures->Get(ID_TEX_OBSTACLE);
+
 	sprites->Add(20400, 1, 1770, 31, 1793, texObstacle);		//Stone
 	sprites->Add(20401, 37, 1770, 67, 1793, texObstacle);
 	sprites->Add(20402, 73, 1770, 107, 1793, texObstacle);
@@ -1064,17 +1076,17 @@ void AladdinResoucres::LoadSprites()
 	sprites->AddByWidthHeight(40110, 1578, 291, 64, 84, texJafar, -18);
 	sprites->AddByWidthHeight(40111, 1650, 291, 71, 84, texJafar, -7);
 
-	sprites->AddByWidthHeight(40101, 785, 291, 70, 84, texJafar, -35);		//snake left
-	sprites->AddByWidthHeight(40102, 711, 291, 64, 84, texJafar, -16);
-	sprites->AddByWidthHeight(40103, 636, 291, 67, 84, texJafar, -6);
-	sprites->AddByWidthHeight(40104, 552, 291, 71, 84, texJafar, -4);
-	sprites->AddByWidthHeight(40105, 474, 291, 69, 84, texJafar);
-	sprites->AddByWidthHeight(40106, 394, 291, 69, 84, texJafar);
-	sprites->AddByWidthHeight(40107, 313, 291, 70, 84, texJafar, -1);
-	sprites->AddByWidthHeight(40108, 233, 291, 70, 84, texJafar, -1);
-	sprites->AddByWidthHeight(40109, 155, 291, 64, 84, texJafar, -2);
-	sprites->AddByWidthHeight(40110, 83, 291, 64, 84, texJafar, -19);
-	sprites->AddByWidthHeight(40111, 4, 291, 71, 84, texJafar, -37);
+	sprites->AddByWidthHeight(41101, 785, 291, 70, 84, texJafar, -35);		//snake left
+	sprites->AddByWidthHeight(41102, 711, 291, 64, 84, texJafar, -16);
+	sprites->AddByWidthHeight(41103, 636, 291, 67, 84, texJafar, -6);
+	sprites->AddByWidthHeight(41104, 552, 291, 71, 84, texJafar, -4);
+	sprites->AddByWidthHeight(41105, 474, 291, 69, 84, texJafar);
+	sprites->AddByWidthHeight(41106, 394, 291, 69, 84, texJafar);
+	sprites->AddByWidthHeight(41107, 313, 291, 70, 84, texJafar, -1);
+	sprites->AddByWidthHeight(41108, 233, 291, 70, 84, texJafar, -1);
+	sprites->AddByWidthHeight(41109, 155, 291, 64, 84, texJafar, -2);
+	sprites->AddByWidthHeight(41110, 83, 291, 64, 84, texJafar, -19);
+	sprites->AddByWidthHeight(41111, 4, 291, 71, 84, texJafar, -37);
 
 	sprites->AddByWidthHeight(40121, 870, 484, 75, 51, texJafar);		//snake fire right
 	sprites->AddByWidthHeight(40122, 958, 484, 79, 51, texJafar);
@@ -1086,7 +1098,7 @@ void AladdinResoucres::LoadSprites()
 	sprites->AddByWidthHeight(40128, 1507, 484, 64, 51, texJafar);
 
 	sprites->AddByWidthHeight(41121, 780, 484, 75, 51, texJafar);		//snake fire left
-	sprites->AddByWidthHeight(41122, 958, 688, 79, 51, texJafar);
+	sprites->AddByWidthHeight(41122, 958, 484, 79, 51, texJafar);
 	sprites->AddByWidthHeight(41123, 580, 484, 94, 51, texJafar);
 	sprites->AddByWidthHeight(41124, 477, 484, 90, 51, texJafar);
 	sprites->AddByWidthHeight(41125, 386, 484, 77, 51, texJafar);
@@ -1100,6 +1112,30 @@ void AladdinResoucres::LoadSprites()
 	sprites->AddByWidthHeight(40203, 940, 386, 24, 53, texJafar);
 	sprites->AddByWidthHeight(40204, 972, 386, 27, 53, texJafar);
 	sprites->AddByWidthHeight(40205, 1012, 386, 35, 53, texJafar);
+
+
+
+	// efect
+	sprites->AddByWidthHeight(50001, 8, 67, 43, 41, texEnemyExplosions, -21, -20);
+	sprites->AddByWidthHeight(50002, 64, 67, 42, 41, texEnemyExplosions, -21, -20);
+	sprites->AddByWidthHeight(50003, 120, 69, 43, 39, texEnemyExplosions, -21, -19);
+	sprites->AddByWidthHeight(50004, 176, 71, 43, 37, texEnemyExplosions, -21, -18);
+	sprites->AddByWidthHeight(50005, 232, 71, 42, 37, texEnemyExplosions, -21, -18);
+	sprites->AddByWidthHeight(50006, 288, 64, 43, 44, texEnemyExplosions, -21, -22);
+	sprites->AddByWidthHeight(50007, 344, 73, 41, 35, texEnemyExplosions, -20, -17);
+	sprites->AddByWidthHeight(50008, 392, 84, 41, 24, texEnemyExplosions, -20, -12);
+	sprites->AddByWidthHeight(50009, 440, 84, 34, 24, texEnemyExplosions, -17, -12);
+	sprites->AddByWidthHeight(50010, 488, 88, 26, 20, texEnemyExplosions, -13, -10);
+	sprites->AddByWidthHeight(50011, 528, 89, 20, 19, texEnemyExplosions, -10, -9);
+	sprites->AddByWidthHeight(50012, 566, 84, 10, 23, texEnemyExplosions, -5, -11);
+
+	sprites->AddByWidthHeight(50101, 8, 180, 26, 24, texEnemyExplosions, -13, -12);
+	sprites->AddByWidthHeight(50102, 48, 155, 60, 49, texEnemyExplosions, -30, -24);
+	sprites->AddByWidthHeight(50103, 120, 118, 81, 86, texEnemyExplosions, -40, -43);
+	sprites->AddByWidthHeight(50104, 208, 123, 83, 81, texEnemyExplosions, -41, -40);
+	sprites->AddByWidthHeight(50105, 304, 124, 82, 80, texEnemyExplosions, -41, -40);
+	sprites->AddByWidthHeight(50106, 400, 128, 83, 76, texEnemyExplosions, -41, -33);
+	sprites->AddByWidthHeight(50107, 496, 131, 83, 73, texEnemyExplosions, -41, -36);
 
 	//iago
 
@@ -1131,7 +1167,7 @@ void AladdinResoucres::LoadSprites()
 	//sprites->AddByWidthHeight(41113, 414, 78, 81, 70, texIagoLeft);
 	//sprites->AddByWidthHeight(41114, 351, 78, 47, 70, texIagoLeft);
 
-	////statue
+	//statue
 
 	//sprites->AddByWidthHeight(40200, 10, 7, 51, 76, texStatueRight);		//idle right
 
@@ -2003,35 +2039,28 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(41000);
 	animations->Add(701, ani);
 
-	ani = new CAnimation(100);		// attack right
+	ani = new CAnimation(150);		// attack right
 	ani->Add(40001);
 	ani->Add(40002);
 	ani->Add(40003);
 	ani->Add(40004);
 	ani->Add(40005);
-	ani->Add(40006);
+	ani->Add(40006, 2000);
 	ani->Add(40007);
 	animations->Add(702, ani);
 
-	ani = new CAnimation(100);		// attack left
+	ani = new CAnimation(150);		// attack left
 	ani->Add(41001);
 	ani->Add(41002);
 	ani->Add(41003);
 	ani->Add(41004);
 	ani->Add(41005);
-	ani->Add(41006);
+	ani->Add(41006, 2000);
 	ani->Add(41007);
 	animations->Add(703, ani);
 
-	//star
-	ani = new CAnimation(100);		// attack right
-	ani->Add(40010);
-	ani->Add(40011);
-	ani->Add(40012);
-	animations->Add(704, ani);
-
 	//snake
-	ani = new CAnimation(100);		// snake right
+	ani = new CAnimation(150);		// snake right
 	ani->Add(40101);
 	ani->Add(40102);
 	ani->Add(40103);
@@ -2045,7 +2074,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(40111);
 	animations->Add(800, ani);
 
-	ani = new CAnimation(100);		// snake left
+	ani = new CAnimation(150);		// snake left
 	ani->Add(41101);
 	ani->Add(41102);
 	ani->Add(41103);
@@ -2058,6 +2087,15 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(41110);
 	ani->Add(41111);
 	animations->Add(801, ani);
+
+
+	//weapon jafar
+	//star
+	ani = new CAnimation(100);		// attack right
+	ani->Add(40010);
+	ani->Add(40011);
+	ani->Add(40012);
+	animations->Add(704, ani);
 
 	ani = new CAnimation(100);		// snake fire right
 	ani->Add(40121);
@@ -2082,13 +2120,14 @@ void AladdinResoucres::LoadAnimations()
 	animations->Add(803, ani);
 
 	//fire
-	ani = new CAnimation(100);		// fire
+	ani = new CAnimation(100, false);		// fire
 	ani->Add(40201);
 	ani->Add(40202);
 	ani->Add(40203);
 	ani->Add(40204);
 	ani->Add(40205);
 	animations->Add(900, ani);
+
 
 	//item
 	ani = new CAnimation(100);		// HP 1
@@ -2346,7 +2385,32 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(22005);
 	animations->Add(2201, ani);
 
-	ani = new CAnimation(100);		// map start
+	ani = new CAnimation(100, false);		// throw apple break boss
+	ani->Add(50001);
+	ani->Add(50002);
+	ani->Add(50003);
+	ani->Add(50004);
+	ani->Add(50005);
+	ani->Add(50006);
+	ani->Add(50007);
+	ani->Add(50008);
+	ani->Add(50009);
+	ani->Add(50010);
+	ani->Add(50011);
+	ani->Add(50012);
+	animations->Add(5000, ani);
+
+	ani = new CAnimation(100, false);		// Jafar Explosions
+	ani->Add(50101);
+	ani->Add(50102);
+	ani->Add(50103);
+	ani->Add(50104);
+	ani->Add(50105);
+	ani->Add(50106);
+	ani->Add(50107);
+	animations->Add(5001, ani);
+
+	ani = new CAnimation(100, false);		// map start
 	ani->Add(90000);
 	animations->Add(9000, ani);
 

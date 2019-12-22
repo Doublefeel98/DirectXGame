@@ -33,11 +33,10 @@ SceneOne::SceneOne(Aladdin* aladdin)
 	screenWidth = SCREEN_WIDTH;
 	screenHeight = SCREEN_HEIGHT;
 
-	aladinObjects = new AladdinObjects();
-
 	tilemap = new TileMap(mapWidth, mapHeight, spriteMap, 16.0f, 16.0f);
 	tilemap->LoadListTileFromFile(fileMap);
 
+	aladinObjects = new AladdinObjects();
 	aladinObjects->Load(fileResoucre, &objects);
 
 	//for (int i = 0; i < 67; i++)

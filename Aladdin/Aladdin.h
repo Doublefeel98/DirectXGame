@@ -9,7 +9,6 @@ class Aladdin : public CGameObject
 {
 	static Aladdin* __instance;
 	int level;
-	int untouchable;
 	DWORD untouchable_start;
 	DWORD timeAttackStart;
 	DWORD timeSittingSlashStart;
@@ -24,16 +23,18 @@ class Aladdin : public CGameObject
 	DWORD timeEnemyHurt;
 	int hurtable;
 	DWORD timeHurtableStart;
-	ThrowApples* throwApple;
+	vector<ThrowApples*> throwApples;
 	Sword* sword;
 	int hp;
-	int countApple;
+	int indexApple;
 	int countPenny;
 	int countLife;
 	Aladdin();
 	int checkPointX, checkPointY;
 	Chains* chainsCanAble;
 public:
+	int untouchable;
+	bool IsRun;
 	bool IsSit;
 	bool IsLookingUp;
 	bool IsJump;
@@ -57,7 +58,7 @@ public:
 	int GetHP() { return this->hp; }
 	void SetHP(int hp) { this->hp = hp; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
-	void StartHurting() { IsHurt = true; hurtable = 1; timeHurtableStart = GetTickCount(); }
+	void StartHurting(int damage);
 	void ResetAnimationsSlash();
 	void ResetAnimationsSitDown();
 	void ResetAnimationIdle();
@@ -66,8 +67,9 @@ public:
 	void ResetAnimationsLookUp();
 	void ResetAllAnimation();
 	void EnemyHurted(int damage);
-	int GetCountApple() { return countApple; }
-	void addApple(int count) { countApple += count; }
+	int GetCountApple() { return this->throwApples.size() - indexApple; }
+	void addApple(int count);
+	bool CanAbleThrow() { return this->throwApples.size() != indexApple; }
 	int GetCountPenny() { return countPenny; }
 	void addPenny(int count) { countPenny += count; }
 	int GetCountLife() { return countLife; }

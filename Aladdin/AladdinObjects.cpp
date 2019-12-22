@@ -51,7 +51,7 @@ void AladdinObjects::Load(string file, vector<LPGAMEOBJECT>* listObject)
 
 void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, int height, int delay, vector<LPGAMEOBJECT>* listObject)
 {
-	x = x - 18;
+	x = x - DEVIATION_X;
 	switch (type)
 	{
 	case OBJECT_APPLE:

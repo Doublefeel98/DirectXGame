@@ -1,11 +1,18 @@
 #pragma once
 #include "../Framework/GameObject.h"
 #include "Define.h"
-
-class Jafar : public CGameObject
+#include "../Framework/Enemy.h"
+#include "SnakeFire.h"
+#include "Star.h"
+class Jafar : public CEnemy
 {
 private:
-
+	vector <SnakeFire*> snakeFires;
+	vector <Star*> stars;
+	DWORD timeAtack;
+	bool canAbleAtackFire;
+	bool canAbleAtackStar;
+	bool isExplosion;
 public:
 	Jafar();
 	~Jafar();

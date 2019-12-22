@@ -29,13 +29,17 @@
 #define ID_TEX_STATUE_LEFT	-110
 
 #define ID_TEX_MAP_ONE -10
+#define ID_TEX_MAP_BOSS -11
 #define ID_TEX_MAP -20
 
 //ID SPRITES
 #define ID_SPRITE_MAP_ONE -10
+#define ID_SPRITE_MAP_BOSS	-11
 #define ID_SPRITE_MAP_START -20
 
-//ID ANIMATIONS
+
+// config game
+#define DEVIATION_X						18
 
 
 //ID OBJECTS
@@ -65,10 +69,11 @@
 //ALADDIN
 #define ALADDIN_WALKING_SPEED		0.1f 
 //0.1f
-#define ALADDIN_JUMP_SPEED_Y		0.6f
+#define ALADDIN_JUMP_SPEED_Y		0.65f
 #define ALADDIN_CLIMB_SPEED_Y		0.1f 
 #define ALADDIN_JUMP_DEFLECT_SPEED	0.2f
 #define ALADDIN_GRAVITY				0.002f
+#define ALADDIN_MAX_SPEED			1.0f
 #define ALADDIN_DIE_DEFLECT_SPEED	0.5f
 
 #define ALADDIN_ATTACK_TIME			490
@@ -411,35 +416,49 @@
 #define JAFAR_ANI_IDLE_LEFT							1
 #define JAFAR_ANI_ATTACK_RIGHT						2
 #define JAFAR_ANI_ATTACK_LEFT						3
-#define JAFAR_ANI_FIRE_RIGHT						4
-#define JAFAR_ANI_FIRE_LEFT							5
+#define JAFAR_ANI_SNAKE_RIGHT						4
+#define JAFAR_ANI_SNAKE_LEFT						5
+
+#define JAFAR_STATE_IDLE					0
+#define JAFAR_STATE_ATTACK					1
+#define JAFAR_STATE_SNAKE					2
+
+#define JAFAR_HP							30
 
 #define JAFAR_BBOX_WIDTH 85
 #define JAFAR_BBOX_HEIGHT 71
 
-#define STAR_ANI_RIGHT								0
-#define STAR_ANI_LEFT								1
+#define JAFAR_SNAKE_BBOX_WIDTH	70
+#define JAFAR_SNAKE_BBOX_HEIGHT	84
 
-#define STAR_BBOX_WIDTH	24
-#define STAR_BBOX_HEIGHT 16
+//star
+#define STAR_BBOX_WIDTH								28
+#define STAR_BBOX_HEIGHT							16
 
-#define SNAKE_RIGHT									0
-#define SNAKE_RIGHT									1
+#define STAR_STATE_RIGHT							0
+#define STAR_STATE_LEFT								1
 
-#define SNAKE_BBOX_WIDTH	70
-#define SNAKE_BBOX_HEIGHT	84
+#define STAR_SPEED									0.15f
+#define STAR_GRAVITATION							0.03f
 
-#define SNAKE_FIRE_RIGHT							0
-#define SNAKE_FIRE_LEFT								1
-
-#define SNAKE_FIRE_BBOX_WIDTH	79
-#define SNAKE_FIRE_BBOX_HEIGHT	50
-
+//fire
 #define FIRE										0
 
 #define FIRE_BBOX_WIDTH	30
 #define FIRE_BBOX_HEIGHT 53
 
+#define FIRE_DAMAGE		1
+
+// snake fire
+#define FIRE_SNAKE_BBOX_WIDTH	64
+#define FIRE_SNAKE_BBOX_HEIGHT	51
+
+#define FIRE_SNAKE_STATE_RIGHT	0
+#define FIRE_SNAKE_STATE_LEFT	1
+
+#define FIRE_SNAKE_DAMAGE		1
+
+#define FIRE_SNAKE_SPEED 0.05f;
 // Item
 
 #define APPLE_ANI_WAIT								0

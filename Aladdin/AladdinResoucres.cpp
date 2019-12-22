@@ -44,6 +44,9 @@ void AladdinResoucres::LoadTextures()
 	//statue
 	textures->Add(ID_TEX_IAGO_RIGHT, L"resources\\textures\\ShivaStatueRight.png", D3DCOLOR_XRGB(84, 109, 142));
 	textures->Add(ID_TEX_IAGO_LEFT, L"resources\\textures\\ShivaStatueRight.png", D3DCOLOR_XRGB(84, 109, 142));
+
+	//CutScene
+	textures->Add(ID_TEX_MAP_START, L"resources\\textures\\Cutscenes.png", D3DCOLOR_XRGB(63, 72, 204));
 }
 
 void AladdinResoucres::LoadSprites()
@@ -76,6 +79,10 @@ void AladdinResoucres::LoadSprites()
 	//sprites->Add(ID_SPRITE_MAP_ONE, 0, 0, 256, 8304, textMapOne);
 	sprites->Add(ID_SPRITE_MAP_ONE, 0, 0, 2272, 1152, textMapOne);
 
+	LPDIRECT3DTEXTURE9 textMapStart = textures->Get(ID_TEX_MAP_START);
+	sprites->AddByWidthHeight(90000, 651, 193, 320, 256, textMapStart);
+
+	sprites->AddByWidthHeight(90100, 9, 12, 243, 90, texAladdinFullRight); // intro
 
 
 	sprites->Add(10001, 3, 9, 41, 59, texAladdinGoRight);		// idle right
@@ -656,6 +663,10 @@ void AladdinResoucres::LoadSprites()
 	sprites->AddByWidthHeight(20501, 497, 1144, 32, 160, texObstacle); // pilar 2
 	sprites->AddByWidthHeight(20502, 817, 1144, 32, 744, texObstacle); // pilar 3
 	sprites->AddByWidthHeight(20503, 1169, 1144, 32, 192, texObstacle); // pilar 4
+
+	sprites->AddByWidthHeight(20600, 2192, 1144, 78, 208, texObstacle); // exit
+
+	sprites->AddByWidthHeight(20700, 1, 1493, 512, 256, texObstacle); // fance
 
 
 	//item
@@ -2155,6 +2166,14 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(20503);
 	animations->Add(2053, ani);
 
+	ani = new CAnimation(100);		// Exit
+	ani->Add(20600);
+	animations->Add(2060, ani);
+
+	ani = new CAnimation(100);		// Fance
+	ani->Add(20700);
+	animations->Add(2070, ani);
+
 	ani = new CAnimation(200);		// Stone
 	ani->Add(20400);
 	ani->Add(20401);
@@ -2324,6 +2343,14 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(22004);
 	ani->Add(22005);
 	animations->Add(2201, ani);
+
+	ani = new CAnimation(100, false);		// map start
+	ani->Add(90000);
+	animations->Add(9000, ani);
+
+	ani = new CAnimation(100, false);		// intro
+	ani->Add(90100);
+	animations->Add(9100, ani);
 }
 
 AladdinResoucres::AladdinResoucres()

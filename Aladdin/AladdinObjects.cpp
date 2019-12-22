@@ -1,6 +1,8 @@
 #include "AladdinObjects.h"
 #include "Ground.h"
 #include "Pilar.h"
+#include "Exit.h"
+#include "Fance.h"
 #include "Brick.h"
 #include "WreckingBall.h"
 #include "StoneBar.h"
@@ -274,6 +276,30 @@ void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, i
 		obj->SetId(id);
 		obj->SetType(type);
 		obj->SetState(PILAR_STATE_5);
+		obj->SetPosition(x, y);
+		obj->SetWidth(width);
+		obj->SetHeight(height);
+		listObject->push_back(obj);
+	}
+	break;
+	case OBJECT_EXIT:
+	{
+		Exit* obj = new Exit();
+		obj->SetId(id);
+		obj->SetType(type);
+		obj->SetState(EXIT_STATE);
+		obj->SetPosition(x, y);
+		obj->SetWidth(width);
+		obj->SetHeight(height);
+		listObject->push_back(obj);
+	}
+	break;
+	case OBJECT_FANCE:
+	{
+		Fance* obj = new Fance();
+		obj->SetId(id);
+		obj->SetType(type);
+		obj->SetState(FANCE_STATE);
 		obj->SetPosition(x, y);
 		obj->SetWidth(width);
 		obj->SetHeight(height);

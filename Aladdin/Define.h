@@ -29,9 +29,11 @@
 #define ID_TEX_STATUE_LEFT	-110
 
 #define ID_TEX_MAP_ONE -10
+#define ID_TEX_MAP_START -20
 
 //ID SPRITES
 #define ID_SPRITE_MAP_ONE -10
+#define ID_SPRITE_MAP_START -20
 
 //ID ANIMATIONS
 
@@ -56,6 +58,8 @@
 #define OBJECT_WOOD						17
 #define OBJECT_GROUND					18
 #define OBJECT_PILAR_5					19
+#define OBJECT_EXIT						20
+#define OBJECT_FANCE					21
 
 
 //ALADDIN
@@ -481,10 +485,21 @@
 #define PILAR_BBOX_WIDTH_5				80
 #define PILAR_BBOX_HEIGHT_5				734
 
+//exit
+#define EXIT_STATE						0
+
+#define EXIT_BBOX_WIDTH	78
+#define EXIT_BBOX_HEIGHT 208
+
+#define FANCE_STATE						0
+
+#define FANCE_BBOX_WIDTH	0
+#define FANCE_BBOX_HEIGHT 0
+
 //MAX_HP 
 #define BAT_MAX_HP 1
-#define GUARD_MAX_HP 5
-#define THIN_GUARD_MAX_HP 5
+#define GUARD_MAX_HP 2
+#define THIN_GUARD_MAX_HP 2
 #define FAT_GUARD_MAX_HP 2
 #define SKELETON_MAX_HP 1
 #define IAGO_MAX_HP 1

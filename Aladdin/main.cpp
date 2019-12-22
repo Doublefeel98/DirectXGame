@@ -32,6 +32,7 @@
 #include "Brick.h"
 #include "../Framework/SceneManager.h"
 #include "SceneOne.h"
+#include "SceneStart.h"
 #include "Ground.h"
 #include "AladdinResoucres.h"
 
@@ -392,7 +393,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	LoadResources();
 	sceneManager = CSceneManager::GetInstance();
-	sceneManager->ChangeScene(new SceneOne(aladdin));
+	//sceneManager->ChangeScene(new SceneOne(aladdin));
+	sceneManager->ChangeScene(new SceneStart());
 
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 

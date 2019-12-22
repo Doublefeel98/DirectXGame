@@ -949,6 +949,7 @@ void Aladdin::Render()
 							ani = ALADDIN_ANI_RUN_JUMP_RIGHT;
 						else
 							ani = ALADDIN_ANI_JUMPING_RIGHT;
+							posY = y;
 					}
 				}
 				else
@@ -961,12 +962,12 @@ void Aladdin::Render()
 					{
 						if (vx < 0)
 							ani = ALADDIN_ANI_RUN_JUMP_LEFT;
-						else
+						else							
 							ani = ALADDIN_ANI_JUMPING_LEFT;
+							posY = y - 20;
 					}
 				}
 			}
-
 		}
 		else if (IsLookingUp)
 		{

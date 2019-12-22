@@ -27,20 +27,19 @@ void Star::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 		aladdin->GetBoundingBox(l2, t2, r2, b2);
 		if (CGame::isColliding(l1, t1, r1, b1, l2, t2, r2, b2)) {
 
-			if (nx > 0)
+			/*if (nx > 0)
 			{
 				aladdin->vx -= STAR_GRAVITATION;
 			}
 			else {
 				aladdin->vx += STAR_GRAVITATION;
-			}
+			}*/
 
 
 			isEnable = false;
 
 			return;
 		}
-
 
 		CGameObject::Update(dt, colliable_objects);
 		D3DXVECTOR3 alaPosition = Aladdin::GetInstance()->GetPosition();
@@ -84,13 +83,13 @@ void Star::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 		}
 		else
 		{
-			if (nx > 0)
+			/*if (nx > 0)
 			{
 				aladdin->vx -= STAR_GRAVITATION;
 			}
 			else {
 				aladdin->vx += STAR_GRAVITATION;
-			}
+			}*/
 
 			isEnable = false;
 		}

@@ -2410,13 +2410,13 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(50107);
 	animations->Add(5001, ani);
 
-	ani = new CAnimation(100, false);		// map start
-	ani->Add(90000);
-	animations->Add(9000, ani);
+	//ani = new CAnimation(100, false);		// map start
+	//ani->Add(90000);
+	//animations->Add(9000, ani);
 
-	ani = new CAnimation(100);		// intro
-	ani->Add(90100);
-	animations->Add(9010, ani);
+	//ani = new CAnimation(100);		// intro
+	//ani->Add(90100);
+	//animations->Add(9010, ani);
 
 	ani = new CAnimation(100);		// map end
 	ani->Add(91000);

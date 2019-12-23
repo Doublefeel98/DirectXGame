@@ -1,71 +1,73 @@
 #include "SceneStart.h"
 #include "../Framework/debug.h"
+#include "../Framework/SceneManager.h"
+#include "SceneOne.h"
 
-SceneStart::SceneStart()
+SceneStart::SceneStart() : CScene()
 {
-	CSprites* sprites = CSprites::GetInstance();
-	//mapWidth = 2144.0f;
-	//mapHeight = 1024.0f;
+	sprites = CSprites::GetInstance();
+	background = sprites->Get(90000);
 
-	mapWidth = 320;
-	mapHeight = 256;
-	spriteMap = sprites->Get(ID_SPRITE_MAP_ONE);
-	//fileResoucre = "resources\\map\\lv1\\new_obj.txt";
-	//fileGrid = "resources\\map\\lv1\\new_grid.txt";
-	//fileMap = "resources\\map\\lv1\\titlemaplv1_bg.txt";
-	//fileMap = "resources\\map\\lv1\\mapgamelv1_bg.txt";
+	intro = sprites->Get(90100);
 
-	fileMap = "resources\\map\\lv1\\tilemapgamelv1.txt";
-	fileResoucre = "resources\\map\\lv1\\text_obj.txt";
-	fileGrid = "resources\\map\\lv1\\text_grid.txt";
+	x = 65;
+	y = 140;
 
-	tileWidth = 16.0f;
-	tileHeight = 16.0f;
-	screenWidth = SCREEN_WIDTH;
-	screenHeight = SCREEN_HEIGHT;
-
-
-	tilemap = new TileMap(mapWidth, mapHeight, spriteMap, 16.0f, 16.0f);
-	tilemap->LoadListTileFromFile(fileMap);
-
-	//for (int i = 0; i < 67; i++)
-	//{
-	//	Ground* ground = new Ground();
-	//	ground->SetPosition(0 + i * 32.0f, 995);
-	//	objects.push_back(ground);
-	//}
-
-	for (int i = 1; i < objects.size(); i++)
-		coObjects.push_back(objects[i]);
-
-	grid = new Grid((int)mapWidth, (int)mapHeight, 160);
-	grid->Add(&coObjects);
-
-	sceneStartBoard = new SceneStartBoard();
+	time = 0;
+	timeDelay = 0;
+	isDelay = false;
 }
 
 void SceneStart::Render()
 {
-	tilemap->Render(screenWidth, screenHeight);
+	background->DrawWithoutCamera(0, 0);
+	intro->DrawWithoutCamera(40, 20);
 
-	grid->GetListOfObjects(&coObjects, screenWidth, screenHeight);
-
-	for (int i = 0; i < coObjects.size(); i++)
+	if (!isDelay)
 	{
-		coObjects[i]->Render();
-	}
+		sprites->Get(20215)->DrawWithoutCamera(x + 10, y);
+		sprites->Get(20217)->DrawWithoutCamera(x + 20, y);
+		sprites->Get(20204)->DrawWithoutCamera(x + 30, y);
+		sprites->Get(20218)->DrawWithoutCamera(x + 40, y);
+		sprites->Get(20218)->DrawWithoutCamera(x + 50, y);
 
-	sceneStartBoard->Render();
+		sprites->Get(20200)->DrawWithoutCamera(x + 70, y);
+		sprites->Get(20213)->DrawWithoutCamera(x + 80, y);
+		sprites->Get(20224)->DrawWithoutCamera(x + 90, y);
+
+		sprites->Get(20201)->DrawWithoutCamera(x + 110, y);
+		sprites->Get(20220)->DrawWithoutCamera(x + 120, y);
+		sprites->Get(20219)->DrawWithoutCamera(x + 130, y);
+		sprites->Get(20219)->DrawWithoutCamera(x + 140, y);
+		sprites->Get(20214)->DrawWithoutCamera(x + 150, y);
+		sprites->Get(20213)->DrawWithoutCamera(x + 160, y);
+	}
 }
 
 void SceneStart::Update(DWORD dt)
 {
-	grid->GetListOfObjects(&coObjects, screenWidth, screenHeight);
-
-
-	for (int i = 0; i < coObjects.size(); i++)
+	if (isChangeScene)
 	{
-		coObjects[i]->Update(dt, &coObjects);
+		DWORD now = GetTickCount();
+		if (time == 0)
+		{
+			time = now;
+		}
+		else {
+			if (now - time > 1000)
+			{
+				CSceneManager::GetInstance()->ChangeScene(new SceneOne());
+			}
+			else if (timeDelay == 0) {
+				timeDelay = now;
+				isDelay = !isDelay;
+			}
+			else if (now - timeDelay > 100)
+			{
+				timeDelay = now;
+				isDelay = !isDelay;
+			}
+		}
 	}
 }
 

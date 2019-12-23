@@ -1,11 +1,11 @@
 #include "SceneBoss.h"
 #include "../Framework/debug.h"
 
-SceneBoss::SceneBoss(Aladdin* aladdin)
+SceneBoss::SceneBoss()
 {
 	IsEnableSpitFire = false;
 
-	this->aladdin = aladdin;
+	this->aladdin = Aladdin::GetInstance();
 	this->aladdin->SetPosition(140, 290);
 
 	CSprites* sprites = CSprites::GetInstance();
@@ -29,17 +29,17 @@ SceneBoss::SceneBoss(Aladdin* aladdin)
 	aladinObjects = new AladdinObjects();
 	aladinObjects->Load(fileResoucre, &objects);
 
-	MapCollision* mapCollision = new MapCollision();
-	mapCollision->SetPosition(96 - DEVIATION_X, 1);
-	mapCollision->SetWidth(36);
-	mapCollision->SetHeight(415);
-	objects.push_back(mapCollision);
+	leftMap = new MapCollision();
+	leftMap->SetPosition(96 - DEVIATION_X, 1);
+	leftMap->SetWidth(36);
+	leftMap->SetHeight(415);
+	objects.push_back(leftMap);
 
-	mapCollision = new MapCollision();
-	mapCollision->SetPosition(835 - DEVIATION_X, 1);
-	mapCollision->SetWidth(36);
-	mapCollision->SetHeight(415);
-	objects.push_back(mapCollision);
+	rightMap = new MapCollision();
+	rightMap->SetPosition(835 - DEVIATION_X, 1);
+	rightMap->SetWidth(36);
+	rightMap->SetHeight(415);
+	objects.push_back(rightMap);
 
 	Spitfire* spitfire = new Spitfire();
 	spitfire->SetPosition(141 - DEVIATION_X, 311);

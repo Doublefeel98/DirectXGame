@@ -1,10 +1,9 @@
 #include "Scene.h"
 #include "Game.h"
 
-bool CScene::changeScene = false;
-
 CScene::CScene()
 {
+	isChangeScene = false;
 	camera = CCamera::GetInstance();
 }
 void CScene::Update(DWORD dt)

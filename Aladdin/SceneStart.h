@@ -4,7 +4,12 @@
 
 class SceneStart : public CScene
 {
-	SceneStartBoard* sceneStartBoard;
+	CSprite* background;
+	CSprite* intro;
+	CSprites* sprites;
+	int x, y;
+	DWORD timeDelay;
+	bool isDelay;
 public:
 	SceneStart();
 	void Render();

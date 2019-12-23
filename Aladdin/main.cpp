@@ -62,9 +62,21 @@ CSampleKeyHander* keyHandler;
 
 void CSampleKeyHander::OnKeyDown(int KeyCode)
 {
+	CScene* scene = sceneManager->GetCurrentScene();
+	if (dynamic_cast<SceneStart*>(scene))
+	{
+		if (!scene->isChangeScene)
+		{
+			scene->isChangeScene = true;
+		}
+		return;
+	}
 	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	switch (KeyCode)
 	{
+	case DIK_RETURN:
+
+		break;
 	case DIK_Z:
 		if (aladdin->CanAbleThrow())
 		{
@@ -193,7 +205,11 @@ void CSampleKeyHander::KeyState(BYTE* states)
 	else {
 		if (aladdin->GetState() != ALADDIN_STATE_STANDING_SLASH)
 		{
-			aladdin->SetState(ALADDIN_STATE_IDLE);
+			if (!aladdin->IsJump)
+			{
+				aladdin->SetState(ALADDIN_STATE_IDLE);
+			}
+
 		}
 	}
 
@@ -414,9 +430,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	LoadResources();
 	sceneManager = CSceneManager::GetInstance();
 	//sceneManager->ChangeScene(new SceneOne(aladdin));
-	//sceneManager->ChangeScene(new SceneStart());
+	sceneManager->ChangeScene(new SceneStart());
 	//sceneManager->ChangeScene(new SceneEnd());
-	sceneManager->ChangeScene(new SceneBoss(aladdin));
+	//sceneManager->ChangeScene(new SceneBoss(aladdin));
 
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 

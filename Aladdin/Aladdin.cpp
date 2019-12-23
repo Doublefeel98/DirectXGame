@@ -169,7 +169,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				timeThrowStart = 0;
 				IsThrow = false;
 				IsJump = false;
-				SetState(ALADDIN_STATE_IDLE);
+				SetState(ALADDIN_STATE_CLIMB);
 
 				indexApple++;
 			}
@@ -856,6 +856,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					y += min_ty * dy + ny * 0.4f;
 
 					if (nx != 0) //vx = 0;
+					{
 						if (ny != 0)
 						{
 							vy = 0;
@@ -866,6 +867,9 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							}
 
 						}
+					}
+
+					IsJump = false;
 
 					fallingAfterClimbing = false;
 				}
@@ -1194,7 +1198,8 @@ void Aladdin::SetState(int state)
 		vy = -ALADDIN_JUMP_SPEED_Y;
 	case ALADDIN_STATE_IDLE:
 		IsSit = false;
-		IsJump = false;
+		IsLookingUp = false;
+		//IsJump = false;
 		//vx = 0;
 		if (timeIdleStart == 0)
 		{

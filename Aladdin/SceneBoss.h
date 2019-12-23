@@ -6,7 +6,6 @@
 #include "Aladdin.h"
 #include "Jafar.h"
 #include "Spitfire.h"
-#include "../Framework/MapCollision.h"
 class SceneBoss : public CScene
 {
 	Aladdin* aladdin;
@@ -16,7 +15,7 @@ class SceneBoss : public CScene
 	Jafar* jafar;
 	bool IsEnableSpitFire;
 public:
-	SceneBoss(Aladdin* aladdin);
+	SceneBoss();
 	void Render();
 	void Update(DWORD dt);
 	void DestroyAll();

@@ -7,13 +7,13 @@
 class SceneOne : public CScene
 {
 	Aladdin* aladdin;
-	AladdinObjects * aladinObjects;
+	AladdinObjects* aladinObjects;
 	ScoreBoard* scoreboard;
 	vector<LPGAMEOBJECT> pilars;
 	vector<LPGAMEOBJECT> exit;
 	vector<LPGAMEOBJECT> fances;
 public:
-	SceneOne(Aladdin* aladdin);
+	SceneOne();
 	void Render();
 	void Update(DWORD dt);
 	void DestroyAll();

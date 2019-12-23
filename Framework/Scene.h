@@ -10,11 +10,10 @@ class CScene
 protected:
 	DWORD time;
 	int state;
-	static bool changeScene;
 	TileMap* tilemap;
 	D3DXVECTOR3 cameraCheckpoint;
-	MapCollision* leftmap;
-	MapCollision* rightmap;
+	MapCollision* leftMap;
+	MapCollision* rightMap;
 	char* fileResoucre;
 	char* fileGrid;
 	char* fileMap;
@@ -27,6 +26,7 @@ protected:
 	int screenWidth, screenHeight;
 	float tileWidth, tileHeight;
 public:
+	bool isChangeScene;
 	CScene();
 	float GetMapWidth() { return mapWidth; }
 	float GetMapHeight() { return mapHeight; }

@@ -23,6 +23,17 @@ void SnakeFire::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 {
 	if (isEnable)
 	{
+		float l1, t1, r1, b1, l2, t2, r2, b2;
+		GetBoundingBox(l1, t1, r1, b1);
+		aladdin->GetBoundingBox(l2, t2, r2, b2);
+		if (CGame::isColliding(l1, t1, r1, b1, l2, t2, r2, b2)) {
+
+			if (aladdin->untouchable == 0 && !aladdin->IsEnemyHurt)
+			{
+				aladdin->StartHurting(damage);
+			}
+		}
+
 		// Calculate dx, dy 
 		CGameObject::Update(dt);
 

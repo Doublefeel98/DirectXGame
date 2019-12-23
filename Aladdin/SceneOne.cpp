@@ -5,9 +5,9 @@
 #include "Fance.h"
 #include "../Framework/debug.h"
 
-SceneOne::SceneOne(Aladdin* aladdin)
+SceneOne::SceneOne()
 {
-	this->aladdin = aladdin;
+	this->aladdin = Aladdin::GetInstance();
 	this->aladdin->SetPosition(100, 1052);
 	//this->aladdin->SetPosition(2170, 63);
 	//this->aladdin->SetPosition(432, 580);
@@ -39,12 +39,19 @@ SceneOne::SceneOne(Aladdin* aladdin)
 	aladinObjects = new AladdinObjects();
 	aladinObjects->Load(fileResoucre, &objects);
 
-	//for (int i = 0; i < 67; i++)
-	//{
-	//	Ground* ground = new Ground();
-	//	ground->SetPosition(0 + i * 32.0f, 995);
-	//	objects.push_back(ground);
-	//}
+	leftMap = new MapCollision();
+	leftMap->SetPosition(-32 - DEVIATION_X, 0);
+	leftMap->SetWidth(32);
+	leftMap->SetHeight(1139);
+	leftMap->SetId(objects.size() + 1);
+	objects.push_back(leftMap);
+
+	rightMap = new MapCollision();
+	rightMap->SetPosition(2272 - DEVIATION_X, 1);
+	rightMap->SetWidth(32);
+	rightMap->SetHeight(1139);
+	rightMap->SetId(objects.size() + 1);
+	objects.push_back(rightMap);
 
 	Pilar* pilar = new Pilar();
 	pilar->SetState(PILAR_STATE_1);
@@ -81,7 +88,7 @@ SceneOne::SceneOne(Aladdin* aladdin)
 	exit->SetHeight(EXIT_BBOX_HEIGHT);
 	exit->SetId(objects.size() + 1);
 	objects.push_back(exit);
-	
+
 	Fance* fance = new Fance();
 	fance->SetState(FANCE_STATE);
 	fance->SetPosition(10, 881);

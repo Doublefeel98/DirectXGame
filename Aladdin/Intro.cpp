@@ -17,5 +17,5 @@ void Intro::GetBoundingBox(float& l, float& t, float& r, float& b)
 
 Intro::Intro()
 {
-	AddAnimation(9010);
+
 }

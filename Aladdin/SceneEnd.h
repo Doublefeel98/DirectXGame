@@ -4,7 +4,12 @@
 
 class SceneEnd : public CScene
 {
-	SceneEndBoard* sceneEndBoard;
+	CSprite* complete;
+	CSprite* endBackground;
+	CSprites* sprites;
+	int x, y;
+	DWORD timeDelay;
+	bool isDelay;
 public:
 	SceneEnd();
 	void Render();

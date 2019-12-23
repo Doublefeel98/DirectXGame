@@ -2418,13 +2418,13 @@ void AladdinResoucres::LoadAnimations()
 	//ani->Add(90100);
 	//animations->Add(9010, ani);
 
-	ani = new CAnimation(100);		// map end
-	ani->Add(91000);
-	animations->Add(9100, ani);
+	//ani = new CAnimation(100);		// map end
+	//ani->Add(91000);
+	//animations->Add(9100, ani);
 
-	ani = new CAnimation(100);		// complete
-	ani->Add(91100);
-	animations->Add(9110, ani);
+	//ani = new CAnimation(100);		// complete
+	//ani->Add(91100);
+	//animations->Add(9110, ani);
 }
 
 AladdinResoucres::AladdinResoucres()

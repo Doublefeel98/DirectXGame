@@ -914,6 +914,7 @@ void Aladdin::Render()
 			}
 			else if (IsThrow)
 			{
+				posY = y + 3;
 				if (nx > 0)
 				{
 					ani = ALADDIN_ANI_SITTING_THROW_APPLE_RIGHT;
@@ -1067,6 +1068,7 @@ void Aladdin::Render()
 			}
 			else if (IsThrow)
 			{
+				posY = y - 10;
 				if (nx > 0)
 				{
 					ani = ALADDIN_ANI_RUN_THROW_RIGHT;
@@ -1102,8 +1104,9 @@ void Aladdin::Render()
 			}
 			else if (IsThrow)
 			{
+				posY = y - 9;
 				if (nx > 0)
-				{
+				{					
 					ani = ALADDIN_ANI_THROW_APPLE_RIGHT;
 				}
 				else {

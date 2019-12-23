@@ -1,71 +1,52 @@
 #include "SceneEnd.h"
 #include "../Framework/debug.h"
+#include "../Framework/SceneManager.h"
+#include "SceneStart.h"
 
-SceneEnd::SceneEnd()
+SceneEnd::SceneEnd() : CScene()
 {
-	CSprites* sprites = CSprites::GetInstance();
-	//mapWidth = 2144.0f;
-	//mapHeight = 1024.0f;
+	sprites = CSprites::GetInstance();
+	endBackground = sprites->Get(91000);
+	complete = sprites->Get(91100);
 
-	mapWidth = 320;
-	mapHeight = 256;
-	spriteMap = sprites->Get(ID_SPRITE_MAP_ONE);
-	//fileResoucre = "resources\\map\\lv1\\new_obj.txt";
-	//fileGrid = "resources\\map\\lv1\\new_grid.txt";
-	//fileMap = "resources\\map\\lv1\\titlemaplv1_bg.txt";
-	//fileMap = "resources\\map\\lv1\\mapgamelv1_bg.txt";
+	x = 65;
+	y = 140;
 
-	fileMap = "resources\\map\\lv1\\tilemapgamelv1.txt";
-	fileResoucre = "resources\\map\\lv1\\text_obj.txt";
-	fileGrid = "resources\\map\\lv1\\text_grid.txt";
-
-	tileWidth = 16.0f;
-	tileHeight = 16.0f;
-	screenWidth = SCREEN_WIDTH;
-	screenHeight = SCREEN_HEIGHT;
-
-
-	tilemap = new TileMap(mapWidth, mapHeight, spriteMap, 16.0f, 16.0f);
-	tilemap->LoadListTileFromFile(fileMap);
-
-	//for (int i = 0; i < 67; i++)
-	//{
-	//	Ground* ground = new Ground();
-	//	ground->SetPosition(0 + i * 32.0f, 995);
-	//	objects.push_back(ground);
-	//}
-
-	for (int i = 1; i < objects.size(); i++)
-		coObjects.push_back(objects[i]);
-
-	grid = new Grid((int)mapWidth, (int)mapHeight, 160);
-	grid->Add(&coObjects);
-
-	sceneEndBoard = new SceneEndBoard();
+	time = 0;
+	timeDelay = 0;
+	isDelay = false;
 }
 
 void SceneEnd::Render()
 {
-	tilemap->Render(screenWidth, screenHeight);
-
-	grid->GetListOfObjects(&coObjects, screenWidth, screenHeight);
-
-	for (int i = 0; i < coObjects.size(); i++)
-	{
-		coObjects[i]->Render();
-	}
-
-	sceneEndBoard->Render();
+	endBackground->DrawWithoutCamera(0, 0);
+	complete->DrawWithoutCamera(40, 20);
 }
 
 void SceneEnd::Update(DWORD dt)
 {
-	grid->GetListOfObjects(&coObjects, screenWidth, screenHeight);
-
-
-	for (int i = 0; i < coObjects.size(); i++)
+	if (isChangeScene)
 	{
-		coObjects[i]->Update(dt, &coObjects);
+		DWORD now = GetTickCount();
+		if (time == 0)
+		{
+			time = now;
+		}
+		else {
+			if (now - time > 1000)
+			{
+				CSceneManager::GetInstance()->ChangeScene(new SceneStart());
+			}
+			else if (timeDelay == 0) {
+				timeDelay = now;
+				isDelay = !isDelay;
+			}
+			else if (now - timeDelay > 100)
+			{
+				timeDelay = now;
+				isDelay = !isDelay;
+			}
+		}
 	}
 }
 

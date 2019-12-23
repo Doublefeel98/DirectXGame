@@ -107,6 +107,18 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				indexApple++;
 			}
 		}
+		if (now - timeSitStart > ALADDIN_SIT_TIME)
+		{
+			int ani;
+			if (nx > 0)
+			{
+				ani = ALADDIN_ANI_SIT_DOWN_RIGHT;
+			}
+			else {
+				ani = ALADDIN_ANI_SIT_DOWN_LEFT;
+			}
+			animations[ani]->currentFrame = animations[ani]->frames.size() - 1;
+		}
 	}
 	else if (IsClimb)
 	{
@@ -283,6 +295,19 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 
 		}
+
+		if (now - timeLookUpStart > ALADDIN_LOOK_UP_TIME)
+		{
+			int ani;
+			if (nx > 0)
+			{
+				ani = ALADDIN_ANI_LOOKING_UP_RIGHT;
+			}
+			else {
+				ani = ALADDIN_ANI_LOOKING_UP_LEFT;
+			}
+			animations[ani]->currentFrame = animations[ani]->frames.size() - 1;
+		}
 	}
 	else if (IsHurt) {
 
@@ -412,52 +437,12 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		}
 
-		if (this->GetState() == ALADDIN_STATE_IDLE)
-		{
-			IsSit = false;
-			//IsClimb = false;
-			ResetAnimationsSitDown();
-		}
-		else {
-			timeIdleStart = 0;
-			ResetAnimationIdle();
-		}
 
-		if (this->GetState() != ALADDIN_STATE_LOOKING_UP) {
-			IsLookingUp = false;
-			ResetAnimationsLookUp();
-			timeLookUpStart = 0;
-		}
-
-		if (now - timeSitStart > ALADDIN_SIT_TIME)
-		{
-			int ani;
-			if (nx > 0)
-			{
-				ani = ALADDIN_ANI_SIT_DOWN_RIGHT;
-			}
-			else {
-				ani = ALADDIN_ANI_SIT_DOWN_LEFT;
-			}
-			animations[ani]->currentFrame = animations[ani]->frames.size() - 1;
-		}
-
-		if (now - timeLookUpStart > ALADDIN_LOOK_UP_TIME)
-		{
-			int ani;
-			if (nx > 0)
-			{
-				ani = ALADDIN_ANI_LOOKING_UP_RIGHT;
-			}
-			else {
-				ani = ALADDIN_ANI_LOOKING_UP_LEFT;
-			}
-			animations[ani]->currentFrame = animations[ani]->frames.size() - 1;
-		}
 	}
 
-	if (IsClimb)
+	if (IsClimb || IsGround)
 	{
+		vy = 0;
 	}
 	else {
 		vy += ALADDIN_GRAVITY * dt;
@@ -471,6 +456,23 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		sword->SetEnable(false);
 		sword->SetFighting(false);
 	}
+
+	if (this->GetState() == ALADDIN_STATE_IDLE)
+	{
+		IsSit = false;
+		//IsClimb = false;
+		ResetAnimationsSitDown();
+	}
+	else if (this->GetState() != ALADDIN_STATE_LOOKING_UP) {
+		IsLookingUp = false;
+		ResetAnimationsLookUp();
+		timeLookUpStart = 0;
+	}
+	else {
+		timeIdleStart = 0;
+		ResetAnimationIdle();
+	}
+
 
 	//if (dy == 0)
 	//{
@@ -692,6 +694,16 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 
+
+	for (UINT i = 0; i < coEvents.size(); i++)
+	{
+		LPCOLLISIONEVENT e = coEvents[i];
+		if (dynamic_cast<Chains*>(e->obj))
+		{
+			coEvents.erase(coEvents.begin() + i);
+		}
+	}
+
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
@@ -700,9 +712,16 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		float min_tx, min_ty, nx = 0, ny;
+
+		float min_tx, min_ty, nx = 0, ny, oldVy;
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+
+		oldVy = vy;
+
+		if (ny != 0) vy = 0;
+
+
 
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
@@ -723,21 +742,11 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 								StartHurting(trap->GetDamage());
 								trap->SetEnable(false);
 							}
-							/*if (hp > 0)
-							{
-								this->hp -= trap->GetDamage();
-								StartUntouchable();
-								StartHurting();
-								SetState(ALADDIN_STATE_BE_ATTACKED);
-								trap->SetEnable(false);
-							}*/
-							//else
-							//	SetState(ALADDIN_STATE_DIE);
 						}
 					}
 				}
 			}
-			else if (dynamic_cast<WreckingBall*>(e->obj))
+			if (dynamic_cast<WreckingBall*>(e->obj))
 			{
 				WreckingBall* ball = dynamic_cast<WreckingBall*>(e->obj);
 
@@ -752,21 +761,11 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 								StartHurting(ball->GetDamage());
 								ball->SetEnable(false);
 							}
-							/*if (hp > 0)
-							{
-								this->hp -= trap->GetDamage();
-								StartUntouchable();
-								StartHurting();
-								SetState(ALADDIN_STATE_BE_ATTACKED);
-								ball->SetEnable(false);
-							}*/
-							//else
-							//	SetState(ALADDIN_STATE_DIE);
 						}
 					}
 				}
 			}
-			else if (dynamic_cast<Apple*>(e->obj))
+			if (dynamic_cast<Apple*>(e->obj))
 			{
 				Apple* apple = dynamic_cast<Apple*>(e->obj);
 
@@ -779,7 +778,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					}
 				}
 			}
-			else if (dynamic_cast<Penny*>(e->obj))
+			if (dynamic_cast<Penny*>(e->obj))
 			{
 				Penny* penny = dynamic_cast<Penny*>(e->obj);
 
@@ -792,7 +791,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					}
 				}
 			}
-			else if (dynamic_cast<GenieBonusLevel*>(e->obj))
+			if (dynamic_cast<GenieBonusLevel*>(e->obj))
 			{
 				GenieBonusLevel* genie = dynamic_cast<GenieBonusLevel*>(e->obj);
 
@@ -804,7 +803,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					}
 				}
 			}
-			else if (dynamic_cast<Vase*>(e->obj))
+			if (dynamic_cast<Vase*>(e->obj))
 			{
 				Vase* vase = dynamic_cast<Vase*>(e->obj);
 
@@ -818,7 +817,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					}
 				}
 			}
-			else if (dynamic_cast<CEnemy*>(e->obj))
+			if (dynamic_cast<CEnemy*>(e->obj))
 			{
 				CEnemy* enemy = dynamic_cast<CEnemy*>(e->obj);
 				if (untouchable == 0 && !IsEnemyHurt)
@@ -837,51 +836,49 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					}
 				}
 			}
-			else if (dynamic_cast<Brick*>(e->obj) || dynamic_cast<StoneBar*>(e->obj) || dynamic_cast<Ground*>(e->obj) || dynamic_cast<Wood*>(e->obj) || dynamic_cast<Pilar*>(e->obj) || dynamic_cast<MapCollision*>(e->obj) || dynamic_cast<Spitfire*>(e->obj))
+			if (dynamic_cast<Brick*>(e->obj) || dynamic_cast<StoneBar*>(e->obj) || dynamic_cast<Ground*>(e->obj) || dynamic_cast<Wood*>(e->obj) || dynamic_cast<Pilar*>(e->obj) || dynamic_cast<MapCollision*>(e->obj) || dynamic_cast<Spitfire*>(e->obj))
 			{
+				if (dynamic_cast<Spitfire*>(e->obj))
+				{
+					Spitfire* spitFire = dynamic_cast<Spitfire*>(e->obj);
+
+					if (spitFire->isEnableFire)
+					{
+						spitFire->SetEnable(true);
+					}
+
+				}
+
 				if (e->ny < 0)
 				{
-					if (dynamic_cast<Spitfire*>(e->obj))
-					{
-						Spitfire* spitFire = dynamic_cast<Spitfire*>(e->obj);
+					x += min_tx * dx + nx * 0.1f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+					y += min_ty * dy + ny * 0.1f;
 
-						if (spitFire->isEnableFire)
+					if (nx != 0) vx = 0;
+					if (ny != 0)
+					{
+						vy = 0;
+						if (IsJump)
 						{
-							spitFire->SetEnable(true);
+							SetState(ALADDIN_STATE_IDLE);
+							ResetAnimationsJump();
 						}
 
 					}
-					// block 
-					x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-					y += min_ty * dy + ny * 0.4f;
-
-					if (nx != 0) //vx = 0;
-					{
-						if (ny != 0)
-						{
-							vy = 0;
-							if (IsJump)
-							{
-								SetState(ALADDIN_STATE_IDLE);
-								ResetAnimationsJump();
-							}
-
-						}
-					}
-
-					IsJump = false;
-
-					fallingAfterClimbing = false;
 				}
+
+				IsJump = false;
+
+				fallingAfterClimbing = false;
 			}
-			//else
-			//{
-			//	x += dx;
-			//	if (ny < 0)
-			//		y += dy + ny * 0.7f;
-			//	else if (ny > 0)
-			//		y += dy + ny * -0.7f;
-			//}
+			else
+			{
+				x += dx;
+				if (ny < 0)
+					y += dy + ny * 0.7f;
+				else if (ny > 0)
+					y += dy + ny * -0.7f;
+			}
 		}
 	}
 
@@ -1010,6 +1007,7 @@ void Aladdin::Render()
 						ani = ALADDIN_ANI_RUN_JUMP_LEFT;
 					}
 					else {
+						posY = y - 30;
 						if (nx > 0)
 						{
 							ani = ALADDIN_ANI_JUMPING_RIGHT;
@@ -1106,7 +1104,7 @@ void Aladdin::Render()
 			{
 				posY = y - 9;
 				if (nx > 0)
-				{					
+				{
 					ani = ALADDIN_ANI_THROW_APPLE_RIGHT;
 				}
 				else {
@@ -1326,33 +1324,33 @@ void Aladdin::SetState(int state)
 	case ALADDIN_STATE_CLIMB:
 		//vx = 0;
 		vy = 0;
+		IsJump = false;
 		IsClimb = true;
 		IsClimbing = false;
 		break;
 	case ALADDIN_STATE_CLIMB_UP:
 		//vx = 0;
 		vy = -ALADDIN_CLIMB_SPEED_Y;
+		IsJump = false;
 		IsClimb = true;
 		IsClimbing = true;
 		break;
 	case ALADDIN_STATE_CLIMB_DOWN:
 		//vx = 0;
 		vy = ALADDIN_CLIMB_SPEED_Y;
+		IsJump = false;
 		IsClimb = true;
 		IsClimbing = true;
 		break;
+	case ALADDIN_STATE_CLIMB_JUMP:
+		fallingAfterClimbing = true;
+		IsClimb = false;
+		IsClimbing = false;
+		IsJump = true;
+		IsGround = false;
+		vy = -ALADDIN_JUMP_SPEED_Y;
 	case ALADDIN_STATE_BE_ATTACKED:
 		IsGround = false;
-		/*if (nx > 0)
-		{
-			vx = -0.1;
-		}
-		if (nx < 0)
-		{
-			vx = 0.1;
-		}*/
-		//if (dy <= 0 || vy >= 0 || dy > 0)
-		//	vy = -0.4;
 		break;
 	}
 }

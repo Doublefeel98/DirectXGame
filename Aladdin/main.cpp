@@ -119,6 +119,10 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 			{
 				aladdin->SetState(ALADDIN_STATE_JUMPING_SLASH);
 			}
+			else if (aladdin->IsClimb)
+			{
+				aladdin->SetState(ALADDIN_STATE_CLIMB_JUMP);
+			}
 			else if (aladdin->IsThrow)
 			{
 				aladdin->SetState(ALADDIN_STATE_JUMPING_THROW_APPLE);
@@ -295,7 +299,7 @@ void Update(DWORD dt)
 
 	camera->SetCameraPosition(cx, cy);
 
-	DebugOut(L"[INFO] aladdin state: %d\n", aladdin->state);
+	DebugOut(L"[INFO]  aladdin->state: %d\n", aladdin->state);
 }
 
 /*

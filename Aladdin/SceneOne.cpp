@@ -9,7 +9,7 @@ SceneOne::SceneOne()
 {
 	this->aladdin = Aladdin::GetInstance();
 	this->aladdin->SetPosition(100, 1052);
-	//this->aladdin->SetPosition(2170, 63);
+	//this->aladdin->SetPosition(1200, 1052);
 	//this->aladdin->SetPosition(432, 580);
 
 	CSprites* sprites = CSprites::GetInstance();

@@ -2215,7 +2215,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(20700);
 	animations->Add(2070, ani);
 
-	ani = new CAnimation(200);		// Stone
+	ani = new CAnimation(200);		// Brick
 	ani->Add(20400);
 	ani->Add(20401);
 	ani->Add(20402);
@@ -2225,7 +2225,7 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(20402);
 	ani->Add(20401);
 	//delay
-	ani->Add(20400, 1400);
+	ani->Add(20400, 2000);
 	animations->Add(2040, ani);
 
 	ani = new CAnimation(200);		// Trap

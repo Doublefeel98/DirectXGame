@@ -64,7 +64,7 @@ void NormalPalaceGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 		}
 
 
-		if (abs(this->x - alaPosition.x) < GUARD_DELTA_X /*&& y - this->y < BAT_DELTA_Y*/)
+		if (abs(this->x - alaPosition.x) < GUARD_DELTA_X && abs(this->y - alaPosition.y) < ALADDIN_BBOX_HEIGHT)
 		{
 			if (!init)
 			{

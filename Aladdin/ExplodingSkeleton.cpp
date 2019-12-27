@@ -41,7 +41,7 @@ void ExplodingSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 			}
 		}
 
-		if (abs(this->x - alaPosition.x) < SKELETON_DELTA_X && abs(this->y - alaPosition.y) < SKELETON_DELTA_Y)
+		if (abs(this->x - alaPosition.x) < SKELETON_DELTA_X && abs(this->y - alaPosition.y) < ALADDIN_BBOX_HEIGHT)
 		{
 			SetState(SKELETON_STATE_STAND_UP);
 		}

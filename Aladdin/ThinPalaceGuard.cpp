@@ -28,8 +28,7 @@ void ThinPalaceGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject) {
 			return;
 		}
 
-
-		if (abs(this->x - alaPosition.x) < GUARD_DELTA_X /*&& y - this->y < BAT_DELTA_Y*/)
+		if (abs(this->x - alaPosition.x) < GUARD_DELTA_X && abs(this->y - alaPosition.y) < ALADDIN_BBOX_HEIGHT)
 		{
 			if (!init)
 			{
@@ -142,7 +141,7 @@ void ThinPalaceGuard::SetState(int stateNew)
 	}
 }
 
-void ThinPalaceGuard::Render() 
+void ThinPalaceGuard::Render()
 {
 	if (!isDead) {
 		int posX = x, posY = y;
@@ -207,7 +206,7 @@ void ThinPalaceGuard::resetAniSurprise()
 	animations[THIN_GUARD_ANI_SURPRISE_LEFT]->reset();
 }
 
-ThinPalaceGuard::ThinPalaceGuard() : CEnemy() 
+ThinPalaceGuard::ThinPalaceGuard() : CEnemy()
 {
 	width = THIN_GUARD_BBOX_WIDTH;
 	height = THIN_GUARD_BBOX_HEIGHT;

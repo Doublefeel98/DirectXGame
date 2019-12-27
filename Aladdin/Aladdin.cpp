@@ -232,7 +232,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					ResetAnimationsJump();
 					timeAttackStart = 0;
 					IsSlash = false;
-					IsJump = false;
+					//IsJump = false;
 					SetState(ALADDIN_STATE_JUMP);
 				}
 			}
@@ -254,7 +254,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					ResetAnimationsThrow();
 					timeThrowStart = 0;
 					IsThrow = false;
-					IsJump = false;
+					//IsJump = false;
 					SetState(ALADDIN_STATE_JUMP);
 
 					indexApple++;
@@ -720,11 +720,9 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
-		oldVy = vy;
+		/*oldVy = vy;
 
-		if (ny != 0) vy = 0;
-
-
+		if (ny != 0) vy = 0;*/
 
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
@@ -856,29 +854,28 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 				if (e->ny < 0)
 				{
-					x += min_tx * dx + nx * 0.1f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-					y += min_ty * dy + ny * 0.1f;
+					x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+					y += min_ty * dy + ny * 0.4f;
 
 					if (nx != 0) vx = 0;
-					if (ny != 0)
-					{
-						vy = 0;
-						if (IsJump)
-						{
-							SetState(ALADDIN_STATE_IDLE);
-							ResetAnimationsJump();
-						}
-
-					}
+					if (ny != 0) vy = 0;
 				}
 
-				IsJump = false;
+				if (IsJump)
+				{
+					SetState(ALADDIN_STATE_IDLE);
+					ResetAnimationsJump();
+					IsJump = false;
+				}
 
 				fallingAfterClimbing = false;
 			}
 			else
 			{
 				x += dx;
+
+				//y += dy;
+
 				if (ny < 0)
 					y += dy + ny * 0.7f;
 				else if (ny > 0)
@@ -1280,7 +1277,10 @@ void Aladdin::SetState(int state)
 		vx = ALADDIN_WALKING_SPEED;
 		nx = 1;
 		vy = -ALADDIN_JUMP_SPEED_Y;
-		IsJump = true;
+		if (!IsJump)
+		{
+			IsJump = true;
+		}
 		IsGround = false;
 		if (timeRunJumpStart == 0)
 		{
@@ -1308,7 +1308,10 @@ void Aladdin::SetState(int state)
 	case ALADDIN_STATE_JUMPING_SLASH:
 		nx = 1;
 		vy = -ALADDIN_JUMP_SPEED_Y;
-		IsJump = true;
+		if (!IsJump)
+		{
+			IsJump = true;
+		}
 		IsSlash = true;
 		IsGround = false;
 		if (timeJumpSlashStart == 0)
@@ -1319,7 +1322,10 @@ void Aladdin::SetState(int state)
 	case ALADDIN_STATE_JUMPING_THROW_APPLE:
 		nx = 1;
 		vy = -ALADDIN_JUMP_SPEED_Y;
-		IsJump = true;
+		if (!IsJump)
+		{
+			IsJump = true;
+		}
 		IsThrow = true;
 		if (timeJumpThrowStart == 0)
 		{

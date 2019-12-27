@@ -299,7 +299,7 @@ void Update(DWORD dt)
 
 	camera->SetCameraPosition(cx, cy);
 
-	DebugOut(L"[INFO]  aladdin->state: %d\n", aladdin->state);
+	DebugOut(L"[INFO]  aladdin->IsJump: %d\n", aladdin->IsJump);
 }
 
 /*
@@ -434,9 +434,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	LoadResources();
 	sceneManager = CSceneManager::GetInstance();
 	//sceneManager->ChangeScene(new SceneOne(aladdin));
-	sceneManager->ChangeScene(new SceneStart());
+	//sceneManager->ChangeScene(new SceneStart());
 	//sceneManager->ChangeScene(new SceneEnd());
-	//sceneManager->ChangeScene(new SceneBoss(aladdin));
+	sceneManager->ChangeScene(new SceneBoss());
 
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 

@@ -14,7 +14,6 @@ Bone::Bone() : CGameObject()
 	velocityRamdomX = 0;
 	velocityRamdomY = 0;
 	aladdin = Aladdin::GetInstance();
-	objects.push_back(aladdin);
 	damage = BONE_DAMAGE;
 }
 
@@ -34,6 +33,16 @@ void Bone::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (state != BONE_STATE_DIE)
 			vy += BONE_GRAVITY * dt;
 
+
+		objects.clear();
+		objects.push_back(aladdin);
+		for (int i = 0; i < coObjects->size(); i++)
+		{
+			if (dynamic_cast<Ground*>(coObjects->at(i)) || dynamic_cast<StoneBar*>(coObjects->at(i)) || dynamic_cast<Wood*>(coObjects->at(i)))
+			{
+				objects.push_back(coObjects->at(i));
+			}
+		}
 
 		vector<LPCOLLISIONEVENT> coEvents;
 		vector<LPCOLLISIONEVENT> coEventsResult;

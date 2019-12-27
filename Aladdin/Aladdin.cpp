@@ -408,6 +408,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				else {
 					SetState(ALADDIN_STATE_IDLE);
 				}
+				SetState(ALADDIN_STATE_IDLE);
 			}
 		}
 		else if (IsThrow)
@@ -601,6 +602,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				if (penny->IsEnable() && !penny->IsAte())
 				{
 					penny->setAte(true);
+					addPoint(150);
 					addPenny(1);
 				}
 			}
@@ -615,6 +617,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				if (genie->IsEnable() && !genie->IsAte())
 				{
 					genie->setAte(true);
+					addPoint(250);
 				}
 			}
 		}
@@ -785,6 +788,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					if (penny->IsEnable() && !penny->IsAte())
 					{
 						penny->setAte(true);
+						addPoint(150);
 						addPenny(1);
 					}
 				}
@@ -798,6 +802,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					if (genie->IsEnable() && !genie->IsAte())
 					{
 						genie->setAte(true);
+						addPoint(250);
 					}
 				}
 			}
@@ -1561,6 +1566,7 @@ Aladdin::Aladdin() : CGameObject()
 
 	countPenny = 8;
 	countLife = 5;
+	countPoint = 0;
 
 	IsEnemyHurt = false;
 	timeEnemyHurt = 0;

@@ -6,12 +6,15 @@
 Star::Star() : CGameObject()
 {
 	AddAnimation(704);
+	AddAnimation(705);
 
 	isEnable = true;
 	aladdin = Aladdin::GetInstance();
 	objects.push_back(aladdin);
 	vy = 0;
 	ny = 0;
+
+	isTouch = false;
 }
 
 Star::~Star()
@@ -22,6 +25,17 @@ void Star::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 {
 	if (isEnable)
 	{
+		if (animations[1]->IsLastFrame && isTouch) {
+			isEnable = false;
+			isTouch = false;
+			animations[1]->reset();
+			return;
+		}
+		if (isTouch)
+		{
+			return;
+		}
+
 		float l1, t1, r1, b1, l2, t2, r2, b2;
 		GetBoundingBox(l1, t1, r1, b1);
 		aladdin->GetBoundingBox(l2, t2, r2, b2);
@@ -35,8 +49,9 @@ void Star::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 				aladdin->vx += STAR_GRAVITATION;
 			}
 
-
-			isEnable = false;
+			isTouch = true;
+			x = aladdin->x + ALADDIN_BBOX_WIDTH;
+			//isEnable = false;
 
 			return;
 		}
@@ -91,7 +106,9 @@ void Star::Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects)
 				aladdin->vx += STAR_GRAVITATION;
 			}
 
-			isEnable = false;
+			//isEnable = false;
+			isTouch = true;
+			x = aladdin->x + ALADDIN_BBOX_WIDTH;
 		}
 
 		// clean up collision events
@@ -109,8 +126,14 @@ void Star::Render()
 {
 	if (isEnable)
 	{
-		animations[0]->Render(x, y);
-		RenderBoundingBox();
+		if (isTouch)
+		{
+			animations[1]->Render(x, y);
+		}
+		else {
+			animations[0]->Render(x, y);
+			RenderBoundingBox();
+		}
 	}
 }
 

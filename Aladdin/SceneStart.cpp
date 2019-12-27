@@ -3,7 +3,7 @@
 #include "../Framework/SceneManager.h"
 #include "SceneOne.h"
 
-SceneStart::SceneStart() : CScene()
+SceneStart::SceneStart()
 {
 	sprites = CSprites::GetInstance();
 	background = sprites->Get(90000);

@@ -144,6 +144,7 @@
     <ClInclude Include="Fire.h" />
     <ClInclude Include="Exit.h" />
     <ClInclude Include="Fance.h" />
+    <ClInclude Include="GuardSword.h" />
     <ClInclude Include="Intro.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="LifeNumber.h" />
@@ -207,6 +208,7 @@
     <ClCompile Include="Fire.cpp" />
     <ClCompile Include="Exit.cpp" />
     <ClCompile Include="Fance.cpp" />
+    <ClCompile Include="GuardSword.cpp" />
     <ClCompile Include="Intro.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="LifeNumber.cpp" />

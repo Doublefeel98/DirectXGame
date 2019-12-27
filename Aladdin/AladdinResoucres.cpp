@@ -800,7 +800,7 @@ void AladdinResoucres::LoadSprites()
 	sprites->AddByWidthHeight(31011, 9, 82, 37, 74, texGuard);		// attack left
 	sprites->AddByWidthHeight(31012, 53, 82, 49, 74, texGuard, -8);
 	sprites->AddByWidthHeight(31013, 109, 82, 92, 74, texGuard, -60);
-	sprites->AddByWidthHeight(31014, 203, 82, 86, 74, texGuard, 55);
+	sprites->AddByWidthHeight(31014, 203, 82, 86, 74, texGuard, -55);
 	sprites->AddByWidthHeight(31015, 292, 82, 77, 74, texGuard, -44);
 	sprites->AddByWidthHeight(31016, 382, 82, 96, 74, texGuard, -6);
 
@@ -1062,6 +1062,11 @@ void AladdinResoucres::LoadSprites()
 	sprites->AddByWidthHeight(41010, 637, 423, 28, 16, texJafar);		// left
 	sprites->AddByWidthHeight(41011, 601, 423, 24, 16, texJafar);
 	sprites->AddByWidthHeight(41012, 567, 423, 26, 16, texJafar);
+
+	// star effect
+	sprites->AddByWidthHeight(40020, 543, 429, 7, 10, texJafar);		// right
+	sprites->AddByWidthHeight(40021, 511, 432, 15, 7, texJafar);
+	sprites->AddByWidthHeight(40022, 466, 418, 15, 21, texJafar);
 
 	// snake
 	sprites->AddByWidthHeight(40101, 870, 291, 70, 84, texJafar, -13);		//snake right
@@ -2096,6 +2101,13 @@ void AladdinResoucres::LoadAnimations()
 	ani->Add(40011);
 	ani->Add(40012);
 	animations->Add(704, ani);
+
+	//star effect
+	ani = new CAnimation(100, false);		
+	ani->Add(40020);
+	ani->Add(40021);
+	ani->Add(40022);
+	animations->Add(705, ani);
 
 	ani = new CAnimation(100);		// snake fire right
 	ani->Add(40121);

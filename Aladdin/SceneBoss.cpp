@@ -4,6 +4,7 @@
 SceneBoss::SceneBoss()
 {
 	IsEnableSpitFire = false;
+	isCheck = false;
 
 	this->aladdin = Aladdin::GetInstance();
 	this->aladdin->SetPosition(140, 290);
@@ -94,6 +95,92 @@ void SceneBoss::Render()
 
 void SceneBoss::Update(DWORD dt)
 {
+	if (jafar->GetHP() <= 0)
+	{
+		CSceneManager::GetInstance()->ChangeScene(new SceneEnd());
+		return;
+	}
+	if (aladdin->GetCountApple() == 0)
+	{
+		if (isCheck == false)
+		{
+			isCheck = true;
+			int position = Helper::random(1, 4);
+			switch (position)
+			{
+			case 1:
+			{	
+				Apple* apple = new Apple();
+				apple->SetPosition(165 - DEVIATION_X, 296);
+				objects.push_back(apple);
+				apple = new Apple();
+				apple->SetPosition(178 - DEVIATION_X, 288);
+				objects.push_back(apple);
+				apple = new Apple();
+				apple->SetPosition(190 - DEVIATION_X, 297);
+				objects.push_back(apple);
+				apple = new Apple();
+				apple->SetPosition(179 - DEVIATION_X, 302);
+				objects.push_back(apple);
+			}
+			break;
+			case 2:
+			{
+				Apple* apple = new Apple();
+				apple->SetPosition(367 - DEVIATION_X, 289);
+				objects.push_back(apple);
+				apple = new Apple();
+				apple->SetPosition(381 - DEVIATION_X, 278);
+				objects.push_back(apple);
+				apple = new Apple();
+				apple->SetPosition(393 - DEVIATION_X, 290);
+				objects.push_back(apple);
+				apple = new Apple();
+				apple->SetPosition(382 - DEVIATION_X, 300);
+				objects.push_back(apple);
+			}
+			break;
+			case 3:
+			{
+				Apple* apple = new Apple();
+				apple->SetPosition(560 - DEVIATION_X, 292);
+				objects.push_back(apple);
+				apple = new Apple();
+				apple->SetPosition(576 - DEVIATION_X, 281);
+				objects.push_back(apple);
+				apple = new Apple();
+				apple->SetPosition(590 - DEVIATION_X, 291);
+				objects.push_back(apple);
+				apple = new Apple();
+				apple->SetPosition(577 - DEVIATION_X, 301);
+				objects.push_back(apple);
+			}
+			break;
+			case 4:
+			{
+				Apple* apple = new Apple();
+				apple->SetPosition(760, 292);
+				objects.push_back(apple);
+				apple = new Apple();
+				apple->SetPosition(774, 284);
+				objects.push_back(apple);
+				apple = new Apple();
+				apple->SetPosition(787, 294);
+				objects.push_back(apple);
+				apple = new Apple();
+				apple->SetPosition(776, 301);
+				objects.push_back(apple);
+			}
+			break;
+			default:
+				break;
+			}
+		}
+	}
+	else {
+		isCheck = false;
+	}
+
 	if (!IsEnableSpitFire)
 	{
 		if (jafar->state == JAFAR_STATE_SNAKE)
@@ -104,6 +191,12 @@ void SceneBoss::Update(DWORD dt)
 			}
 			IsEnableSpitFire = true;
 		}
+	}
+
+	coObjects.clear();
+	for (int i = 0; i < objects.size(); i++)
+	{
+		coObjects.push_back(objects.at(i));
 	}
 
 	aladdin->Update(dt, &coObjects);

@@ -8,6 +8,7 @@ private:
 	Aladdin* aladdin;
 	vector<LPGAMEOBJECT> objects;
 	int ny;
+	bool isTouch;
 public:
 	Star();
 	~Star();

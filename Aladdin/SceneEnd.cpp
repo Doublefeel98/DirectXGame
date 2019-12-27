@@ -1,9 +1,8 @@
 #include "SceneEnd.h"
-#include "../Framework/debug.h"
-#include "../Framework/SceneManager.h"
-#include "SceneStart.h"
 
-SceneEnd::SceneEnd() : CScene()
+#include "../Framework/debug.h"
+
+SceneEnd::SceneEnd()
 {
 	sprites = CSprites::GetInstance();
 	endBackground = sprites->Get(91000);
@@ -25,29 +24,29 @@ void SceneEnd::Render()
 
 void SceneEnd::Update(DWORD dt)
 {
-	if (isChangeScene)
-	{
-		DWORD now = GetTickCount();
-		if (time == 0)
-		{
-			time = now;
-		}
-		else {
-			if (now - time > 1000)
-			{
-				CSceneManager::GetInstance()->ChangeScene(new SceneStart());
-			}
-			else if (timeDelay == 0) {
-				timeDelay = now;
-				isDelay = !isDelay;
-			}
-			else if (now - timeDelay > 100)
-			{
-				timeDelay = now;
-				isDelay = !isDelay;
-			}
-		}
-	}
+	//if (isChangeScene)
+	//{
+	//	DWORD now = GetTickCount();
+	//	if (time == 0)
+	//	{
+	//		time = now;
+	//	}
+	//	else {
+	//		if (now - time > 1000)
+	//		{
+	//			CSceneManager::GetInstance()->ChangeScene(new SceneStart());
+	//		}
+	//		else if (timeDelay == 0) {
+	//			timeDelay = now;
+	//			isDelay = !isDelay;
+	//		}
+	//		else if (now - timeDelay > 100)
+	//		{
+	//			timeDelay = now;
+	//			isDelay = !isDelay;
+	//		}
+	//	}
+	//}
 }
 
 void SceneEnd::DestroyAll()

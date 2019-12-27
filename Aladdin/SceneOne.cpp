@@ -75,7 +75,7 @@ SceneOne::SceneOne()
 
 	pilar = new Pilar();
 	pilar->SetState(PILAR_STATE_5);
-	pilar->SetPosition(1490, 405);
+	pilar->SetPosition(1490 - DEVIATION_X, 405);
 	pilar->SetWidth(PILAR_BBOX_WIDTH_5);
 	pilar->SetHeight(PILAR_BBOX_HEIGHT_5);
 	pilar->SetId(objects.size() + 1);

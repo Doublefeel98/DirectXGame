@@ -163,6 +163,7 @@ void Jafar::Render()
 		case JAFAR_STATE_ATTACK:
 			if (nx > 0)
 			{
+				posX = x + 10;
 				ani = JAFAR_ANI_ATTACK_RIGHT;
 			}
 			else {
@@ -172,6 +173,7 @@ void Jafar::Render()
 		case JAFAR_STATE_SNAKE:
 			if (nx > 0)
 			{
+				posX = x + 10;
 				ani = JAFAR_ANI_SNAKE_RIGHT;
 			}
 			else {

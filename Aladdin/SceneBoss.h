@@ -9,7 +9,6 @@
 #include "Spitfire.h"
 #include "Apple.h"
 #include "../Framework/Helper.h"
-#include "SceneEnd.h"
 class SceneBoss : public CScene
 {
 	Aladdin* aladdin;

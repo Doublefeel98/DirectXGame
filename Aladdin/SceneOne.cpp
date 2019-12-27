@@ -4,6 +4,7 @@
 #include "Exit.h"
 #include "Fance.h"
 #include "../Framework/debug.h"
+#include "SceneBoss.h"
 
 SceneOne::SceneOne()
 {
@@ -231,7 +232,7 @@ void SceneOne::Render()
 	tilemap->Render(screenWidth, screenHeight);
 
 	grid->GetListOfObjects(&coObjects, screenWidth, screenHeight);
-	
+
 	for (int i = 0; i < coObjects.size(); i++)
 	{
 		coObjects[i]->Render();
@@ -247,7 +248,7 @@ void SceneOne::Render()
 	{
 		exit[i]->Render();
 	}*/
-	
+
 	for (int i = 0; i < pilars.size(); i++)
 	{
 		pilars[i]->Render();

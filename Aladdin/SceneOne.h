@@ -5,7 +5,6 @@
 #include "AladdinObjects.h"
 #include "Aladdin.h"
 #include "Exit.h"
-#include "SceneBoss.h"
 
 class SceneOne : public CScene
 {

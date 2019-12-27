@@ -1,5 +1,6 @@
 #include "SceneBoss.h"
 #include "../Framework/debug.h"
+#include "SceneEnd.h"
 
 SceneBoss::SceneBoss()
 {
@@ -109,7 +110,7 @@ void SceneBoss::Update(DWORD dt)
 			switch (position)
 			{
 			case 1:
-			{	
+			{
 				Apple* apple = new Apple();
 				apple->SetPosition(165 - DEVIATION_X, 296);
 				objects.push_back(apple);

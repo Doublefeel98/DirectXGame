@@ -1558,7 +1558,7 @@ Aladdin::Aladdin() : CGameObject()
 
 	hp = ALADDIN_MAX_HP;
 
-	for (int i = 0; i < 15; i++)
+	for (int i = 0; i < 50; i++)
 	{
 		throwApples.push_back(new ThrowApples());
 	}

@@ -29,6 +29,7 @@ class Aladdin : public CGameObject
 	int indexApple;
 	int countPenny;
 	int countLife;
+	int countPoint;
 	Aladdin();
 	int checkPointX, checkPointY;
 	Chains* chainsCanAble;
@@ -73,6 +74,8 @@ public:
 	int GetCountPenny() { return countPenny; }
 	void addPenny(int count) { countPenny += count; }
 	int GetCountLife() { return countLife; }
+	int GetCountPoint() { return countPoint; }
+	void addPoint(int count) { countPoint += count; }
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	~Aladdin();
 	static Aladdin* GetInstance();

@@ -69,6 +69,7 @@ void ScoreBoard::Update(int bossHP, int time, int life, int stage)
 	this->bossHP = bossHP;
 
 	wstring timeString = to_wstring(this->time);
+	wstring scoreString = to_wstring(aladdin->GetCountPoint());
 	wstring appleNumberString = to_wstring(aladdin->GetCountApple());
 	wstring pennyNumberString = to_wstring(aladdin->GetCountPenny());
 	wstring lifeNumberString = to_wstring(aladdin->GetCountLife());
@@ -83,7 +84,7 @@ void ScoreBoard::Update(int bossHP, int time, int life, int stage)
 
 	information = L"SCORE_00000 TIME " + timeString + L" STAGE " + stageString + L"\n";
 
-	score->Update(timeString);
+	score->Update(scoreString);
 	hp->Update(aladdin->GetHP());
 	appleNumber->Update(appleNumberString);
 	pennyNumber->Update(pennyNumberString);

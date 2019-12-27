@@ -182,6 +182,9 @@
     <ClCompile Include="Complete.cpp">
       <Filter>Source\Object\ScoreBoard</Filter>
     </ClCompile>
+    <ClCompile Include="GuardSword.cpp">
+      <Filter>Source\Object\wepons</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aladdin.h">
@@ -381,6 +384,9 @@
     </ClInclude>
     <ClInclude Include="Complete.h">
       <Filter>Source\Object\ScoreBoard</Filter>
+    </ClInclude>
+    <ClInclude Include="GuardSword.h">
+      <Filter>Source\Object\wepons</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -81,13 +81,12 @@ SceneOne::SceneOne()
 	pilar->SetId(objects.size() + 1);
 	objects.push_back(pilar);
 
-	Exit* exit = new Exit();
+	exit = new Exit();
 	exit->SetState(EXIT_STATE);
 	exit->SetPosition(2177, 69);
 	exit->SetWidth(EXIT_BBOX_WIDTH);
 	exit->SetHeight(EXIT_BBOX_HEIGHT);
 	exit->SetId(objects.size() + 1);
-	objects.push_back(exit);
 
 	Fance* fance = new Fance();
 	fance->SetState(FANCE_STATE);
@@ -232,28 +231,29 @@ void SceneOne::Render()
 	tilemap->Render(screenWidth, screenHeight);
 
 	grid->GetListOfObjects(&coObjects, screenWidth, screenHeight);
-
+	
 	for (int i = 0; i < coObjects.size(); i++)
 	{
 		coObjects[i]->Render();
 	}
 
+	aladdin->Render();
+	exit->Render();
 	//for (int i = 1; i < objects.size(); i++)
 	//{
 	//	objects[i]->Render();
 	//}
-
-	aladdin->Render();
-
+	/*for (int i = 0; i < exit.size(); i++)
+	{
+		exit[i]->Render();
+	}*/
+	
 	for (int i = 0; i < pilars.size(); i++)
 	{
 		pilars[i]->Render();
 	}
 
-	for (int i = 0; i < exit.size(); i++)
-	{
-		exit[i]->Render();
-	}
+
 
 	for (int i = 0; i < fances.size(); i++)
 	{
@@ -265,6 +265,11 @@ void SceneOne::Render()
 
 void SceneOne::Update(DWORD dt)
 {
+	if (aladdin->x > 2212 - DEVIATION_X && aladdin->y - ALADDIN_BBOX_HEIGHT < 244)
+	{
+		CSceneManager::GetInstance()->ChangeScene(new SceneBoss());
+		return;
+	}
 	grid->GetListOfObjects(&coObjects, screenWidth, screenHeight);
 
 	aladdin->Update(dt, &coObjects);

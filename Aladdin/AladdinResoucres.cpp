@@ -800,7 +800,7 @@ void AladdinResoucres::LoadSprites()
 	sprites->AddByWidthHeight(31011, 9, 82, 37, 74, texGuard);		// attack left
 	sprites->AddByWidthHeight(31012, 53, 82, 49, 74, texGuard, -8);
 	sprites->AddByWidthHeight(31013, 109, 82, 92, 74, texGuard, -60);
-	sprites->AddByWidthHeight(31014, 203, 82, 86, 74, texGuard, 55);
+	sprites->AddByWidthHeight(31014, 203, 82, 86, 74, texGuard, -55);
 	sprites->AddByWidthHeight(31015, 292, 82, 77, 74, texGuard, -44);
 	sprites->AddByWidthHeight(31016, 382, 82, 96, 74, texGuard, -6);
 

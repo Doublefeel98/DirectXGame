@@ -1,8 +1,11 @@
 #include "../Framework/Scene.h"
+#include "../Framework/SceneManager.h"
 #include "ScoreBoard.h"
 #include "Define.h"
 #include "AladdinObjects.h"
 #include "Aladdin.h"
+#include "Exit.h"
+#include "SceneBoss.h"
 
 class SceneOne : public CScene
 {
@@ -10,7 +13,7 @@ class SceneOne : public CScene
 	AladdinObjects* aladinObjects;
 	ScoreBoard* scoreboard;
 	vector<LPGAMEOBJECT> pilars;
-	vector<LPGAMEOBJECT> exit;
+	Exit* exit;
 	vector<LPGAMEOBJECT> fances;
 public:
 	SceneOne();

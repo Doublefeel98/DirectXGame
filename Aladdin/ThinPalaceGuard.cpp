@@ -14,8 +14,8 @@ void ThinPalaceGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject) {
 
 		if (state == TGUARD_STATE_WALK)
 		{
-			x += dx;
-			y += dy;
+			//x += dx;
+			//y += dy;
 		}
 		else if (state == TGUARD_STATE_SURPRISE)
 		{
@@ -34,10 +34,10 @@ void ThinPalaceGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject) {
 			if (!init)
 			{
 				init = true;
-				startX = this->x;
-				startY = this->y;
+				//startX = this->x;
+				//startY = this->y;
 
-				SetState(TGUARD_STATE_WALK);
+				//SetState(TGUARD_STATE_WALK);
 			}
 			else if (abs(startX - this->x) < GUARD_DELTA_WALK_X) {
 				SetState(TGUARD_STATE_WALK);

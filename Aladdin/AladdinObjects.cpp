@@ -282,30 +282,6 @@ void AladdinObjects::LoadObject(int id, int type, float x, float y, int width, i
 		listObject->push_back(obj);
 	}
 	break;
-	case OBJECT_EXIT:
-	{
-		Exit* obj = new Exit();
-		obj->SetId(id);
-		obj->SetType(type);
-		obj->SetState(EXIT_STATE);
-		obj->SetPosition(x, y);
-		obj->SetWidth(width);
-		obj->SetHeight(height);
-		listObject->push_back(obj);
-	}
-	break;
-	case OBJECT_FANCE:
-	{
-		Fance* obj = new Fance();
-		obj->SetId(id);
-		obj->SetType(type);
-		obj->SetState(FANCE_STATE);
-		obj->SetPosition(x, y);
-		obj->SetWidth(width);
-		obj->SetHeight(height);
-		listObject->push_back(obj);
-	}
-	break;
 	default:
 		break;
 	}

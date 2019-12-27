@@ -1,7 +1,9 @@
 #pragma once
 #include "../Framework/Enemy.h"
 #include "Define.h"
-#include"Aladdin.h"
+#include "Aladdin.h"
+#include "GuardSword.h"
+
 #define LEFT false
 #define RIGHT true
 class NormalPalaceGuard : public CEnemy
@@ -18,6 +20,7 @@ private:
 	void resetAniStab();
 	void resetAniSurprise();
 	int ani;
+	GuardSword* guardSword;
 public:
 	NormalPalaceGuard();
 	~NormalPalaceGuard();

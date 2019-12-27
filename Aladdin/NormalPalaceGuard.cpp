@@ -3,6 +3,7 @@
 #include "../Framework/debug.h"
 
 #include "../Framework/Game.h"
+#include "../Framework/Scene.h"
 
 void NormalPalaceGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 {
@@ -78,6 +79,42 @@ void NormalPalaceGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 			}
 			else {
 				DWORD now = GetTickCount();
+				guardSword->SetEnable(false);
+				guardSword->SetFighting(false);
+				if (nx > 0)
+				{
+					guardSword->SetState(SWORD_STATE_RIGHT);
+					guardSword->SetPosition(x + GUARD_BBOX_WIDTH, y - 8);
+				}
+				else {
+					guardSword->SetState(SWORD_STATE_LEFT);
+					guardSword->SetPosition(x, y - 8);
+				}
+				if (now - timeSlash >= 300 && timeSlash != 0)
+				{
+					if (!guardSword->IsFighting())
+					{
+						guardSword->SetEnable(true);
+						guardSword->SetFighting(true);
+					}
+				}
+				else if (now - timeStab >= 100 && timeStab != 0)
+				{
+					if (!guardSword->IsFighting())
+					{
+						guardSword->SetEnable(true);
+						guardSword->SetFighting(true);
+					}
+				}
+				if (now - timeStab > 600 && timeStab != 0)
+				{
+					guardSword->SetEnable(false);
+				}
+				else if (now - timeSlash > 400 && timeSlash != 0)
+				{
+					guardSword->SetEnable(false);
+				}
+
 				if (timeSlash == 0 && timeStab == 0)
 				{
 					timeSlash = now;
@@ -100,10 +137,12 @@ void NormalPalaceGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 			SetState(NGUARD_STATE_WAIT);
 		}
 	}
+	guardSword->Update(dt, coObject);
 }
 
 void NormalPalaceGuard::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
+	int posX = x, posY = y;
 	if (isDead) {
 		left = 0;
 		top = 0;
@@ -122,10 +161,16 @@ void NormalPalaceGuard::GetBoundingBox(float& left, float& top, float& right, fl
 
 			break;
 		case NGUARD_STATE_STAB:
+			if (nx <= 0){
+				posX = x + 30;
+			}				
 			boxWidth = GUARD_STAB_BBOX_WIDTH;
 			boxHeight = GUARD_STAB_BBOX_HEIGHT;
 			break;
 		case NGUARD_STATE_SLASH:
+			if (nx <= 0) {
+				posX = x + 28;
+			}
 			boxWidth = GUARD_SLASH_BBOX_WIDTH;
 			boxHeight = GUARD_SLASH_BBOX_HEIGHT;
 			break;
@@ -138,8 +183,8 @@ void NormalPalaceGuard::GetBoundingBox(float& left, float& top, float& right, fl
 		}
 		if (ani == -1)
 		{
-			left = x;
-			top = y;
+			left = posX;
+			top = posY;
 			right = left + boxWidth;
 			bottom = top + boxHeight;
 		}
@@ -147,12 +192,12 @@ void NormalPalaceGuard::GetBoundingBox(float& left, float& top, float& right, fl
 			int currentFrame = animations[ani]->getCurrentFrame();
 			if (currentFrame != -1)
 			{
-				left = x + animations[ani]->frames[currentFrame]->GetSprite()->dx;
-				top = y + animations[ani]->frames[currentFrame]->GetSprite()->dy;
+				left = posX + animations[ani]->frames[currentFrame]->GetSprite()->dx;
+				top = posY + animations[ani]->frames[currentFrame]->GetSprite()->dy;
 			}
 			else {
-				left = x;
-				top = y;
+				left = posX;
+				top = posY;
 			}
 			right = left + boxWidth;
 			bottom = top + boxHeight;
@@ -289,7 +334,7 @@ void NormalPalaceGuard::Render()
 			}
 			break;
 		case NGUARD_STATE_STAB:
-			posY = y - 21;
+			posY = y - 19;
 			if (nx > 0)
 			{
 				ani = NORMAL_GUARD_ANI_ATTACK_STAB_RIGHT;
@@ -299,7 +344,7 @@ void NormalPalaceGuard::Render()
 			}
 			break;
 		case NGUARD_STATE_SLASH:
-			posY = y - 23;
+			posY = y - 19;
 			if (nx > 0)
 			{
 				ani = NORMAL_GUARD_ANI_ATTACK_SLASH_RIGHT;
@@ -324,6 +369,8 @@ void NormalPalaceGuard::Render()
 
 		animations[ani]->Render(posX, posY);
 		RenderBoundingBox();
+
+		guardSword->Render();
 	}
 }
 
@@ -357,6 +404,8 @@ NormalPalaceGuard::NormalPalaceGuard() : CEnemy()
 	finalAni = false;
 	timeSlash = 0;
 	timeStab = 0;
+
+	guardSword = new GuardSword();
 
 	ani = -1;
 

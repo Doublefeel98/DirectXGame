@@ -4,13 +4,10 @@
 #include "Aladdin.h"
 #include "GuardSword.h"
 
-#define LEFT false
-#define RIGHT true
 class NormalPalaceGuard : public CEnemy
 {
 private:
 	bool finalAni;	// indicate which state a bat object is currently in
-	int direction = LEFT;
 	float startX, startY;
 	bool init;
 	DWORD timeSlash;

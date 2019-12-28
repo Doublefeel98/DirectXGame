@@ -6,6 +6,7 @@ class GuardSword : public CGameObject
 private:
 	int damage;
 	bool isFighting;
+	vector<LPGAMEOBJECT> object;
 public:
 	GuardSword();
 	~GuardSword();

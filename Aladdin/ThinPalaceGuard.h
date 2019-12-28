@@ -2,14 +2,13 @@
 #include "../Framework/Enemy.h"
 #include "Define.h"
 #include "Aladdin.h"
-#define LEFT false
-#define RIGHT true
+#include "GuardSword.h"
+
 
 class ThinPalaceGuard : public CEnemy
 {
 private:
 	bool finalAni;	// indicate which state a bat object is currently in
-	int direction = LEFT;
 	float startX, startY;
 	bool init;
 	DWORD timeAttack;
@@ -17,6 +16,7 @@ private:
 	void resetAniAttack();
 	void resetAniSurprise();
 	int ani;
+	GuardSword* guardSword;
 public:
 	ThinPalaceGuard();
 	~ThinPalaceGuard();

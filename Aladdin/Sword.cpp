@@ -6,6 +6,7 @@
 #include "../Framework/Enemy.h"
 #include "../Framework/debug.h"
 #include "Aladdin.h"
+#include "Vase.h"
 Sword::Sword()
 {
 	x = -5;
@@ -16,6 +17,7 @@ Sword::Sword()
 	vx = 0;
 	vy = 0;
 	damage = 1;
+
 }
 
 Sword::~Sword()
@@ -30,6 +32,23 @@ void Sword::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		for (UINT i = 0; i < coObjects->size(); i++)
 		{
+			if (dynamic_cast<Vase*>(coObjects->at(i)))
+			{
+				Vase* vase = dynamic_cast<Vase*>(coObjects->at(i));
+
+				float l1, t1, r1, b1, l2, t2, r2, b2;
+				GetBoundingBox(l1, t1, r1, b1);
+				vase->GetBoundingBox(l2, t2, r2, b2);
+
+				if (CGame::isColliding(l1, t1, r1, b1, l2, t2, r2, b2))
+				{
+					Aladdin* aladdin = Aladdin::GetInstance();
+					aladdin->checkPointX = aladdin->x;
+					aladdin->checkPointY = aladdin->y;
+					vase->setAte(true);
+				}
+			}
+
 			if (dynamic_cast<CEnemy*>(coObjects->at(i))) {
 
 				CEnemy* enemy = dynamic_cast<CEnemy*>(coObjects->at(i));

@@ -9,6 +9,8 @@ SceneBoss::SceneBoss()
 
 	this->aladdin = Aladdin::GetInstance();
 	this->aladdin->SetPosition(140, 290);
+	this->aladdin->checkPointX = 140;
+	this->aladdin->checkPointY = 290;
 
 	CSprites* sprites = CSprites::GetInstance();
 
@@ -96,6 +98,11 @@ void SceneBoss::Render()
 
 void SceneBoss::Update(DWORD dt)
 {
+	if (aladdin->GetHP() <= 0)
+	{
+		aladdin->ResetCheckpoint();
+	}
+
 	if (jafar->GetHP() <= 0)
 	{
 		CSceneManager::GetInstance()->ChangeScene(new SceneEnd());

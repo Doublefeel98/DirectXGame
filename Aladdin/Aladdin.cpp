@@ -836,10 +836,21 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 								enemy->SetDead(true);
 							}
 						}
+						x += dx;
+						if (ny > 0)
+							y += dy + ny * -0.7f;
+						//y += dy;						
+					}
+					else {
+						x += dx;
+						if (ny < 0)
+							y += dy + ny * 0.7f;
+						else if (ny > 0)
+							y += dy + ny * -0.7f;
 					}
 				}
-			}
-			if (dynamic_cast<Brick*>(e->obj) || dynamic_cast<StoneBar*>(e->obj) || dynamic_cast<Ground*>(e->obj) || dynamic_cast<Wood*>(e->obj) || dynamic_cast<Pilar*>(e->obj) || dynamic_cast<MapCollision*>(e->obj) || dynamic_cast<Spitfire*>(e->obj))
+			}		
+			else if (dynamic_cast<Brick*>(e->obj) || dynamic_cast<StoneBar*>(e->obj) || dynamic_cast<Ground*>(e->obj) || dynamic_cast<Wood*>(e->obj) || dynamic_cast<Pilar*>(e->obj) || dynamic_cast<MapCollision*>(e->obj) || dynamic_cast<Spitfire*>(e->obj))
 			{
 				if (dynamic_cast<Spitfire*>(e->obj))
 				{
@@ -1647,4 +1658,11 @@ void Aladdin::SetPosition(float x, float y)
 	CGameObject::SetPosition(x, y);
 	checkPointX = x;
 	checkPointY = y;
+}
+
+void Aladdin::ResetCheckpoint()
+{
+	this->x = checkPointX;
+	this->y = checkPointY;
+	this->hp = ALADDIN_MAX_HP;
 }

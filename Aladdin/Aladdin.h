@@ -30,10 +30,10 @@ class Aladdin : public CGameObject
 	int countPenny;
 	int countLife;
 	int countPoint;
-	Aladdin();
-	int checkPointX, checkPointY;
+	Aladdin();	
 	Chains* chainsCanAble;
 public:
+	int checkPointX, checkPointY;
 	int untouchable;
 	bool IsRun;
 	bool IsSit;
@@ -80,4 +80,5 @@ public:
 	~Aladdin();
 	static Aladdin* GetInstance();
 	void SetPosition(float x, float y);
+	void ResetCheckpoint();
 };

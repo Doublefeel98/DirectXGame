@@ -266,6 +266,11 @@ void SceneOne::Render()
 
 void SceneOne::Update(DWORD dt)
 {
+	if (aladdin->GetHP() <= 0)
+	{
+		aladdin->ResetCheckpoint();
+	}
+
 	if (aladdin->x > 2212 - DEVIATION_X && aladdin->y - ALADDIN_BBOX_HEIGHT < 244)
 	{
 		CSceneManager::GetInstance()->ChangeScene(new SceneBoss());

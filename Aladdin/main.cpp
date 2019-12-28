@@ -26,6 +26,7 @@
 #include "../Framework/Game.h"
 #include "../Framework/GameObject.h"
 #include "../Framework/Textures.h"
+#include "Sound.h"
 
 #include "Aladdin.h"
 #include "Define.h"
@@ -37,7 +38,6 @@
 #include "SceneEnd.h"
 #include "Ground.h"
 #include "AladdinResoucres.h"
-
 #include <ctime>
 
 CCamera* camera;
@@ -427,17 +427,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	game->InitKeyboard(keyHandler);
 
 	camera = CCamera::GetInstance();
+	Sound::getInstance();
 
 	resources = new AladdinResoucres();
 	resources->LoadResoucre();
 
 	LoadResources();
 	sceneManager = CSceneManager::GetInstance();
-	//sceneManager->ChangeScene(new SceneOne(aladdin));
-	//sceneManager->ChangeScene(new SceneStart());
+	//sceneManager->ChangeScene(new SceneOne());
+	sceneManager->ChangeScene(new SceneStart());
 	//sceneManager->ChangeScene(new SceneEnd());
-	sceneManager->ChangeScene(new SceneBoss());
-
+	//sceneManager->ChangeScene(new SceneBoss());
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 
 	Run();

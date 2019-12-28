@@ -9,7 +9,7 @@ class SceneStart : public CScene
 	CSprites* sprites;
 	int x, y;
 	DWORD timeDelay;
-	bool isDelay;
+	bool isDelay, sound;
 public:
 	SceneStart();
 	void Render();

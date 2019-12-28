@@ -4,6 +4,7 @@
 
 #include "../Framework/Game.h"
 #include "Aladdin.h"
+#include "Sound.h"
 
 void ExplodingSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 {
@@ -31,6 +32,11 @@ void ExplodingSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 		if (animations[2]->IsLastFrame || animations[3]->IsLastFrame) {
 			if (!enableBones)
 			{
+				if (sound == false) {
+					sound = true;
+					Sound::getInstance()->playOnce(SKELETON_MUSIC, "skeleton");
+
+				}
 				for (int i = 0; i < COUNT_BONE; i++)
 				{
 					bones[i]->SetPosition(x + SKELETON_BBOX_WIDTH / 2, y + SKELETON_BBOX_HEIGHT / 2);
@@ -44,6 +50,7 @@ void ExplodingSkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 		if (abs(this->x - alaPosition.x) < SKELETON_DELTA_X && abs(this->y - alaPosition.y) < ALADDIN_BBOX_HEIGHT)
 		{
 			SetState(SKELETON_STATE_STAND_UP);
+			sound = false;
 		}
 		else {
 			SetState(SKELETON_STATE_WAIT);

@@ -14,6 +14,7 @@ class SceneOne : public CScene
 	vector<LPGAMEOBJECT> pilars;
 	Exit* exit;
 	vector<LPGAMEOBJECT> fances;
+	bool sound;
 public:
 	SceneOne();
 	void Render();

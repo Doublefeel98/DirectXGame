@@ -17,7 +17,7 @@ class SceneBoss : public CScene
 	vector<Spitfire*> spitFires;
 	Jafar* jafar;
 	bool IsEnableSpitFire;
-	bool isCheck;
+	bool isCheck, sound;
 public:
 	SceneBoss();
 	void Render();

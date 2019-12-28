@@ -5,9 +5,13 @@
 #include "Fance.h"
 #include "../Framework/debug.h"
 #include "SceneBoss.h"
-
+#include "Sound.h"
 SceneOne::SceneOne()
 {
+	if (sound == false) {
+		Sound::getInstance()->playRep(MAIN_MUSIC, "main");
+		sound = true;
+	}
 	this->aladdin = Aladdin::GetInstance();
 	this->aladdin->SetPosition(100, 1052);
 	//this->aladdin->SetPosition(1200, 1052);
@@ -266,8 +270,10 @@ void SceneOne::Render()
 
 void SceneOne::Update(DWORD dt)
 {
+
 	if (aladdin->x > 2212 - DEVIATION_X && aladdin->y - ALADDIN_BBOX_HEIGHT < 244)
 	{
+		Sound::getInstance()->stop("main");
 		CSceneManager::GetInstance()->ChangeScene(new SceneBoss());
 		return;
 	}

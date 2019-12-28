@@ -2,11 +2,10 @@
 #include "../Framework/GameObject.h"
 #include"Define.h"
 
-
 class Brick : public CGameObject
 {
 private:
-	bool isDelay;
+	bool isDelay, sound;
 	DWORD timeStartDelay;
 public:
 	Brick();

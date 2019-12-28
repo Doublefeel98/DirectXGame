@@ -4,6 +4,7 @@
 
 #include "../Framework/Game.h"
 #include "../Framework/Scene.h"
+#include "Sound.h"
 
 void NormalPalaceGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 {
@@ -53,12 +54,18 @@ void NormalPalaceGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 		}
 		else if (state == NGUARD_STATE_SURPRISE)
 		{
+			if (sound == false) {
+				sound = true;
+				Sound::getInstance()->playOnce(GUARD_THIN_MUSIC, "thin");
+
+			}
 			if (GetTickCount() - timeBeAttack > 700)
 			{
 				state = NGUARD_STATE_SLASH;
 				timeBeAttack = GetTickCount();
 				resetAniSlash();
 				resetAniStab();
+				sound = false;
 			}
 			return;
 		}
@@ -161,9 +168,9 @@ void NormalPalaceGuard::GetBoundingBox(float& left, float& top, float& right, fl
 
 			break;
 		case NGUARD_STATE_STAB:
-			if (nx <= 0){
+			if (nx <= 0) {
 				posX = x + 30;
-			}				
+			}
 			boxWidth = GUARD_STAB_BBOX_WIDTH;
 			boxHeight = GUARD_STAB_BBOX_HEIGHT;
 			break;

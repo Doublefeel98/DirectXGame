@@ -1,9 +1,13 @@
 #include "SceneBoss.h"
 #include "../Framework/debug.h"
 #include "SceneEnd.h"
-
+#include "Sound.h"
 SceneBoss::SceneBoss()
 {
+	if (sound == false) {
+		Sound::getInstance()->playRep(BOSS_MUSIC, "boss");
+		sound = true;
+	}
 	IsEnableSpitFire = false;
 	isCheck = false;
 
@@ -98,6 +102,8 @@ void SceneBoss::Update(DWORD dt)
 {
 	if (jafar->GetHP() <= 0)
 	{
+		Sound::getInstance()->stop("boss");
+
 		CSceneManager::GetInstance()->ChangeScene(new SceneEnd());
 		return;
 	}

@@ -9,6 +9,7 @@
 #include "Trap.h"
 #include "Jafar.h"
 #include "Ground.h"
+#include"Sound.h"
 
 ThrowApples::ThrowApples() :CGameObject() {
 	x = -5;
@@ -160,6 +161,7 @@ void ThrowApples::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 						else {
 							int typeObject;
 							typeObject = enemy->GetType();
+
 							switch (typeObject) {
 							case OBJECT_BAT:
 								enemy->SetState(BAT_STATE_DIE);
@@ -172,6 +174,7 @@ void ThrowApples::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 								break;
 							}
 							isBreak = true;
+							Sound::getInstance()->playOnce(SPLAT_MUSIC, "apple");
 						}
 
 					}

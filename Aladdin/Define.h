@@ -533,3 +533,50 @@
 #define SKELETON_MAX_HP 1
 #define IAGO_MAX_HP 1
 #define STATUE_MAX_HP 1
+
+//Sound
+
+#define AUDIO_FORMAT_TAG		WAVE_FORMAT_PCM
+#define	AUDIO_NUM_OF_CHANNEL	2
+#define AUDIO_SAMPLE_SPEED		22050
+#define AUDIO_BITS_PER_SAMPLE	16
+#define AUDIO_FLAGS				0
+#define AUDIO_BUFFER_SIZE		640000
+#define AUDIO_GUID				GUID_NULL
+#define BACKGROUND_MUSIC	"resources\\sound\\Ending.wav"
+#define GAME1_MUSIC			 "resources\\sound\\man1.wav"
+#define BOSS_MUSIC			"resources\\sound\\bosstheme.wav"
+#define CUT_MUSIC			"resources\\sound\\Low Sword.wav"
+#define SPLAT_MUSIC			"resources\\sound\\Apple Splat.wav"
+#define CAMEL_MUSIC			"resources\\sound\\Camel Spit.wav"
+#define HURT_MUSIC			"resources\\sound\\Aladdin Hurt.wav"
+#define COLLECT_MUSIC		"resources\\sound\\Apple Collect.wav"
+#define APPLE_POP_MUSIC		"resources\\sound\\Balloon Pop.wav"
+#define SWORD_MUSIC			"resources\\sound\\Sword Ching.wav"
+#define TRAP_MUSIC			"resources\\sound\\Sword Spinning.wav"
+#define DIE_MUSIC			"resources\\sound\\chet.wav"
+#define JAFAR_HURT_MUSIC	"resources\\sound\\Jafar Snake.wav"
+#define SHOOT_MUSIC			"resources\\sound\\shoot.wav"
+#define NEXT_MUSIC			"resources\\sound\\level_complete.wav"
+#define JAFAR_HURT_MUSIC	"resources\\sound\\Jafar Snake.wav"
+#define GUARD_THIN_MUSIC	"resources\\sound\\Guard Hit 1.wav"
+#define GUARD_NORMAL_MUSIC	 "resources\\sound\\Guard Hit 2.wav"
+#define THEEND_MUSIC		"resources\\sound\\theend.wav"
+#define POT_MUSIC			"resources\\sound\\Clay Pot.wav"
+#define COMEOUT_MUSIC		"resources\\sound\\Coming Out.wav"
+#define COMEIN_MUSIC		"resources\\sound\\Continue Point.wav"
+#define FIRE_MUSIC			"resources\\sound\\Fire From Coal.wav"
+#define LAMP_MUSIC			"resources\\sound\\Splash.wav"
+#define WOW_MUSIC			"resources\\sound\\Wow!.wav"
+#define THROW_MUSIC			"resources\\sound\\Object Throw.wav"
+#define BRICK_MUSIC			"resources\\sound\\Stone Rumble.wav"
+#define SKELETON_MUSIC		"resources\\sound\\Skeleton.wav"
+#define BONE_MUSIC			"resources\\sound\\Bones Tinkle.wav"
+#define MENU_MUSIC			"resources\\sound\\Menu.wav"
+#define SELECT_MUSIC		"resources\\sound\\Menu Select.wav"
+#define MAIN_MUSIC			"resources\\sound\\man1.wav"
+
+
+
+#define AUDIO_BLOCK_ALIGN(bitPerSample, nChannels)		(WORD)(bitPerSample / 8 * nChannels)
+#define AUDIO_AVERAGE_BPS(samplesPerSec, blockAlign)	(DWORD)(samplesPerSec * blockAlign)

@@ -1,4 +1,5 @@
 #include"Trap.h"
+#include "Sound.h"
 
 Trap::Trap() :CGameObject() {
 	width = TRAP_BBOX_WIDTH;
@@ -28,7 +29,7 @@ void Trap::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 		bottom = 0;
 	}
 }
-void Trap::Render() 
+void Trap::Render()
 {
 	if (isDelay) {
 		if (timeStartDelay == 0) {
@@ -54,11 +55,16 @@ void Trap::Render()
 }
 void Trap::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject) {
 	CGameObject::Update(dt);
+	if (animations[TRAP_ANI_WAIT]->currentFrame == 4 && sound == false) {
+		sound = true;
+		Sound::getInstance()->playOnce(TRAP_MUSIC, "trap");
+	}
 	if (animations[TRAP_ANI_WAIT]->currentFrame >= 4 && animations[TRAP_ANI_WAIT]->currentFrame <= 7) {
 		isEnable = true;
 	}
 	else {
 		isEnable = false;
+		sound = false;
 	}
-	
+
 }

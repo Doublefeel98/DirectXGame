@@ -1,11 +1,10 @@
 #pragma once
 #include "../Framework/GameObject.h"
 #include "Define.h"
-
 class Trap :public CGameObject {
 private:
 	int damage;
-	bool isDelay;
+	bool isDelay, sound;
 	DWORD timeStartDelay;
 public:
 	Trap();

@@ -5,6 +5,7 @@
 #include "StoneBar.h"
 #include "Wood.h"
 #include "../Framework/Helper.h"
+#include "Sound.h"
 
 Bone::Bone() : CGameObject()
 {
@@ -59,7 +60,38 @@ void Bone::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		else
 		{
-			aladdin->EnemyHurted(damage);
+			float min_tx, min_ty, nx = 0, ny;
+
+			FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+
+			// block 
+			x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+			y += min_ty * dy + ny * 0.4f;
+
+			if (nx != 0) vx = 0;
+			if (ny != 0) vy = 0;
+
+			// Collision logic with Goombas
+			for (UINT i = 0; i < coEventsResult.size(); i++)
+			{
+				LPCOLLISIONEVENT e = coEventsResult[i];
+
+				if (dynamic_cast<Aladdin*>(e->obj)) // if e->obj is Goomba 
+				{
+					if (e->ny < 0)
+					{
+						aladdin->EnemyHurted(damage);
+					}
+					else if (e->nx != 0)
+					{
+					}
+				}
+				else {
+
+				}
+				Sound::getInstance()->playOnce(BONE_MUSIC, "bone");
+
+			}
 
 			isEnable = false;
 		}

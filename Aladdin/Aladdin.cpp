@@ -21,6 +21,7 @@
 #include "../Framework/MapCollision.h"
 #include "Spitfire.h"
 #include "Jafar.h"
+#include "Sound.h"
 
 Aladdin* Aladdin::__instance = NULL;
 bool Aladdin::IsMoveCameraWhenLookingUp()
@@ -70,6 +71,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					sword->SetEnable(true);
 					sword->SetFighting(true);
+					Sound::getInstance()->playOnce(CUT_MUSIC, "cut");
 				}
 			}
 			if (now - timeAttackStart >= 700)
@@ -103,7 +105,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				timeThrowStart = 0;
 				IsThrow = false;
 				SetState(ALADDIN_STATE_SIT_DOWN);
-
+				Sound::getInstance()->playOnce(THROW_MUSIC, "throw");
 				indexApple++;
 			}
 		}
@@ -139,6 +141,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					sword->SetEnable(true);
 					sword->SetFighting(true);
+					Sound::getInstance()->playOnce(CUT_MUSIC, "cut");
 				}
 			}
 			if (now - timeAttackStart >= ALADDIN_CLIMB_ENABLE_SWORD_TIME + 200)
@@ -147,6 +150,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					sword->SetEnable(true);
 					sword->SetFighting(true);
+					Sound::getInstance()->playOnce(CUT_MUSIC, "cut");
 				}
 			}
 			if (now - timeAttackStart >= 600)
@@ -182,7 +186,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				IsThrow = false;
 				IsJump = false;
 				SetState(ALADDIN_STATE_CLIMB);
-
+				Sound::getInstance()->playOnce(THROW_MUSIC, "throw");
 				indexApple++;
 			}
 		}
@@ -221,6 +225,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					{
 						sword->SetEnable(true);
 						sword->SetFighting(true);
+						Sound::getInstance()->playOnce(CUT_MUSIC, "cut");
 					}
 				}
 				if (now - timeAttackStart >= 600)
@@ -256,7 +261,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					IsThrow = false;
 					//IsJump = false;
 					SetState(ALADDIN_STATE_JUMP);
-
+					Sound::getInstance()->playOnce(THROW_MUSIC, "throw");
 					indexApple++;
 				}
 			}
@@ -281,6 +286,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					sword->SetEnable(true);
 					sword->SetFighting(true);
+					Sound::getInstance()->playOnce(CUT_MUSIC, "cut");
 				}
 			}
 			if (now - timeAttackStart > ALADDIN_LOOK_UP_ATTACK_TIME)
@@ -330,6 +336,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					sword->SetEnable(true);
 					sword->SetFighting(true);
+					Sound::getInstance()->playOnce(CUT_MUSIC, "cut");
 				}
 			}
 			if (now - timeAttackStart >= 600)
@@ -363,7 +370,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				timeThrowStart = 0;
 				IsThrow = false;
 				SetState(ALADDIN_STATE_IDLE);
-
+				Sound::getInstance()->playOnce(THROW_MUSIC, "throw");
 				indexApple++;
 			}
 		}
@@ -392,6 +399,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					sword->SetEnable(true);
 					sword->SetFighting(true);
+					Sound::getInstance()->playOnce(CUT_MUSIC, "cut");
 				}
 			}
 			if (now - timeAttackStart >= 500)
@@ -430,7 +438,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				timeThrowStart = 0;
 				IsThrow = false;
 				SetState(ALADDIN_STATE_IDLE);
-
+				Sound::getInstance()->playOnce(THROW_MUSIC, "throw");
 				indexApple++;
 			}
 		}
@@ -533,6 +541,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						{
 							StartHurting(trap->GetDamage());
 							trap->SetEnable(false);
+							Sound::getInstance()->playOnce(HURT_MUSIC, "hurt");
 						}
 						/*if (hp > 0)
 						{
@@ -563,6 +572,8 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						{
 							StartHurting(ball->GetDamage());
 							ball->SetEnable(false);
+							Sound::getInstance()->playOnce(HURT_MUSIC, "hurt");
+
 						}
 						/*if (hp > 0)
 						{
@@ -663,6 +674,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						if (dynamic_cast<Jafar*>(coObjects->at(i)))
 						{
 							StartHurting(enemy->GetDamage());
+							Sound::getInstance()->playOnce(HURT_MUSIC, "hurt");
 						}
 						else {
 							EnemyHurted(enemy->GetDamage());
@@ -742,6 +754,8 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							{
 								StartHurting(trap->GetDamage());
 								trap->SetEnable(false);
+								Sound::getInstance()->playOnce(HURT_MUSIC, "hurt");
+
 							}
 						}
 					}
@@ -761,6 +775,8 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							{
 								StartHurting(ball->GetDamage());
 								ball->SetEnable(false);
+								Sound::getInstance()->playOnce(HURT_MUSIC, "hurt");
+
 							}
 						}
 					}
@@ -776,6 +792,8 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					{
 						apple->setAte(true);
 						addApple(1);
+						Sound::getInstance()->playOnce(COLLECT_MUSIC, "collect");
+
 					}
 				}
 			}
@@ -790,6 +808,8 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						penny->setAte(true);
 						addPoint(150);
 						addPenny(1);
+						Sound::getInstance()->playOnce(COLLECT_MUSIC, "collect");
+
 					}
 				}
 			}
@@ -803,6 +823,8 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					{
 						genie->setAte(true);
 						addPoint(250);
+						Sound::getInstance()->playOnce(COLLECT_MUSIC, "collect");
+
 					}
 				}
 			}
@@ -817,6 +839,8 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						vase->setAte(true);
 						checkPointX = this->x;
 						checkPointY = this->y;
+						Sound::getInstance()->playOnce(COLLECT_MUSIC, "collect");
+
 					}
 				}
 			}
@@ -830,6 +854,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						if (enemy->IsEnable())
 						{
 							this->hp -= enemy->GetDamage();
+							Sound::getInstance()->playOnce(HURT_MUSIC, "hurt");
 							EnemyHurted(enemy->GetDamage());
 							if (enemy->GetType() == OBJECT_BAT)
 							{

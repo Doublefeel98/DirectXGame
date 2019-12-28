@@ -1,9 +1,15 @@
 #include "Brick.h"
 #include "Aladdin.h"
+#include "Sound.h"
 
 void Brick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 {
 	CGameObject::Update(dt);
+	if (animations[0]->currentFrame == 4 && sound == false) {
+		sound = true;
+		Sound::getInstance()->playOnce(BRICK_MUSIC, "brick");
+
+	}
 	if (animations[0]->currentFrame >= 4 && animations[0]->currentFrame <= 6) {
 		isEnable = true;
 	}

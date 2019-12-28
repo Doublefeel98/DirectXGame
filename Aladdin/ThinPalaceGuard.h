@@ -8,7 +8,7 @@
 class ThinPalaceGuard : public CEnemy
 {
 private:
-	bool finalAni;	// indicate which state a bat object is currently in
+	bool finalAni, sound;	// indicate which state a bat object is currently in
 	int direction = LEFT;
 	float startX, startY;
 	bool init;

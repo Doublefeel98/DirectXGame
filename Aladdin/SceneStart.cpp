@@ -2,7 +2,7 @@
 #include "../Framework/debug.h"
 #include "../Framework/SceneManager.h"
 #include "SceneOne.h"
-
+#include "Sound.h"
 SceneStart::SceneStart()
 {
 	sprites = CSprites::GetInstance();
@@ -46,8 +46,13 @@ void SceneStart::Render()
 
 void SceneStart::Update(DWORD dt)
 {
+	if (sound == false) {
+		Sound::getInstance()->playRep(MENU_MUSIC, "menu");
+		sound = true;
+	}
 	if (isChangeScene)
 	{
+
 		DWORD now = GetTickCount();
 		if (time == 0)
 		{
@@ -56,6 +61,9 @@ void SceneStart::Update(DWORD dt)
 		else {
 			if (now - time > 1000)
 			{
+				Sound::getInstance()->playOnce(SELECT_MUSIC, "select");
+				Sound::getInstance()->stop("menu");
+
 				CSceneManager::GetInstance()->ChangeScene(new SceneOne());
 			}
 			else if (timeDelay == 0) {

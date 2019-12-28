@@ -185,6 +185,7 @@
     <ClCompile Include="GuardSword.cpp">
       <Filter>Source\Object\wepons</Filter>
     </ClCompile>
+    <ClCompile Include="Sound.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aladdin.h">
@@ -388,6 +389,7 @@
     <ClInclude Include="GuardSword.h">
       <Filter>Source\Object\wepons</Filter>
     </ClInclude>
+    <ClInclude Include="Sound.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">

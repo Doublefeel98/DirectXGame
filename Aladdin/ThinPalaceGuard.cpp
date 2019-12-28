@@ -3,6 +3,7 @@
 #include "../Framework/debug.h"
 
 #include "../Framework/Game.h"
+#include "Sound.h"
 
 void ThinPalaceGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject) {
 	CEnemy::Update(dt, coObject);
@@ -14,16 +15,24 @@ void ThinPalaceGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject) {
 
 		if (state == TGUARD_STATE_WALK)
 		{
+			sound = false;
+
 			//x += dx;
 			//y += dy;
 		}
 		else if (state == TGUARD_STATE_SURPRISE)
 		{
+			if (sound == false) {
+				sound = true;
+				Sound::getInstance()->playOnce(GUARD_THIN_MUSIC, "thin");
+
+			}
 			if (GetTickCount() - timeBeAttack > 890)
 			{
 				state = TGUARD_STATE_ATTACK;
 				timeBeAttack = GetTickCount();
 				resetAniAttack();
+				sound = false;
 			}
 			return;
 		}

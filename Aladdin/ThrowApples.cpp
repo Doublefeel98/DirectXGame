@@ -157,6 +157,10 @@ void ThrowApples::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 						{
 							isBreakBoss = true;
 							SetPosition(enemy->x + 3, y);
+							if (enemy->state == JAFAR_STATE_SNAKE) {
+								Sound::getInstance()->playOnce(SNAKE_MUSIC, "snake");
+							}
+
 						}
 						else {
 							int typeObject;

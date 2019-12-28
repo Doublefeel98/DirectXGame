@@ -558,7 +558,7 @@
 #define JAFAR_HURT_MUSIC	"resources\\sound\\Jafar Snake.wav"
 #define SHOOT_MUSIC			"resources\\sound\\shoot.wav"
 #define NEXT_MUSIC			"resources\\sound\\level_complete.wav"
-#define JAFAR_HURT_MUSIC	"resources\\sound\\Jafar Snake.wav"
+#define SNAKE_MUSIC			"resources\\sound\\Jafar Snake.wav"
 #define GUARD_THIN_MUSIC	"resources\\sound\\Guard Hit 1.wav"
 #define GUARD_NORMAL_MUSIC	 "resources\\sound\\Guard Hit 2.wav"
 #define THEEND_MUSIC		"resources\\sound\\theend.wav"

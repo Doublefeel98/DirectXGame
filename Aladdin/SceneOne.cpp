@@ -17,6 +17,8 @@ SceneOne::SceneOne()
 	//this->aladdin->SetPosition(1200, 1052);
 	//this->aladdin->SetPosition(432, 580);
 
+	this->aladdin->ResetCheckpoint();
+
 	CSprites* sprites = CSprites::GetInstance();
 	//mapWidth = 2144.0f;
 	//mapHeight = 1024.0f;
@@ -270,6 +272,10 @@ void SceneOne::Render()
 
 void SceneOne::Update(DWORD dt)
 {
+	if (aladdin->GetHP() <= 0)
+	{
+		aladdin->ResetCheckpoint();
+	}
 
 	if (aladdin->x > 2212 - DEVIATION_X && aladdin->y - ALADDIN_BBOX_HEIGHT < 244)
 	{

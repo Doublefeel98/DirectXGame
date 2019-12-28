@@ -9,38 +9,6 @@
 void NormalPalaceGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 {
 
-	//int x = alaPosition.x, y = alaPosition.y;
-
-	//if (this->x < x) direction = RIGHT;
-	//else direction = LEFT;
-	//bool left = direction == LEFT && (animations[state * 2 + 1]->getCurrentFrame() == animations[state * 2 + 1]->frames.size() - 1),
-	//	right = direction == RIGHT && (animations[state * 2]->getCurrentFrame() == animations[state * 2]->frames.size() - 1);
-
-	//if (isDead) {
-	//	//if (!finalAni) {
-	//	//	state = NGUARD_STATE_SURPRISE;
-	//	//	if(left||right){finalAni = true;}
-	//	//} 
-	//}
-	//else {
-	//	if ((state == NGUARD_STATE_SURPRISE && (left || right)) || (state != NGUARD_STATE_SURPRISE)) {
-	//		if (abs(this->x - x) < 100) SetState(rand() % 2 == 0 ? NGUARD_STATE_SLASH : NGUARD_STATE_STAB);
-	//		else { SetState(NGUARD_STATE_IDLE); }
-	//	}
-	//	else {
-	//		state = NGUARD_STATE_SURPRISE;
-	//	}
-	//}
-
-	//if (isDead) {
-	//	x = -5;
-	//	y = -5;
-	//	vx = 0;
-	//	vy = 0;
-	//}
-
-
-
 	if (!isDead) {
 		CEnemy::Update(dt, coObject);
 		D3DXVECTOR3 alaPosition = Aladdin::GetInstance()->GetPosition();
@@ -90,27 +58,33 @@ void NormalPalaceGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 				guardSword->SetFighting(false);
 				if (nx > 0)
 				{
-					guardSword->SetState(SWORD_STATE_RIGHT);
-					guardSword->SetPosition(x + GUARD_BBOX_WIDTH, y - 8);
+					guardSword->SetState(GUARD_SWORD_SLASH_STATE_RIGHT);
 				}
 				else {
-					guardSword->SetState(SWORD_STATE_LEFT);
-					guardSword->SetPosition(x, y - 8);
+					guardSword->SetState(GUARD_SWORD_SLASH_STATE_LEFT);
 				}
 				if (now - timeSlash >= 300 && timeSlash != 0)
 				{
-					if (!guardSword->IsFighting())
+					if (!guardSword->IsEnable())
 					{
 						guardSword->SetEnable(true);
 						guardSword->SetFighting(true);
+						if (nx > 0)
+							guardSword->SetPosition(x + GUARD_BBOX_WIDTH + 17, y + 10);
+						else
+							guardSword->SetPosition(x - 17, y + 10);
 					}
 				}
 				else if (now - timeStab >= 100 && timeStab != 0)
 				{
-					if (!guardSword->IsFighting())
+					if (!guardSword->IsEnable())
 					{
 						guardSword->SetEnable(true);
 						guardSword->SetFighting(true);
+						if (nx > 0)
+							guardSword->SetPosition(x + GUARD_BBOX_WIDTH + 17, y + 10);
+						else
+							guardSword->SetPosition(x - 17, y + 10);
 					}
 				}
 				if (now - timeStab > 600 && timeStab != 0)
@@ -159,77 +133,66 @@ void NormalPalaceGuard::GetBoundingBox(float& left, float& top, float& right, fl
 	else {
 		int boxWidth = GUARD_BBOX_WIDTH;
 		int boxHeight = GUARD_BBOX_HEIGHT;
-		switch (state)
-		{
-		case NGUARD_STATE_WALK:
+		left = x;
+		right = left + boxWidth;
+		top = y;
+		bottom = top + boxHeight;
+		//switch (state)
+		//{
+		//case NGUARD_STATE_WALK:
 
-			break;
-		case NGUARD_STATE_WAIT:
+		//	break;
+		//case NGUARD_STATE_WAIT:
 
-			break;
-		case NGUARD_STATE_STAB:
-			if (nx <= 0) {
-				posX = x + 30;
-			}
-			boxWidth = GUARD_STAB_BBOX_WIDTH;
-			boxHeight = GUARD_STAB_BBOX_HEIGHT;
-			break;
-		case NGUARD_STATE_SLASH:
-			if (nx <= 0) {
-				posX = x + 28;
-			}
-			boxWidth = GUARD_SLASH_BBOX_WIDTH;
-			boxHeight = GUARD_SLASH_BBOX_HEIGHT;
-			break;
-		case NGUARD_STATE_SURPRISE:
-			boxWidth = GUARD_SURSPRISE_BBOX_WIDTH;
-			boxHeight = GUARD_SURPRISE_BBOX_HEIGHT;
-			break;
-		default:
-			break;
-		}
-		if (ani == -1)
-		{
-			left = posX;
-			top = posY;
-			right = left + boxWidth;
-			bottom = top + boxHeight;
-		}
-		else {
-			int currentFrame = animations[ani]->getCurrentFrame();
-			if (currentFrame != -1)
-			{
-				left = posX + animations[ani]->frames[currentFrame]->GetSprite()->dx;
-				top = posY + animations[ani]->frames[currentFrame]->GetSprite()->dy;
-			}
-			else {
-				left = posX;
-				top = posY;
-			}
-			right = left + boxWidth;
-			bottom = top + boxHeight;
-		}
+		//	break;
+		//case NGUARD_STATE_STAB:
+		//	if (nx <= 0){
+		//		posX = x + 30;
+		//	}				
+		//	boxWidth = GUARD_STAB_BBOX_WIDTH;
+		//	boxHeight = GUARD_STAB_BBOX_HEIGHT;
+		//	break;
+		//case NGUARD_STATE_SLASH:
+		//	if (nx <= 0) {
+		//		posX = x + 28;
+		//	}
+		//	boxWidth = GUARD_SLASH_BBOX_WIDTH;
+		//	boxHeight = GUARD_SLASH_BBOX_HEIGHT;
+		//	break;
+		//case NGUARD_STATE_SURPRISE:
+		//	boxWidth = GUARD_SURSPRISE_BBOX_WIDTH;
+		//	boxHeight = GUARD_SURPRISE_BBOX_HEIGHT;
+		//	break;
+		//default:
+		//	break;
+		//}
+		//if (ani == -1)
+		//{
+		//	left = posX;
+		//	top = posY;
+		//	right = left + boxWidth;
+		//	bottom = top + boxHeight;
+		//}
+		//else {
+		//	int currentFrame = animations[ani]->getCurrentFrame();
+		//	if (currentFrame != -1)
+		//	{
+		//		left = posX + animations[ani]->frames[currentFrame]->GetSprite()->dx;
+		//		top = posY + animations[ani]->frames[currentFrame]->GetSprite()->dy;
+		//	}
+		//	else {
+		//		left = posX;
+		//		top = posY;
+		//	}
+			//right = left + boxWidth;
+			//bottom = top + boxHeight;
+
+		//}
 	}
 }
 
 void NormalPalaceGuard::SetState(int stateNew)
 {
-	//if (stateNew != NGUARD_STATE_SURPRISE) {
-	//	
-	//}
-	//else { SetState(stateNew); }
-	//int frameSize = animations[state * 2 + 1]->frames.size() - 1;
-	/*bool left = direction == LEFT && (animations[state * 2 + 1]->getCurrentFrame() == animations[state * 2 + 1]->frames.size() - 1),
-		right = direction == RIGHT && (animations[state * 2]->getCurrentFrame() == animations[state * 2]->frames.size() - 1);*/
-		//int currentFrame = direction == LEFT ?
-		//	(animations[state * 2 + 1]->getCurrentFrame()) :
-		//	(animations[state * 2]->getCurrentFrame());
-		/*if (left || right) {
-			CGameObject::SetState(stateNew);
-		}*/
-
-		//CEnemy::SetState(stateNew);
-
 	CEnemy::SetState(stateNew);
 	switch (stateNew)
 	{
@@ -265,50 +228,6 @@ void NormalPalaceGuard::SetState(int stateNew)
 
 void NormalPalaceGuard::Render()
 {
-	/*if (!isDead) {
-		if (direction == LEFT) {
-			switch (state) {
-			case NGUARD_STATE_IDLE:
-				animations[NORMAL_GUARD_ANI_IDLE_LEFT]->Render(x, y, 255);
-				RenderBoundingBox();
-				break;
-			case NGUARD_STATE_STAB:
-				animations[NORMAL_GUARD_ANI_ATTACK_STAB_LEFT]->Render(x, y - 21, 255);
-				RenderBoundingBox();
-				break;
-			case NGUARD_STATE_SLASH:
-				animations[NORMAL_GUARD_ANI_ATTACK_SLASH_LEFT]->Render(x, y - 23, 255);
-				RenderBoundingBox();
-				break;
-			case NGUARD_STATE_SURPRISE:
-				animations[NORMAL_GUARD_ANI_SURPRISE_LEFT]->Render(x, y, 255);
-				RenderBoundingBox();
-				break;
-			}
-		}
-		else {
-			switch (state) {
-			case NGUARD_STATE_IDLE:
-				animations[NORMAL_GUARD_ANI_IDLE_RIGHT]->Render(x, y, 255);
-				RenderBoundingBox();
-				break;
-			case NGUARD_STATE_STAB:
-				animations[NORMAL_GUARD_ANI_ATTACK_STAB_RIGHT]->Render(x, y - 21, 255);
-				RenderBoundingBox();
-				break;
-			case NGUARD_STATE_SLASH:
-				animations[NORMAL_GUARD_ANI_ATTACK_SLASH_RIGHT]->Render(x, y - 23, 255);
-				RenderBoundingBox();
-				break;
-			case NGUARD_STATE_SURPRISE:
-				animations[NORMAL_GUARD_ANI_SURPRISE_RIGHT]->Render(x, y, 255);
-				RenderBoundingBox();
-				break;
-			}
-		}
-	}*/
-
-
 	if (!isDead) {
 		int posX = x, posY = y;
 		switch (state)

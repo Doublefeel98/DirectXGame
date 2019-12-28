@@ -52,6 +52,35 @@ void ThinPalaceGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject) {
 			}
 			else {
 				DWORD now = GetTickCount();
+				guardSword->SetEnable(false);
+				guardSword->SetFighting(false);
+				if (nx > 0)
+				{
+					guardSword->SetState(SWORD_STATE_RIGHT);
+					guardSword->SetPosition(x + THIN_GUARD_BBOX_WIDTH, y + 10);
+				}
+				else {
+					guardSword->SetState(SWORD_STATE_LEFT);
+					guardSword->SetPosition(x, y + 10);
+				}
+				if (now - timeAttack >= 300 && timeAttack != 0)
+				{
+					if (!guardSword->IsFighting())
+					{
+						guardSword->SetEnable(true);
+						guardSword->SetFighting(true);
+						if(nx>0)
+							guardSword->SetPosition(x + THIN_GUARD_BBOX_WIDTH, y + 10);
+						else
+							guardSword->SetPosition(x, y + 10);
+					}
+				}
+
+				if (now - timeAttack > 590 && timeAttack != 0)
+				{
+					guardSword->SetEnable(false);
+				}
+
 				if (timeAttack == 0)
 				{
 					timeAttack = now;
@@ -68,6 +97,7 @@ void ThinPalaceGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject) {
 			SetState(TGUARD_STATE_IDLE);
 		}
 	}
+	guardSword->Update(dt, coObject);
 }
 
 void ThinPalaceGuard::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -81,7 +111,11 @@ void ThinPalaceGuard::GetBoundingBox(float& left, float& top, float& right, floa
 	else {
 		int boxWidth = THIN_GUARD_BBOX_WIDTH;
 		int boxHeight = THIN_GUARD_BBOX_HEIGHT;
-		switch (state)
+		left = x;
+		right = left + boxWidth;
+		top = y;
+		bottom = top + boxHeight;
+		/*switch (state)
 		{
 		case TGUARD_STATE_WALK:
 
@@ -117,7 +151,7 @@ void ThinPalaceGuard::GetBoundingBox(float& left, float& top, float& right, floa
 			}
 			right = left + boxWidth;
 			bottom = top + boxHeight;
-		}
+		}*/
 	}
 }
 
@@ -200,6 +234,8 @@ void ThinPalaceGuard::Render()
 
 		animations[ani]->Render(posX, posY);
 		RenderBoundingBox();
+
+		guardSword->Render();
 	}
 }
 
@@ -217,6 +253,8 @@ void ThinPalaceGuard::resetAniSurprise()
 
 ThinPalaceGuard::ThinPalaceGuard() : CEnemy()
 {
+	guardSword = new GuardSword();
+
 	width = THIN_GUARD_BBOX_WIDTH;
 	height = THIN_GUARD_BBOX_HEIGHT;
 

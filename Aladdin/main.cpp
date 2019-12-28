@@ -299,7 +299,8 @@ void Update(DWORD dt)
 
 	camera->SetCameraPosition(cx, cy);
 
-	DebugOut(L"[INFO]  aladdin->IsJump: %d\n", aladdin->IsJump);
+	DebugOut(L"[INFO]  aladdin->x: %d\n", aladdin->GetPosition().x);
+	DebugOut(L"[INFO]  aladdin->y: %d\n", aladdin->GetPosition().y);
 }
 
 /*

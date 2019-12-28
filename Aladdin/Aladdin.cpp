@@ -541,7 +541,6 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						{
 							StartHurting(trap->GetDamage());
 							trap->SetEnable(false);
-							Sound::getInstance()->playOnce(HURT_MUSIC, "hurt");
 						}
 						/*if (hp > 0)
 						{
@@ -572,7 +571,6 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						{
 							StartHurting(ball->GetDamage());
 							ball->SetEnable(false);
-							Sound::getInstance()->playOnce(HURT_MUSIC, "hurt");
 
 						}
 						/*if (hp > 0)
@@ -674,7 +672,6 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						if (dynamic_cast<Jafar*>(coObjects->at(i)))
 						{
 							StartHurting(enemy->GetDamage());
-							Sound::getInstance()->playOnce(HURT_MUSIC, "hurt");
 						}
 						else {
 							EnemyHurted(enemy->GetDamage());
@@ -754,7 +751,6 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							{
 								StartHurting(trap->GetDamage());
 								trap->SetEnable(false);
-								Sound::getInstance()->playOnce(HURT_MUSIC, "hurt");
 
 							}
 						}
@@ -775,7 +771,6 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							{
 								StartHurting(ball->GetDamage());
 								ball->SetEnable(false);
-								Sound::getInstance()->playOnce(HURT_MUSIC, "hurt");
 
 							}
 						}
@@ -854,17 +849,27 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						if (enemy->IsEnable())
 						{
 							this->hp -= enemy->GetDamage();
-							Sound::getInstance()->playOnce(HURT_MUSIC, "hurt");
 							EnemyHurted(enemy->GetDamage());
 							if (enemy->GetType() == OBJECT_BAT)
 							{
 								enemy->SetDead(true);
 							}
 						}
+						x += dx;
+						if (ny > 0)
+							y += dy + ny * -0.7f;
+						//y += dy;						
+					}
+					else {
+						x += dx;
+						if (ny < 0)
+							y += dy + ny * 0.7f;
+						else if (ny > 0)
+							y += dy + ny * -0.7f;
 					}
 				}
 			}
-			if (dynamic_cast<Brick*>(e->obj) || dynamic_cast<StoneBar*>(e->obj) || dynamic_cast<Ground*>(e->obj) || dynamic_cast<Wood*>(e->obj) || dynamic_cast<Pilar*>(e->obj) || dynamic_cast<MapCollision*>(e->obj) || dynamic_cast<Spitfire*>(e->obj))
+			else if (dynamic_cast<Brick*>(e->obj) || dynamic_cast<StoneBar*>(e->obj) || dynamic_cast<Ground*>(e->obj) || dynamic_cast<Wood*>(e->obj) || dynamic_cast<Pilar*>(e->obj) || dynamic_cast<MapCollision*>(e->obj) || dynamic_cast<Spitfire*>(e->obj))
 			{
 				if (dynamic_cast<Spitfire*>(e->obj))
 				{
@@ -1400,6 +1405,7 @@ void Aladdin::StartHurting(int damage)
 	timeHurtableStart = GetTickCount();
 	SetState(ALADDIN_STATE_BE_ATTACKED);
 	ResetAllAnimation();
+	Sound::getInstance()->playOnce(HURT_MUSIC, "hurt");
 }
 
 void Aladdin::ResetAnimationsSlash()
@@ -1484,6 +1490,7 @@ void Aladdin::EnemyHurted(int damage)
 	IsEnemyHurt = true;
 	timeEnemyHurt = GetTickCount();
 	ResetAllAnimation();
+	Sound::getInstance()->playOnce(HURT_MUSIC, "hurt");
 }
 
 void Aladdin::addApple(int count)
@@ -1583,7 +1590,7 @@ Aladdin::Aladdin() : CGameObject()
 
 	hp = ALADDIN_MAX_HP;
 
-	for (int i = 0; i < 50; i++)
+	for (int i = 0; i < 25; i++)
 	{
 		throwApples.push_back(new ThrowApples());
 	}
@@ -1672,4 +1679,11 @@ void Aladdin::SetPosition(float x, float y)
 	CGameObject::SetPosition(x, y);
 	checkPointX = x;
 	checkPointY = y;
+}
+
+void Aladdin::ResetCheckpoint()
+{
+	this->x = checkPointX;
+	this->y = checkPointY;
+	this->hp = ALADDIN_MAX_HP;
 }

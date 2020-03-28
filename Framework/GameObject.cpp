@@ -20,8 +20,6 @@ CGameObject::CGameObject()
 	nx = 1;
 	isEnable = true;
 	isDead = false;
-	collider = new ColliderEffect();
-	deadeffect = new DeadEffect();
 	//CTextures* textures = CTextures::GetInstance();
 	//DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", get_current_dir() + "textures\\bbox.png");
 	//textures->Add(ID_TEX_BBOX, L"resources\\textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
@@ -32,20 +30,10 @@ void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	this->dt = dt;
 	dx = vx * dt;
 	dy = vy * dt;
-
-	if (isEnable)
-	{
-		collider->SetPosition(x, y + 10);
-		deadeffect->SetPosition(x + 5, y - 5);
-	}
-	collider->Update(dt);
-	deadeffect->Update(dt);
 }
 
 void CGameObject::Render()
 {
-	collider->Render();
-	deadeffect->Render();
 }
 
 /*
@@ -85,7 +73,7 @@ LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 		dx, dy,
 		sl, st, sr, sb,
 		t, nx, ny
-	);
+		);
 
 	CCollisionEvent* e = new CCollisionEvent(t, nx, ny, coO);
 	return e;
@@ -168,7 +156,7 @@ void CGameObject::FilterCollision(
 
 void CGameObject::RenderBoundingBox()
 {
-	/*D3DXVECTOR3 p(x, y, 0);
+	D3DXVECTOR3 p(x, y, 0);
 	RECT rect;
 
 	LPDIRECT3DTEXTURE9 bbox = CTextures::GetInstance()->Get(ID_TEX_BBOX);
@@ -181,7 +169,7 @@ void CGameObject::RenderBoundingBox()
 	rect.right = (int)r - (int)l;
 	rect.bottom = (int)b - (int)t;
 
-	CGame::GetInstance()->Draw(l, t, bbox, rect.left, rect.top, rect.right, rect.bottom, 50);*/
+	CGame::GetInstance()->Draw(l, t, bbox, rect.left, rect.top, rect.right, rect.bottom, 50);
 }
 void CGameObject::RenderBoundingBoxFlipOx()
 {

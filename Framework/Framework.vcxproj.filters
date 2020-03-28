@@ -37,14 +37,17 @@
     <Filter Include="Source Files\Scene">
       <UniqueIdentifier>{cc56d41f-2ed4-439a-bf38-00bb53a5b97a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Effect">
-      <UniqueIdentifier>{15dc3df6-a1be-45e2-a423-23cdcb7366bf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Resoucre">
       <UniqueIdentifier>{0e38e217-feee-4d44-8128-c34639063510}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Utils">
       <UniqueIdentifier>{afe179fb-aaf7-46a8-b7a2-bb9062855722}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Sound">
+      <UniqueIdentifier>{442c9f41-1e54-4be9-b3bf-5b60324e3f11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Effect">
+      <UniqueIdentifier>{dbdd5676-3f7e-45b3-98f2-8d24460aa25f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -84,12 +87,6 @@
     <ClCompile Include="Cell.cpp">
       <Filter>Source Files\Grid</Filter>
     </ClCompile>
-    <ClCompile Include="ColliderEffect.cpp">
-      <Filter>Source Files\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="DeadEffect.cpp">
-      <Filter>Source Files\Effect</Filter>
-    </ClCompile>
     <ClCompile Include="Resoucres.cpp">
       <Filter>Source Files\Resoucre</Filter>
     </ClCompile>
@@ -101,6 +98,12 @@
     </ClCompile>
     <ClCompile Include="Helper.h">
       <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Source Files\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Source Files\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,12 +143,6 @@
     <ClInclude Include="Cell.h">
       <Filter>Source Files\Grid</Filter>
     </ClInclude>
-    <ClInclude Include="ColliderEffect.h">
-      <Filter>Source Files\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="DeadEffect.h">
-      <Filter>Source Files\Effect</Filter>
-    </ClInclude>
     <ClInclude Include="Resoucres.h">
       <Filter>Source Files\Resoucre</Filter>
     </ClInclude>
@@ -154,6 +151,12 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Source Files\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Source Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Source Files\Effect</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

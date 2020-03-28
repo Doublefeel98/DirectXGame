@@ -31,7 +31,7 @@ namespace MapEditor
 
         private int objectIndexInfo;
 
-        private const int CELL_SIZE = 160;
+        private const int CELL_SIZE = 260;
 
         private const int START_INDEX = 1;
 
@@ -48,25 +48,10 @@ namespace MapEditor
             // List Object
             listViewOB.LargeImageList = imageListOB;
             listViewOB.View = View.LargeIcon;
-            listViewOB.Items.Add("Apple", 0);
-            listViewOB.Items.Add("Ruby", 1);
-            listViewOB.Items.Add("GenieFace", 2);
-            listViewOB.Items.Add("GenieJar", 3);
-            listViewOB.Items.Add("Bat", 4);
-            listViewOB.Items.Add("NormalGuard", 5);
-            listViewOB.Items.Add("ThinGuard", 6);
-            listViewOB.Items.Add("FatGuard", 7);
-            listViewOB.Items.Add("BoomSkeleton", 8);
-            listViewOB.Items.Add("Peddler", 9);
-            listViewOB.Items.Add("StoneBrick", 10);
-            listViewOB.Items.Add("SharpTrap", 11);
-            listViewOB.Items.Add("BallTrap", 12);
-            listViewOB.Items.Add("Chains", 13);
-            listViewOB.Items.Add("Fence", 14);
-            listViewOB.Items.Add("StoneBar", 15);
-            listViewOB.Items.Add("Wood", 16);
-            listViewOB.Items.Add("Ground", 17);
-            listViewOB.Items.Add("Heart", 18);
+            listViewOB.Items.Add("BrickOutCastle", 0);
+            listViewOB.Items.Add("Torch", 1);
+            listViewOB.Items.Add("BrickSceneOne", 2);
+            listViewOB.Items.Add("Candle", 3);
 
             //imageListOB.TransparentColor = Color.Transparent;
 
@@ -125,75 +110,11 @@ namespace MapEditor
                     imageCursor = this.imageListOB.Images[imgIndex];
                     if (imgIndex == 0)
                     {
-                        imageCursor = Utilities.ResizeImage(imageCursor, 7, 7);
+                        imageCursor = Utilities.ResizeImage(imageCursor, 32, 32);
                     }
                     else if (imgIndex == 1)
                     {
-                        imageCursor = Utilities.ResizeImage(imageCursor, 17, 16);
-                    }
-                    else if (imgIndex == 2)
-                    {
-                        imageCursor = Utilities.ResizeImage(imageCursor, 38, 50);
-                    }
-                    else if (imgIndex == 3)
-                    {
-                        imageCursor = Utilities.ResizeImage(imageCursor, 20, 33);
-                    }
-                    else if (imgIndex == 4)
-                    {
-                        imageCursor = Utilities.ResizeImage(imageCursor, 7, 16);
-                    }
-                    else if (imgIndex == 5)
-                    {
-                        imageCursor = Utilities.ResizeImage(imageCursor, 44, 53);
-                    }
-                    else if (imgIndex == 6)
-                    {
-                        imageCursor = Utilities.ResizeImage(imageCursor, 41, 60);
-                    }
-                    else if (imgIndex == 7)
-                    {
-                        imageCursor = Utilities.ResizeImage(imageCursor, 41, 60);
-                    }
-                    else if (imgIndex == 8)
-                    {
-                        imageCursor = Utilities.ResizeImage(imageCursor, 48, 75);
-                    }
-                    else if (imgIndex == 9)
-                    {
-                        imageCursor = Utilities.ResizeImage(imageCursor, 26, 52);
-                    }
-                    else if (imgIndex == 10)
-                    {
-                        imageCursor = Utilities.ResizeImage(imageCursor, 38, 21);
-                    }
-                    else if (imgIndex == 11)
-                    {
-                        imageCursor = Utilities.ResizeImage(imageCursor, 42, 34);
-                    }
-                    else if (imgIndex == 12)
-                    {
-                        imageCursor = Utilities.ResizeImage(imageCursor, 33, 52);
-                    }
-                    else if (imgIndex == 13)
-                    {
-                        imageCursor = Utilities.ResizeImage(imageCursor, 10, 122);
-                    }
-                    else if (imgIndex == 14)
-                    {
-                        imageCursor = Utilities.ResizeImage(imageCursor, 19, 22);
-                    }
-                    else if (imgIndex == 15)
-                    {
-                        imageCursor = Utilities.ResizeImage(imageCursor, 49, 8);
-                    }
-                    else if (imgIndex == 16)
-                    {
-                        imageCursor = Utilities.ResizeImage(imageCursor, 46, 15);
-                    }
-                    else if (imgIndex == 18)
-                    {
-                        imageCursor = Utilities.ResizeImage(imageCursor, 32, 42);
+                        imageCursor = Utilities.ResizeImage(imageCursor, 32, 64);
                     }
                 }
             }
@@ -438,75 +359,11 @@ namespace MapEditor
             Image image = this.imageListOB.Images[imgIndex];
             if (imgIndex == 0)
             {
-                image = Utilities.ResizeImage(image, 7, 7);
+                image = Utilities.ResizeImage(image, 32, 32);
             }
             else if (imgIndex == 1)
             {
-                image = Utilities.ResizeImage(image, 17, 16);
-            }
-            else if (imgIndex == 2)
-            {
-                image = Utilities.ResizeImage(image, 38, 50);
-            }
-            else if (imgIndex == 3)
-            {
-                image = Utilities.ResizeImage(image, 20, 33);
-            }
-            else if (imgIndex == 4)
-            {
-                image = Utilities.ResizeImage(image, 7, 16);
-            }
-            else if (imgIndex == 5)
-            {
-                image = Utilities.ResizeImage(image, 44, 53);
-            }
-            else if (imgIndex == 6)
-            {
-                image = Utilities.ResizeImage(image, 41, 60);
-            }
-            else if (imgIndex == 7)
-            {
-                image = Utilities.ResizeImage(image, 41, 60);
-            }
-            else if (imgIndex == 8)
-            {
-                image = Utilities.ResizeImage(image, 48, 75);
-            }
-            else if (imgIndex == 9)
-            {
-                image = Utilities.ResizeImage(image, 26, 52);
-            }
-            else if (imgIndex == 10)
-            {
-                image = Utilities.ResizeImage(image, 38, 21);
-            }
-            else if (imgIndex == 11)
-            {
-                image = Utilities.ResizeImage(image, 42, 34);
-            }
-            else if (imgIndex == 12)
-            {
-                image = Utilities.ResizeImage(image, 33, 52);
-            }
-            else if (imgIndex == 13)
-            {
-                image = Utilities.ResizeImage(image, 13, 122);
-            }
-            else if (imgIndex == 14)
-            {
-                image = Utilities.ResizeImage(image, 19, 22);
-            }
-            else if (imgIndex == 15)
-            {
-                image = Utilities.ResizeImage(image, 49, 8);
-            }
-            else if (imgIndex == 16)
-            {
-                image = Utilities.ResizeImage(image, 46, 15);
-            }
-            else if (imgIndex == 18)
-            {
-                image = Utilities.ResizeImage(imageCursor, 32, 42);
+                image = Utilities.ResizeImage(image, 32, 64);
             }
             return image;
         }

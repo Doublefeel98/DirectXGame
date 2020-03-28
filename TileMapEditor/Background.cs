@@ -13,8 +13,8 @@ namespace MapEditor
     public partial class Background : Form
     {
 
-        const int TILE_WEIDTH = 16;
-        const int TILE_HEIGTH = 16;
+        const int TILE_WEIDTH = 32;
+        const int TILE_HEIGTH = 32;
         const int BGSLIPT_WEIDTH = 256;
 
         private int bg_width; //  so tile cua bg chua cat theo width
@@ -216,7 +216,7 @@ namespace MapEditor
             listtam = new List<Bitmap>();
             int after = 0; //so anh sau khi cat
             int before = 0; //so anh truoc khi cat
-            int size = 16;
+            int size = TILE_WEIDTH;
             for (int i = 0; i < background.Height; i = i + size)
             {
                 for (int j = 0; j < background.Width; j = j + size)
@@ -246,8 +246,8 @@ namespace MapEditor
             pictureBoxAfter.SizeMode = PictureBoxSizeMode.AutoSize;
             Cursor = Cursors.Default;
             buttonSave.Enabled = true;
-            textBox3.Text = " 16 pixel ";
-            textBox4.Text = " 16 pixel ";
+            textBox3.Text = " " + TILE_WEIDTH + " pixel ";
+            textBox4.Text = " " + TILE_WEIDTH + " ypixel ";
             textBoxBGWidth.Text += "  ( " + bg_width + " tile)";
             textBoxBGHeigth.Text += "  ( " + bg_height + " tile)";
         }

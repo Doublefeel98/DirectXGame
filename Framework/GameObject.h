@@ -7,11 +7,9 @@
 #include "Sprites.h"
 #include "Camera.h"
 #include "Textures.h"
-#include "ColliderEffect.h"
-#include "DeadEffect.h"
 using namespace std;
 
-#define ID_TEX_BBOX -1000		// special texture to draw object bounding box
+#define ID_TEX_BBOX 10000		// special texture to draw object bounding box
 
 
 class CGameObject;
@@ -53,8 +51,6 @@ public:
 	int id;
 	DWORD dt;
 	vector<LPANIMATION> animations;
-	ColliderEffect* collider;
-	DeadEffect* deadeffect;
 	bool isEnable;
 	bool isDead;
 	bool isFlip;
@@ -101,8 +97,6 @@ public:
 	int GetHeight() { return height; }
 	void SetType(int type) { this->type = type; }
 	int GetType() { return type; }
-	ColliderEffect* GetColliderEffect() { return collider; }
-	DeadEffect* GetDeadEffect() { return deadeffect; }
 	void ResetAllAnimation();
 	~CGameObject();
 };

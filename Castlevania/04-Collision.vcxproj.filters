@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Objects">
+      <UniqueIdentifier>{56577567-c872-442e-ac72-0aff05b47a77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scenes">
+      <UniqueIdentifier>{662923b8-8905-4950-94d2-4cd2d1b42ad5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Resources">
+      <UniqueIdentifier>{1de0c2f3-536b-4eaf-bfb3-5ed0cac55890}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Player">
+      <UniqueIdentifier>{905b7e3f-e07a-4785-b7fd-f7a2f5d9d4a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Enemies">
+      <UniqueIdentifier>{93a497d9-6d1d-45cc-958d-a9773f953362}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Items">
+      <UniqueIdentifier>{ca945ff3-07f7-47e9-8cad-5c557aa81b5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Weapons">
+      <UniqueIdentifier>{0913c425-25bb-4f75-ac8b-0a47fa7b4333}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\maps">
+      <UniqueIdentifier>{47565672-b2e3-477a-af14-2d8ee42c4af7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Effects">
+      <UniqueIdentifier>{ea452047-4c8e-4d28-bec3-e59fcd81431b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Boads">
+      <UniqueIdentifier>{637be088-6f75-4361-ab7f-0fb890f462dc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Simon.cpp">
+      <Filter>Source Files\Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneOutCastle.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Torch.cpp">
+      <Filter>Source Files\Objects\maps</Filter>
+    </ClCompile>
+    <ClCompile Include="CastlevaniaObjects.cpp">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="CastlevaniaRescoures.cpp">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Whip.cpp">
+      <Filter>Source Files\Objects\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionEffect.cpp">
+      <Filter>Source Files\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="DeadEffect.cpp">
+      <Filter>Source Files\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreBoard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HP.cpp">
+      <Filter>Source Files\Boads</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemBoard.cpp">
+      <Filter>Source Files\Boads</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Source Files\Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Candle.cpp">
+      <Filter>Source Files\Objects\maps</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Source Files\Objects\maps</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Simon.h">
+      <Filter>Source Files\Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneOutCastle.h">
+      <Filter>Source Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Torch.h">
+      <Filter>Source Files\Objects\maps</Filter>
+    </ClInclude>
+    <ClInclude Include="CastlevaniaObjects.h">
+      <Filter>Source Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="CastlevaniaRescoures.h">
+      <Filter>Source Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Whip.h">
+      <Filter>Source Files\Objects\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionEffect.h">
+      <Filter>Source Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="DeadEffect.h">
+      <Filter>Source Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreBoard.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HP.h">
+      <Filter>Source Files\Boads</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemBoard.h">
+      <Filter>Source Files\Boads</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Source Files\Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Candle.h">
+      <Filter>Source Files\Objects\maps</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Source Files\Objects\maps</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include "debug.h"
 
 bool Grid::checkExistCell(int cellX, int cellY)
 {
@@ -27,8 +28,8 @@ Grid::Grid(int widthmap, int heightmap, int cellSize)
 Grid::Grid(const char* file, int widthmap, int heightmap, int cellSize, vector <LPGAMEOBJECT>* listObject)
 {
 	this->cellSize = cellSize;
-	numXCells = heightmap / cellSize + ((heightmap % cellSize > 0) ? 1 : 0);
-	numYCells = widthmap / cellSize + ((widthmap % cellSize > 0) ? 1 : 0);
+	numYCells = heightmap / cellSize + ((heightmap % cellSize > 0) ? 1 : 0);
+	numXCells = widthmap / cellSize + ((widthmap % cellSize > 0) ? 1 : 0);
 
 	cells = new Cell * [numXCells];
 
@@ -59,9 +60,11 @@ Grid::Grid(const char* file, int widthmap, int heightmap, int cellSize, vector <
 		indexX = atoi(listInfo[0].c_str());
 		indexY = atoi(listInfo[1].c_str());
 
+
 		for (int j = 2; j < listInfo.size(); j++)
 		{
 			idObject = atoi(listInfo[j].c_str());
+			DebugOut(L"[INFO] Grid loaded Ok: indexX=%d, indexY=%d, id=%d \n", indexX, indexY, idObject);
 			cells[indexX][indexY].Insert(listObject->at(idObject));
 			cells[indexX][indexY].InsertIdObject(idObject);
 		}

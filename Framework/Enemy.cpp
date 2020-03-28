@@ -59,7 +59,6 @@ void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				isDead = true;
 				isEnable = false;
-				GetDeadEffect()->SetEnable(true);
 				AddScore();
 				return;
 			}

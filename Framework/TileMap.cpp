@@ -3,7 +3,7 @@
 #include "Helper.h"
 
 
-TileMap::TileMap(float _width, float _height, CSprite *_sprite, float _tileWidth, float _tileHeight)
+TileMap::TileMap(float _width, float _height, CSprite* _sprite, float _tileWidth, float _tileHeight)
 {
 	width = _width;
 	height = _height;
@@ -12,11 +12,11 @@ TileMap::TileMap(float _width, float _height, CSprite *_sprite, float _tileWidth
 	tileWidth = _tileWidth;
 	tileHeight = _tileHeight;
 
-	spritePerRow =  (sprite->right - sprite->left + 1)/ tileWidth;
+	spritePerRow = (sprite->right - sprite->left + 1) / tileWidth;
 
 	rows = height / tileHeight;
 	cols = width / tileWidth;
-	matrix = new int*[rows];
+	matrix = new int* [rows];
 	for (int i = 0; i < rows; i++)
 		matrix[i] = new int[cols];
 }
@@ -41,18 +41,18 @@ TileMap::~TileMap()
 	}
 }
 
-void TileMap::LoadListTileFromFile(const char *file)
+void TileMap::LoadListTileFromFile(const char* file)
 {
 	fstream pFile;
 	pFile.open(file, fstream::in);
 	string lineString;
 
-	pFile.good();
-	getline(pFile, lineString);
+	/*pFile.good();
+	getline(pFile, lineString);*/
 	//rows = atoi(lineString.c_str());
 
-	pFile.good();
-	getline(pFile, lineString);
+	/*pFile.good();
+	getline(pFile, lineString);*/
 	//cols = atoi(lineString.c_str());
 
 	std::vector<std::string> listRow;
@@ -102,19 +102,19 @@ void TileMap::Render(int screenWidth, int screenHeight)
 	if ((cameraPosition.y / tileHeight) < 0)
 		rowStart = 0;
 	else
-		rowStart=(cameraPosition.y / tileHeight);
+		rowStart = (cameraPosition.y / tileHeight);
 
-	if (((cameraPosition.y + screenHeight) / tileHeight + 1) >rows)
+	if (((cameraPosition.y + screenHeight) / tileHeight + 1) > rows)
 		rowEnd = rows - 1;
 	else
 		rowEnd = (cameraPosition.y + screenHeight) / tileHeight + 1;
 
-	if ((cameraPosition.x / tileWidth)<0)
+	if ((cameraPosition.x / tileWidth) < 0)
 		colStart = 0;
 	else
 		colStart = (cameraPosition.x / tileWidth);
 
-	if (((cameraPosition.x + screenWidth) / tileWidth  + 1) > cols)
+	if (((cameraPosition.x + screenWidth) / tileWidth + 1) > cols)
 		colEnd = cols - 1;
 	else
 		colEnd = (cameraPosition.x + screenWidth) / tileWidth + 1;

@@ -56,6 +56,7 @@ namespace MapEditor
                 }
 
             }
+            sWriter.WriteLine("END");
 
             sWriter.Flush();
             sWriter.Close();

@@ -50,79 +50,19 @@ namespace MapEditor
             this.delay = delay;
             if (this.Id == 1)
             {
-                Name = "Apple";
+                Name = "BrickOutCastle";
             }
             else if (this.Id == 2)
             {
-                Name = "aaa";
+                Name = "Torch";
             }
             else if (this.Id == 3)
             {
-                Name = "GenieFace";
+                Name = "BrickSceneOne";
             }
             else if (this.Id == 4)
             {
-                Name = "GenieJar";
-            }
-            else if (this.Id == 5)
-            {
-                Name = "Bat";
-            }
-            else if (this.Id == 6)
-            {
-                Name = "NormalGuard";
-            }
-            else if (this.Id == 7)
-            {
-                Name = "ThinGuard";
-            }
-            else if (this.Id == 8)
-            {
-                Name = "FatGuard";
-            }
-            else if (this.Id == 9)
-            {
-                Name = "BoomSkeleton";
-            }
-            else if (this.Id == 10)
-            {
-                Name = "Peddler";
-            }
-            else if (this.Id == 11)
-            {
-                Name = "StoneBrick";
-            }
-            else if (this.Id == 12)
-            {
-                Name = "SharpTrap";
-            }
-            else if (this.Id == 13)
-            {
-                Name = "BallTrap";
-            }
-            else if (this.Id == 14)
-            {
-                Name = "Chains";
-            }
-            else if (this.Id == 15)
-            {
-                Name = "Fence";
-            }
-            else if (this.Id == 16)
-            {
-                Name = "StoneBar";
-            }
-            else if (this.Id == 17)
-            {
-                Name = "Wood";
-            }
-            else if (this.Id == 18)
-            {
-                Name = "Ground";
-            }
-            else if (this.Id == 19)
-            {
-                Name = "Heart";
+                Name = "Candle";
             }
             this.PosX = PosX;
             this.PosY = PosY;
@@ -136,81 +76,21 @@ namespace MapEditor
             this.Name = Name;
             this.Index = index;
             this.delay = delay;
-            if (Name.Equals("Apple"))
+            if (Name.Equals("BrickOutCastle"))
             {
                 this.Id = 1;
             }
-            else if (Name.Equals("Ruby"))
+            else if (Name.Equals("Torch"))
             {
                 this.Id = 2;
             }
-            else if (Name.Equals("GenieFace"))
+            else if (Name.Equals("BrickSceneOne"))
             {
                 this.Id = 3;
             }
-            else if (Name.Equals("GenieJar"))
+            else if (Name.Equals("Candle"))
             {
                 this.Id = 4;
-            }
-            else if (Name.Equals("Bat"))
-            {
-                this.Id = 5;
-            }
-            else if (Name.Equals("NormalGuard"))
-            {
-                this.Id = 6;
-            }
-            else if (Name.Equals("ThinGuard"))
-            {
-                this.Id = 7;
-            }
-            else if (Name.Equals("FatGuard"))
-            {
-                this.Id = 8;
-            }
-            else if (Name.Equals("BoomSkeleton"))
-            {
-                this.Id = 9;
-            }
-            else if (Name.Equals("Peddler"))
-            {
-                this.Id = 10;
-            }
-            else if (Name.Equals("StoneBrick"))
-            {
-                this.Id = 11;
-            }
-            else if (Name.Equals("SharpTrap"))
-            {
-                this.Id = 12;
-            }
-            else if (Name.Equals("BallTrap"))
-            {
-                this.Id = 13;
-            }
-            else if (Name.Equals("Chains"))
-            {
-                this.Id = 14;
-            }
-            else if (Name.Equals("Fence"))
-            {
-                this.Id = 15;
-            }
-            else if (Name.Equals("StoneBar"))
-            {
-                this.Id = 16;
-            }
-            else if (Name.Equals("Wood"))
-            {
-                this.Id = 17;
-            }
-            else if (Name.Equals("Ground"))
-            {
-                this.Id = 18;
-            }
-            else if (Name.Equals("Heart"))
-            {
-                this.Id = 19;
             }
             this.PosX = PosX;
             this.PosY = PosY;
@@ -222,81 +102,21 @@ namespace MapEditor
         {
             int objectId = 0;
 
-            if (objectName.Equals("Apple"))
+            if (objectName.Equals("BrickOutCastle"))
             {
                 objectId = 1;
             }
-            else if (objectName.Equals("Ruby"))
+            else if (objectName.Equals("Torch"))
             {
                 objectId = 2;
             }
-            else if (objectName.Equals("GenieFace"))
+            else if (objectName.Equals("BrickSceneOne"))
             {
                 objectId = 3;
             }
-            else if (objectName.Equals("GenieJar"))
+            else if (objectName.Equals("Candle"))
             {
                 objectId = 4;
-            }
-            else if (objectName.Equals("Bat"))
-            {
-                objectId = 5;
-            }
-            else if (objectName.Equals("NormalGuard"))
-            {
-                objectId = 6;
-            }
-            else if (objectName.Equals("ThinGuard"))
-            {
-                objectId = 7;
-            }
-            else if (objectName.Equals("FatGuard"))
-            {
-                objectId = 8;
-            }
-            else if (objectName.Equals("BoomSkeleton"))
-            {
-                objectId = 9;
-            }
-            else if (objectName.Equals("Peddler"))
-            {
-                objectId = 10;
-            }
-            else if (objectName.Equals("StoneBrick"))
-            {
-                objectId = 11;
-            }
-            else if (objectName.Equals("SharpTrap"))
-            {
-                objectId = 12;
-            }
-            else if (objectName.Equals("BallTrap"))
-            {
-                objectId = 13;
-            }
-            else if (objectName.Equals("Chains"))
-            {
-                objectId = 14;
-            }
-            else if (objectName.Equals("Fence"))
-            {
-                objectId = 15;
-            }
-            else if (objectName.Equals("StoneBar"))
-            {
-                objectId = 16;
-            }
-            else if (objectName.Equals("Wood"))
-            {
-                objectId = 17;
-            }
-            else if (objectName.Equals("Ground"))
-            {
-                objectId = 18;
-            }
-            else if (objectName.Equals("Heart"))
-            {
-                objectId = 19;
             }
             return objectId;
         }

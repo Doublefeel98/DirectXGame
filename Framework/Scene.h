@@ -34,7 +34,7 @@ public:
 	virtual void Render() = 0;
 	virtual void Update(DWORD dt);
 	virtual void DestroyAll() = 0;
-	//virtual bool GetChangingScene() { return changeScene; };
+	//virtual bool GetChangingScene() { return changeScene; }
 	//virtual void SetChangingScene(bool status) { changeScene = status; }
 };
 

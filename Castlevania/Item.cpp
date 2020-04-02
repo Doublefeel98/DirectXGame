@@ -24,7 +24,7 @@ void Item::RandomItem()
 	}
 	else if (percent < 60)
 	{
-		type = ITEM_HEART;
+		type = ITEM_BIG_HEART;
 	}
 }
 
@@ -63,7 +63,7 @@ void Item::Init()
 		this->width = 32;
 		this->height = 32;
 		break;
-	case ITEM_HEART:
+	case ITEM_BIG_HEART:
 		this->AddAnimation(601);
 		this->width = 24;
 		this->height = 20;

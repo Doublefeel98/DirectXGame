@@ -64,7 +64,7 @@ Grid::Grid(const char* file, int widthmap, int heightmap, int cellSize, vector <
 		for (int j = 2; j < listInfo.size(); j++)
 		{
 			idObject = atoi(listInfo[j].c_str());
-			DebugOut(L"[INFO] Grid loaded Ok: indexX=%d, indexY=%d, id=%d \n", indexX, indexY, idObject);
+			//DebugOut(L"[INFO] Grid loaded Ok: indexX=%d, indexY=%d, id=%d \n", indexX, indexY, idObject);
 			cells[indexX][indexY].Insert(listObject->at(idObject));
 			cells[indexX][indexY].InsertIdObject(idObject);
 		}

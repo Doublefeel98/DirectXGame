@@ -3,7 +3,7 @@
 #include <d3d9.h>
 #include "TileMap.h"
 #include "Resoucres.h"
-#include "MapCollision.h"
+#include "BoundingMap.h"
 #include "Grid.h"
 class CScene
 {
@@ -12,8 +12,8 @@ protected:
 	int state;
 	TileMap* tilemap;
 	D3DXVECTOR3 cameraCheckpoint;
-	MapCollision* leftMap;
-	MapCollision* rightMap;
+	BoundingMap* leftMap;
+	BoundingMap* rightMap;
 	char* fileResoucre;
 	char* fileGrid;
 	char* fileMap;

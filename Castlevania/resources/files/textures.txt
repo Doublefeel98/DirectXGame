@@ -1,0 +1,14 @@
+10000 resources\\textures\\bbox.png 255 255 255
+0 resources\\textures\\simon.png 255 0 255
+1 resources\\textures\\brickoutcastle.png 255 0 255
+2 resources\\textures\\bricksceneone.png 255 0 255
+3 resources\\textures\\candle.png 255 0 255
+4 resources\\textures\\torch.png 255 0 255
+5 resources\\textures\\whip.png 255 0 255
+200 resources\\textures\\item_whip.png 255 0 255
+201 resources\\textures\\item_heart.png 255 0 255
+800 resources\\textures\\collidioneffect.png 255 0 255
+801 resources\\textures\\deadeffect.png 255 0 255
+900 resources\\textures\\hp.png 255 0 255
+901 resources\\textures\\item_board_heart.png 255 0 255
+1000 resources\\maps\\outcastle\\outcastle.png 0 0 0

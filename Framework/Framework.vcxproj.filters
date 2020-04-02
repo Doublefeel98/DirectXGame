@@ -81,9 +81,6 @@
     <ClCompile Include="TileMap.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="MapCollision.cpp">
-      <Filter>Source Files\Map</Filter>
-    </ClCompile>
     <ClCompile Include="Cell.cpp">
       <Filter>Source Files\Grid</Filter>
     </ClCompile>
@@ -104,6 +101,9 @@
     </ClCompile>
     <ClCompile Include="Effect.cpp">
       <Filter>Source Files\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="BoundingMap.cpp">
+      <Filter>Source Files\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -137,9 +137,6 @@
     <ClInclude Include="TileMap.h">
       <Filter>Source Files\Map</Filter>
     </ClInclude>
-    <ClInclude Include="MapCollision.h">
-      <Filter>Source Files\Map</Filter>
-    </ClInclude>
     <ClInclude Include="Cell.h">
       <Filter>Source Files\Grid</Filter>
     </ClInclude>
@@ -157,6 +154,9 @@
     </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>Source Files\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="BoundingMap.h">
+      <Filter>Source Files\Map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

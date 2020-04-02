@@ -3,6 +3,9 @@
 #include "Brick.h"
 #include "Torch.h"
 #include "Item.h"
+#include "../Framework/Game.h"
+#include "Candle.h"
+#include "../Framework/debug.h"
 
 Simon* Simon::__instance = NULL;
 
@@ -17,14 +20,11 @@ Simon::Simon()
 	AddAnimation(104);		// sitting down left
 	AddAnimation(105);		// sitting down right
 
-	AddAnimation(106);		// sitting down left
-	AddAnimation(107);		// sitting down right
+	AddAnimation(106);		// fighting left
+	AddAnimation(107);		// fighting right
 
-	AddAnimation(108);		// fighting left
-	AddAnimation(109);		// fighting right
-
-	AddAnimation(110);		// sit down fighting left
-	AddAnimation(111);		// sit down fighting right
+	AddAnimation(108);		// sit down fighting left
+	AddAnimation(109);		// sit down fighting right
 
 	level = 0;
 	hp = SIMON_HP;
@@ -40,11 +40,8 @@ Simon::Simon()
 	IsSit = false;
 	IsRun = false;
 
-
 	checkPointX = 0.0f;
 	checkPointY = 0.0f;
-
-
 
 	timeAttackStart = 0;
 
@@ -82,12 +79,14 @@ void Simon::SetState(int state)
 		vy = -SIMON_DIE_DEFLECT_SPEED;
 		break;
 	case SIMON_STATE_SIT_DOWN:
+		vx = 0;
 		IsSit = true;
 		break;
 	case SIMON_STATE_FIGHTING:
 		vx = 0;
 		IsFighting = true;
 		timeAttackStart = currentTime;
+		whip->SetState(WHIP_STATE_PREPARE);
 		break;
 	}
 }
@@ -139,9 +138,10 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (IsFighting)
 	{
 		whip->SetPosition(this->x, this->y, IsSit);
-		if (whip->GetCurrentFrame() == 2)
+		whip->Update(dt, coObjects);
+		if (now - timeAttackStart > (SIMON_ATTACK_TIME - 100))
 		{
-			whip->Update(dt, coObjects);
+			whip->SetState(WHIP_STATE_HIT);
 		}
 		if (now - timeAttackStart > SIMON_ATTACK_TIME)
 		{
@@ -149,6 +149,25 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			IsFighting = false;
 			whip->ResetAnimation();
 			ResetAnimationFighting();
+		}
+	}
+
+	for (UINT i = 0; i < coObjects->size(); i++)
+	{
+		if (dynamic_cast<Item*>(coObjects->at(i))) {
+			Item* item = dynamic_cast<Item*>(coObjects->at(i));
+
+			float l1, t1, r1, b1, l2, t2, r2, b2;
+			GetBoundingBox(l1, t1, r1, b1);
+			item->GetBoundingBox(l2, t2, r2, b2);
+
+			if (CGame::isColliding(l1, t1, r1, b1, l2, t2, r2, b2))
+			{
+				if (!item->IsDead() && item->IsEnable()) {
+					item->SetDead(true);
+					item->SetEnable(false);
+				}
+			}
 		}
 	}
 
@@ -172,17 +191,9 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++)
 	{
 		LPCOLLISIONEVENT e = coEvents[i];
-		if (dynamic_cast<Torch*>(e->obj))
+		if (dynamic_cast<Torch*>(e->obj) || dynamic_cast<Candle*>(e->obj))
 		{
 			coEvents.erase(coEvents.begin() + i);
-		}
-		if (dynamic_cast<Item*>(e->obj))
-		{
-			Item* item = dynamic_cast<Item*>(e->obj);
-			if (!item->IsEnable())
-			{
-				coEvents.erase(coEvents.begin() + i);
-			}
 		}
 	}
 
@@ -208,20 +219,38 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				Item* item = dynamic_cast<Item*>(e->obj);
 				if (!item->IsDead() && item->IsEnable())
 				{
+					switch (item->GetType())
+					{
+					case ITEM_WHIP:
+						if (whip->GetLevel() < WHIP_LEVEL_3)
+						{
+							whip->SetLevel(whip->GetLevel() + 1);
+						}
+						break;
+					case ITEM_SMALL_HEART:
+						energy += 1;
+						break;
+					case ITEM_BIG_HEART:
+						energy += 5;
+						break;
+					}
 					item->SetDead(true);
 					item->SetEnable(false);
 				}
 			}
-			else if (dynamic_cast<Brick*>(e->obj))
+			if (dynamic_cast<Brick*>(e->obj))
 			{
 				//BrickOutCastle* brickOutCastle = dynamic_cast<BrickOutCastle*>(e->obj);
 
 				// block 
-				x += min_tx * dx + nx * 0.4f;
-				y += min_ty * dy + ny * 0.4f;
+				if (e->ny < 0)
+				{
+					x += min_tx * dx + nx * 0.4f;
+					y += min_ty * dy + ny * 0.4f;
 
-				if (nx != 0) vx = 0;
-				if (ny != 0) vy = 0;
+					if (nx != 0) vx = 0;
+					if (ny != 0) vy = 0;
+				}
 
 				if (IsJump)
 				{
@@ -231,7 +260,10 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			else {
 				x += dx;
-				y += dy;
+				if (ny < 0)
+					y += dy + ny * 0.7f;
+				else if (ny > 0)
+					y += dy + ny * -0.7f;
 			}
 		}
 	}
@@ -268,8 +300,8 @@ void Simon::Render()
 			}
 			else if (nx != 0)
 			{
-				if (nx > 0) ani = SIMON_ANI_JUMP_RIGHT;
-				else ani = SIMON_ANI_JUMP_LEFT;
+				if (nx > 0) ani = SIMON_ANI_SIT_DOWN_RIGHT;
+				else ani = SIMON_ANI_SIT_DOWN_LEFT;
 				posY = y - 16;
 			}
 		}
@@ -298,7 +330,8 @@ void Simon::Render()
 
 	if (IsFighting)
 	{
-		whip->Render(nx > 0, IsJump);
+		whip->SetPosition(this->x, this->y, IsSit);
+		whip->Render(nx > 0);
 	}
 
 	int alpha = 255;

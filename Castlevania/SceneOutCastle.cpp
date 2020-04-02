@@ -28,7 +28,7 @@ SceneOutCastle::SceneOutCastle()
 	castlevaniaObjects = new CastlevaniaObjects();
 	castlevaniaObjects->Load(fileResoucre, &objects);
 
-	Item* item = new Item(ITEM_HEART);
+	Item* item = new Item(ITEM_BIG_HEART);
 	item->SetPosition(160, 261);
 	listItems.push_back(item);
 
@@ -36,7 +36,7 @@ SceneOutCastle::SceneOutCastle()
 	item->SetPosition(443, 261);
 	listItems.push_back(item);
 
-	item = new Item(ITEM_HEART);
+	item = new Item(ITEM_BIG_HEART);
 	item->SetPosition(673, 261);
 	listItems.push_back(item);
 
@@ -44,7 +44,7 @@ SceneOutCastle::SceneOutCastle()
 	item->SetPosition(943, 261);
 	listItems.push_back(item);
 
-	item = new Item(ITEM_HEART);
+	item = new Item(ITEM_BIG_HEART);
 	item->SetPosition(1201, 261);
 	listItems.push_back(item);
 
@@ -62,14 +62,14 @@ void SceneOutCastle::Render()
 
 	grid->GetListOfObjects(&coObjects, screenWidth, screenHeight);
 
+	for (int i = 0; i < listItems.size(); i++)
+	{
+		coObjects.push_back(listItems[i]);
+	}
+
 	for (int i = 0; i < coObjects.size(); i++)
 	{
 		coObjects[i]->Render();
-	}
-
-	for (int i = 0; i < listItems.size(); i++)
-	{
-		listItems[i]->Render();
 	}
 
 	simon->Render();

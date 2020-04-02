@@ -28,7 +28,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Helper.h" />
-    <ClCompile Include="MapCollision.cpp" />
+    <ClCompile Include="BoundingMap.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Resoucres.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -47,7 +47,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Grid.h" />
-    <ClInclude Include="MapCollision.h" />
+    <ClInclude Include="BoundingMap.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Resoucres.h" />
     <ClInclude Include="Scene.h" />

@@ -1,5 +1,11 @@
 #include "CastlevaniaRescoures.h"
 #include "Define.h"
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include "../Framework/Helper.h"
+#include "../Framework/debug.h"
 
 void CastlevaniaRescoures::LoadTextures()
 {
@@ -198,49 +204,41 @@ void CastlevaniaRescoures::LoadAnimations()
 	ani->Add(11004);
 	animations->Add(105, ani);
 
-	ani = new CAnimation(100);	// sitting down left
-	ani->Add(10004);
-	animations->Add(106, ani);
-
-	ani = new CAnimation(100);// sitting down right
-	ani->Add(11004);
-	animations->Add(107, ani);
-
 	ani = new CAnimation(150);	// fighting left
 	ani->Add(10005);
 	ani->Add(10006);
 	ani->Add(10007);
-	animations->Add(108, ani);
+	animations->Add(106, ani);
 
 	ani = new CAnimation(150); // fighting right
 	ani->Add(11005);
 	ani->Add(11006);
 	ani->Add(11007);
-	animations->Add(109, ani);
+	animations->Add(107, ani);
 
 	ani = new CAnimation(150);	// sit fighting left
 	ani->Add(10017);
 	ani->Add(10020);
 	ani->Add(10021);
-	animations->Add(110, ani);
+	animations->Add(108, ani);
 
 	ani = new CAnimation(150); // sit fighting right
 	ani->Add(11017);
 	ani->Add(11020);
 	ani->Add(11021);
-	animations->Add(111, ani);
+	animations->Add(109, ani);
 
 	ani = new CAnimation(100);	// jump fighting left
 	ani->Add(10022);
 	ani->Add(10023);
 	ani->Add(10024);
-	animations->Add(112, ani);
+	animations->Add(110, ani);
 
 	ani = new CAnimation(100); // jump fighting right
 	ani->Add(11022);
 	ani->Add(11023);
 	ani->Add(11024);
-	animations->Add(113, ani);
+	animations->Add(111, ani);
 
 	//object map
 	ani = new CAnimation(100); //brick out castle
@@ -263,41 +261,59 @@ void CastlevaniaRescoures::LoadAnimations()
 
 	//weapons
 	//whip
-	ani = new CAnimation(150); //whip level 1 left
+	ani = new CAnimation(150); //whip level 1 prepare left
 	ani->Add(30000);
 	ani->Add(30001);
-	ani->Add(30002);
 	animations->Add(300, ani);
 
-	ani = new CAnimation(150); //whip level 1 right
-	ani->Add(31000);
-	ani->Add(31001);
-	ani->Add(31002);
+	ani = new CAnimation(150); //whip level 1 left
+	ani->Add(30002);
 	animations->Add(301, ani);
 
-	ani = new CAnimation(150); //whip level 2 left
-	ani->Add(30010);
-	ani->Add(30011);
-	ani->Add(30012);
+	ani = new CAnimation(150); //whip level 1 prepare right
+	ani->Add(31000);
+	ani->Add(31001);
 	animations->Add(302, ani);
 
-	ani = new CAnimation(150); //whip level 2 right
-	ani->Add(31010);
-	ani->Add(31011);
-	ani->Add(31012);
+	ani = new CAnimation(150); //whip level 1 right
+	ani->Add(31002);
 	animations->Add(303, ani);
 
-	ani = new CAnimation(150); //whip level 3 left
-	ani->Add(30020);
-	ani->Add(30021);
-	ani->Add(30022);
+	ani = new CAnimation(150); //whip level 2 prepare left
+	ani->Add(30010);
+	ani->Add(30011);
 	animations->Add(304, ani);
 
-	ani = new CAnimation(150); //whip level 3 right
+	ani = new CAnimation(150); //whip level 2 left
+	ani->Add(30012);
+	animations->Add(305, ani);
+
+	ani = new CAnimation(150); //whip level 2 prepare right
+	ani->Add(31010);
+	ani->Add(31011);
+	animations->Add(306, ani);
+
+	ani = new CAnimation(150); //whip level 2 right
+	ani->Add(31012);
+	animations->Add(307, ani);
+
+	ani = new CAnimation(150); //whip level 3 prepare left
+	ani->Add(30020);
+	ani->Add(30021);
+	animations->Add(308, ani);
+
+	ani = new CAnimation(150); //whip level 3 left
+	ani->Add(30022);
+	animations->Add(309, ani);
+
+	ani = new CAnimation(150); //whip level 3 prepare right
 	ani->Add(31020);
 	ani->Add(31021);
+	animations->Add(310, ani);
+
+	ani = new CAnimation(150); //whip level 3 right
 	ani->Add(31022);
-	animations->Add(305, ani);
+	animations->Add(311, ani);
 
 	//effect
 	ani = new CAnimation(100); //collision effect
@@ -307,7 +323,7 @@ void CastlevaniaRescoures::LoadAnimations()
 	ani = new CAnimation(100); //dead effect
 	ani->Add(40010);
 	ani->Add(40011);
-	ani->Add(40011);
+	ani->Add(40012);
 	animations->Add(401, ani);
 
 	//Items
@@ -318,6 +334,101 @@ void CastlevaniaRescoures::LoadAnimations()
 	ani = new CAnimation(100); //Item Heart
 	ani->Add(60001);
 	animations->Add(601, ani);
+}
+
+void CastlevaniaRescoures::LoadTextures(string file)
+{
+	wifstream input;
+	input.open(file, wifstream::in);
+	wstring checkEnd;
+
+	int id;
+	wstring filePath;
+	int colorR;
+	int colorG;
+	int colorB;
+	LPCWSTR path;
+
+	while (input >> checkEnd)
+	{
+		if (checkEnd == L"END")
+		{
+			return;
+		}
+		else
+		{
+			id = stoi(checkEnd.c_str());
+			input >> filePath >> colorR >> colorG >> colorB;
+
+			path = (LPCWSTR)filePath.c_str();
+			textures->Add(id, path, D3DCOLOR_XRGB(colorR, colorG, colorB));
+		}
+	}
+}
+
+void CastlevaniaRescoures::LoadSprites(string file)
+{
+	ifstream input;
+	input.open(file, ifstream::in);
+	string checkEnd;
+
+	int id;
+	int left;
+	int top;
+	int right;
+	int bottom;
+	int textureId;
+	int dx;
+	int dy;
+
+	while (input >> checkEnd)
+	{
+		if (checkEnd == "END")
+		{
+			return;
+		}
+		else
+		{
+			id = stoi(checkEnd.c_str());
+			input >> left >> top >> right >> bottom >> textureId >> dx >> dy;
+			sprites->AddByWidthHeight(id, left, top, right, bottom, textures->Get(textureId), dx, dy);
+		}
+	}
+}
+
+void CastlevaniaRescoures::LoadAnimations(string file)
+{
+	fstream pFile;
+	pFile.open(file, fstream::in);
+	string lineString;
+
+	std::vector<std::string> listRow;
+	int id;
+	int time;
+	LPANIMATION ani;
+	while (pFile.good())
+	{
+		getline(pFile, lineString);
+		if (lineString == "END")
+		{
+			return;
+		}
+		else
+		{
+			listRow = Helper::split(lineString, ' ');
+			id = stoi(listRow[0].c_str());
+			time = stoi(listRow[1].c_str());
+
+			ani = new CAnimation(time);
+			int spriteId;
+			for (int i = 2; i < listRow.size(); i++)
+			{
+				spriteId = atoi(listRow[i].c_str());
+				ani->Add(spriteId);
+			}
+			animations->Add(id, ani);
+		}
+	}
 }
 
 CastlevaniaRescoures::CastlevaniaRescoures()
@@ -331,7 +442,7 @@ CastlevaniaRescoures::CastlevaniaRescoures()
 
 void CastlevaniaRescoures::LoadResoucre()
 {
-	LoadTextures();
-	LoadSprites();
-	LoadAnimations();
+	LoadTextures("resources\\files\\textures.txt");
+	LoadSprites("resources\\files\\sprites.txt");
+	LoadAnimations("resources\\files\\animations.txt");
 }

@@ -10,6 +10,9 @@ class CastlevaniaRescoures
 	void LoadTextures();
 	void LoadSprites();
 	void LoadAnimations();
+	void LoadTextures(string file);
+	void LoadSprites(string file);
+	void LoadAnimations(string file);
 public:
 	CastlevaniaRescoures();
 	void LoadResoucre();

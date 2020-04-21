@@ -10,7 +10,7 @@ private:
 public:
 	static CCamera* GetInstance();
 	~CCamera();
-	D3DXVECTOR3 SetPositionInCamera(D3DXVECTOR3 position);
+	D3DXVECTOR3 GetPositionInCamera(D3DXVECTOR3 position);
 	void SetCameraPosition(float x, float y);
 	D3DXVECTOR3 GetCameraPosition();
 };

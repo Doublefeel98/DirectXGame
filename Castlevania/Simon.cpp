@@ -1,31 +1,17 @@
 #include "Simon.h"
 #include "Define.h"
-#include "Brick.h"
 #include "Torch.h"
 #include "Item.h"
 #include "../Framework/Game.h"
 #include "Candle.h"
-#include "../Framework/debug.h"
+#include "../Framework/Utils.h"
+#include "../Framework/Portal.h"
+#include "../Framework/BoundingMap.h"
 
 Simon* Simon::__instance = NULL;
 
-Simon::Simon()
+Simon::Simon(float x, float y)
 {
-	AddAnimation(100);		// idle left
-	AddAnimation(101);		// idle right
-
-	AddAnimation(102);		// walking left
-	AddAnimation(103);		// walking right
-
-	AddAnimation(104);		// sitting down left
-	AddAnimation(105);		// sitting down right
-
-	AddAnimation(106);		// fighting left
-	AddAnimation(107);		// fighting right
-
-	AddAnimation(108);		// sit down fighting left
-	AddAnimation(109);		// sit down fighting right
-
 	level = 0;
 	hp = SIMON_HP;
 	energy = 5;
@@ -40,18 +26,29 @@ Simon::Simon()
 	IsSit = false;
 	IsRun = false;
 
-	checkPointX = 0.0f;
-	checkPointY = 0.0f;
-
 	timeAttackStart = 0;
 
 	whip = new Whip();
+
+	state = SIMON_STATE_IDLE;
+
+	checkPointX = x;
+	checkPointY = y;
+	this->x = x;
+	this->y = y;
 }
 
 Simon* Simon::GetInstance()
 {
-	if (__instance == NULL) __instance = new Simon();
+	if (__instance == NULL) __instance = new Simon(0, 0);
 	return __instance;
+}
+
+void Simon::Reset()
+{
+	SetState(SIMON_STATE_IDLE);
+	SetPosition(checkPointX, checkPointY);
+	SetSpeed(0, 0);
 }
 
 void Simon::SetState(int state)
@@ -60,11 +57,11 @@ void Simon::SetState(int state)
 	DWORD currentTime = GetTickCount();
 	switch (state)
 	{
-	case SIMON_STATE_WALKING_RIGHT:
+	case SIMON_STATE_WALK_RIGHT:
 		vx = SIMON_WALKING_SPEED;
 		nx = 1;
 		break;
-	case SIMON_STATE_WALKING_LEFT:
+	case SIMON_STATE_WALK_LEFT:
 		vx = -SIMON_WALKING_SPEED;
 		nx = -1;
 		break;
@@ -86,6 +83,7 @@ void Simon::SetState(int state)
 		vx = 0;
 		IsFighting = true;
 		timeAttackStart = currentTime;
+		whip->SetEnable(true);
 		whip->SetState(WHIP_STATE_PREPARE);
 		break;
 	}
@@ -148,6 +146,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			timeAttackStart = 0;
 			IsFighting = false;
 			whip->ResetAnimation();
+			whip->SetEnable(false);
 			ResetAnimationFighting();
 		}
 	}
@@ -161,7 +160,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			GetBoundingBox(l1, t1, r1, b1);
 			item->GetBoundingBox(l2, t2, r2, b2);
 
-			if (CGame::isColliding(l1, t1, r1, b1, l2, t2, r2, b2))
+			if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))
 			{
 				if (!item->IsDead() && item->IsEnable()) {
 					item->SetDead(true);
@@ -206,8 +205,11 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	else
 	{
 		float min_tx, min_ty, nx = 0, ny;
+		float rdx = 0;
+		float rdy = 0;
 
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+		// TODO: This is a very ugly designed function!!!!
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
 
 		for (UINT i = 0; i < coEventsResult.size(); i++)
@@ -219,7 +221,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				Item* item = dynamic_cast<Item*>(e->obj);
 				if (!item->IsDead() && item->IsEnable())
 				{
-					switch (item->GetType())
+					switch (item->GetTypeItem())
 					{
 					case ITEM_WHIP:
 						if (whip->GetLevel() < WHIP_LEVEL_3)
@@ -230,7 +232,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					case ITEM_SMALL_HEART:
 						energy += 1;
 						break;
-					case ITEM_BIG_HEART:
+					case ITEM_HEART:
 						energy += 5;
 						break;
 					}
@@ -238,9 +240,9 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					item->SetEnable(false);
 				}
 			}
-			if (dynamic_cast<Brick*>(e->obj))
+			if (dynamic_cast<BoundingMap*>(e->obj))
 			{
-				//BrickOutCastle* brickOutCastle = dynamic_cast<BrickOutCastle*>(e->obj);
+				BoundingMap* boundingMap = dynamic_cast<BoundingMap*>(e->obj);
 
 				// block 
 				if (e->ny < 0)
@@ -258,6 +260,11 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					IsJump = false;
 				}
 			}
+			else if (dynamic_cast<CPortal*>(e->obj))
+			{
+				CPortal* p = dynamic_cast<CPortal*>(e->obj);
+				CGame::GetInstance()->SwitchScene(p->GetSceneId());
+			}
 			else {
 				x += dx;
 				if (ny < 0)
@@ -274,23 +281,27 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void Simon::Render()
 {
-	int ani;
+	int ani = 0;
 	float posX = x, posY = y;
 	if (state == SIMON_STATE_DIE)
-		ani = SIMON_ANI_DIE;
+	{
+		if (nx > 0) ani = SIMON_ANI_DEATH_RIGHT;
+		else ani = SIMON_ANI_DEATH_LEFT;
+	}
 	else
 	{
 		if (IsSit) {
 			if (IsFighting)
 			{
-				if (nx > 0) ani = SIMON_ANI_SIT_DOWN_FIGHTING_RIGHT;
-				else ani = SIMON_ANI_SIT_DOWN_FIGHTING_LEFT;
+				if (nx > 0) ani = SIMON_ANI_FIGHTING_SIT_RIGHT;
+				else ani = SIMON_ANI_FIGHTING_SIT_LEFT;
 			}
 			else if (nx != 0)
 			{
 				if (nx > 0) ani = SIMON_ANI_SIT_DOWN_RIGHT;
 				else ani = SIMON_ANI_SIT_DOWN_LEFT;
 			}
+			posY = y + 8;
 		}
 		else if (IsJump) {
 			if (IsFighting)
@@ -302,7 +313,6 @@ void Simon::Render()
 			{
 				if (nx > 0) ani = SIMON_ANI_SIT_DOWN_RIGHT;
 				else ani = SIMON_ANI_SIT_DOWN_LEFT;
-				posY = y - 16;
 			}
 		}
 		else {
@@ -336,7 +346,7 @@ void Simon::Render()
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
-	animations[ani]->Render(posX, posY, alpha);
+	animation_set->at(ani)->Render(posX, posY, alpha);
 
 	RenderBoundingBox();
 }
@@ -350,9 +360,14 @@ void Simon::ResetCheckpoint()
 
 void Simon::ResetAnimationFighting()
 {
-	resetAni(SIMON_ANI_FIGHTING_RIGHT);
-	resetAni(SIMON_ANI_FIGHTING_LEFT);
+	ResetAni(SIMON_ANI_FIGHTING_RIGHT);
+	ResetAni(SIMON_ANI_FIGHTING_LEFT);
 
-	resetAni(SIMON_ANI_SIT_DOWN_FIGHTING_RIGHT);
-	resetAni(SIMON_ANI_SIT_DOWN_FIGHTING_LEFT);
+	ResetAni(SIMON_ANI_FIGHTING_SIT_RIGHT);
+	ResetAni(SIMON_ANI_FIGHTING_SIT_LEFT);
+}
+
+void Simon::SetAnimationSetWhip(LPANIMATION_SET ani_set)
+{
+	whip->SetAnimationSet(ani_set);
 }

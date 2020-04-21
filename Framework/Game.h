@@ -1,69 +1,69 @@
 #pragma once
+
+#include <unordered_map>
+
 #include <Windows.h>
 #include <d3d9.h>
 #include <d3dx9.h>
-#include "Camera.h"
+
 
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
 
-#define KEYBOARD_BUFFER_SIZE 1024
-/*
-Abstract class to define keyboard event handlers
-*/
-class CKeyEventHandler
-{
-public:
-	virtual void KeyState(BYTE *state) = 0;
-	virtual void OnKeyDown(int KeyCode) = 0;
-	virtual void OnKeyUp(int KeyCode) = 0;
-};
+#include "Scence.h"
+#include "Camera.h"
 
-typedef CKeyEventHandler * LPKEYEVENTHANDLER;
+using namespace std;
+
+#define KEYBOARD_BUFFER_SIZE 1024
 
 class CGame
 {
-public:
-	static CGame * __instance;
+	static CGame* __instance;
 	HWND hWnd;									// Window handle
 
 	LPDIRECT3D9 d3d = NULL;						// Direct3D handle
 	LPDIRECT3DDEVICE9 d3ddv = NULL;				// Direct3D device object
 
-	LPDIRECT3DSURFACE9 backBuffer = NULL;		
+	LPDIRECT3DSURFACE9 backBuffer = NULL;
 	LPD3DXSPRITE spriteHandler = NULL;			// Sprite helper library to help us draw 2D image on the screen 
-	static D3DCOLOR color;
+
 	LPDIRECTINPUT8       di;		// The DirectInput object         
 	LPDIRECTINPUTDEVICE8 didv;		// The keyboard device 
 
-
+	BYTE  keyStates[256];			// DirectInput keyboard state buffer 
 	DIDEVICEOBJECTDATA keyEvents[KEYBOARD_BUFFER_SIZE];		// Buffered keyboard data
 
 	LPKEYEVENTHANDLER keyHandler;
 
+	int screen_width;
+	int screen_height;
 
-	BYTE  keyStates[256];		// DirectInput keyboard state buffer 
-	float cam_x = 0.0f;
-	float cam_y = 0.0f;
+	unordered_map<int, LPSCENE> scenes;
+	int current_scene;
+
+	void _ParseSection_SETTINGS(string line);
+	void _ParseSection_SCENES(string line);
+
+	CCamera* camera;
+
+
 public:
-	void InitKeyboard(LPKEYEVENTHANDLER handler);
+	void InitKeyboard();
+	void SetKeyHandler(LPKEYEVENTHANDLER handler) { keyHandler = handler; }
 	void Init(HWND hWnd);
-
-	// render follow camera
 	void Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha = 255);
-	void Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, RECT &r, int alpha = 255);
-	void Draw(LPDIRECT3DTEXTURE9 texture, D3DXVECTOR3 &pos, RECT &r, int alpha = 255);
-	void Draw(LPDIRECT3DTEXTURE9 texture, D3DXVECTOR3 &pos, int alpha = 255);
-	void DrawFlipOx(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha);
-
-	// render not follow camera
 	void DrawWithoutCamera(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha = 255);
-	void DrawWithoutCamera(float x, float y, LPDIRECT3DTEXTURE9 texture, RECT& r, int alpha = 255);
-	void DrawWithoutCamera(LPDIRECT3DTEXTURE9 texture, D3DXVECTOR3& pos, RECT& r, int alpha = 255);
-	void DrawWithoutCamera(LPDIRECT3DTEXTURE9 texture, D3DXVECTOR3& pos, int alpha = 255);
 
 	int IsKeyDown(int KeyCode);
 	void ProcessKeyboard();
+
+	void Load(LPCWSTR gameFile);
+	LPSCENE GetCurrentScene() { return scenes[current_scene]; }
+	void SwitchScene(int scene_id);
+
+	int GetScreenWidth() { return screen_width; }
+	int GetScreenHeight() { return screen_height; }
 
 	static void SweptAABB(
 		float ml,			// move left 
@@ -73,30 +73,22 @@ public:
 		float dx,			// 
 		float dy,			// 
 		float sl,			// static left
-		float st, 
-		float sr, 
-		float sb,
-		float &t, 
-		float &nx, 
-		float &ny);
-
-	static bool isColliding(
-		float ml,			//	object
-		float mt,			
-		float mr,			
-		float mb,			
-		float sl,			// object
 		float st,
 		float sr,
-		float sb);
+		float sb,
+		float& t,
+		float& nx,
+		float& ny);
+
+	static bool IsColliding(float ml, float mt, float mr, float mb, float sl, float st, float sr, float sb);
 
 	LPDIRECT3DDEVICE9 GetDirect3DDevice() { return this->d3ddv; }
 	LPDIRECT3DSURFACE9 GetBackBuffer() { return backBuffer; }
 	LPD3DXSPRITE GetSpriteHandler() { return this->spriteHandler; }
-	static void SetColor(D3DCOLOR c) { color = c; }
-	static CGame * GetInstance();
-	void SetCamPos(float x, float y) { cam_x = x; cam_y = y; }
+
+	static CGame* GetInstance();
+
+	HWND GetHWND() { return hWnd; }
+
 	~CGame();
 };
-
-

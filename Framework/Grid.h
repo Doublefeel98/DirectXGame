@@ -9,16 +9,16 @@ class Grid
 {
 	friend class CGameObject;
 	int cellSize;
-	Cell **cells;
+	Cell** cells;
 	int numXCells;
 	int numYCells;
-	bool checkExistCell(int cellX, int cellY);
+	vector <LPGAMEOBJECT>* listObject;
+	void _Load_SETTINGS(string line);
+	void _Load_OBJECTS(string line);
 public:
-	Grid(int widthmap, int heightmap, int cellSize);
-	Grid(const char* file, int widthmap, int heightmap, int cellSize, vector <LPGAMEOBJECT>* listObject);
+	Grid(string file, vector <LPGAMEOBJECT>* listObject);
 	~Grid();
-	void Add(vector <LPGAMEOBJECT>* listObject);
-	void AddById(vector <LPGAMEOBJECT>* listObject);
-	void GetListOfObjects(vector<LPGAMEOBJECT> *list_object, int screenWidth, int screenHeight);
+	void GetListOfObjects(vector<LPGAMEOBJECT>* list_object, int screenWidth, int screenHeight);
+	void Unload();
 };
 

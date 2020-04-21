@@ -6,14 +6,14 @@ ScoreBoard::ScoreBoard(Simon* simon, int bossHP)
 {
 	this->bossHP = bossHP;
 	this->simon = simon;
-	this->d3ddv = CGame::GetInstance()->d3ddv;
-	this->spriteHandler = CGame::GetInstance()->spriteHandler;
+	this->d3ddv = CGame::GetInstance()->GetDirect3DDevice();
+	this->spriteHandler = CGame::GetInstance()->GetSpriteHandler();
 
 	listSimonHP = new std::vector<HP*>();
 	for (int i = 0; i < 16; i++)
 	{
 		HP* simonHP = new HP(1);
-		simonHP->SetPosition(120 + 12 * (i + 1), 40);
+		simonHP->SetPosition(60 + 6 * (i + 1), 20);
 		listSimonHP->push_back(simonHP);
 	}
 
@@ -21,7 +21,7 @@ ScoreBoard::ScoreBoard(Simon* simon, int bossHP)
 	for (int i = 0; i < 16; i++)
 	{
 		HP* enemyHP = new HP(3);
-		enemyHP->SetPosition(120 + 12 * (i + 1), 60);
+		enemyHP->SetPosition(60 + 6 * (i + 1), 30);
 		listEnemyHP->push_back(enemyHP);
 	}
 
@@ -29,20 +29,20 @@ ScoreBoard::ScoreBoard(Simon* simon, int bossHP)
 	for (int i = 0; i < 16; i++)
 	{
 		HP* dyingHP = new HP(2);
-		dyingHP->SetPosition(120 + 12 * (i + 1), 40);
+		dyingHP->SetPosition(60 + 6 * (i + 1), 20);
 		listDyingHP->push_back(dyingHP);
 	}
 
 	heart = new ItemBoard(ITEM_BOARD_HEART);
-	heart->SetPosition(380, 43);
+	heart->SetPosition(191, 20);
 
 	font = NULL;
 
 	D3DXFONT_DESC FontDesc = {
-		20,
-		13,
 		10,
-		10,
+		7,
+		5,
+		5,
 		false,
 		DEFAULT_CHARSET,
 		OUT_DEFAULT_PRECIS,
@@ -52,7 +52,7 @@ ScoreBoard::ScoreBoard(Simon* simon, int bossHP)
 
 	D3DXCreateFontIndirect(d3ddv, &FontDesc, &font);
 
-	SetRect(&rect, 0, 20, SCREEN_WIDTH, 85);
+	SetRect(&rect, 3, 8, SCREEN_WIDTH, 85);
 	information = L"SCORE_000000 TIME 0000 STAGE 00\n";
 	information += L"PLAYER                                         -5\n";
 	information += L"ENEMY                                         P-3\n";
@@ -65,7 +65,6 @@ ScoreBoard::~ScoreBoard()
 
 void ScoreBoard::Update(int bossHP, int time, int life, int stage)
 {
-
 	this->time = time;
 	this->stage = stage;
 	this->bossHP = bossHP;

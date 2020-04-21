@@ -1,12 +1,11 @@
 #include "Sound.h"
-//#include "GameGlobal.h"
 
 Sound* Sound::instance = nullptr;
 
 Sound* Sound::getInstance()
 {
 	if (instance == nullptr)
-		instance = new Sound(CGame::GetInstance()->hWnd);
+		instance = new Sound(CGame::GetInstance()->GetHWND());
 
 	return instance;
 }
@@ -131,7 +130,7 @@ void Sound::loadSound(const char* fileName, std::string name)
 
 	pDevice->CreateSoundBuffer(&bufferDesc, &tempBuffer, NULL);
 
-	long result = tempBuffer->QueryInterface(IID_IDirectSoundBuffer8, (void**) & (*pSecondaryBuffer));
+	long result = tempBuffer->QueryInterface(IID_IDirectSoundBuffer8, (void**)&(*pSecondaryBuffer));
 
 	tempBuffer->Release();
 	tempBuffer = 0;

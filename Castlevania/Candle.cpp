@@ -5,7 +5,6 @@ Candle::Candle()
 	collisionEffect = new CollisionEffect();
 	deadEffect = new DeadEffect();
 
-	AddAnimation(202);
 	isEnable = true;
 }
 
@@ -13,7 +12,7 @@ void Candle::Render()
 {
 	if (this->isEnable)
 	{
-		animations[0]->Render(x, y);
+		animation_set->at(0)->Render(x, y);
 		RenderBoundingBox();
 	}
 

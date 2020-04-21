@@ -1,6 +1,7 @@
 #pragma once
 #include "Textures.h"
 #include "Sprites.h"
+#include  "Animations.h"
 class Effect
 {
 protected:

@@ -12,18 +12,22 @@ class Simon : public CGameObject
 	int energy;
 	DWORD untouchable_start;
 	DWORD timeAttackStart;
-	Simon();
-	int checkPointX, checkPointY;
+
+	float checkPointX, checkPointY;
 	Whip* whip;
-
-
 public:
+	Simon(float x, float y);
 	static Simon* GetInstance();
 	bool IsFighting;
-	bool IsRun;
 	bool IsSit;
 	bool IsJump;
+	bool IsAscendStair;
+	bool IsDescendStair;
+
+	bool IsRun;
 	bool IsGround;
+
+	void Reset();
 
 	int untouchable;
 	void SetState(int state);
@@ -41,5 +45,6 @@ public:
 	virtual void Render();
 	void ResetCheckpoint();
 	void ResetAnimationFighting();
+	void SetAnimationSetWhip(LPANIMATION_SET ani_set);
 };
 

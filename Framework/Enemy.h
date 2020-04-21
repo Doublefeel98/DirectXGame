@@ -25,7 +25,7 @@ public:
 	CEnemy(int hp);
 	~CEnemy();
 	static void StartTimeStop() { timestop = 1; timestop_start = GetTickCount(); }
-	virtual void Render();
+	virtual void Render() = 0;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	int GetHP() { return this->hp; }

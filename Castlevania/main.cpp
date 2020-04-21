@@ -1,20 +1,13 @@
 /* =============================================================
 	INTRODUCTION TO GAME PROGRAMMING SE102
 
-	SAMPLE 04 - COLLISION
+	SAMPLE 05 - SCENCE MANAGER
 
 	This sample illustrates how to:
 
-		1/ Implement SweptAABB algorithm between moving objects
-		2/ Implement a simple (yet effective) collision frame work
-
-	Key functions:
-		CGame::SweptAABB
-		CGameObject::SweptAABBEx
-		CGameObject::CalcPotentialCollisions
-		CGameObject::FilterCollision
-
-		CGameObject::GetBoundingBox
+		1/ Implement a scence manager
+		2/ Load scene from "database", add/edit/remove scene without changing code
+		3/ Dynamically move between scenes without hardcode logic
 
 ================================================================ */
 
@@ -22,119 +15,22 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 
-#include "../Framework/debug.h"
+#include "../Framework/Utils.h"
 #include "../Framework/Game.h"
 #include "../Framework/GameObject.h"
 #include "../Framework/Textures.h"
+#include "PlayScence.h"
 
-#include "Simon.h"
-#include "Define.h"
-#include "../Framework/SceneManager.h"
-#include "SceneOutCastle.h"
-#include "CastlevaniaRescoures.h"
-#include <ctime>
+#define WINDOW_CLASS_NAME L"SampleWindow"
+#define MAIN_WINDOW_TITLE L"SAMPLE 05 - SCENCE MANAGER"
 
-CCamera* camera;
+#define BACKGROUND_COLOR D3DCOLOR_XRGB(0, 0, 0)
+#define SCREEN_WIDTH 320
+#define SCREEN_HEIGHT 260
+
+#define MAX_FRAME_RATE 120
 
 CGame* game;
-
-Simon* simon;
-
-CastlevaniaRescoures* resources;
-CSceneManager* sceneManager;
-
-float dy;
-
-class CSampleKeyHander : public CKeyEventHandler
-{
-	virtual void KeyState(BYTE* states);
-	virtual void OnKeyDown(int KeyCode);
-	virtual void OnKeyUp(int KeyCode);
-};
-
-CSampleKeyHander* keyHandler;
-
-void CSampleKeyHander::OnKeyDown(int KeyCode)
-{
-	CScene* scene = sceneManager->GetCurrentScene();
-	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-	switch (KeyCode)
-	{
-	case DIK_Z:
-		if (!simon->IsFighting)
-		{
-			simon->SetState(SIMON_STATE_FIGHTING);
-		}
-		break;
-	case DIK_X:
-		if (!simon->IsJump && !simon->IsFighting)
-		{
-			simon->SetState(SIMON_STATE_JUMP);
-		}
-		break;
-	case DIK_RIGHT:
-		simon->nx = 1;
-		break;
-	case DIK_LEFT:
-		simon->nx = -1;
-		break;
-	}
-}
-
-void CSampleKeyHander::OnKeyUp(int KeyCode)
-{
-	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
-	switch (KeyCode)
-	{
-	case DIK_LEFT:
-		simon->vx = 0;
-		simon->IsRun = false;
-		break;
-	case DIK_RIGHT:
-		simon->vx = 0;
-		simon->IsRun = false;
-		break;
-	case DIK_DOWN:
-		simon->IsSit = false;
-		break;
-	case DIK_UP:
-		break;
-	}
-}
-
-void CSampleKeyHander::KeyState(BYTE* states)
-{
-	// disable control key when Mario die 
-	if (simon->GetState() == SIMON_STATE_DIE) return;
-	if (game->IsKeyDown(DIK_DOWN))
-		simon->SetState(SIMON_STATE_SIT_DOWN);
-	else if (game->IsKeyDown(DIK_RIGHT))
-	{
-		if (!simon->IsFighting)
-		{
-			simon->SetState(SIMON_STATE_WALKING_RIGHT);
-		}
-	}
-	else if (game->IsKeyDown(DIK_LEFT))
-	{
-		if (!simon->IsFighting)
-		{
-			simon->SetState(SIMON_STATE_WALKING_LEFT);
-		}
-	}
-	else
-		simon->SetState(SIMON_STATE_IDLE);
-
-	/*CCamera* camera = CCamera::GetInstance();
-	if (game->IsKeyDown(DIK_RIGHT))
-		camera->SetCameraPosition(camera->GetCameraPosition().x + 10, camera->GetCameraPosition().y);
-	else if (game->IsKeyDown(DIK_LEFT))
-		camera->SetCameraPosition(camera->GetCameraPosition().x - 10, camera->GetCameraPosition().y);
-	else if (game->IsKeyDown(DIK_UP))
-		camera->SetCameraPosition(camera->GetCameraPosition().x, camera->GetCameraPosition().y - 10);
-	else if (game->IsKeyDown(DIK_DOWN))
-		camera->SetCameraPosition(camera->GetCameraPosition().x, camera->GetCameraPosition().y + 10);*/
-}
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -149,19 +45,7 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
-/*
-	Load all game resources
-	In this example: load textures, sprites, animations and simon object
 
-	TO-DO: Improve this function by loading texture,sprite,animation,object from file
-*/
-
-void LoadResources()
-{
-	resources = new CastlevaniaRescoures();
-	resources->LoadResoucre();
-	simon = Simon::GetInstance();
-}
 
 /*
 	Update world status for this frame
@@ -169,42 +53,7 @@ void LoadResources()
 */
 void Update(DWORD dt)
 {
-	/* We know that Mario is the first object in the list hence we won't add him into the colliable object list
-	 TO-DO: This is a "dirty" way, need a more organized way */
-
-	CSceneManager::GetInstance()->GetCurrentScene()->Update(dt);
-
-	// Update camera to follow simon
-	D3DXVECTOR3 pos = camera->GetCameraPosition();
-	float cx, cy, mapWidth, mapHeight, boundHeight;
-
-	mapWidth = sceneManager->GetCurrentScene()->GetMapWidth();
-	mapHeight = sceneManager->GetCurrentScene()->GetMapHeight();
-
-	simon->GetPosition(cx, cy);
-
-	boundHeight = mapHeight + 22;
-
-	if (cx + simon->GetWidth() + 5 < SCREEN_WIDTH / 2) {
-		cx = pos.x;
-	}
-	else if (cx + simon->GetWidth() + 5 + SCREEN_WIDTH / 2 > mapWidth - 1) {
-		cx = mapWidth - SCREEN_WIDTH - 1;
-	}
-	else {
-		cx = cx + simon->GetWidth() + 5 + SCREEN_WIDTH / 2 - SCREEN_WIDTH;
-	}
-
-	if (cy + simon->GetHeight() / 2 < mapHeight - SCREEN_HEIGHT / 2) {
-		cy = cy + simon->GetHeight() / 2 - SCREEN_HEIGHT / 2;
-	}
-	else {
-		cy = boundHeight - SCREEN_HEIGHT;
-	}
-
-	camera->SetCameraPosition(cx, cy);
-
-	//DebugOut(L"[INFO]  simon->GetState: %d\n", simon->GetState());
+	CGame::GetInstance()->GetCurrentScene()->Update(dt);
 }
 
 /*
@@ -223,7 +72,7 @@ void Render()
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-		CSceneManager::GetInstance()->GetCurrentScene()->Render();
+		CGame::GetInstance()->GetCurrentScene()->Render();
 
 		spriteHandler->End();
 		d3ddv->EndScene();
@@ -321,22 +170,15 @@ int Run()
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	srand(time(0));
-
 	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	game = CGame::GetInstance();
 	game->Init(hWnd);
+	game->InitKeyboard();
 
-	keyHandler = new CSampleKeyHander();
-	game->InitKeyboard(keyHandler);
+	game->Load(L"resources\\simon-sample.txt");
 
-	camera = CCamera::GetInstance();
-
-	LoadResources();
-	sceneManager = CSceneManager::GetInstance();
-	sceneManager->ChangeScene(new SceneOutCastle());
-	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
+	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 
 	Run();
 

@@ -8,6 +8,7 @@ private:
 	int damage;
 	int level;
 public:
+	void Render();
 	void Render(bool IsRight);
 	void SetPosition(float x, float y, bool Issit);
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);

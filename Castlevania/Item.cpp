@@ -2,6 +2,7 @@
 #include "Define.h"
 #include <time.h>
 #include "Brick.h"
+#include "../Framework/BoundingMap.h"
 
 void Item::RandomType()
 {
@@ -20,11 +21,11 @@ void Item::RandomItem()
 
 	if (percent > 60)
 	{
-		type = ITEM_WHIP;
+		typeItem = ITEM_WHIP;
 	}
 	else if (percent < 60)
 	{
-		type = ITEM_BIG_HEART;
+		typeItem = ITEM_HEART;
 	}
 }
 
@@ -34,37 +35,35 @@ void Item::RandomWeapon()
 
 	if (percent < 40)
 	{
-		type = ITEM_AXE;
+		typeItem = ITEM_AXE;
 	}
 	else if (percent < 80)
 	{
-		type = ITEM_CROSS;
+		typeItem = ITEM_CROSS;
 	}
 	else if (percent < 90)
 	{
-		type = ITEM_HOLY_WATER;
+		typeItem = ITEM_HOLY_WATER;
 	}
 	else if (percent < 95)
 	{
-		type = ITEM_DAGGER;
+		typeItem = ITEM_DAGGER;
 	}
 	else
 	{
-		type = ITEM_STOP_WATCH;
+		typeItem = ITEM_STOP_WATCH;
 	}
 }
 
 void Item::Init()
 {
-	switch (type)
+	switch (typeItem)
 	{
 	case ITEM_WHIP:
-		this->AddAnimation(600);
 		this->width = 32;
 		this->height = 32;
 		break;
-	case ITEM_BIG_HEART:
-		this->AddAnimation(601);
+	case ITEM_HEART:
 		this->width = 24;
 		this->height = 20;
 		break;
@@ -79,11 +78,11 @@ Item::Item()
 	Init();
 }
 
-Item::Item(int type)
+Item::Item(int typeItem)
 {
 	isDead = false;
 	isEnable = false;
-	this->type = type;
+	this->typeItem = typeItem;
 	Init();
 }
 
@@ -95,10 +94,31 @@ void Item::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	if (!isDead)
 	{
-		left = x;
-		top = y;
-		right = x + width;
-		bottom = y + height;
+		if (!isEnable)
+		{
+			left = x;
+			top = y;
+			right = x + width;
+			bottom = y + height;
+		}
+		else {
+			switch (typeItem)
+			{
+			case ITEM_WHIP:
+				left = x;
+				top = y;
+				right = x + 16;
+				bottom = y + 16;
+				break;
+			case ITEM_HEART:
+				left = x;
+				top = y;
+				right = x + 12;
+				bottom = y + 10;
+			default:
+				break;
+			}
+		}
 	}
 }
 
@@ -130,13 +150,16 @@ void Item::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		else
 		{
 			float min_tx, min_ty, nx = 0, ny;
+			float rdx = 0;
+			float rdy = 0;
 
-			FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+			// TODO: This is a very ugly designed function!!!!
+			FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
 			for (UINT i = 0; i < coEventsResult.size(); i++)
 			{
 				LPCOLLISIONEVENT e = coEventsResult[i];
-				if (dynamic_cast<Brick*>(e->obj))
+				if (dynamic_cast<BoundingMap*>(e->obj))
 				{
 					if (e->ny < 0)
 					{
@@ -157,6 +180,6 @@ void Item::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void Item::Render()
 {
 	if (this->isEnable == true) {
-		animations[0]->Render(x, y);
+		animation_set->at(typeItem)->Render(x, y);
 	}
 }

@@ -5,7 +5,7 @@ void HP::Render()
 	if (type == 2)
 	{
 		sprite->DrawWithoutCamera(x, y);
-		sprite->DrawWithoutCamera(x, y + 20);
+		sprite->DrawWithoutCamera(x, y + 10);
 	}
 	else {
 		sprite->DrawWithoutCamera(x, y);
@@ -20,13 +20,13 @@ HP::HP(int type)
 	switch (this->type)
 	{
 	case 1:
-		sprite = sprites->Get(50000);
+		sprite = sprites->Get(60000);
 		break;
 	case 2:
-		sprite = sprites->Get(50001);
+		sprite = sprites->Get(60001);
 		break;
 	case 3:
-		sprite = sprites->Get(50002);
+		sprite = sprites->Get(60002);
 		break;
 	}
 }

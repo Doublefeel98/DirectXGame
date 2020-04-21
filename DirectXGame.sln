@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Framework", "Framework\Framework.vcxproj", "{B63D03E5-1DBF-43AB-8AFC-2CBA830BB4E2}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Castlevania", "Castlevania\04-Collision.vcxproj", "{7298D602-39E4-4CF5-95EC-36530A313442}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Castlevania", "Castlevania\Castlevania.vcxproj", "{7298D602-39E4-4CF5-95EC-36530A313442}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

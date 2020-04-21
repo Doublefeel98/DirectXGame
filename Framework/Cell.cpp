@@ -10,6 +10,7 @@ Cell::Cell()
 
 Cell::~Cell()
 {
+
 }
 
 void Cell::Insert(LPGAMEOBJECT object)
@@ -17,7 +18,9 @@ void Cell::Insert(LPGAMEOBJECT object)
 	listObj.push_back(object);
 }
 
-void Cell::InsertIdObject(int idObject)
+void Cell::Unload()
 {
-	listIdObj.push_back(idObject);
+	//for (int i = 0; i < listObj.size(); i++)
+	//	delete listObj[i];
+	listObj.clear();
 }

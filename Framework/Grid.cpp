@@ -1,182 +1,103 @@
 #include "Grid.h"
-#include "debug.h"
-#include "Helper.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "debug.h"
+#include "Utils.h"
 
-bool Grid::checkExistCell(int cellX, int cellY)
+using namespace std;
+
+#define GRID_SECTION_UNKNOWN -1
+#define GRID_SECTION_SETTINGS 0
+#define GRID_SECTION_OBJECTS 2
+
+void Grid::_Load_SETTINGS(string line)
 {
-	if (cellX < 0 || cellX >= numXCells) return false;
-	if (cellY < 0 || cellY >= numYCells) return false;
-	return true;
-}
+	vector<string> tokens = split(line);
+	if (tokens.size() < 2)
+	{
+		return;
+	}
 
-Grid::Grid(int widthmap, int heightmap, int cellSize)
-{
-	this->cellSize = cellSize;
-	numYCells = heightmap / cellSize + ((heightmap % cellSize > 0) ? 1 : 0);
-	numXCells = widthmap / cellSize + ((widthmap % cellSize > 0) ? 1 : 0);
+	cellSize = atof(tokens[0].c_str());
+	numXCells = atof(tokens[1].c_str());
+	numYCells = atof(tokens[2].c_str());
 
-	cells = new Cell * [numXCells];
+	cells = new LPCELL[numXCells];
+
 	for (int i = 0; i < numXCells; i++)
 		cells[i] = new Cell[numYCells];
 }
 
-Grid::Grid(const char* file, int widthmap, int heightmap, int cellSize, vector <LPGAMEOBJECT>* listObject)
+void Grid::_Load_OBJECTS(string line)
 {
-	this->cellSize = cellSize;
-	numYCells = heightmap / cellSize + ((heightmap % cellSize > 0) ? 1 : 0);
-	numXCells = widthmap / cellSize + ((widthmap % cellSize > 0) ? 1 : 0);
+	vector<string> tokens = split(line);
 
-	cells = new Cell * [numXCells];
+	if (tokens.size() < 2)
+	{
+		return;
+	}
 
-	for (int i = 0; i < numXCells; i++)
-		cells[i] = new Cell[numYCells];
-
-	fstream pFile;
-	pFile.open(file, fstream::in);
-	string lineString;
-	int i = 0;
-	//int id;
+	int indexX = atoi(tokens[0].c_str());
+	int indexY = atoi(tokens[1].c_str());
 	int idObject;
 
-	std::vector<std::string> listInfo;
-
-	int indexX;
-	int indexY;
-
-	while (pFile.good())
+	for (int j = 2; j < tokens.size(); j++)
 	{
-		getline(pFile, lineString);
-		if (lineString.find("END") != string::npos)
-			break;
-
-		listInfo = Helper::split(lineString, ' ');
-		//id = atoi(listInfo[0].c_str());
-
-		indexX = atoi(listInfo[0].c_str());
-		indexY = atoi(listInfo[1].c_str());
-
-
-		for (int j = 2; j < listInfo.size(); j++)
-		{
-			idObject = atoi(listInfo[j].c_str());
-			//DebugOut(L"[INFO] Grid loaded Ok: indexX=%d, indexY=%d, id=%d \n", indexX, indexY, idObject);
-			cells[indexX][indexY].Insert(listObject->at(idObject));
-			cells[indexX][indexY].InsertIdObject(idObject);
-		}
-		i++;
+		idObject = atoi(tokens[j].c_str());
+		cells[indexX][indexY].Insert(listObject->at(idObject));
 	}
 }
 
+Grid::Grid(string pathFile, vector <LPGAMEOBJECT>* listObject)
+{
+	this->listObject = listObject;
 
+	fstream pFile;
+	pFile.open(pathFile, fstream::in);
+	string line;
+	int i = 0;
+	int idObject;
+
+	int section = GRID_SECTION_UNKNOWN;
+	while (pFile.good())
+	{
+		getline(pFile, line);
+		if (line.find("END") != string::npos)
+			break;
+
+		if (line[0] == '#') continue;	// skip comment lines
+
+		if (line == "[SETTINGS]") {
+			section = GRID_SECTION_SETTINGS; continue;
+		}
+		if (line == "[OBJECTS]") {
+			section = GRID_SECTION_OBJECTS; continue;
+		}
+
+		switch (section)
+		{
+		case GRID_SECTION_SETTINGS: _Load_SETTINGS(line); break;
+		case GRID_SECTION_OBJECTS: _Load_OBJECTS(line); break;
+		}
+	}
+
+	pFile.close();
+}
 
 Grid::~Grid()
 {
-}
-
-void Grid::Add(vector <LPGAMEOBJECT>* listObject)
-{
-	LPGAMEOBJECT object;
-	float left, top, right, bottom;
-	for (int i = 0; i < listObject->size(); i++)
-	{
-		/*int cellY = (int)(listObject->at(i)->x / widthCell);
-		int cellX = (int)(listObject->at(i)->y / heightCell);
-
-		int cellY1 = (int)((listObject->at(i)->x + listObject->at(i)->GetWidth()) / widthCell);
-		int cellX1 = (int)((listObject->at(i)->y + listObject->at(i)->GetHeight()) / heightCell);
-
-		if (cellX == cellX1)
-		{
-			if(cellY!= cellY1)
-				for (int k = cellY; k < cellY1; k++)
-				cells[cellX][k].Insert(listObject->at(i));
-			else if (cellY == cellY1)
-				cells[cellX][cellY].Insert(listObject->at(i));
-		}
-		else if (cellX != cellX1)
-		{
-			if (cellY != cellY1)
-				for (int j = cellX; j < cellX1; j++)
-					for (int k = cellY; k < cellY1; k++)
-						cells[j][k].Insert(listObject->at(i));
-			else if (cellY == cellY1)
-			{
-				for (int j = cellX; j < cellX1; j++)
-					cells[j][cellY].Insert(listObject->at(i));
-			}
-		}*/
-
-		// DebugOut(L"[INFO] index: %d\n", i);
-		//if (i == 49)
-		//	continue;
-
-		object = listObject->at(i);
-		left = object->x;
-		top = object->y;
-		right = left + object->GetWidth();
-		bottom = top + object->GetHeight();
-
-		int cellLeft = (int)(left / cellSize);
-		int cellRight = (int)(right / cellSize);
-		int cellTop = (int)(top / cellSize);
-		int cellBottom = (int)(bottom / cellSize);
-
-		if (cellLeft == cellRight)
-		{
-			if (cellTop == cellBottom)
-			{
-				if (checkExistCell(cellLeft, cellTop))
-					cells[cellLeft][cellTop].Insert(object);
-			}
-			else {
-				for (int j = cellTop; j <= cellBottom; j++)
-				{
-					if (checkExistCell(cellLeft, j))
-						cells[cellLeft][j].Insert(object);
-				}
-			}
-		}
-		else {
-			if (cellTop == cellBottom)
-			{
-				for (int j = cellLeft; j <= cellRight; j++)
-				{
-					if (checkExistCell(j, cellTop))
-						cells[j][cellTop].Insert(object);
-				}
-			}
-			else
-			{
-				for (int j = cellLeft; j <= cellRight; j++)
-				{
-					for (int k = cellTop; k <= cellBottom; k++)
-					{
-						if (checkExistCell(j, k))
-							cells[j][k].Insert(object);
-					}
-				}
-			}
-		}
-	}
-}
-
-void Grid::AddById(vector<LPGAMEOBJECT>* listObject)
-{
 
 }
+
 
 bool checkContainId(vector<LPGAMEOBJECT>* list_object, LPGAMEOBJECT e)
 {
-	LPGAMEOBJECT temp;
+	LPGAMEOBJECT obj;
 	for (int i = 0; i < list_object->size(); i++)
 	{
-		temp = list_object->at(i);
-		if (temp->id == e->id) {
+		obj = list_object->at(i);
+		if (obj->GetID() == e->GetID()) {
 			return true;
 		}
 	}
@@ -213,10 +134,28 @@ void Grid::GetListOfObjects(vector<LPGAMEOBJECT>* list_object, int screenWidth, 
 					if (!checkContainId(list_object, e)) {
 						list_object->push_back(e);
 					}
+
+					//list_object->push_back(e);
 				}
 			}
 		}
 	}
 
+}
+
+void Grid::Unload()
+{
+	if (cells)
+	{
+		for (int i = 0; i < numXCells; i++)
+		{
+			for (int j = 0; j < numYCells; j++)
+			{
+				cells[i][j].Unload();
+			}
+		}
+		delete cells;
+		cells = NULL;
+	}
 }
 

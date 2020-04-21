@@ -316,10 +316,17 @@
             // 
             this.imageListOB.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListOB.ImageStream")));
             this.imageListOB.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageListOB.Images.SetKeyName(0, "brickoutcastle.png");
-            this.imageListOB.Images.SetKeyName(1, "torch.png");
-            this.imageListOB.Images.SetKeyName(2, "bricksceneone.png");
-            this.imageListOB.Images.SetKeyName(3, "candle.png");
+            this.imageListOB.Images.SetKeyName(0, "Simon");
+            this.imageListOB.Images.SetKeyName(1, "Torch");
+            this.imageListOB.Images.SetKeyName(2, "Candle");
+            this.imageListOB.Images.SetKeyName(3, "Gate");
+            this.imageListOB.Images.SetKeyName(4, "BoundingMap");
+            this.imageListOB.Images.SetKeyName(5, "Portal");
+            this.imageListOB.Images.SetKeyName(6, "Whip");
+            this.imageListOB.Images.SetKeyName(7, "Money");
+            this.imageListOB.Images.SetKeyName(8, "Ball");
+            this.imageListOB.Images.SetKeyName(9, "SmallHeart");
+            this.imageListOB.Images.SetKeyName(10, "Heart");
             // 
             // buttonSave
             // 
@@ -514,10 +521,10 @@
             // 
             // numObjDelay
             // 
-            this.numObjDelay.Location = new System.Drawing.Point(587, 22);
+            this.numObjDelay.Location = new System.Drawing.Point(588, 19);
             this.numObjDelay.Margin = new System.Windows.Forms.Padding(2);
             this.numObjDelay.Maximum = new decimal(new int[] {
-            1,
+            1000,
             0,
             0,
             0});
@@ -532,9 +539,9 @@
             this.label13.Location = new System.Drawing.Point(544, 23);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(40, 13);
+            this.label13.Size = new System.Drawing.Size(47, 13);
             this.label13.TabIndex = 13;
-            this.label13.Text = "Delay :";
+            this.label13.Text = "SceneId";
             // 
             // label11
             // 

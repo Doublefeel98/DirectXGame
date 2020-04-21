@@ -1,28 +1,29 @@
 #pragma once
 #include <vector>
-#include "Sprites.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
+#include "Tile.h"
 using namespace std;
 
 class TileMap
 {
 private:
-	int **matrix;			
-	int rows;				
-	int cols;				
-	float width;			
-	float height;			
-	float tileWidth;		
-	float tileHeight;		
+	Tile** matrix;
+	int rows;
+	int cols;
+	float width;
+	float height;
+	float tileWidth;
+	float tileHeight;
 	int spritePerRow;
-	CSprite *sprite;
+	LPSPRITE sprite;
+	void LoadListTile(string file);
 public:
-	TileMap(float _width, float _height, CSprite *_sprite, float _frameWidth, float _frameHeight);
+	TileMap(float _width, float _height, LPSPRITE _sprite, string pathFile);
 	~TileMap();
-	void LoadListTileFromFile(const char* file);
 	void Render(int screenWidth, int screenHeight);
+	void Unload();
 };
 

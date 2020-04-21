@@ -1,99 +1,87 @@
 #include "TileMap.h"
 #include "Camera.h"
-#include "Helper.h"
+#include "Utils.h"
 
+using namespace std;
 
-TileMap::TileMap(float _width, float _height, CSprite* _sprite, float _tileWidth, float _tileHeight)
+TileMap::TileMap(float _width, float _height, LPSPRITE _sprite, string pathFile)
 {
 	width = _width;
 	height = _height;
 	sprite = _sprite;
 
-	tileWidth = _tileWidth;
-	tileHeight = _tileHeight;
-
-	spritePerRow = (sprite->right - sprite->left + 1) / tileWidth;
-
-	rows = height / tileHeight;
-	cols = width / tileWidth;
-	matrix = new int* [rows];
-	for (int i = 0; i < rows; i++)
-		matrix[i] = new int[cols];
+	this->LoadListTile(pathFile);
 }
 
 
 TileMap::~TileMap()
 {
-	if (matrix)
-	{
-		for (int i = 0; i < rows; i++)
-		{
-			delete matrix[i];
-		}
-		delete matrix;
-		matrix = nullptr;
-	}
 
-	if (sprite)
-	{
-		delete sprite;
-		sprite = nullptr;
-	}
 }
 
-void TileMap::LoadListTileFromFile(const char* file)
+void TileMap::LoadListTile(string pathFile)
 {
 	fstream pFile;
-	pFile.open(file, fstream::in);
+	pFile.open(pathFile, fstream::in);
 	string lineString;
 
-	/*pFile.good();
-	getline(pFile, lineString);*/
-	//rows = atoi(lineString.c_str());
+	vector<string> tokens;
 
-	/*pFile.good();
-	getline(pFile, lineString);*/
-	//cols = atoi(lineString.c_str());
+	pFile.good();
+	getline(pFile, lineString);
+	tokens = split(lineString, " ");
+	rows = atoi(tokens[0].c_str());
+	cols = atoi(tokens[1].c_str());
 
-	std::vector<std::string> listRow;
+	matrix = new LPTILE[rows];
+
+	for (int i = 0; i < rows; i++)
+		matrix[i] = new Tile[cols];
+
+	pFile.good();
+	getline(pFile, lineString);
+	tokens = split(lineString, " ");
+	tileWidth = atoi(tokens[0].c_str());
+	tileHeight = atoi(tokens[1].c_str());
+
+	pFile.good();
+	getline(pFile, lineString);
+	spritePerRow = atoi(lineString.c_str());
 
 	for (int i = 0; i < rows; i++)
 	{
 		pFile.good();
 		getline(pFile, lineString);
-		listRow = Helper::split(lineString, ' ');
+		tokens = split(lineString, " ");
 		for (int j = 0; j < cols; j++)
 		{
-			int id = atoi(listRow[j].c_str());
-			matrix[i][j] = id;
+			RECT bound;
+			D3DXVECTOR2 position;
+			int id = atoi(tokens[j].c_str());
+			matrix[i][j].setID(id);
+
+			bound.top = (id / spritePerRow) * tileHeight;
+			bound.left = (id % spritePerRow) * tileWidth;
+			bound.right = bound.left + tileWidth;
+			bound.bottom = bound.top + tileHeight;
+
+			position.x = j * tileWidth;
+			position.y = i * tileHeight;
+			matrix[i][j].SetBound(bound);
+			matrix[i][j].SetPosition(position);
+			matrix[i][j].SetSprite(sprite);
+
+			DebugOut(L"[INFO] tile add: %d, %d, %d, %d, %d, %f, %f \n", id, bound.left, bound.top, bound.right, position.x, position.y);
 		}
 	}
 
-	//int i = 0;
-	//std::vector<std::string> listRow;
-	//while (pFile.good())
-	//{
-	//	getline(pFile, lineString);
-	//	if (lineString.find("END") != string::npos)
-	//		break;
-
-	//	listRow = Helper::split(lineString, ' ');
-	//	for (int j = 0; j < cols; j++)
-	//	{
-	//		int id = atoi(listRow[j].c_str());
-	//		matrix[i][j] = id;
-	//	}
-	//	i++;
-	//}
+	pFile.close();
 }
+
 
 void TileMap::Render(int screenWidth, int screenHeight)
 {
-	RECT rect;
-	D3DXVECTOR3 pos;
-
-	CCamera* camera = CCamera::GetInstance();
-	D3DXVECTOR3 cameraPosition = camera->GetCameraPosition();
+	D3DXVECTOR3 cameraPosition = CCamera::GetInstance()->GetCameraPosition();
 	int rowStart;
 	int rowEnd;
 	int colStart;
@@ -104,35 +92,57 @@ void TileMap::Render(int screenWidth, int screenHeight)
 	else
 		rowStart = (cameraPosition.y / tileHeight);
 
-	if (((cameraPosition.y + screenHeight) / tileHeight + 1) > rows)
-		rowEnd = rows - 1;
+	if (((cameraPosition.y / tileHeight + screenHeight / tileHeight) + 1) > rows)
+		rowEnd = rows;
 	else
-		rowEnd = (cameraPosition.y + screenHeight) / tileHeight + 1;
+		rowEnd = ((cameraPosition.y / tileHeight + screenHeight / tileHeight) + 1);
 
 	if ((cameraPosition.x / tileWidth) < 0)
 		colStart = 0;
 	else
 		colStart = (cameraPosition.x / tileWidth);
 
-	if (((cameraPosition.x + screenWidth) / tileWidth + 1) > cols)
-		colEnd = cols - 1;
+	if (((cameraPosition.x / tileWidth + screenWidth / tileWidth) + 1) > cols)
+		colEnd = cols;
 	else
-		colEnd = (cameraPosition.x + screenWidth) / tileWidth + 1;
+		colEnd = ((cameraPosition.x / tileWidth + screenWidth / tileWidth) + 1);
 
 	for (int i = rowStart; i < rowEnd; i++)
 	{
 		for (int j = colStart; j < colEnd; j++)
 		{
-			rect.left = (matrix[i][j] % spritePerRow) * tileWidth;
-			rect.top = (matrix[i][j] / spritePerRow) * tileHeight;
-
-			rect.right = rect.left + tileWidth;
-			rect.bottom = rect.top + tileHeight;
-
-			pos.x = j * tileWidth;
-			pos.y = i * tileHeight;
-			pos.z = 0;
-			sprite->Draw(pos, rect);
+			matrix[i][j].Render();
 		}
+	}
+
+	/*for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+			if (matrix[i][j].CheckInBoundCamera(screenWidth, screenHeight))
+			{
+				matrix[i][j].Render();
+			}
+		}
+	}*/
+}
+
+
+
+void TileMap::Unload()
+{
+	if (matrix)
+	{
+		/*for (int i = 0; i < rows; i++)
+		{
+			delete matrix[i];
+		}*/
+		//delete matrix;
+		//matrix = nullptr;
+	}
+
+	if (sprite)
+	{
+		sprite = nullptr;
 	}
 }

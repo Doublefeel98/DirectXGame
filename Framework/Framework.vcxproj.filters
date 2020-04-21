@@ -16,9 +16,6 @@
     <Filter Include="Source Files\Camera">
       <UniqueIdentifier>{6757917e-fb7d-4837-be32-75836cf8c3dc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Debug">
-      <UniqueIdentifier>{d8a7d83e-853a-4357-8058-a4ef564282b3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Game">
       <UniqueIdentifier>{793d11cb-a9ba-4bff-911e-75abde09f1d8}</UniqueIdentifier>
     </Filter>
@@ -37,9 +34,6 @@
     <Filter Include="Source Files\Scene">
       <UniqueIdentifier>{cc56d41f-2ed4-439a-bf38-00bb53a5b97a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Resoucre">
-      <UniqueIdentifier>{0e38e217-feee-4d44-8128-c34639063510}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Utils">
       <UniqueIdentifier>{afe179fb-aaf7-46a8-b7a2-bb9062855722}</UniqueIdentifier>
     </Filter>
@@ -49,6 +43,9 @@
     <Filter Include="Source Files\Effect">
       <UniqueIdentifier>{dbdd5676-3f7e-45b3-98f2-8d24460aa25f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Input">
+      <UniqueIdentifier>{6ef36659-3c89-451a-adee-0914fef54e17}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sprites.cpp">
@@ -56,9 +53,6 @@
     </ClCompile>
     <ClCompile Include="Textures.cpp">
       <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="debug.cpp">
-      <Filter>Source Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\Camera</Filter>
@@ -72,25 +66,13 @@
     <ClCompile Include="Grid.cpp">
       <Filter>Source Files\Grid</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Source Files\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>Source Files\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="TileMap.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
     <ClCompile Include="Cell.cpp">
       <Filter>Source Files\Grid</Filter>
     </ClCompile>
-    <ClCompile Include="Resoucres.cpp">
-      <Filter>Source Files\Resoucre</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>Source Files\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
       <Filter>Source Files\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Helper.h">
@@ -102,8 +84,23 @@
     <ClCompile Include="Effect.cpp">
       <Filter>Source Files\Effect</Filter>
     </ClCompile>
-    <ClCompile Include="BoundingMap.cpp">
+    <ClCompile Include="Utils.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Animations.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>Source Files\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Scence.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
       <Filter>Source Files\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="BoundingMap.cpp">
+      <Filter>Source Files\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -112,9 +109,6 @@
     </ClInclude>
     <ClInclude Include="Textures.h">
       <Filter>Source Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="debug.h">
-      <Filter>Source Files\Debug</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Source Files\Camera</Filter>
@@ -128,25 +122,13 @@
     <ClInclude Include="Grid.h">
       <Filter>Source Files\Grid</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Source Files\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>Source Files\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="TileMap.h">
       <Filter>Source Files\Map</Filter>
     </ClInclude>
     <ClInclude Include="Cell.h">
       <Filter>Source Files\Grid</Filter>
     </ClInclude>
-    <ClInclude Include="Resoucres.h">
-      <Filter>Source Files\Resoucre</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>Source Files\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
       <Filter>Source Files\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Sound.h">
@@ -155,8 +137,26 @@
     <ClInclude Include="Effect.h">
       <Filter>Source Files\Effect</Filter>
     </ClInclude>
-    <ClInclude Include="BoundingMap.h">
+    <ClInclude Include="Utils.h">
+      <Filter>Source Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Animations.h">
+      <Filter>Source Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>Source Files\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Scence.h">
+      <Filter>Source Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyEventHandler.h">
+      <Filter>Source Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
       <Filter>Source Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="BoundingMap.h">
+      <Filter>Source Files\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

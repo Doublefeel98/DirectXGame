@@ -3,12 +3,17 @@
 #include "Torch.h"
 #include "Item.h"
 #include "../Framework/Game.h"
-#include "../Framework/debug.h"
+#include "../Framework/Utils.h"
+
+void Whip::Render()
+{
+}
 
 void Whip::Render(bool IsRight)
 {
 	if (isEnable == true)
 	{
+		float posX = x, posY = y;
 		if (level == WHIP_LEVEL_1)
 		{
 			if (IsRight)
@@ -79,7 +84,50 @@ void Whip::Render(bool IsRight)
 			}
 		}
 
-		animations[indexAni]->Render(x, y);
+		if (state != WHIP_STATE_PREPARE)
+		{
+			if (IsRight)
+			{
+				posX = x + SIMON_BBOX_WIDTH + WHIP_DELTA_X_RIGHT;
+			}
+			else {
+				if (level == WHIP_LEVEL_1)
+				{
+					posX = x - WHIP_DELTA_X_LEFT - WHIP_LEVEL_1_BBOX_WIDTH;
+				}
+				else if (level == WHIP_LEVEL_2)
+				{
+					posX = x - WHIP_DELTA_X_LEFT - WHIP_LEVEL_2_BBOX_WIDTH;
+				}
+				else {
+					posX = x - WHIP_DELTA_X_LEFT - WHIP_LEVEL_3_BBOX_WIDTH;
+				}
+
+			}
+			if (level == WHIP_LEVEL_1)
+			{
+				posY = y + WHIP_DELTA_POSITION_BOX_HEIGHT - 2;
+			}
+			else if (level == WHIP_LEVEL_2)
+			{
+				posY = y + WHIP_DELTA_POSITION_BOX_HEIGHT - 1;
+			}
+			else {
+				posY = y + WHIP_DELTA_POSITION_BOX_HEIGHT;
+			}
+
+		}
+		else {
+			if (IsRight)
+			{
+				posX = x - SIMON_BBOX_WIDTH;
+			}
+			else {
+				posX = x + SIMON_BBOX_WIDTH;
+			}
+		}
+
+		animation_set->at(indexAni)->Render(posX, posY);
 		if (state == WHIP_STATE_HIT)
 		{
 			RenderBoundingBox();
@@ -105,29 +153,22 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		for (UINT i = 0; i < coObjects->size(); i++)
 		{
-			if (dynamic_cast<Item*>(coObjects->at(i))) {
-				Item* item = dynamic_cast<Item*>(coObjects->at(i));
+			float l1, t1, r1, b1, l2, t2, r2, b2;
+			GetBoundingBox(l1, t1, r1, b1);
+			coObjects->at(i)->GetBoundingBox(l2, t2, r2, b2);
 
-				float l1, t1, r1, b1, l2, t2, r2, b2;
-				GetBoundingBox(l1, t1, r1, b1);
-				item->GetBoundingBox(l2, t2, r2, b2);
+			if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))
+			{
+				if (dynamic_cast<Item*>(coObjects->at(i))) {
+					Item* item = dynamic_cast<Item*>(coObjects->at(i));
 
-				if (CGame::isColliding(l1, t1, r1, b1, l2, t2, r2, b2))
-				{
 					if (!item->IsDead() && !item->IsEnable()) {
 						item->SetEnable(true);
 					}
 				}
-			}
-			else if (dynamic_cast<Torch*>(coObjects->at(i))) {
-				Torch* torch = dynamic_cast<Torch*>(coObjects->at(i));
+				else if (dynamic_cast<Torch*>(coObjects->at(i))) {
+					Torch* torch = dynamic_cast<Torch*>(coObjects->at(i));
 
-				float l1, t1, r1, b1, l2, t2, r2, b2;
-				GetBoundingBox(l1, t1, r1, b1);
-				torch->GetBoundingBox(l2, t2, r2, b2);
-
-				if (CGame::isColliding(l1, t1, r1, b1, l2, t2, r2, b2))
-				{
 					if (torch->isEnable) {
 						torch->GetCollisionEffect()->SetEnable(true);
 						torch->GetDeadEffect()->SetEnable(true);
@@ -142,24 +183,24 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void Whip::ResetAnimation()
 {
-	resetAni(0);
-	resetAni(1);
-	resetAni(2);
-	resetAni(3);
-	resetAni(4);
-	resetAni(5);
-	resetAni(6);
-	resetAni(7);
-	resetAni(8);
-	resetAni(9);
-	resetAni(10);
-	resetAni(11);
+	ResetAni(0);
+	ResetAni(1);
+	ResetAni(2);
+	ResetAni(3);
+	ResetAni(4);
+	ResetAni(5);
+	ResetAni(6);
+	ResetAni(7);
+	ResetAni(8);
+	ResetAni(9);
+	ResetAni(10);
+	ResetAni(11);
 }
 
 int Whip::GetCurrentFrame()
 {
-	ani = animations[indexAni];
-	return ani->getCurrentFrame();
+	ani = animation_set->at(indexAni);
+	return ani->GetCurrentFrame();
 }
 
 void Whip::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -167,37 +208,37 @@ void Whip::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 	switch (indexAni)
 	{
 	case WHIP_LEVEL_1_ANI_LEFT:
-		left = x - 12 - WHIP_LEVEL_1_BBOX_WIDTH;
+		left = x - WHIP_DELTA_X_LEFT - WHIP_LEVEL_1_BBOX_WIDTH;
 		top = y + WHIP_DELTA_POSITION_BOX_HEIGHT;
 		right = left + WHIP_LEVEL_1_BBOX_WIDTH;
 		bottom = top + WHIP_LEVEL_1_BBOX_HEIGHT;
 		break;
 	case WHIP_LEVEL_1_ANI_RIGHT:
-		left = x + SIMON_BBOX_WIDTH + 11;
+		left = x + SIMON_BBOX_WIDTH + WHIP_DELTA_X_RIGHT;
 		top = y + WHIP_DELTA_POSITION_BOX_HEIGHT;
 		right = left + WHIP_LEVEL_1_BBOX_WIDTH;
 		bottom = top + WHIP_LEVEL_1_BBOX_HEIGHT;
 		break;
 	case WHIP_LEVEL_2_ANI_LEFT:
-		left = x - 12 - WHIP_LEVEL_2_BBOX_WIDTH;
+		left = x - WHIP_DELTA_X_LEFT - WHIP_LEVEL_2_BBOX_WIDTH;
 		top = y + WHIP_DELTA_POSITION_BOX_HEIGHT;
 		right = left + WHIP_LEVEL_2_BBOX_WIDTH;
 		bottom = top + WHIP_LEVEL_2_BBOX_HEIGHT;
 		break;
 	case WHIP_LEVEL_2_ANI_RIGHT:
-		left = x + SIMON_BBOX_WIDTH + 11;
+		left = x + SIMON_BBOX_WIDTH + WHIP_DELTA_X_RIGHT;
 		top = y + WHIP_DELTA_POSITION_BOX_HEIGHT;
 		right = left + WHIP_LEVEL_2_BBOX_WIDTH;
 		bottom = top + WHIP_LEVEL_2_BBOX_HEIGHT;
 		break;
 	case WHIP_LEVEL_3_ANI_LEFT:
-		left = x - 12 - WHIP_LEVEL_3_BBOX_WIDTH;
+		left = x - WHIP_DELTA_X_LEFT - WHIP_LEVEL_3_BBOX_WIDTH;
 		top = y + WHIP_DELTA_POSITION_BOX_HEIGHT;
 		right = left + WHIP_LEVEL_3_BBOX_WIDTH;
 		bottom = top + WHIP_LEVEL_3_BBOX_HEIGHT;
 		break;
 	case WHIP_LEVEL_3_ANI_RIGHT:
-		left = x + SIMON_BBOX_WIDTH + 11;
+		left = x + SIMON_BBOX_WIDTH + WHIP_DELTA_X_RIGHT;
 		top = y + WHIP_DELTA_POSITION_BOX_HEIGHT;
 		right = left + WHIP_LEVEL_3_BBOX_WIDTH;
 		bottom = top + WHIP_LEVEL_3_BBOX_HEIGHT;
@@ -209,19 +250,6 @@ void Whip::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 
 Whip::Whip()
 {
-	AddAnimation(300);
-	AddAnimation(301);
-	AddAnimation(302);
-	AddAnimation(303);
-	AddAnimation(304);
-	AddAnimation(305);
-	AddAnimation(306);
-	AddAnimation(307);
-	AddAnimation(308);
-	AddAnimation(309);
-	AddAnimation(310);
-	AddAnimation(311);
-
 	damage = 1;
 	level = WHIP_LEVEL_1;
 	indexAni = 0;

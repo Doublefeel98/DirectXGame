@@ -45,17 +45,17 @@ namespace MapEditor
 
             //Allocate all the Cells
             listCells = new Cell[numXCells, numYCells];
-            
+
             for (int i = 0; i < numXCells; i++)
             {
                 for (int j = 0; j < numYCells; j++)
                 {
-                    listCells[i,j] = new Cell
+                    listCells[i, j] = new Cell
                     {
                         listIdObj = new List<int>()
                     };
                 }
-                   
+
             }
         }
 
@@ -78,8 +78,14 @@ namespace MapEditor
             }
         }
 
-        public void AddObjToCell(Object obj)
+        public void AddObjToCell(Object obj, int index)
         {
+            //remove player to grid
+            if (obj.Id == 1)
+            {
+                return;
+            }
+
             float left, top, right, bottom;
 
             left = obj.PosX;
@@ -97,14 +103,14 @@ namespace MapEditor
                 if (cellTop == cellBottom)
                 {
                     if (checkExistCell(cellLeft, cellTop))
-                        listCells[cellLeft , cellTop].listIdObj.Add(obj.Index);
+                        listCells[cellLeft, cellTop].listIdObj.Add(index);
                 }
                 else
                 {
                     for (int j = cellTop; j <= cellBottom; j++)
                     {
                         if (checkExistCell(cellLeft, j))
-                            listCells[cellLeft , j].listIdObj.Add(obj.Index);
+                            listCells[cellLeft, j].listIdObj.Add(index);
                     }
                 }
             }
@@ -115,7 +121,7 @@ namespace MapEditor
                     for (int j = cellLeft; j <= cellRight; j++)
                     {
                         if (checkExistCell(j, cellTop))
-                            listCells[j , cellTop].listIdObj.Add(obj.Index);
+                            listCells[j, cellTop].listIdObj.Add(index);
                     }
                 }
                 else
@@ -125,8 +131,8 @@ namespace MapEditor
                         for (int k = cellTop; k <= cellBottom; k++)
                         {
                             if (checkExistCell(j, k))
-                                listCells[j , k].listIdObj.Add(obj.Index);
-                        } 
+                                listCells[j, k].listIdObj.Add(index);
+                        }
                     }
                 }
             }

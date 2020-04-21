@@ -27,7 +27,7 @@ void DeadEffect::Update(DWORD dt)
 
 DeadEffect::DeadEffect()
 {
-	AddAnimation(401);
+	AddAnimation(500);
 	timeDelay = 0.0f;
 	isEnable = false;
 }

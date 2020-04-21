@@ -1,8 +1,6 @@
 #include "BoundingMap.h"
 #include "Camera.h"
 
-
-
 BoundingMap::BoundingMap()
 {
 }

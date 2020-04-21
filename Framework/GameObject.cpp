@@ -2,27 +2,17 @@
 #include <algorithm>
 
 
-#include "debug.h"
+#include "Utils.h"
 #include "Textures.h"
 #include "Game.h"
 #include "GameObject.h"
 #include "Sprites.h"
 
-
 CGameObject::CGameObject()
 {
-	/*textures->GetInstance();
-	sprites->GetInstance();
-	animation->GetInstance();*/
-
 	x = y = 0;
 	vx = vy = 0;
 	nx = 1;
-	isEnable = true;
-	isDead = false;
-	//CTextures* textures = CTextures::GetInstance();
-	//DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", get_current_dir() + "textures\\bbox.png");
-	//textures->Add(ID_TEX_BBOX, L"resources\\textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 }
 
 void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -32,22 +22,9 @@ void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	dy = vy * dt;
 }
 
-void CGameObject::Render()
-{
-}
-
 /*
 	Extension of original SweptAABB to deal with two moving objects
 */
-
-void CGameObject::SetEnable(bool _isEnable)
-{
-	if (_isEnable)
-		isDead = false;
-	this->isEnable = _isEnable;
-}
-
-
 LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 {
 	float sl, st, sr, sb;		// static object bbox
@@ -63,19 +40,20 @@ LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 	float sdx = svx * dt;
 	float sdy = svy * dt;
 
-	float dx = this->dx - sdx;
-	float dy = this->dy - sdy;
+	// (rdx, rdy) is RELATIVE movement distance/velocity 
+	float rdx = this->dx - sdx;
+	float rdy = this->dy - sdy;
 
 	GetBoundingBox(ml, mt, mr, mb);
 
 	CGame::SweptAABB(
 		ml, mt, mr, mb,
-		dx, dy,
+		rdx, rdy,
 		sl, st, sr, sb,
 		t, nx, ny
 		);
 
-	CCollisionEvent* e = new CCollisionEvent(t, nx, ny, coO);
+	CCollisionEvent* e = new CCollisionEvent(t, nx, ny, rdx, rdy, coO);
 	return e;
 }
 
@@ -106,7 +84,7 @@ void CGameObject::FilterCollision(
 	vector<LPCOLLISIONEVENT>& coEvents,
 	vector<LPCOLLISIONEVENT>& coEventsResult,
 	float& min_tx, float& min_ty,
-	float& nx, float& ny)
+	float& nx, float& ny, float& rdx, float& rdy)
 {
 	min_tx = 1.0f;
 	min_ty = 1.0f;
@@ -123,11 +101,11 @@ void CGameObject::FilterCollision(
 		LPCOLLISIONEVENT c = coEvents[i];
 
 		if (c->t < min_tx && c->nx != 0) {
-			min_tx = c->t; nx = c->nx; min_ix = i;
+			min_tx = c->t; nx = c->nx; min_ix = i; rdx = c->dx;
 		}
 
 		if (c->t < min_ty && c->ny != 0) {
-			min_ty = c->t; ny = c->ny; min_iy = i;
+			min_ty = c->t; ny = c->ny; min_iy = i; rdy = c->dy;
 		}
 	}
 
@@ -135,24 +113,6 @@ void CGameObject::FilterCollision(
 	if (min_iy >= 0) coEventsResult.push_back(coEvents[min_iy]);
 }
 
-
-//void CGameObject::RenderBoundingBox()
-//{
-//	D3DXVECTOR3 p(x, y, 0);
-//	RECT rect;
-//
-//	LPDIRECT3DTEXTURE9 bbox = CTextures::GetInstance()->Get(ID_TEX_BBOX);
-//
-//	float l,t,r,b; 
-//
-//	GetBoundingBox(l, t, r, b);
-//	rect.left = 0;
-//	rect.top = 0;
-//	rect.right = (int)r - (int)l;
-//	rect.bottom = (int)b - (int)t;
-//
-//	CGame::GetInstance()->Draw(x, y, bbox, rect.left, rect.top, rect.right, rect.bottom, 100);
-//}
 
 void CGameObject::RenderBoundingBox()
 {
@@ -169,42 +129,9 @@ void CGameObject::RenderBoundingBox()
 	rect.right = (int)r - (int)l;
 	rect.bottom = (int)b - (int)t;
 
-	CGame::GetInstance()->Draw(l, t, bbox, rect.left, rect.top, rect.right, rect.bottom, 80);
-}
-void CGameObject::RenderBoundingBoxFlipOx()
-{
-	D3DXVECTOR3 p(x, y, 0);
-	RECT rect;
-
-	LPDIRECT3DTEXTURE9 bbox = CTextures::GetInstance()->Get(ID_TEX_BBOX);
-
-	float l, t, r, b;
-
-	GetBoundingBox(l, t, r, b);
-	rect.left = 0;
-	rect.top = 0;
-	rect.right = (int)r - (int)l;
-	rect.bottom = (int)b - (int)t;
-
-	CGame::GetInstance()->DrawFlipOx(x, y, bbox, rect.left, rect.top, rect.right, rect.bottom, 255);
+	CGame::GetInstance()->Draw(l, t, bbox, rect.left, rect.top, rect.right, rect.bottom, 100);
 }
 
-void CGameObject::AddAnimation(int aniId)
-{
-	LPANIMATION ani = CAnimations::GetInstance()->Get(aniId);
-
-	LPANIMATION temp = new CAnimation(ani->defaultTime, ani->IsLoop);
-	temp->frames = ani->frames;
-	animations.push_back(temp);
-}
-
-void CGameObject::ResetAllAnimation()
-{
-	for (int i = 0; i < animations.size(); i++)
-	{
-		animations[i]->reset();
-	}
-}
 
 CGameObject::~CGameObject()
 {

@@ -5,18 +5,18 @@ class Item;
 typedef Item* LPITEM;
 class Item : public CGameObject
 {
-	int type;
+	int typeItem;
 	void RandomType();
 	void RandomItem();
 	void RandomWeapon();
 	void Init();
 public:
 	Item();
-	Item(int type);
+	Item(int typeItem);
 	~Item();
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
-	int GetType() { return type; }
+	int GetTypeItem() { return typeItem; }
 };
 

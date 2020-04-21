@@ -12,22 +12,14 @@ namespace MapEditor
     class Utilities
     {
         // ghi file txt toa do obj trong map
-        public static void WriteFileTxTObj(SaveFileDialog saveFile, List<Object> listObj)
+        public static void WriteFileTxTObj(string SelectedPath, List<Object> listObj)
         {
-            string path = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(saveFile.FileName),
-            System.IO.Path.GetFileNameWithoutExtension(saveFile.FileName)) + "_obj.txt";
+            string path = SelectedPath + "/object.txt";
             System.IO.StreamWriter sWriter = new System.IO.StreamWriter(path);
-
+            sWriter.WriteLine("#id\ttype\tname\tx\ty\twidth\theight\tani_set_id");
             for (int i = 0; i < listObj.Count; i++)
             {
-                string posX = listObj.ElementAt(i).PosX.ToString();
-                string posY = listObj.ElementAt(i).PosY.ToString();
-                string id = listObj.ElementAt(i).Id.ToString();
-                string w = listObj.ElementAt(i).Width.ToString();
-                string h = listObj.ElementAt(i).Height.ToString();
-                //string index = listObj.ElementAt(i).Index.ToString();
-                string delay = listObj.ElementAt(i).delay.ToString();
-                sWriter.WriteLine(i + " " + id + " " + posX + " " + posY + " " + w + " " + h + " " + delay);
+                sWriter.WriteLine(i + " " + listObj.ElementAt(i).toObjectStr());
             }
 
             sWriter.Flush();
@@ -35,12 +27,17 @@ namespace MapEditor
         }
 
         // ghi file txt cac obj trong tung cell cua grid
-        public static void WriteFileTxtGrid(SaveFileDialog saveFile, Grid grid)
+        public static void WriteFileTxtGrid(string SelectedPath, Grid grid)
         {
-            string path = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(saveFile.FileName),
-            System.IO.Path.GetFileNameWithoutExtension(saveFile.FileName)) + "_grid.txt";
+            string path = SelectedPath + "/grid.txt";
             System.IO.StreamWriter sWriter = new System.IO.StreamWriter(path);
 
+            sWriter.WriteLine("[SETTINGS]");
+            sWriter.WriteLine("#cell_size\tnum_x_cells\tnum_y_cells");
+            sWriter.WriteLine(grid.cellSize + " " + grid.NumXCells + " " + grid.numYCells);
+
+            sWriter.WriteLine("[OBJECTS]");
+            sWriter.WriteLine("#index_x\tindex_y\tobject_id_1\tobject_id_2... \tobject_id_n");
             Cell cell;
             for (int i = 0; i < grid.numXCells; i++)
             {

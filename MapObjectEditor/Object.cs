@@ -8,12 +8,11 @@ using System.Windows.Forms;
 
 namespace MapEditor
 {
-    class Object
+    public class Object
     {
-
         public int Id { get; set; }
 
-        public int Index { get; set; }
+        public int AniSetId { get; set; }
 
         public string Name { get; set; }
 
@@ -29,96 +28,75 @@ namespace MapEditor
 
         public int delay { get; set; }
 
-        public Object(PictureBox Pic, int Id, string Name, int index, int PosX, int PosY, int delay = 0)
+        public Object(PictureBox Pic, string name, int PosX, int PosY, int Width = 0, int Height = 0, int sceneId = 1)
         {
-            this.Id = Id;
-            this.Index = index;
-            this.Name = Name;
+            this.Pic = Pic;
+            this.delay = delay;
+            this.Name = name;
+            if (this.Name == "Simon")
+            {
+                Id = 1;
+                AniSetId = 1;
+            }
+            //map object
+            else if (this.Name == "Torch")
+            {
+                Id = 10;
+                AniSetId = 30;
+            }
+            else if (this.Name == "Candle")
+            {
+                Id = 11;
+                AniSetId = 31;
+            }
+            else if (this.Name == "Gate")
+            {
+                Id = 12;
+                AniSetId = 31;
+            }
+            else if (this.Name == "BoundingMap")
+            {
+                Id = 13;
+                AniSetId = -1;
+            }
+            else if (this.Name == "Portal")
+            {
+                Id = 14;
+                AniSetId = sceneId;
+            }
+            //item
+            else if (this.Name == "Whip")
+            {
+                Id = 100;
+                AniSetId = 40;
+            }
+            else if (this.Name == "SmallHeart")
+            {
+                Id = 101;
+                AniSetId = 40;
+            }
+            else if (this.Name == "Heart")
+            {
+                Id = 102;
+                AniSetId = 40;
+            }
+
+
+
             this.PosX = PosX;
             this.PosY = PosY;
-            this.Pic = Pic;
-            Width = Pic.Width;
-            Height = Pic.Height;
-            this.delay = delay;
+            this.Width = Width;
+            this.Height = Height;
         }
 
-        public Object(PictureBox Pic, int Id, int index, int PosX, int PosY, int Width, int Height, int delay = 0)
+        public string toObjectStr()
         {
-            this.Pic = Pic;
-            this.Id = Id;
-            this.Index = index;
-            this.delay = delay;
+            string str = Id + " " + Name + " " + PosX + " " + PosY + " " + Width + " " + Height + " " + AniSetId;
             if (this.Id == 1)
             {
-                Name = "BrickOutCastle";
+                str += " " + 2;//animation set whip
             }
-            else if (this.Id == 2)
-            {
-                Name = "Torch";
-            }
-            else if (this.Id == 3)
-            {
-                Name = "BrickSceneOne";
-            }
-            else if (this.Id == 4)
-            {
-                Name = "Candle";
-            }
-            this.PosX = PosX;
-            this.PosY = PosY;
-            this.Width = Width;
-            this.Height = Height;
-        }
-
-        public Object(PictureBox Pic, string Name, int index, int PosX, int PosY, int Width, int Height, int delay = 0)
-        {
-            this.Pic = Pic;
-            this.Name = Name;
-            this.Index = index;
-            this.delay = delay;
-            if (Name.Equals("BrickOutCastle"))
-            {
-                this.Id = 1;
-            }
-            else if (Name.Equals("Torch"))
-            {
-                this.Id = 2;
-            }
-            else if (Name.Equals("BrickSceneOne"))
-            {
-                this.Id = 3;
-            }
-            else if (Name.Equals("Candle"))
-            {
-                this.Id = 4;
-            }
-            this.PosX = PosX;
-            this.PosY = PosY;
-            this.Width = Width;
-            this.Height = Height;
-        }
-
-        public static int getIdByName(string objectName)
-        {
-            int objectId = 0;
-
-            if (objectName.Equals("BrickOutCastle"))
-            {
-                objectId = 1;
-            }
-            else if (objectName.Equals("Torch"))
-            {
-                objectId = 2;
-            }
-            else if (objectName.Equals("BrickSceneOne"))
-            {
-                objectId = 3;
-            }
-            else if (objectName.Equals("Candle"))
-            {
-                objectId = 4;
-            }
-            return objectId;
+            return str;
         }
     }
 }

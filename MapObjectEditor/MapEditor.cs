@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,9 +32,9 @@ namespace MapEditor
 
         private int objectIndexInfo;
 
-        private const int CELL_SIZE = 260;
+        private const int CELL_SIZE = 160;
 
-        private const int START_INDEX = 1;
+        private const int START_INDEX = 0;
 
         int widthBackground, heightBackground;
 
@@ -48,10 +49,17 @@ namespace MapEditor
             // List Object
             listViewOB.LargeImageList = imageListOB;
             listViewOB.View = View.LargeIcon;
-            listViewOB.Items.Add("BrickOutCastle", 0);
-            listViewOB.Items.Add("Torch", 1);
-            listViewOB.Items.Add("BrickSceneOne", 2);
-            listViewOB.Items.Add("Candle", 3);
+
+            for (int i = 0; i < imageListOB.Images.Count; i++)
+            {
+                listViewOB.Items.Add(imageListOB.Images.Keys[i], i);
+            }
+
+            //listViewOB.Items.Add("BrickOutCastle", 0);
+            //listViewOB.Items.Add("BrickOutCastle", 0);
+            //listViewOB.Items.Add("Torch", 1);
+            //listViewOB.Items.Add("BrickSceneOne", 2);
+            //listViewOB.Items.Add("Candle", 3);
 
             //imageListOB.TransparentColor = Color.Transparent;
 
@@ -108,14 +116,22 @@ namespace MapEditor
                 if (imgIndex >= 0 && imgIndex < this.imageListOB.Images.Count)
                 {
                     imageCursor = this.imageListOB.Images[imgIndex];
-                    if (imgIndex == 0)
-                    {
-                        imageCursor = Utilities.ResizeImage(imageCursor, 32, 32);
-                    }
-                    else if (imgIndex == 1)
-                    {
-                        imageCursor = Utilities.ResizeImage(imageCursor, 32, 64);
-                    }
+                    //if (imgIndex == 0)
+                    //{
+                    //    imageCursor = Utilities.ResizeImage(imageCursor, 16, 31);
+                    //}
+                    //else if (imgIndex == 1)
+                    //{
+                    //    imageCursor = Utilities.ResizeImage(imageCursor, 32, 32);
+                    //}
+                    //else if (imgIndex == 2)
+                    //{
+                    //    imageCursor = Utilities.ResizeImage(imageCursor, 32, 32);
+                    //}
+                    //else if (imgIndex == 3)
+                    //{
+                    //    imageCursor = Utilities.ResizeImage(imageCursor, 32, 64);
+                    //}
                 }
             }
 
@@ -173,13 +189,13 @@ namespace MapEditor
                     // them vao list  
                     string nameOb = textBoxNameOB.Text.Trim();
 
-                    Object ob = new Object(p, objectId, nameOb, (START_INDEX + listObject.Count), Convert.ToInt32(textBoxX.Text.Trim()),
-                        Convert.ToInt32(textBoxY.Text.Trim())/*, direction*/);
+                    Object ob = new Object(p, nameOb, Convert.ToInt32(textBoxX.Text.Trim()), Convert.ToInt32(textBoxY.Text.Trim()), p.Width, p.Height);
 
                     listObject.Add(ob);
                     listObject.ElementAt(listObject.Count - 1).Pic.Click += new System.EventHandler(PictureBoxes_Click);
                     listObject.ElementAt(listObject.Count - 1).Pic.MouseMove += new System.Windows.Forms.MouseEventHandler(PictureBoxes_MouseMove);
                     listObject.ElementAt(listObject.Count - 1).Pic.MouseLeave += new System.EventHandler(PictureBoxes_MouseLeave);
+
                     pictureBoxBG.Controls.Add(listObject.ElementAt(listObject.Count - 1).Pic);
 
                     drawImage(p);
@@ -195,9 +211,21 @@ namespace MapEditor
         {
             if (listObject.Count > 0)
             {
-                saveFileDialog1.Filter = "Text Files (*.txt)|*.txt|All files (*.*)|*.*";
-                saveFileDialog1.FilterIndex = 1;
-                saveFileDialog1.ShowDialog();
+                using (var fbd = new FolderBrowserDialog())
+                {
+                    DialogResult result = fbd.ShowDialog();
+
+                    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                    {
+                        grid.clearObject();
+                        for (int i = 0; i < listObject.Count; i++)
+                            grid.AddObjToCell(listObject[i], i);
+
+                        Utilities.WriteFileTxTObj(fbd.SelectedPath, listObject);
+                        Utilities.WriteFileTxtGrid(fbd.SelectedPath, grid);
+                        MessageBox.Show("Save successfully!");
+                    }
+                }
             }
             else
             {
@@ -246,9 +274,19 @@ namespace MapEditor
                         int posY = (int)listObject.ElementAt(i).PosY;
                         int w = listObject.ElementAt(i).Width;
                         int h = listObject.ElementAt(i).Height;
-                        int delay = listObject.ElementAt(i).delay;
+                        int sceneId = 0;
 
-                        setOjectInfo(id, name, posX, posY, w, h, delay);
+                        if (listObject.ElementAt(i).Id == 14)
+                        {
+                            sceneId = listObject.ElementAt(i).AniSetId;
+                            numObjDelay.Enabled = true;
+                        }
+                        else
+                        {
+                            numObjDelay.Enabled = false;
+                        }
+
+                        setOjectInfo(id, name, posX, posY, w, h, sceneId);
 
                         break;
                     }
@@ -262,7 +300,7 @@ namespace MapEditor
             setOjectInfo("", "", 0, 0, 0, 0, 0);
         }
 
-        private void setOjectInfo(string id, string name, int posX, int posY, int w, int h, int delay)
+        private void setOjectInfo(string id, string name, int posX, int posY, int w, int h, int sceneId)
         {
             tbObjId.Text = id;
             tbObjName.Text = name;
@@ -270,23 +308,26 @@ namespace MapEditor
             numY.Value = posY;
             numWidth.Value = w;
             numHeight.Value = h;
-            numObjDelay.Value = delay;
+            numObjDelay.Value = sceneId;
         }
 
         private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
-            grid.clearObject();
-            for (int i = 0; i < listObject.Count; i++)
-                grid.AddObjToCell(listObject[i]);
+            //grid.clearObject();
+            //for (int i = 0; i < listObject.Count; i++)
+            //    grid.AddObjToCell(listObject[i], i);
 
-            Utilities.WriteFileTxTObj(saveFileDialog1, listObject);
-            Utilities.WriteFileTxtGrid(saveFileDialog1, grid);
-            MessageBox.Show("Save successfully!");
+            //Utilities.WriteFileTxTObj(saveFileDialog1, listObject);
+            //Utilities.WriteFileTxtGrid(saveFileDialog1, grid);
+            //MessageBox.Show("Save successfully!");
         }
 
         private void PictureBoxes_MouseMove(object sender, EventArgs e)
         {
-            this.Cursor = Cursors.Hand;
+            if (CurrentCursor != CursorCur.OBJECT)
+            {
+                this.Cursor = Cursors.Hand;
+            }
         }
 
         private void PictureBoxes_MouseLeave(object sender, EventArgs e)
@@ -354,18 +395,42 @@ namespace MapEditor
             return null;
         }
 
-        private Image getImage(int imgIndex)
+        private Image getImageByName(string name)
         {
+            int imgIndex = getImageIndexByName(name);
             Image image = this.imageListOB.Images[imgIndex];
             if (imgIndex == 0)
             {
-                image = Utilities.ResizeImage(image, 32, 32);
+                image = Utilities.ResizeImage(image, 32, 64);
             }
             else if (imgIndex == 1)
+            {
+                image = Utilities.ResizeImage(image, 32, 32);
+            }
+            else if (imgIndex == 2)
+            {
+                image = Utilities.ResizeImage(image, 32, 32);
+            }
+            else if (imgIndex == 3)
             {
                 image = Utilities.ResizeImage(image, 32, 64);
             }
             return image;
+        }
+
+        private int getImageIndexByName(string name)
+        {
+            int imgIndex = 0;
+
+            for (int i = 0; i < imageListOB.Images.Count; i++)
+            {
+                if (imageListOB.Images.Keys[i].Equals(name))
+                {
+                    return i;
+                }
+            }
+
+            return imgIndex;
         }
 
         private void drawImage(PictureBox p)
@@ -414,56 +479,53 @@ namespace MapEditor
                 string[] infos;
                 Object obj;
                 PictureBox p;
-                int posX, posY, width, height, delay;
+                int posX, posY, width, height, sceneId;
                 int id;
+                string name;
 
                 clearAllPictureBox();
                 foreach (string line in lines)
                 {
+                    if (line.StartsWith("#") || line.StartsWith("//")) continue;
                     infos = line.Split(' ');
 
-                    posX = int.Parse(infos[2]);
-                    posY = int.Parse(infos[3]);
-                    width = int.Parse(infos[4]);
-                    height = int.Parse(infos[5]);
+                    if (infos.Length == 1)
+                    {
+                        infos = line.Split('\t');
+                    }
+
+                    name = infos[2];
+                    posX = int.Parse(infos[3]);
+                    posY = int.Parse(infos[4]);
+                    width = int.Parse(infos[5]);
+                    height = int.Parse(infos[6]);
 
                     if (infos.Length > 6)
                     {
-                        delay = int.Parse(infos[6]);
+                        sceneId = int.Parse(infos[7]);
                     }
                     else
                     {
-                        delay = 0;
+                        sceneId = 0;
                     }
 
                     if (int.TryParse(infos[1], out id))
                     {
                         p = new PictureBox();
-                        p.Image = getImage(id - 1);
+                        p.Image = getImageByName(name);
                         p.Location = new Point(posX, posY);
                         p.SizeMode = PictureBoxSizeMode.AutoSize;
                         p.BackColor = Color.Transparent;
 
-                        obj = new Object(p, id, START_INDEX + listObject.Count, posX, posY, width, height, delay);
-                    }
-                    else
-                    {
-                        id = Object.getIdByName(infos[1]);
+                        obj = new Object(p, name, posX, posY, width, height, sceneId);
 
-                        p = new PictureBox();
-                        p.Image = getImage(id - 1);
-                        p.Location = new Point(posX, posY);
-                        p.SizeMode = PictureBoxSizeMode.AutoSize;
-                        p.BackColor = Color.Transparent;
-
-                        obj = new Object(p, infos[1], START_INDEX + listObject.Count, posX, posY, width, height, delay);
+                        listObject.Add(obj);
+                        listObject.ElementAt(listObject.Count - 1).Pic.Click += new System.EventHandler(PictureBoxes_Click);
+                        listObject.ElementAt(listObject.Count - 1).Pic.MouseMove += new System.Windows.Forms.MouseEventHandler(PictureBoxes_MouseMove);
+                        listObject.ElementAt(listObject.Count - 1).Pic.MouseLeave += new System.EventHandler(PictureBoxes_MouseLeave);
+                        pictureBoxBG.Controls.Add(listObject.ElementAt(listObject.Count - 1).Pic);
                     }
 
-                    listObject.Add(obj);
-                    listObject.ElementAt(listObject.Count - 1).Pic.Click += new System.EventHandler(PictureBoxes_Click);
-                    listObject.ElementAt(listObject.Count - 1).Pic.MouseMove += new System.Windows.Forms.MouseEventHandler(PictureBoxes_MouseMove);
-                    listObject.ElementAt(listObject.Count - 1).Pic.MouseLeave += new System.EventHandler(PictureBoxes_MouseLeave);
-                    pictureBoxBG.Controls.Add(listObject.ElementAt(listObject.Count - 1).Pic);
                 }
                 renderListImage();
             }
@@ -473,7 +535,10 @@ namespace MapEditor
         {
             if (objectIndexInfo != -1)
             {
-                listObject.ElementAt(objectIndexInfo).delay = (int)numObjDelay.Value;
+                if (listObject.ElementAt(objectIndexInfo).Id == 14)
+                {
+                    listObject.ElementAt(objectIndexInfo).AniSetId = (int)numObjDelay.Value;
+                }
             }
         }
 

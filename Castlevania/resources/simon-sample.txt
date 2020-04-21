@@ -1,0 +1,6 @@
+[SETTINGS]
+start 1
+#scene list
+[SCENES]
+1 resources\scene1.txt
+2 resources\scene2.txt

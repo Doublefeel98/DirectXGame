@@ -21,7 +21,7 @@ void CollisionEffect::Update(DWORD dt)
 
 CollisionEffect::CollisionEffect()
 {
-	AddAnimation(400);
+	AddAnimation(501);
 	timeDelay = 0.0f;
 	isEnable = false;
 }

@@ -36,12 +36,6 @@ CEnemy::~CEnemy()
 {
 }
 
-
-void CEnemy::Render()
-{
-	CGameObject::Render();
-}
-
 void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (!IsStop)

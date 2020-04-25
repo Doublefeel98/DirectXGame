@@ -1,11 +1,8 @@
-[SETTINGS]
-map_width 768.0f
-map_height 192.0f
-
 [TEXTURES]
 # id	file_path				                    r	    g	    b
 200 resources\textures\Items_Objects.png 116 116 116
 300 resources\textures\hp.png 255 0 255
+900 resources\textures\blackboard.png 116 116 116
 1000 resources\maps\castle_entrance\tilesheet.png 255 255 255
 
 [SPRITES]
@@ -66,7 +63,8 @@ map_height 192.0f
 # score board
 60000 0 0 6 9 300 0 0
 60001 5 0 7 9 300 0 0
-60002 6 0 6 9 300 0 0
+60002 11 0 6 9 300 0 0
+90000 0 0 256 39 900 0 0
 
 //sprite map
 1000 0 0 160 244 1000 0 0
@@ -104,13 +102,11 @@ map_height 192.0f
 # ITEM
 40 400 401 402
 
-[OBJECTS]
-resources\maps\castle_entrance\object.txt
+[SETTINGS]
+map_width 768.0f
+map_height 192.0f
+objects resources\maps\castle_entrance\object.txt
+tile_map resources\maps\castle_entrance\matrix.txt 1000
+grid resources\maps\castle_entrance\grid.txt 260
 
-[TILEMAP]
-# fileMap	sprite_id	
-resources\maps\castle_entrance\matrix.txt 1000
 
-[GRID]
-#file_grid	cell_size
-resources\maps\castle_entrance\grid.txt 260

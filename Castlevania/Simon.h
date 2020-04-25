@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Whip.h"
 #include "../Framework/GameObject.h"
 
@@ -41,6 +41,9 @@ public:
 	bool canClimbUpStair;
 	bool canClimbDownStair;
 	int directionStair;
+
+	bool IsFreeze; // Trạng thái đóng băng thay đổi màu liên tục
+	DWORD timeFreezeStart; // thời gian đã đóng băng
 
 	void Reset();
 

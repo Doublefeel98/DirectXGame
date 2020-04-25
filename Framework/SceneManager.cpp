@@ -5,6 +5,7 @@
 #include "Animations.h"
 
 #include "../Castlevania/PlayScence.h";
+#include "../Castlevania/Simon.h";
 
 CSceneManager* CSceneManager::__instance = NULL;
 
@@ -32,6 +33,9 @@ void CSceneManager::_ParseSection_SETTINGS(string line)
 	if (tokens.size() < 2) return;
 	if (tokens[0] == "start")
 		current_scene = atoi(tokens[1].c_str());
+	else if (tokens[0] == "simon") {
+		Simon::GetInstance()->Load(ToLPCWSTR(tokens[1]));
+	}
 	else
 		DebugOut(L"[ERROR] Unknown game setting %s\n", ToWSTR(tokens[0]).c_str());
 }

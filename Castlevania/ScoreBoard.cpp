@@ -13,7 +13,7 @@ ScoreBoard::ScoreBoard(Simon* simon, int bossHP)
 	for (int i = 0; i < 16; i++)
 	{
 		HP* simonHP = new HP(1);
-		simonHP->SetPosition(60 + 6 * (i + 1), 20);
+		simonHP->SetPosition(48 + 6 * (i + 1), 15);
 		listSimonHP->push_back(simonHP);
 	}
 
@@ -21,7 +21,7 @@ ScoreBoard::ScoreBoard(Simon* simon, int bossHP)
 	for (int i = 0; i < 16; i++)
 	{
 		HP* enemyHP = new HP(3);
-		enemyHP->SetPosition(60 + 6 * (i + 1), 30);
+		enemyHP->SetPosition(48 + 6 * (i + 1), 25);
 		listEnemyHP->push_back(enemyHP);
 	}
 
@@ -29,7 +29,7 @@ ScoreBoard::ScoreBoard(Simon* simon, int bossHP)
 	for (int i = 0; i < 16; i++)
 	{
 		HP* dyingHP = new HP(2);
-		dyingHP->SetPosition(60 + 6 * (i + 1), 20);
+		dyingHP->SetPosition(48 + 6 * (i + 1), 15);
 		listDyingHP->push_back(dyingHP);
 	}
 
@@ -39,7 +39,7 @@ ScoreBoard::ScoreBoard(Simon* simon, int bossHP)
 	font = NULL;
 
 	D3DXFONT_DESC FontDesc = {
-		10,
+		12,
 		7,
 		5,
 		5,
@@ -52,10 +52,15 @@ ScoreBoard::ScoreBoard(Simon* simon, int bossHP)
 
 	D3DXCreateFontIndirect(d3ddv, &FontDesc, &font);
 
-	SetRect(&rect, 3, 8, SCREEN_WIDTH, 85);
-	information = L"SCORE_000000 TIME 0000 STAGE 00\n";
-	information += L"PLAYER                                         -5\n";
-	information += L"ENEMY                                         P-3\n";
+	SetRect(&rectLineOne, 53, 5, SCREEN_WIDTH, 85);
+	SetRect(&rectLineTwo, 53, 15, SCREEN_WIDTH, 85);
+	SetRect(&rectLineThree, 53, 25, SCREEN_WIDTH, 85);
+	lineOne = L"SCORE_000000 TIME 0000 STAGE 00\n";
+	lineTwo = L"PLAYER                                         -5";
+	lineThree = L"ENEMY                                         P-3";
+
+	CSprites* sprites = CSprites::GetInstance();
+	sprite = sprites->Get(90000);
 }
 
 ScoreBoard::~ScoreBoard()
@@ -84,16 +89,33 @@ void ScoreBoard::Update(int bossHP, int time, int life, int stage)
 		stageString = L"0" + stageString;
 
 
-	information = L"SCORE_" + scoreString + L" TIME " + timeString + L" STAGE " + stageString + L"\n";
-	information += L"PLAYER                                    -" + to_wstring(simon->GetEnergy()) + L"\n";
-	information += L"ENEMY                                   P-" + to_wstring(simon->GetLife()) + L"\n";
+	lineOne = scoreString + L"              " + timeString + L"             " + stageString + L"\n";
+	if (simon->GetEnergy() < 10)
+	{
+		lineTwo = L"                                    0" + to_wstring(simon->GetEnergy()) + L"\n";
+	}
+	else {
+		lineTwo = L"                                    " + to_wstring(simon->GetEnergy()) + L"\n";
+	}
+
+	if (simon->GetLife() < 10)
+	{
+		lineThree = L"                                    0" + to_wstring(simon->GetLife()) + L"\n";
+	}
+	else {
+		lineThree = L"                                    " + to_wstring(simon->GetLife()) + L"\n";
+	}
+
+
 }
 
 void ScoreBoard::Render()
 {
-	RECT newRect;
-	SetRect(&newRect, 0, 0, SCREEN_WIDTH, 200);
-	font->DrawText(spriteHandler, information.c_str(), -1, &rect, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
+	sprite->DrawWithoutCamera(0, 0);
+
+	font->DrawText(spriteHandler, lineOne.c_str(), -1, &rectLineOne, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
+	font->DrawText(spriteHandler, lineTwo.c_str(), -1, &rectLineTwo, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
+	font->DrawText(spriteHandler, lineThree.c_str(), -1, &rectLineThree, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
 
 	for (int i = 0; i < listDyingHP->size(); i++)
 	{
@@ -115,6 +137,4 @@ void ScoreBoard::Render()
 			listEnemyHP->at(i)->Render();
 		}
 	}
-
-	heart->Render();
 }

@@ -1,5 +1,6 @@
 [SETTINGS]
 start 1
+simon resources\simon.txt
 #scene list
 [SCENES]
 1 resources\scene1.txt

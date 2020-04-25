@@ -43,6 +43,41 @@ void CPlayScene::_ParseSection_SETTINGS(string line)
 		mapWidth = atoi(tokens[1].c_str());
 	else if (tokens[0] == "map_height")
 		mapHeight = atoi(tokens[1].c_str());
+	else if (tokens[0] == "objects") {
+		string pathFile = tokens[1];
+
+		fstream pFile;
+		pFile.open(pathFile, fstream::in);
+		string temp;
+
+		while (pFile.good())
+		{
+			getline(pFile, temp);
+
+			if (temp[0] == '/' && temp[1] == '/') continue;	// skip comment lines
+			if (temp[0] == '#') continue;	// skip comment lines
+
+			_ParseSection_OBJECTS(temp);
+		}
+
+		pFile.close();
+	}
+	else if (tokens[0] == "tile_map") {
+		string pathFile = tokens[1];
+
+		int spriteId = atoi(tokens[2].c_str());
+
+		LPSPRITE spriteMap = CSprites::GetInstance()->Get(spriteId);
+
+		tileMap = new TileMap(mapWidth, mapHeight, spriteMap, pathFile);
+	}
+	else if (tokens[0] == "grid") {
+		string pathFile = tokens[1];
+
+		int cellSize = atoi(tokens[2].c_str());
+
+		grid = new Grid(pathFile, &objects);
+	}
 	else
 		DebugOut(L"[ERROR] Unknown scene setting %s\n", ToWSTR(tokens[0]).c_str());
 }
@@ -234,61 +269,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	objects.push_back(obj);
 }
 
-void CPlayScene::_ParseSection_TILEMAP(string line)
-{
-	vector<string> tokens = split(line);
-
-	if (tokens.size() < 2) return;
-
-	string pathFile = tokens[0];
-
-	int spriteId = atoi(tokens[1].c_str());
-
-	LPSPRITE spriteMap = CSprites::GetInstance()->Get(spriteId);
-
-	if (tokens.size() < 1) return;
-
-	tileMap = new TileMap(mapWidth, mapHeight, spriteMap, pathFile);
-}
-
-void CPlayScene::_ParseSection_GRID(string line)
-{
-	vector<string> tokens = split(line);
-
-	if (tokens.size() < 2) return;
-
-	string pathFile = tokens[0];
-
-	int cellSize = atoi(tokens[1].c_str());
-
-	grid = new Grid(pathFile, &objects);
-}
-
-void CPlayScene::_Load_OBJECTS(string line)
-{
-	vector<string> tokens = split(line);
-
-	if (tokens.size() < 1) return;
-
-	string pathFile = tokens[0];
-
-	fstream pFile;
-	pFile.open(line, fstream::in);
-	string temp;
-
-	while (pFile.good())
-	{
-		getline(pFile, temp);
-
-		if (temp[0] == '/' && temp[1] == '/') continue;	// skip comment lines
-		if (temp[0] == '#') continue;	// skip comment lines
-
-		_ParseSection_OBJECTS(temp);
-	}
-
-	pFile.close();
-}
-
 void CPlayScene::Load()
 {
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
@@ -320,15 +300,6 @@ void CPlayScene::Load()
 		if (line == "[ANIMATION_SETS]") {
 			section = SCENE_SECTION_ANIMATION_SETS; continue;
 		}
-		if (line == "[OBJECTS]") {
-			section = SCENE_SECTION_OBJECTS; continue;
-		}
-		if (line == "[TILEMAP]") {
-			section = SCENE_SECTION_TILEMAP; continue;
-		}
-		if (line == "[GRID]") {
-			section = SCENE_SECTION_GRID; continue;
-		}
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }
 
 		//
@@ -341,9 +312,6 @@ void CPlayScene::Load()
 		case SCENE_SECTION_SPRITES: _ParseSection_SPRITES(line); break;
 		case SCENE_SECTION_ANIMATIONS: _ParseSection_ANIMATIONS(line); break;
 		case SCENE_SECTION_ANIMATION_SETS: _ParseSection_ANIMATION_SETS(line); break;
-		case SCENE_SECTION_OBJECTS: _Load_OBJECTS(line); break;
-		case SCENE_SECTION_TILEMAP: _ParseSection_TILEMAP(line); break;
-		case SCENE_SECTION_GRID: _ParseSection_GRID(line); break;
 		}
 	}
 
@@ -473,6 +441,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 
 	Simon* simon = ((CPlayScene*)scence)->GetPlayer();
+	if (simon->IsFreeze) return;
 	switch (KeyCode)
 	{
 	case DIK_Z:
@@ -500,6 +469,7 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 {
 	Simon* simon = ((CPlayScene*)scence)->GetPlayer();
 	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
+	if (simon->IsFreeze) return;
 	switch (KeyCode)
 	{
 	case DIK_LEFT:
@@ -543,6 +513,7 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 	Simon* simon = ((CPlayScene*)scence)->GetPlayer();
 
 	// disable control key when Mario die 
+	if (simon->IsFreeze) return;
 	if (simon->GetState() == SIMON_STATE_DIE) return;
 	if (game->IsKeyDown(DIK_DOWN))
 	{

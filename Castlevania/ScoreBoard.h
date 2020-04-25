@@ -7,10 +7,14 @@
 class ScoreBoard
 {
 	ID3DXFont* font;
-	RECT rect;
+	RECT rectLineOne;
+	RECT rectLineTwo;
+	RECT rectLineThree;
 	Simon* simon;
 	LPDIRECT3DDEVICE9 d3ddv;
-	wstring information;
+	wstring lineOne;
+	wstring lineTwo;
+	wstring lineThree;
 	CSprite* sprite;
 	LPD3DXSPRITE spriteHandler;
 	vector<HP*>* listSimonHP;

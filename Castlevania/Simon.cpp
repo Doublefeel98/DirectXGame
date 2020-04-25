@@ -1,4 +1,4 @@
-#include "Simon.h"
+﻿#include "Simon.h"
 #include "Define.h"
 #include "Torch.h"
 #include "Item.h"
@@ -34,6 +34,9 @@ Simon::Simon()
 	IsRun = false;
 
 	timeAttackStart = 0;
+
+	IsFreeze = false;
+	timeFreezeStart = 0;
 
 	whip = new Whip();
 
@@ -212,6 +215,18 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 
+	if (IsFreeze) {
+		if (now - timeFreezeStart > TIME_FREEZE_MAX)
+		{
+			timeFreezeStart = 0;
+			IsFreeze = false;
+		}
+		else {
+			vx = 0;
+			vy = 0;
+		}
+	}
+
 	if (canClimbUpStair) {
 		canClimbUpStair = false;
 	}
@@ -221,7 +236,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
-		if (dynamic_cast<Item*>(coObjects->at(i))) {
+		/*if (dynamic_cast<Item*>(coObjects->at(i))) {
 			Item* item = dynamic_cast<Item*>(coObjects->at(i));
 
 			float l1, t1, r1, b1, l2, t2, r2, b2;
@@ -236,7 +251,8 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 			}
 		}
-		else if (dynamic_cast<TopStair*>(coObjects->at(i))) {
+		else*/
+		if (dynamic_cast<TopStair*>(coObjects->at(i))) {
 			TopStair* item = dynamic_cast<TopStair*>(coObjects->at(i));
 
 			float l1, t1, r1, b1, l2, t2, r2, b2;
@@ -325,6 +341,8 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						if (whip->GetLevel() < WHIP_LEVEL_3)
 						{
 							whip->SetLevel(whip->GetLevel() + 1);
+							IsFreeze = true;
+							timeFreezeStart = now; // thời gian đã đóng băng
 						}
 						break;
 					case ITEM_SMALL_HEART:
@@ -519,7 +537,14 @@ void Simon::Render()
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
-	animation_set->at(ani)->Render(posX, posY, alpha);
+	if (IsFreeze)
+	{
+		animation_set->at(ani)->Render(posX, posY, alpha, rand() % 256, rand() % 256, rand() % 256);
+	}
+	else {
+		animation_set->at(ani)->Render(posX, posY, alpha);
+	}
+
 
 	RenderBoundingBox();
 }

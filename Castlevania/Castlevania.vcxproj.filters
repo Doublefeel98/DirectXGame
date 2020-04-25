@@ -84,6 +84,12 @@
     <ClCompile Include="Gate.cpp">
       <Filter>Source Files\Objects\maps</Filter>
     </ClCompile>
+    <ClCompile Include="BottomStair.cpp">
+      <Filter>Source Files\Objects\maps</Filter>
+    </ClCompile>
+    <ClCompile Include="TopStair.cpp">
+      <Filter>Source Files\Objects\maps</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Simon.h">
@@ -126,6 +132,12 @@
       <Filter>Source Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Gate.h">
+      <Filter>Source Files\Objects\maps</Filter>
+    </ClInclude>
+    <ClInclude Include="TopStair.h">
+      <Filter>Source Files\Objects\maps</Filter>
+    </ClInclude>
+    <ClInclude Include="BottomStair.h">
       <Filter>Source Files\Objects\maps</Filter>
     </ClInclude>
   </ItemGroup>

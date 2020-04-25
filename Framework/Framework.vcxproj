@@ -31,6 +31,7 @@
     <ClCompile Include="BoundingMap.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Scence.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
@@ -51,6 +52,7 @@
     <ClInclude Include="KeyEventHandler.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="Scence.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Textures.h" />

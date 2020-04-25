@@ -322,11 +322,13 @@
             this.imageListOB.Images.SetKeyName(3, "Gate");
             this.imageListOB.Images.SetKeyName(4, "BoundingMap");
             this.imageListOB.Images.SetKeyName(5, "Portal");
-            this.imageListOB.Images.SetKeyName(6, "Whip");
-            this.imageListOB.Images.SetKeyName(7, "Money");
-            this.imageListOB.Images.SetKeyName(8, "Ball");
-            this.imageListOB.Images.SetKeyName(9, "SmallHeart");
-            this.imageListOB.Images.SetKeyName(10, "Heart");
+            this.imageListOB.Images.SetKeyName(6, "BottomStair");
+            this.imageListOB.Images.SetKeyName(7, "TopStair");
+            this.imageListOB.Images.SetKeyName(8, "Whip");
+            this.imageListOB.Images.SetKeyName(9, "Money");
+            this.imageListOB.Images.SetKeyName(10, "Ball");
+            this.imageListOB.Images.SetKeyName(11, "SmallHeart");
+            this.imageListOB.Images.SetKeyName(12, "Heart");
             // 
             // buttonSave
             // 

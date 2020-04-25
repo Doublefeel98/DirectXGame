@@ -39,15 +39,9 @@ class CGame
 	int screen_width;
 	int screen_height;
 
-	unordered_map<int, LPSCENE> scenes;
-	int current_scene;
-
-	void _ParseSection_SETTINGS(string line);
-	void _ParseSection_SCENES(string line);
-
 	CCamera* camera;
 
-
+	int deviation_y;
 public:
 	void InitKeyboard();
 	void SetKeyHandler(LPKEYEVENTHANDLER handler) { keyHandler = handler; }
@@ -57,10 +51,6 @@ public:
 
 	int IsKeyDown(int KeyCode);
 	void ProcessKeyboard();
-
-	void Load(LPCWSTR gameFile);
-	LPSCENE GetCurrentScene() { return scenes[current_scene]; }
-	void SwitchScene(int scene_id);
 
 	int GetScreenWidth() { return screen_width; }
 	int GetScreenHeight() { return screen_height; }
@@ -89,6 +79,8 @@ public:
 	static CGame* GetInstance();
 
 	HWND GetHWND() { return hWnd; }
+
+	void SetDeviationY(int _deviation_y) { deviation_y = _deviation_y; }
 
 	~CGame();
 };

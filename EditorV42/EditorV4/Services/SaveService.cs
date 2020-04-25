@@ -115,10 +115,10 @@ namespace EditorV4.Services
             allObject.RemoveAll(x => ((GameObject)x).Active == false);
 
             SaveTilesheet(tilesheetPath);
-            SaveObjects(objectsPath, allObject);
-            SaveQuadTree(quadtreePath, allObject);
+            //SaveObjects(objectsPath, allObject);
+            //SaveQuadTree(quadtreePath, allObject);
             SaveMatrix(matrixPath);
-            SaveCollisionTypeCollide(collisionTypeCollidePath);
+            //SaveCollisionTypeCollide(collisionTypeCollidePath);
 
             SaveData((MapEditor)@interface, dataPath);
         }

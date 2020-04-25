@@ -12,6 +12,12 @@ protected:
 
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> coObjects;
+
+	vector<int> listIdTextures;
+	vector<int> listIdSprites;
+	vector<int> listIdAnimations;
+	vector<int> listIdAnimationSets;
+
 	TileMap* tileMap = NULL;
 	Grid* grid = NULL;
 

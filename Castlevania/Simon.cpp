@@ -2,15 +2,22 @@
 #include "Define.h"
 #include "Torch.h"
 #include "Item.h"
-#include "../Framework/Game.h"
+#include "../Framework/SceneManager.h"
 #include "Candle.h"
 #include "../Framework/Utils.h"
 #include "../Framework/Portal.h"
 #include "../Framework/BoundingMap.h"
+#include "BottomStair.h"
+#include "TopStair.h"
+
+#include <iostream>
+#include <fstream>
 
 Simon* Simon::__instance = NULL;
 
-Simon::Simon(float x, float y)
+using namespace std;
+
+Simon::Simon()
 {
 	level = 0;
 	hp = SIMON_HP;
@@ -31,16 +38,11 @@ Simon::Simon(float x, float y)
 	whip = new Whip();
 
 	state = SIMON_STATE_IDLE;
-
-	checkPointX = x;
-	checkPointY = y;
-	this->x = x;
-	this->y = y;
 }
 
 Simon* Simon::GetInstance()
 {
-	if (__instance == NULL) __instance = new Simon(0, 0);
+	if (__instance == NULL) __instance = new Simon();
 	return __instance;
 }
 
@@ -58,19 +60,24 @@ void Simon::SetState(int state)
 	switch (state)
 	{
 	case SIMON_STATE_WALK_RIGHT:
+	{
 		vx = SIMON_WALKING_SPEED;
 		nx = 1;
-		break;
+	}
+	break;
 	case SIMON_STATE_WALK_LEFT:
+	{
 		vx = -SIMON_WALKING_SPEED;
 		nx = -1;
-		break;
+	}
+	break;
 	case SIMON_STATE_JUMP:
 		IsJump = true;
 		IsGround = false;
 		vy = -SIMON_JUMP_SPEED_Y;
 	case SIMON_STATE_IDLE:
 		IsSit = false;
+		vx = 0;
 		break;
 	case SIMON_STATE_DIE:
 		vy = -SIMON_DIE_DEFLECT_SPEED;
@@ -79,7 +86,53 @@ void Simon::SetState(int state)
 		vx = 0;
 		IsSit = true;
 		break;
+	case SIMON_STATE_CLIMB_STAIR_ASCEND:
+		if (!IsOnStair) {
+			x = posXStair - 6;
+		}
+		if (canClimbDownStair) {
+			IsOnStair = false;
+			IsUpStair = false;
+			IsDownStair = false;
+			y -= 2;
+		}
+		else {
+			vx = SIMON_WALKING_SPEED / 2;
+			vy = -SIMON_WALKING_SPEED / 2;
+			IsOnStair = true;
+			IsUpStair = true;
+			IsDownStair = false;
+		}
+		break;
+	case SIMON_STATE_CLIMB_STAIR_DESCEND:
+		if (!IsOnStair) {
+			x = posXStair;
+			y += 8;
+		}
+		/*if (canClimbUpStair) {
+			IsOnStair = false;
+			IsUpStair = false;
+			IsDownStair = false;
+			y += 6;
+		}
+		else {
+			vx = -SIMON_WALKING_SPEED / 2;
+			vy = SIMON_WALKING_SPEED / 2;
+			IsOnStair = true;
+			IsUpStair = false;
+			IsDownStair = true;
+		}*/
+
+		vx = -SIMON_WALKING_SPEED / 2;
+		vy = SIMON_WALKING_SPEED / 2;
+		IsOnStair = true;
+		IsUpStair = false;
+		IsDownStair = true;
+		break;
 	case SIMON_STATE_FIGHTING:
+		if (IsJump) {
+			y -= 4;
+		}
 		vx = 0;
 		IsFighting = true;
 		timeAttackStart = currentTime;
@@ -107,19 +160,17 @@ void Simon::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 	{
 		int boxWidth = SIMON_BBOX_WIDTH;
 		int boxHeight = SIMON_BBOX_HEIGHT;
-		//switch (state)
-		//{
-		//case SIMON_STATE_JUMP:
-		//	boxWidth = SIMON_JUMP_BBOX_WIDTH;
-		//	boxHeight = SIMON_JUMP_BBOX_HEIGHT;
-		//	break;
-		//case SIMON_STATE_RUN_JUMP:
-		//	boxWidth = SIMON_JUMP_BBOX_WIDTH;
-		//	boxHeight = SIMON_JUMP_BBOX_HEIGHT;
-		//	break;
-		//}
+		if (IsJump && !IsFighting) {
+			boxHeight -= 8;
+		}
+
 		left = x;
 		top = y;
+
+		if (IsSit) {
+			boxHeight -= 8;
+			top = y + 8;
+		}
 		right = left + boxWidth;
 		bottom = top + boxHeight;
 	}
@@ -131,13 +182,23 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt);
 
 	// Simple fall down
-	vy += SIMON_GRAVITY * dt;
+	if (!IsOnStair) {
+		vy += SIMON_GRAVITY * dt;
+	}
+	else {
+		if (IsUpStair) {
+			nx = directionStair;
+		}
+		else {
+			nx = directionStair;
+		}
+	}
 
 	if (IsFighting)
 	{
 		whip->SetPosition(this->x, this->y, IsSit);
 		whip->Update(dt, coObjects);
-		if (now - timeAttackStart > (SIMON_ATTACK_TIME - 100))
+		if (now - timeAttackStart > (SIMON_ATTACK_TIME - 150))
 		{
 			whip->SetState(WHIP_STATE_HIT);
 		}
@@ -149,6 +210,13 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			whip->SetEnable(false);
 			ResetAnimationFighting();
 		}
+	}
+
+	if (canClimbUpStair) {
+		canClimbUpStair = false;
+	}
+	if (canClimbDownStair) {
+		canClimbDownStair = false;
 	}
 
 	for (UINT i = 0; i < coObjects->size(); i++)
@@ -168,8 +236,38 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 			}
 		}
-	}
+		else if (dynamic_cast<TopStair*>(coObjects->at(i))) {
+			TopStair* item = dynamic_cast<TopStair*>(coObjects->at(i));
 
+			float l1, t1, r1, b1, l2, t2, r2, b2;
+			GetBoundingBox(l1, t1, r1, b1);
+			item->GetBoundingBox(l2, t2, r2, b2);
+
+			if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))
+			{
+				canClimbDownStair = true;
+				posXStair = item->x;
+				posYStair = item->y;
+				directionStair = item->nx;
+			}
+		}
+		else if (dynamic_cast<BottomStair*>(coObjects->at(i))) {
+			BottomStair* item = dynamic_cast<BottomStair*>(coObjects->at(i));
+
+			float l1, t1, r1, b1, l2, t2, r2, b2;
+			GetBoundingBox(l1, t1, r1, b1);
+			item->GetBoundingBox(l2, t2, r2, b2);
+
+			if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))
+			{
+				canClimbUpStair = true;
+				posXStair = item->x;
+				posYStair = item->y;
+				directionStair = item->nx;
+			}
+		}
+
+	}
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -242,28 +340,62 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			if (dynamic_cast<BoundingMap*>(e->obj))
 			{
-				BoundingMap* boundingMap = dynamic_cast<BoundingMap*>(e->obj);
+				if (!IsOnStair || IsDownStair) {
+					BoundingMap* boundingMap = dynamic_cast<BoundingMap*>(e->obj);
+					// block 
+					if (e->ny < 0)
+					{
+						x += min_tx * dx + nx * 0.4f;
+						y += min_ty * dy + ny * 0.4f;
 
-				// block 
+						if (nx != 0) vx = 0;
+						if (ny != 0) vy = 0;
+					}
+					if (IsJump)
+					{
+						y -= 8;
+						IsJump = false;
+					}
+
+					if (IsOnStair) {
+						if (canClimbUpStair) {
+							IsOnStair = false;
+							IsUpStair = false;
+							IsDownStair = false;
+						}
+					}
+				}
+				else {
+					x += dx;
+					if (ny < 0)
+						y += dy + ny * 0.7f;
+					else if (ny > 0)
+						y += dy + ny * -0.7f;
+
+				}
+
+			}
+			else if (dynamic_cast<BottomStair*>(e->obj))
+			{
+				x += dx;
 				if (e->ny < 0)
 				{
-					x += min_tx * dx + nx * 0.4f;
-					y += min_ty * dy + ny * 0.4f;
-
-					if (nx != 0) vx = 0;
-					if (ny != 0) vy = 0;
+					y += dy + ny * -0.7f;
 				}
-
-				if (IsJump)
+				else if (e->nx != 0)
 				{
-					//SetState(SIMON_STATE_IDLE);
-					IsJump = false;
+					if (ny < 0)
+						y += dy + ny * 0.7f;
+					else if (ny > 0)
+						y += dy + ny * -0.7f;
 				}
+
 			}
 			else if (dynamic_cast<CPortal*>(e->obj))
 			{
 				CPortal* p = dynamic_cast<CPortal*>(e->obj);
-				CGame::GetInstance()->SwitchScene(p->GetSceneId());
+				CSceneManager::GetInstance()->SwitchScene(p->GetSceneId());
+				return;
 			}
 			else {
 				x += dx;
@@ -271,6 +403,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					y += dy + ny * 0.7f;
 				else if (ny > 0)
 					y += dy + ny * -0.7f;
+
 			}
 		}
 	}
@@ -313,6 +446,46 @@ void Simon::Render()
 			{
 				if (nx > 0) ani = SIMON_ANI_SIT_DOWN_RIGHT;
 				else ani = SIMON_ANI_SIT_DOWN_LEFT;
+			}
+		}
+		else if (IsUpStair) {
+			if (IsFighting)
+			{
+				if (nx > 0) ani = SIMON_ANI_FIGHTING_ASCEND_STAIR_RIGHT;
+				else ani = SIMON_ANI_FIGHTING_ASCEND_STAIR_LEFT;
+			}
+			else {
+				if (vx == 0)
+				{
+					if (nx > 0) ani = SIMON_ANI_IDLE_STAIR_ASCEND_RIGHT;
+					else ani = SIMON_ANI_IDLE_STAIR_ASCEND_LEFT;
+				}
+				else
+				{
+					if (vx > 0)
+						ani = SIMON_ANI_CIMB_STAIR_ASCEND_RIGHT;
+					else ani = SIMON_ANI_CIMB_STAIR_ASCEND_LEFT;
+				}
+			}
+		}
+		else if (IsDownStair) {
+			if (IsFighting)
+			{
+				if (nx > 0) ani = SIMON_ANI_FIGHTING_DESCEND_STAIR_RIGHT;
+				else ani = SIMON_ANI_FIGHTING_DESCEND_STAIR_LEFT;
+			}
+			else {
+				if (vx == 0)
+				{
+					if (nx > 0) ani = SIMON_ANI_IDLE_STAIR_DESCEND_LEFT;
+					else ani = SIMON_ANI_IDLE_STAIR_DESCEND_RIGHT;
+				}
+				else
+				{
+					if (vx > 0)
+						ani = SIMON_ANI_CIMB_STAIR_DESCEND_RIGHT;
+					else ani = SIMON_ANI_CIMB_STAIR_DESCEND_LEFT;
+				}
 			}
 		}
 		else {
@@ -365,9 +538,185 @@ void Simon::ResetAnimationFighting()
 
 	ResetAni(SIMON_ANI_FIGHTING_SIT_RIGHT);
 	ResetAni(SIMON_ANI_FIGHTING_SIT_LEFT);
+
+	ResetAni(SIMON_ANI_FIGHTING_ASCEND_STAIR_RIGHT);
+	ResetAni(SIMON_ANI_FIGHTING_ASCEND_STAIR_LEFT);
+
+
+	ResetAni(SIMON_ANI_FIGHTING_DESCEND_STAIR_RIGHT);
+	ResetAni(SIMON_ANI_FIGHTING_DESCEND_STAIR_LEFT);
 }
 
 void Simon::SetAnimationSetWhip(LPANIMATION_SET ani_set)
 {
 	whip->SetAnimationSet(ani_set);
+}
+
+void Simon::Load(LPCWSTR simonFile)
+{
+	DebugOut(L"[INFO] Start loading simon resources from : %s \n", simonFile);
+
+	ifstream f;
+	f.open(simonFile);
+
+	// current resource section flag
+	int section = SCENE_SECTION_UNKNOWN;
+
+	char str[MAX_SCENE_LINE];
+	while (f.getline(str, MAX_SCENE_LINE))
+	{
+		string line(str);
+
+		if (line[0] == '#') continue;	// skip comment lines
+		if (line[0] == '/' && line[1] == '/') continue;	// skip comment lines
+
+		if (line == "[TEXTURES]") { section = SCENE_SECTION_TEXTURES; continue; }
+		if (line == "[SPRITES]") {
+			section = SCENE_SECTION_SPRITES; continue;
+		}
+		if (line == "[ANIMATIONS]") {
+			section = SCENE_SECTION_ANIMATIONS; continue;
+		}
+		if (line == "[ANIMATION_SETS]") {
+			section = SCENE_SECTION_ANIMATION_SETS; continue;
+		}
+		if (line == "[SETTINGS]") {
+			section = SCENE_SECTION_SETTINGS; continue;
+		}
+		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }
+
+		//
+		// data section
+		//
+		switch (section)
+		{
+		case SCENE_SECTION_TEXTURES: _ParseSection_TEXTURES(line); break;
+		case SCENE_SECTION_SPRITES: _ParseSection_SPRITES(line); break;
+		case SCENE_SECTION_ANIMATIONS: _ParseSection_ANIMATIONS(line); break;
+		case SCENE_SECTION_ANIMATION_SETS: _ParseSection_ANIMATION_SETS(line); break;
+		case SCENE_SECTION_SETTINGS: _ParseSection_SETTINGS(line); break;
+		}
+	}
+
+	f.close();
+
+	CTextures::GetInstance()->Add(ID_TEX_BBOX, L"resources\\textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
+
+	DebugOut(L"[INFO] Done loading simon resources %s\n", simonFile);
+}
+
+void Simon::SetPosition(float x, float y)
+{
+	checkPointX = x;
+	checkPointY = y;
+	this->x = x;
+	this->y = y;
+}
+
+void Simon::_ParseSection_TEXTURES(string line)
+{
+	vector<string> tokens = split(line);
+
+	if (tokens.size() < 5) return; // skip invalid lines
+
+	int texID = atoi(tokens[0].c_str());
+	wstring path = ToWSTR(tokens[1]);
+	int R = atoi(tokens[2].c_str());
+	int G = atoi(tokens[3].c_str());
+	int B = atoi(tokens[4].c_str());
+
+	CTextures::GetInstance()->Add(texID, path.c_str(), D3DCOLOR_XRGB(R, G, B));
+}
+
+void Simon::_ParseSection_SPRITES(string line)
+{
+	vector<string> tokens = split(line);
+
+	if (tokens.size() < 6) return; // skip invalid lines
+
+	int ID = atoi(tokens[0].c_str());
+	int l = atoi(tokens[1].c_str());
+	int t = atoi(tokens[2].c_str());
+	int width = atoi(tokens[3].c_str());
+	int height = atoi(tokens[4].c_str());
+	int texID = atoi(tokens[5].c_str());
+	int dx = atoi(tokens[6].c_str());
+	int dy = atoi(tokens[7].c_str());
+
+	LPDIRECT3DTEXTURE9 tex = CTextures::GetInstance()->Get(texID);
+	if (tex == NULL)
+	{
+		DebugOut(L"[ERROR] Texture ID %d not found!\n", texID);
+		return;
+	}
+
+	CSprites::GetInstance()->AddByWidthHeight(ID, l, t, width, height, tex, dx, dy);
+}
+
+void Simon::_ParseSection_ANIMATIONS(string line)
+{
+	vector<string> tokens = split(line);
+
+	if (tokens.size() < 3) return; // skip invalid lines - an animation must at least has 1 frame and 1 frame time
+
+	//DebugOut(L"--> %s\n",ToWSTR(line).c_str());
+
+	LPANIMATION ani = new CAnimation();
+
+	int ani_id = atoi(tokens[0].c_str());
+	for (int i = 1; i < tokens.size(); i += 2)	// why i+=2 ?  sprite_id | frame_time  
+	{
+		int sprite_id = atoi(tokens[i].c_str());
+		int frame_time = atoi(tokens[i + 1].c_str());
+		ani->Add(sprite_id, frame_time);
+	}
+
+	CAnimations::GetInstance()->Add(ani_id, ani);
+}
+
+void Simon::_ParseSection_ANIMATION_SETS(string line)
+{
+	vector<string> tokens = split(line);
+
+	if (tokens.size() < 2) return; // skip invalid lines - an animation set must at least id and one animation id
+
+	int ani_set_id = atoi(tokens[0].c_str());
+
+	LPANIMATION_SET s = new CAnimationSet();
+
+	CAnimations* animations = CAnimations::GetInstance();
+
+	for (int i = 1; i < tokens.size(); i++)
+	{
+		int ani_id = atoi(tokens[i].c_str());
+
+		LPANIMATION ani = animations->Get(ani_id);
+		s->push_back(ani);
+	}
+
+	CAnimationSets::GetInstance()->Add(ani_set_id, s);
+}
+
+void Simon::_ParseSection_SETTINGS(string line)
+{
+	vector<string> tokens = split(line);
+
+	if (tokens.size() < 2) return;
+
+	if (tokens[0] == "animation_set")
+	{
+		int ani_set_id = atoi(tokens[1].c_str());
+		CAnimationSets* animation_sets = CAnimationSets::GetInstance();
+		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+		SetAnimationSet(ani_set);
+	}
+	else if (tokens[0] == "animation_set_whip")
+	{
+		int ani_set_whip_id = atoi(tokens[1].c_str());
+		CAnimationSets* animation_sets = CAnimationSets::GetInstance();
+		LPANIMATION_SET ani_set_whip = animation_sets->Get(ani_set_whip_id);
+		SetAnimationSetWhip(ani_set_whip);
+	}
+	else
+		DebugOut(L"[ERROR] Unknown scene setting %s\n", ToWSTR(tokens[0]).c_str());
 }

@@ -7,6 +7,8 @@
 #include "../Framework/Sprites.h"
 #include "../Framework/Portal.h"
 #include "../Framework/BoundingMap.h"
+#include "BottomStair.h"
+#include "TopStair.h"
 
 #include "Brick.h"
 #include "Torch.h"
@@ -29,18 +31,6 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 	Load scene resources from scene file (textures, sprites, animations and objects)
 	See scene1.txt, scene2.txt for detail format specification
 */
-
-#define SCENE_SECTION_UNKNOWN -1
-#define SCENE_SECTION_SETTINGS 0
-#define SCENE_SECTION_TEXTURES 2
-#define SCENE_SECTION_SPRITES 3
-#define SCENE_SECTION_ANIMATIONS 4
-#define SCENE_SECTION_ANIMATION_SETS	5
-#define SCENE_SECTION_OBJECTS	6
-#define SCENE_SECTION_TILEMAP 7
-#define SCENE_SECTION_GRID	8
-
-#define MAX_SCENE_LINE 1024
 
 
 void CPlayScene::_ParseSection_SETTINGS(string line)
@@ -70,6 +60,7 @@ void CPlayScene::_ParseSection_TEXTURES(string line)
 	int B = atoi(tokens[4].c_str());
 
 	CTextures::GetInstance()->Add(texID, path.c_str(), D3DCOLOR_XRGB(R, G, B));
+	listIdTextures.push_back(texID);
 }
 
 void CPlayScene::_ParseSection_SPRITES(string line)
@@ -95,6 +86,7 @@ void CPlayScene::_ParseSection_SPRITES(string line)
 	}
 
 	CSprites::GetInstance()->AddByWidthHeight(ID, l, t, width, height, tex, dx, dy);
+	listIdSprites.push_back(ID);
 }
 
 void CPlayScene::_ParseSection_ANIMATIONS(string line)
@@ -116,6 +108,7 @@ void CPlayScene::_ParseSection_ANIMATIONS(string line)
 	}
 
 	CAnimations::GetInstance()->Add(ani_id, ani);
+	listIdAnimations.push_back(ani_id);
 }
 
 void CPlayScene::_ParseSection_ANIMATION_SETS(string line)
@@ -139,6 +132,7 @@ void CPlayScene::_ParseSection_ANIMATION_SETS(string line)
 	}
 
 	CAnimationSets::GetInstance()->Add(ani_set_id, s);
+	listIdAnimationSets.push_back(ani_set_id);
 }
 
 /*
@@ -176,11 +170,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			DebugOut(L"[ERROR] MARIO object was created before! ");
 			return;
 		}
-		obj = new Simon(x, y);
-		player = (Simon*)obj;
-		int ani_set_whip_id = atoi(tokens[8].c_str());
-		LPANIMATION_SET ani_set_whip = animation_sets->Get(ani_set_whip_id);
-		player->SetAnimationSetWhip(ani_set_whip);
+		player = Simon::GetInstance();
+		player->SetPosition(x, y);
+		objects.push_back(obj);
+		return;
 	}
 	break;
 	case OBJECT_TYPE_TORCH: obj = new Torch(); break;
@@ -191,13 +184,16 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	{
 		int scene_id = atoi(tokens[7].c_str());
 		obj = new CPortal(x, y, width, height, scene_id);
+		obj->SetID(id);
 		objects.push_back(obj);
 		return;
 	}
 	break;
-	case OBJECT_TYPE_BOUNGDING_MAP:
-	{
-		obj = new BoundingMap();
+	case OBJECT_TYPE_BOUNGDING_MAP: obj = new BoundingMap(); break;
+		break;
+	case OBJECT_TYPE_BOTTOM_STAIR: {
+		obj = new BottomStair(ani_set_id);
+		obj->SetID(id);
 		obj->SetPosition(x, y);
 		obj->SetWidth(width);
 		obj->SetHeight(height);
@@ -205,7 +201,17 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		objects.push_back(obj);
 		return;
 	}
-	break;
+	case OBJECT_TYPE_TOP_STAIR:
+	{
+		obj = new TopStair(ani_set_id);
+		obj->SetID(id);
+		obj->SetPosition(x, y);
+		obj->SetWidth(width);
+		obj->SetHeight(height);
+		obj->SetType(object_type);
+		objects.push_back(obj);
+		return;
+	}
 	default:
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
 		return;
@@ -218,9 +224,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	obj->SetHeight(height);
 	obj->SetType(object_type);
 
-	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+	if (ani_set_id > 0) {
+		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 
-	obj->SetAnimationSet(ani_set);
+		obj->SetAnimationSet(ani_set);
+	}
+
 
 	objects.push_back(obj);
 }
@@ -340,7 +349,7 @@ void CPlayScene::Load()
 
 	f.close();
 
-	CTextures::GetInstance()->Add(ID_TEX_BBOX, L"resources\\textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
+	//CTextures::GetInstance()->Add(ID_TEX_BBOX, L"resources\\textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 
 	scoreBoard = new ScoreBoard(player, 16);
 
@@ -360,6 +369,9 @@ void CPlayScene::Update(DWORD dt)
 		coObjects[i]->Update(dt, &coObjects);
 	}
 
+	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
+	if (player == NULL) return;
+
 	//update scoreBoard
 	time += dt;
 	scoreBoard->Update(16, 300 - time * 0.001, 3, 1);
@@ -370,26 +382,38 @@ void CPlayScene::Update(DWORD dt)
 
 	player->GetPosition(cx, cy);
 
-	boundHeight = mapHeight + 22;
+	boundHeight = mapHeight;
 
-	if (cx + player->GetWidth() + 5 < SCREEN_WIDTH / 2) {
-		cx = pos.x;
-	}
-	else if (cx + player->GetWidth() + 5 + SCREEN_WIDTH / 2 > mapWidth - 1) {
-		cx = mapWidth - SCREEN_WIDTH - 1;
+	if (mapWidth > SCREEN_WIDTH) {
+		if (cx + player->GetWidth() + 5 < SCREEN_WIDTH / 2) {
+			cx = pos.x;
+		}
+		else if (cx + player->GetWidth() + 5 + SCREEN_WIDTH / 2 > mapWidth - 1) {
+			cx = mapWidth - SCREEN_WIDTH - 1;
+		}
+		else {
+			cx = cx + player->GetWidth() + 5 + SCREEN_WIDTH / 2 - SCREEN_WIDTH;
+		}
 	}
 	else {
-		cx = cx + player->GetWidth() + 5 + SCREEN_WIDTH / 2 - SCREEN_WIDTH;
+		cx = 0;
 	}
 
-	if (cy + player->GetHeight() / 2 < mapHeight - SCREEN_HEIGHT / 2) {
-		cy = cy + player->GetHeight() / 2 - SCREEN_HEIGHT / 2;
+	if (mapHeight > SCREEN_HEIGHT)
+	{
+		if (cy + player->GetHeight() / 2 < mapHeight - SCREEN_HEIGHT / 2) {
+			cy = cy + player->GetHeight() / 2 - SCREEN_HEIGHT / 2;
+		}
+		else {
+			cy = boundHeight - SCREEN_HEIGHT;
+		}
 	}
 	else {
-		cy = boundHeight - SCREEN_HEIGHT;
+		cy = mapHeight > SCREEN_HEIGHT;
 	}
 
-	camera->SetCameraPosition(cx, cy);
+
+	camera->SetCameraPosition((int)cx, (int)cy);
 }
 
 void CPlayScene::Render()
@@ -398,12 +422,12 @@ void CPlayScene::Render()
 
 	grid->GetListOfObjects(&coObjects, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	player->Render();
-
 	for (int i = 0; i < coObjects.size(); i++)
 	{
 		coObjects[i]->Render();
 	}
+
+	player->Render();
 
 	scoreBoard->Render();
 }
@@ -417,6 +441,7 @@ void CPlayScene::Unload()
 		delete objects[i];
 
 	objects.clear();
+	coObjects.clear();
 	player = NULL;
 
 	if (tileMap) {
@@ -431,6 +456,16 @@ void CPlayScene::Unload()
 	}
 	//delete tileMap;
 	//delete grid;
+
+	CTextures::GetInstance()->Clear(listIdTextures);
+	CSprites::GetInstance()->Clear(listIdSprites);
+	CAnimations::GetInstance()->Clear(listIdAnimations);
+	CAnimationSets::GetInstance()->Clear(listIdAnimationSets);
+
+	listIdTextures.clear();
+	listIdSprites.clear();
+	listIdAnimations.clear();
+	listIdAnimationSets.clear();
 }
 
 void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
@@ -447,7 +482,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 		}
 		break;
 	case DIK_X:
-		if (!simon->IsJump && !simon->IsFighting)
+		if (!simon->IsJump && !simon->IsFighting && !simon->IsSit)
 		{
 			simon->SetState(SIMON_STATE_JUMP);
 		}
@@ -470,15 +505,34 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 	case DIK_LEFT:
 		simon->vx = 0;
 		simon->IsRun = false;
+		if (simon->IsOnStair) {
+			simon->vx = 0;
+			simon->vy = 0;
+		}
 		break;
 	case DIK_RIGHT:
 		simon->vx = 0;
 		simon->IsRun = false;
+		if (simon->IsOnStair) {
+			simon->vx = 0;
+			simon->vy = 0;
+		}
 		break;
 	case DIK_DOWN:
-		simon->IsSit = false;
+		if (simon->IsSit) {
+			simon->IsSit = false;
+			simon->y -= 8;
+		}
+		if (simon->IsOnStair) {
+			simon->vx = 0;
+			simon->vy = 0;
+		}
 		break;
 	case DIK_UP:
+		if (simon->IsOnStair) {
+			simon->vx = 0;
+			simon->vy = 0;
+		}
 		break;
 	}
 }
@@ -491,21 +545,60 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 	// disable control key when Mario die 
 	if (simon->GetState() == SIMON_STATE_DIE) return;
 	if (game->IsKeyDown(DIK_DOWN))
-		simon->SetState(SIMON_STATE_SIT_DOWN);
+	{
+		if (simon->canClimbDownStair)
+		{
+			simon->SetState(SIMON_STATE_CLIMB_STAIR_DESCEND);
+		}
+		else if (simon->IsOnStair) {
+			simon->SetState(SIMON_STATE_CLIMB_STAIR_DESCEND);
+		}
+		else {
+			simon->SetState(SIMON_STATE_SIT_DOWN);
+		}
+	}
+	else if (game->IsKeyDown(DIK_UP)) {
+		if (simon->canClimbUpStair)
+		{
+			simon->SetState(SIMON_STATE_CLIMB_STAIR_ASCEND);
+		}
+		else if (simon->IsOnStair) {
+			simon->SetState(SIMON_STATE_CLIMB_STAIR_ASCEND);
+		}
+	}
 	else if (game->IsKeyDown(DIK_RIGHT))
 	{
-		if (!simon->IsFighting)
+		if (simon->IsOnStair && !simon->canClimbDownStair && !simon->canClimbUpStair) {
+			if (simon->directionStair == 1)
+			{
+				simon->SetState(SIMON_STATE_CLIMB_STAIR_ASCEND);
+			}
+			else if (simon->directionStair == -1) {
+				simon->SetState(SIMON_STATE_CLIMB_STAIR_DESCEND);
+			}
+		}
+		else if (!simon->IsFighting)
 		{
 			simon->SetState(SIMON_STATE_WALK_RIGHT);
 		}
 	}
 	else if (game->IsKeyDown(DIK_LEFT))
 	{
-		if (!simon->IsFighting)
+		if (simon->IsOnStair && !simon->canClimbDownStair && !simon->canClimbUpStair) {
+			if (simon->directionStair == 1)
+			{
+				simon->SetState(SIMON_STATE_CLIMB_STAIR_DESCEND);
+			}
+			else if (simon->directionStair == -1) {
+				simon->SetState(SIMON_STATE_CLIMB_STAIR_ASCEND);
+			}
+		}
+		else if (!simon->IsFighting)
 		{
 			simon->SetState(SIMON_STATE_WALK_LEFT);
 		}
 	}
+
 	else
 		simon->SetState(SIMON_STATE_IDLE);
 

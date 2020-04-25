@@ -64,6 +64,16 @@ namespace MapEditor
                 Id = 14;
                 AniSetId = sceneId;
             }
+            else if (this.Name == "BottomStair")
+            {
+                Id = 15;
+                AniSetId = -1;
+            }
+            else if (this.Name == "TopStair")
+            {
+                Id = 16;
+                AniSetId = -1;
+            }
             //item
             else if (this.Name == "Whip")
             {
@@ -92,10 +102,6 @@ namespace MapEditor
         public string toObjectStr()
         {
             string str = Id + " " + Name + " " + PosX + " " + PosY + " " + Width + " " + Height + " " + AniSetId;
-            if (this.Id == 1)
-            {
-                str += " " + 2;//animation set whip
-            }
             return str;
         }
     }

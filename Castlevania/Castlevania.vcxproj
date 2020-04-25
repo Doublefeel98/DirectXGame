@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BottomStair.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Candle.cpp" />
     <ClCompile Include="CollisionEffect.cpp" />
@@ -135,10 +136,12 @@
     <ClCompile Include="PlayScence.cpp" />
     <ClCompile Include="ScoreBoard.cpp" />
     <ClCompile Include="Simon.cpp" />
+    <ClCompile Include="TopStair.cpp" />
     <ClCompile Include="Torch.cpp" />
     <ClCompile Include="Whip.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BottomStair.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Candle.h" />
     <ClInclude Include="CollisionEffect.h" />
@@ -151,6 +154,7 @@
     <ClInclude Include="PlayScence.h" />
     <ClInclude Include="ScoreBoard.h" />
     <ClInclude Include="Simon.h" />
+    <ClInclude Include="TopStair.h" />
     <ClInclude Include="Torch.h" />
     <ClInclude Include="Whip.h" />
   </ItemGroup>

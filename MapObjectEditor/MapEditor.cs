@@ -116,22 +116,33 @@ namespace MapEditor
                 if (imgIndex >= 0 && imgIndex < this.imageListOB.Images.Count)
                 {
                     imageCursor = this.imageListOB.Images[imgIndex];
-                    //if (imgIndex == 0)
-                    //{
-                    //    imageCursor = Utilities.ResizeImage(imageCursor, 16, 31);
-                    //}
-                    //else if (imgIndex == 1)
-                    //{
-                    //    imageCursor = Utilities.ResizeImage(imageCursor, 32, 32);
-                    //}
-                    //else if (imgIndex == 2)
-                    //{
-                    //    imageCursor = Utilities.ResizeImage(imageCursor, 32, 32);
-                    //}
-                    //else if (imgIndex == 3)
-                    //{
-                    //    imageCursor = Utilities.ResizeImage(imageCursor, 32, 64);
-                    //}
+                    switch (imgIndex)
+                    {
+                        case 0:
+                        case 1:
+                            imageCursor = Utilities.ResizeImage(imageCursor, 16, 32);
+                            break;
+                        case 2:
+                            imageCursor = Utilities.ResizeImage(imageCursor, 8, 16);
+                            break;
+                        case 3:
+                            imageCursor = Utilities.ResizeImage(imageCursor, 24, 48);
+                            break;
+                        case 4:
+                        case 5:
+                        case 8:
+                        case 9:
+                        case 10:
+                        case 11:
+                            imageCursor = Utilities.ResizeImage(imageCursor, 16, 16);
+                            break;
+                        case 6:
+                        case 7:
+                        case 12:
+                            imageCursor = Utilities.ResizeImage(imageCursor, 8, 8);
+                            break;
+
+                    }
                 }
             }
 
@@ -211,18 +222,22 @@ namespace MapEditor
         {
             if (listObject.Count > 0)
             {
-                using (var fbd = new FolderBrowserDialog())
+                using (var folderBrowser = new OpenFileDialog())
                 {
-                    DialogResult result = fbd.ShowDialog();
-
-                    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                    folderBrowser.ValidateNames = false;
+                    folderBrowser.CheckFileExists = false;
+                    folderBrowser.CheckPathExists = true;
+                    // Always default to Folder Selection.
+                    folderBrowser.FileName = "Folder Selection.";
+                    if (folderBrowser.ShowDialog() == DialogResult.OK)
                     {
+                        string folderPath = Path.GetDirectoryName(folderBrowser.FileName);
                         grid.clearObject();
                         for (int i = 0; i < listObject.Count; i++)
                             grid.AddObjToCell(listObject[i], i);
 
-                        Utilities.WriteFileTxTObj(fbd.SelectedPath, listObject);
-                        Utilities.WriteFileTxtGrid(fbd.SelectedPath, grid);
+                        Utilities.WriteFileTxTObj(folderPath, listObject);
+                        Utilities.WriteFileTxtGrid(folderPath, grid);
                         MessageBox.Show("Save successfully!");
                     }
                 }
@@ -399,22 +414,22 @@ namespace MapEditor
         {
             int imgIndex = getImageIndexByName(name);
             Image image = this.imageListOB.Images[imgIndex];
-            if (imgIndex == 0)
-            {
-                image = Utilities.ResizeImage(image, 32, 64);
-            }
-            else if (imgIndex == 1)
-            {
-                image = Utilities.ResizeImage(image, 32, 32);
-            }
-            else if (imgIndex == 2)
-            {
-                image = Utilities.ResizeImage(image, 32, 32);
-            }
-            else if (imgIndex == 3)
-            {
-                image = Utilities.ResizeImage(image, 32, 64);
-            }
+            //if (imgIndex == 0)
+            //{
+            //    image = Utilities.ResizeImage(image, 32, 64);
+            //}
+            //else if (imgIndex == 1)
+            //{
+            //    image = Utilities.ResizeImage(image, 32, 32);
+            //}
+            //else if (imgIndex == 2)
+            //{
+            //    image = Utilities.ResizeImage(image, 32, 32);
+            //}
+            //else if (imgIndex == 3)
+            //{
+            //    image = Utilities.ResizeImage(image, 32, 64);
+            //}
             return image;
         }
 
@@ -512,7 +527,7 @@ namespace MapEditor
                     if (int.TryParse(infos[1], out id))
                     {
                         p = new PictureBox();
-                        p.Image = getImageByName(name);
+                        p.Image = Utilities.ResizeImage(getImageByName(name), width, height);
                         p.Location = new Point(posX, posY);
                         p.SizeMode = PictureBoxSizeMode.AutoSize;
                         p.BackColor = Color.Transparent;

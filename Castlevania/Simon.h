@@ -12,20 +12,35 @@ class Simon : public CGameObject
 	int energy;
 	DWORD untouchable_start;
 	DWORD timeAttackStart;
+	float oldVy;
 
 	float checkPointX, checkPointY;
 	Whip* whip;
+	float posXStair, posYStair;
+
+	void _ParseSection_TEXTURES(string line);
+	void _ParseSection_SPRITES(string line);
+	void _ParseSection_ANIMATIONS(string line);
+	void _ParseSection_ANIMATION_SETS(string line);
+	void _ParseSection_SETTINGS(string line);
+
+	Simon();
 public:
-	Simon(float x, float y);
+
 	static Simon* GetInstance();
 	bool IsFighting;
 	bool IsSit;
 	bool IsJump;
-	bool IsAscendStair;
-	bool IsDescendStair;
 
 	bool IsRun;
 	bool IsGround;
+
+	bool IsOnStair;
+	bool IsUpStair;
+	bool IsDownStair;
+	bool canClimbUpStair;
+	bool canClimbDownStair;
+	int directionStair;
 
 	void Reset();
 
@@ -46,5 +61,8 @@ public:
 	void ResetCheckpoint();
 	void ResetAnimationFighting();
 	void SetAnimationSetWhip(LPANIMATION_SET ani_set);
+
+	void Load(LPCWSTR simonFile);
+	void SetPosition(float x, float y);
 };
 

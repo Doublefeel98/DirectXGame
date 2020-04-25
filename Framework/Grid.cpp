@@ -122,22 +122,51 @@ void Grid::GetListOfObjects(vector<LPGAMEOBJECT>* list_object, int screenWidth, 
 
 	LPGAMEOBJECT e;
 
+	if (right < 0 || left > numXCells || bottom < 0 && top > numYCells)
+	{
+		return;
+	}
+
+	if (right > numXCells)
+	{
+		right = numXCells;
+	}
+	if (bottom > numYCells)
+	{
+		bottom = numYCells;
+	}
+
+	if (left < 0)
+	{
+		left = 0;
+	}
+	if (top > 0)
+	{
+		top = 0;
+	}
+
+	LPCELL cell;
 	for (i = left; i < right; i++)
 	{
 		for (j = top; j < bottom; j++)
 		{
-			if (cells[i][j].GetListObjects().size() != 0)
+			LPCELL cell = &cells[i][j];
+			if (cell)
 			{
-				for (k = 0; k < cells[i][j].GetListObjects().size(); k++)
+				if (cells[i][j].GetListObjects().size() != 0)
 				{
-					e = cells[i][j].GetListObjects().at(k);
-					if (!checkContainId(list_object, e)) {
-						list_object->push_back(e);
-					}
+					for (k = 0; k < cells[i][j].GetListObjects().size(); k++)
+					{
+						e = cells[i][j].GetListObjects().at(k);
+						if (!checkContainId(list_object, e)) {
+							list_object->push_back(e);
+						}
 
-					//list_object->push_back(e);
+						//list_object->push_back(e);
+					}
 				}
 			}
+
 		}
 	}
 

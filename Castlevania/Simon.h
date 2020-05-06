@@ -1,8 +1,8 @@
 ﻿#pragma once
 #include "Whip.h"
-#include "../Framework/GameObject.h"
+#include "../Framework/Player.h"
 
-class Simon : public CGameObject
+class Simon : public CPlayer
 {
 	static Simon* __instance;
 	int level;
@@ -18,6 +18,9 @@ class Simon : public CGameObject
 	Whip* whip;
 	float posXStair, posYStair;
 
+	int hurtable;
+	DWORD hurtable_start;
+
 	void _ParseSection_TEXTURES(string line);
 	void _ParseSection_SPRITES(string line);
 	void _ParseSection_ANIMATIONS(string line);
@@ -31,6 +34,7 @@ public:
 	bool IsFighting;
 	bool IsSit;
 	bool IsJump;
+	bool IsHurt;
 
 	bool IsRun;
 	bool IsGround;
@@ -58,11 +62,13 @@ public:
 	int GetLevelWhip();
 	void SetEnergy(int energy) { this->energy = energy; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
+	void StartHurting() { IsHurt = true; hurtable = 1; hurtable_start = GetTickCount(); }
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();
 	void ResetCheckpoint();
 	void ResetAnimationFighting();
+	void ResetAnimationHurt();
 	void SetAnimationSetWhip(LPANIMATION_SET ani_set);
 
 	void Load(LPCWSTR simonFile);

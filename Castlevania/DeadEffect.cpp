@@ -1,5 +1,12 @@
 #include "DeadEffect.h"
 
+
+void DeadEffect::SetPosition(float x, float y)
+{
+	this->x = x;
+	this->y = y;
+}
+
 void DeadEffect::Render()
 {
 	if (isEnable)

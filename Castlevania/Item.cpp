@@ -3,6 +3,8 @@
 #include <time.h>
 #include "Brick.h"
 #include "../Framework/BoundingMap.h"
+#include "../Framework/Ground.h"
+#include "../Framework/Utils.h"
 
 void Item::RandomType()
 {
@@ -57,6 +59,8 @@ void Item::RandomWeapon()
 
 void Item::Init()
 {
+	IsGround = false;
+	vy = 0;
 	switch (typeItem)
 	{
 	case ITEM_WHIP:
@@ -115,6 +119,25 @@ void Item::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 				top = y;
 				right = x + 12;
 				bottom = y + 10;
+				break;
+			case ITEM_SMALL_HEART:
+				left = x;
+				top = y;
+				right = x + 8;
+				bottom = y + 8;
+				break;
+			case ITEM_KNIFE:
+				left = x;
+				top = y;
+				right = x + 16;
+				bottom = y + 9;
+				break;
+			case ITEM_BOOMERANG:
+				left = x;
+				top = y;
+				right = x + 15;
+				bottom = y + 14;
+				break;
 			default:
 				break;
 			}
@@ -127,7 +150,49 @@ void Item::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (!isDead && isEnable)
 	{
 		CGameObject::Update(dt, coObjects);
-		vy += SIMON_GRAVITY * dt;
+		if (typeItem != ITEM_SMALL_HEART) {
+			vy += SIMON_GRAVITY * dt;
+		}
+		else {
+			vy = SIMON_GRAVITY * dt * 2;
+			if (!IsGround) {
+				DWORD now = GetTickCount();
+				int temp = 300;
+				if (IsFirstTime) {
+					//temp = temp / 2;
+				}
+
+				if (now - timeStartEnable >= temp) {
+					if (IsFirstTime) {
+						IsFirstTime = false;
+						DebugOut(L"[INFO] item vx1 %d\n", nx);
+					}
+					if (nx == 1) {
+						vx = -SIMON_WALKING_SPEED;
+						nx = -1;
+					}
+					else {
+						vx = SIMON_WALKING_SPEED;
+						nx = 1;
+					}
+					DebugOut(L"[INFO] item vx2 %d\n", nx);
+
+					timeStartEnable = now;
+				}
+				else {
+					if (nx == 1) {
+						vx = SIMON_WALKING_SPEED;
+					}
+					else {
+						vx = -SIMON_WALKING_SPEED;
+					}
+				}
+			}
+			else {
+				vx = 0;
+			}
+		}
+
 		vector<LPCOLLISIONEVENT> coEvents;
 		vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -159,7 +224,7 @@ void Item::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			for (UINT i = 0; i < coEventsResult.size(); i++)
 			{
 				LPCOLLISIONEVENT e = coEventsResult[i];
-				if (dynamic_cast<BoundingMap*>(e->obj))
+				if (dynamic_cast<Ground*>(e->obj))
 				{
 					if (e->ny < 0)
 					{
@@ -168,6 +233,7 @@ void Item::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 						if (nx != 0) vx = 0;
 						if (ny != 0) vy = 0;
+						IsGround = true;
 					}
 				}
 
@@ -181,5 +247,15 @@ void Item::Render()
 {
 	if (this->isEnable == true) {
 		animation_set->at(typeItem)->Render(x, y);
+		RenderBoundingBox();
 	}
+}
+
+void Item::TurnOnTimeStartEnable()
+{
+	timeStartEnable = GetTickCount();
+	nx = 1;
+	vx = SIMON_WALKING_SPEED;
+	vy = SIMON_GRAVITY * dt * 2;
+	IsFirstTime = true;
 }

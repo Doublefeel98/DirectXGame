@@ -1,5 +1,11 @@
 #include "CollisionEffect.h"
 
+void CollisionEffect::SetPosition(float x, float y)
+{
+	this->x = x;
+	this->y = y;
+}
+
 void CollisionEffect::Render()
 {
 	if (isEnable)

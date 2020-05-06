@@ -10,6 +10,9 @@ class Item : public CGameObject
 	void RandomItem();
 	void RandomWeapon();
 	void Init();
+	DWORD timeStartEnable;
+	bool IsGround;
+	bool IsFirstTime;
 public:
 	Item();
 	Item(int typeItem);
@@ -17,6 +20,7 @@ public:
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
+	void TurnOnTimeStartEnable();
 	int GetTypeItem() { return typeItem; }
 };
 

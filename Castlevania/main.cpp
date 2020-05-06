@@ -33,6 +33,7 @@
 #define MAX_FRAME_RATE 120
 
 CGame* game;
+CSceneManager* sceneManager;
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -55,7 +56,7 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 */
 void Update(DWORD dt)
 {
-	CSceneManager::GetInstance()->GetCurrentScene()->Update(dt);
+	sceneManager->GetCurrentScene()->Update(dt);
 }
 
 /*
@@ -74,7 +75,7 @@ void Render()
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-		CSceneManager::GetInstance()->GetCurrentScene()->Render();
+		sceneManager->GetCurrentScene()->Render();
 
 		spriteHandler->End();
 		d3ddv->EndScene();
@@ -179,7 +180,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	game->InitKeyboard();
 	game->SetDeviationY(45);
 
-	CSceneManager::GetInstance()->Load(L"resources\\simon-sample.txt");
+	sceneManager = CSceneManager::GetInstance();
+	sceneManager->SetPlayer(Simon::GetInstance());
+	sceneManager->Load(L"resources\\simon-sample.txt");
 
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 

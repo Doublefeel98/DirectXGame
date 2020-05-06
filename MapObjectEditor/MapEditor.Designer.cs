@@ -324,11 +324,21 @@
             this.imageListOB.Images.SetKeyName(5, "Portal");
             this.imageListOB.Images.SetKeyName(6, "BottomStair");
             this.imageListOB.Images.SetKeyName(7, "TopStair");
-            this.imageListOB.Images.SetKeyName(8, "Whip");
-            this.imageListOB.Images.SetKeyName(9, "Money");
-            this.imageListOB.Images.SetKeyName(10, "Ball");
-            this.imageListOB.Images.SetKeyName(11, "SmallHeart");
-            this.imageListOB.Images.SetKeyName(12, "Heart");
+            this.imageListOB.Images.SetKeyName(8, "Ground");
+            this.imageListOB.Images.SetKeyName(9, "Whip");
+            this.imageListOB.Images.SetKeyName(10, "Money");
+            this.imageListOB.Images.SetKeyName(11, "Ball");
+            this.imageListOB.Images.SetKeyName(12, "SmallHeart");
+            this.imageListOB.Images.SetKeyName(13, "Heart");
+            this.imageListOB.Images.SetKeyName(14, "Knife");
+            this.imageListOB.Images.SetKeyName(15, "Axe");
+            this.imageListOB.Images.SetKeyName(16, "Boomerang");
+            this.imageListOB.Images.SetKeyName(17, "Crown");
+            this.imageListOB.Images.SetKeyName(18, "Zombie");
+            this.imageListOB.Images.SetKeyName(19, "BlackLeopard");
+            this.imageListOB.Images.SetKeyName(20, "VampireBat");
+            this.imageListOB.Images.SetKeyName(21, "FishMan");
+            this.imageListOB.Images.SetKeyName(22, "BlackKnight");
             // 
             // buttonSave
             // 

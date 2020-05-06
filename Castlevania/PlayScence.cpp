@@ -7,6 +7,7 @@
 #include "../Framework/Sprites.h"
 #include "../Framework/Portal.h"
 #include "../Framework/BoundingMap.h"
+#include "../Framework/Ground.h"
 #include "BottomStair.h"
 #include "TopStair.h"
 
@@ -15,6 +16,8 @@
 #include "Candle.h"
 #include "Item.h"
 #include "Define.h"
+#include "BlackKnight.h"
+#include "VampireBat.h"
 
 using namespace std;
 
@@ -128,14 +131,16 @@ void CPlayScene::_ParseSection_ANIMATIONS(string line)
 {
 	vector<string> tokens = split(line);
 
-	if (tokens.size() < 3) return; // skip invalid lines - an animation must at least has 1 frame and 1 frame time
+	if (tokens.size() < 4) return; // skip invalid lines - an animation must at least has 1 frame and 1 frame time
 
 	//DebugOut(L"--> %s\n",ToWSTR(line).c_str());
 
-	LPANIMATION ani = new CAnimation();
+	int isLoop = atoi(tokens[1].c_str());
+
+	LPANIMATION ani = new CAnimation(100, isLoop);
 
 	int ani_id = atoi(tokens[0].c_str());
-	for (int i = 1; i < tokens.size(); i += 2)	// why i+=2 ?  sprite_id | frame_time  
+	for (int i = 2; i < tokens.size(); i += 2)	// why i+=2 ?  sprite_id | frame_time  
 	{
 		int sprite_id = atoi(tokens[i].c_str());
 		int frame_time = atoi(tokens[i + 1].c_str());
@@ -214,7 +219,13 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_TORCH: obj = new Torch(); break;
 	case OBJECT_TYPE_CANDLE: obj = new Candle(); break;
 	case OBJECT_TYPE_ITEM_HEART: obj = new Item(ITEM_HEART); break;
+	case OBJECT_TYPE_ITEM_SMALL_HEART: obj = new Item(ITEM_SMALL_HEART); break;
+	case OBJECT_TYPE_ITEM_KNIFE: obj = new Item(ITEM_KNIFE); break;
+	case OBJECT_TYPE_ITEM_AXE: obj = new Item(ITEM_AXE); break;
+	case OBJECT_TYPE_ITEM_BOOMERANG: obj = new Item(ITEM_BOOMERANG); break;
 	case OBJECT_TYPE_ITEM_WHIP: obj = new Item(ITEM_WHIP); break;
+	case OBJECT_TYPE_VAMPIRE_BAT: obj = new VampireBat(x, y); break;
+	case OBJECT_TYPE_BLACK_KNGHT: obj = new BlackKnight(x, y); break;
 	case OBJECT_TYPE_PORTAL:
 	{
 		int scene_id = atoi(tokens[7].c_str());
@@ -225,6 +236,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	}
 	break;
 	case OBJECT_TYPE_BOUNGDING_MAP: obj = new BoundingMap(); break;
+		break;
+	case OBJECT_TYPE_GROUND: obj = new Ground(); break;
 		break;
 	case OBJECT_TYPE_BOTTOM_STAIR: {
 		obj = new BottomStair(ani_set_id);

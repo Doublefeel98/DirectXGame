@@ -90,6 +90,27 @@
     <ClCompile Include="TopStair.cpp">
       <Filter>Source Files\Objects\maps</Filter>
     </ClCompile>
+    <ClCompile Include="BlackKnight.cpp">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="BlackLeopard.cpp">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="VampireBat.cpp">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Zombie.cpp">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="FishMan.cpp">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="MoneyEffect.cpp">
+      <Filter>Source Files\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Simon.h">
@@ -139,6 +160,27 @@
     </ClInclude>
     <ClInclude Include="BottomStair.h">
       <Filter>Source Files\Objects\maps</Filter>
+    </ClInclude>
+    <ClInclude Include="BlackKnight.h">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="BlackLeopard.h">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="FishMan.h">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="VampireBat.h">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Zombie.h">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="MoneyEffect.h">
+      <Filter>Source Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Source Files\Objects\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

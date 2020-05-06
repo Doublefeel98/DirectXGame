@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include "GameObject.h"
 
 #define E_INVINCIBLE_TIME 0.4

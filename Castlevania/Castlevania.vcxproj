@@ -123,40 +123,54 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BlackKnight.cpp" />
+    <ClCompile Include="BlackLeopard.cpp" />
     <ClCompile Include="BottomStair.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Candle.cpp" />
     <ClCompile Include="CollisionEffect.cpp" />
     <ClCompile Include="DeadEffect.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="FishMan.cpp" />
     <ClCompile Include="Gate.cpp" />
     <ClCompile Include="HP.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemBoard.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MoneyEffect.cpp" />
     <ClCompile Include="PlayScence.cpp" />
     <ClCompile Include="ScoreBoard.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="TopStair.cpp" />
     <ClCompile Include="Torch.cpp" />
+    <ClCompile Include="VampireBat.cpp" />
     <ClCompile Include="Whip.cpp" />
+    <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BlackKnight.h" />
+    <ClInclude Include="BlackLeopard.h" />
     <ClInclude Include="BottomStair.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Candle.h" />
     <ClInclude Include="CollisionEffect.h" />
     <ClInclude Include="DeadEffect.h" />
     <ClInclude Include="Define.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="FishMan.h" />
     <ClInclude Include="Gate.h" />
     <ClInclude Include="HP.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemBoard.h" />
+    <ClInclude Include="MoneyEffect.h" />
     <ClInclude Include="PlayScence.h" />
     <ClInclude Include="ScoreBoard.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="TopStair.h" />
     <ClInclude Include="Torch.h" />
+    <ClInclude Include="VampireBat.h" />
     <ClInclude Include="Whip.h" />
+    <ClInclude Include="Zombie.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Framework\Framework.vcxproj">

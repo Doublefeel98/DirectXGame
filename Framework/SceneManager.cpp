@@ -5,12 +5,16 @@
 #include "Animations.h"
 
 #include "../Castlevania/PlayScence.h";
-#include "../Castlevania/Simon.h";
 
 CSceneManager* CSceneManager::__instance = NULL;
 
 CSceneManager::CSceneManager()
 {
+}
+
+void CSceneManager::SetPlayer(CPlayer* player)
+{
+	this->player = player;
 }
 
 CSceneManager* CSceneManager::GetInstance()
@@ -33,8 +37,8 @@ void CSceneManager::_ParseSection_SETTINGS(string line)
 	if (tokens.size() < 2) return;
 	if (tokens[0] == "start")
 		current_scene = atoi(tokens[1].c_str());
-	else if (tokens[0] == "simon") {
-		Simon::GetInstance()->Load(ToLPCWSTR(tokens[1]));
+	else if (tokens[0] == "player") {
+		player->Load(ToLPCWSTR(tokens[1]));
 	}
 	else
 		DebugOut(L"[ERROR] Unknown game setting %s\n", ToWSTR(tokens[0]).c_str());
@@ -102,8 +106,8 @@ void CSceneManager::Load(LPCWSTR gameFile)
 
 LPSCENE CSceneManager::GetCurrentScene()
 {
-	DebugOut(L"[INFO] scenes.size game %d\n", scenes.size());
-	DebugOut(L"[INFO] current_scene game %d\n", current_scene);
+	//DebugOut(L"[INFO] scenes.size game %d\n", scenes.size());
+	//DebugOut(L"[INFO] current_scene game %d\n", current_scene);
 	return scenes[current_scene];
 }
 

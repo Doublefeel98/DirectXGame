@@ -1,4 +1,6 @@
 #include "../Framework/GameObject.h"
+#include "CollisionEffect.h"
+#include "DeadEffect.h"
 
 class Whip :public CGameObject
 {

@@ -7,7 +7,7 @@ BoundingMap::BoundingMap()
 
 void BoundingMap::Render()
 {
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 

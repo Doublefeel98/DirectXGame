@@ -1,9 +1,12 @@
 #include "Whip.h"
 #include "Define.h"
 #include "Torch.h"
+#include "Candle.h"
 #include "Item.h"
 #include "../Framework/Game.h"
 #include "../Framework/Utils.h"
+#include "Enemy.h"
+
 
 void Whip::Render()
 {
@@ -132,7 +135,6 @@ void Whip::Render(bool IsRight)
 		{
 			RenderBoundingBox();
 		}
-
 	}
 }
 
@@ -147,7 +149,7 @@ void Whip::SetPosition(float x, float y, bool Issit)
 
 void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (state == WHIP_STATE_HIT)
+	if (state == WHIP_STATE_HIT && isEnable)
 	{
 		CGameObject::Update(dt);
 
@@ -159,11 +161,30 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))
 			{
-				if (dynamic_cast<Item*>(coObjects->at(i))) {
+				if (dynamic_cast<Enemy*>(coObjects->at(i))) {
+
+					Enemy* enemy = dynamic_cast<Enemy*>(coObjects->at(i));
+
+					if ((coObjects->at(i))->nx != 0)
+					{
+						enemy->GetCollisionEffect()->SetEnable(true);
+						if (enemy->isEnable != false) {
+							enemy->SetHP(enemy->GetHP() - this->damage);
+							this->isEnable = false;
+							//Simon::IsFighting = false;
+							ResetAnimation();
+						}
+					}
+
+				}
+				else if (dynamic_cast<Item*>(coObjects->at(i))) {
 					Item* item = dynamic_cast<Item*>(coObjects->at(i));
 
 					if (!item->IsDead() && !item->IsEnable()) {
 						item->SetEnable(true);
+						if (item->GetTypeItem() == ITEM_SMALL_HEART) {
+							item->TurnOnTimeStartEnable();
+						}
 					}
 				}
 				else if (dynamic_cast<Torch*>(coObjects->at(i))) {
@@ -174,6 +195,16 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						torch->GetDeadEffect()->SetEnable(true);
 						torch->isEnable = false;
 						torch->isDead = true;
+					}
+				}
+				else if (dynamic_cast<Candle*>(coObjects->at(i))) {
+					Candle* candle = dynamic_cast<Candle*>(coObjects->at(i));
+
+					if (candle->isEnable) {
+						candle->GetCollisionEffect()->SetEnable(true);
+						candle->GetDeadEffect()->SetEnable(true);
+						candle->isEnable = false;
+						candle->isDead = true;
 					}
 				}
 			}

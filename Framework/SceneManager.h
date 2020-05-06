@@ -1,5 +1,6 @@
 #pragma once
 #include "Scence.h"
+#include "Player.h"
 #include <unordered_map>
 using namespace std;
 
@@ -13,7 +14,9 @@ private:
 
 	void _ParseSection_SETTINGS(string line);
 	void _ParseSection_SCENES(string line);
+	CPlayer* player;
 public:
+	void SetPlayer(CPlayer* player);
 	static CSceneManager* GetInstance();
 	~CSceneManager();
 

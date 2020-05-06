@@ -7,8 +7,11 @@
 #include "../Framework/Utils.h"
 #include "../Framework/Portal.h"
 #include "../Framework/BoundingMap.h"
+#include "../Framework/Ground.h"
 #include "BottomStair.h"
 #include "TopStair.h"
+#include "Enemy.h"
+#include "VampireBat.h"
 
 #include <iostream>
 #include <fstream>
@@ -80,7 +83,7 @@ void Simon::SetState(int state)
 		vy = -SIMON_JUMP_SPEED_Y;
 	case SIMON_STATE_IDLE:
 		IsSit = false;
-		vx = 0;
+		//vx = 0;
 		break;
 	case SIMON_STATE_DIE:
 		vy = -SIMON_DIE_DEFLECT_SPEED;
@@ -98,6 +101,7 @@ void Simon::SetState(int state)
 			IsUpStair = false;
 			IsDownStair = false;
 			y -= 2;
+			vx = 0;
 		}
 		else {
 			vx = SIMON_WALKING_SPEED / 2;
@@ -141,6 +145,28 @@ void Simon::SetState(int state)
 		timeAttackStart = currentTime;
 		whip->SetEnable(true);
 		whip->SetState(WHIP_STATE_PREPARE);
+		break;
+	case SIMON_STATE_HURT:
+		IsGround = false;
+		if (IsOnStair) {
+			vy = 0;
+			vx = 0;
+		}
+		else
+		{
+			if (nx > 0)
+			{
+				vx = -0.03;
+			}
+			if (nx < 0)
+			{
+				vx = 0.03;
+			}
+			vy = -0.2;
+			//if (dy <= 0 || vy >= 0 || dy > 0)
+			//	vy = -0.04;
+
+		}
 		break;
 	}
 }
@@ -193,7 +219,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			nx = directionStair;
 		}
 		else {
-			nx = directionStair;
+			nx = -directionStair;
 		}
 	}
 
@@ -252,6 +278,40 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 		}
 		else*/
+		if (dynamic_cast<Enemy*>(coObjects->at(i)))
+		{
+			Enemy* enemy = dynamic_cast<Enemy*>(coObjects->at(i));
+			float l1, t1, r1, b1, l2, t2, r2, b2;
+			GetBoundingBox(l1, t1, r1, b1);
+			enemy->GetBoundingBox(l2, t2, r2, b2);
+			if ((CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))) {
+				if ((coObjects->at(i))->vx != 0)
+				{
+					if (untouchable == 0)
+					{
+						if (enemy->isEnable != false)
+						{
+							if (hp > 0)
+							{
+								hp -= enemy->GetDamage();
+								StartUntouchable();
+								SetState(SIMON_STATE_HURT);
+								StartHurting();
+								if (dynamic_cast<VampireBat*>(coObjects->at(i)))
+								{
+									enemy->SetDead(true);
+									enemy->GetCollisionEffect()->SetEnable(true);
+								}
+							}
+							else
+								SetState(SIMON_STATE_DIE);
+						}
+					}
+
+
+				}
+			}
+		}
 		if (dynamic_cast<TopStair*>(coObjects->at(i))) {
 			TopStair* item = dynamic_cast<TopStair*>(coObjects->at(i));
 
@@ -300,6 +360,19 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		untouchable_start = 0;
 		untouchable = 0;
 	}
+
+	if (IsHurt) {
+		if (GetTickCount() - hurtable_start > 1000)
+		{
+			hurtable_start = 0;
+			hurtable = 0;
+			IsHurt = false;
+			ResetAnimationHurt();
+		}
+	}
+
+	if (this->GetState() != SIMON_STATE_SIT_DOWN)
+		IsSit = false;
 
 	for (UINT i = 0; i < coEvents.size(); i++)
 	{
@@ -356,10 +429,10 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					item->SetEnable(false);
 				}
 			}
-			if (dynamic_cast<BoundingMap*>(e->obj))
+			else if (dynamic_cast<Ground*>(e->obj))
 			{
 				if (!IsOnStair || IsDownStair) {
-					BoundingMap* boundingMap = dynamic_cast<BoundingMap*>(e->obj);
+					Ground* ground = dynamic_cast<Ground*>(e->obj);
 					// block 
 					if (e->ny < 0)
 					{
@@ -368,11 +441,12 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 						if (nx != 0) vx = 0;
 						if (ny != 0) vy = 0;
-					}
-					if (IsJump)
-					{
-						y -= 8;
-						IsJump = false;
+
+						if (IsJump)
+						{
+							y -= 8;
+							IsJump = false;
+						}
 					}
 
 					if (IsOnStair) {
@@ -380,7 +454,15 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							IsOnStair = false;
 							IsUpStair = false;
 							IsDownStair = false;
+							vx = 0;
 						}
+					}
+					if (IsHurt) {
+						hurtable_start = 0;
+						hurtable = 0;
+						IsHurt = false;
+						vx = 0;
+						ResetAnimationHurt();
 					}
 				}
 				else {
@@ -392,6 +474,13 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 				}
 
+			}
+			else if (dynamic_cast<BoundingMap*>(e->obj)) {
+				if (e->ny < 0)
+				{
+					x += min_tx * dx + nx * 0.4f;
+					y += min_ty * dy + ny * 0.4f;
+				}
 			}
 			else if (dynamic_cast<BottomStair*>(e->obj))
 			{
@@ -441,7 +530,15 @@ void Simon::Render()
 	}
 	else
 	{
-		if (IsSit) {
+		if (IsHurt) {
+			if (nx > 0) {
+				ani = SIMON_ANI_HURT_RIGHT;
+			}
+			else {
+				ani = SIMON_ANI_HURT_LEFT;
+			}
+		}
+		else if (IsSit) {
 			if (IsFighting)
 			{
 				if (nx > 0) ani = SIMON_ANI_FIGHTING_SIT_RIGHT;
@@ -495,8 +592,8 @@ void Simon::Render()
 			else {
 				if (vx == 0)
 				{
-					if (nx > 0) ani = SIMON_ANI_IDLE_STAIR_DESCEND_LEFT;
-					else ani = SIMON_ANI_IDLE_STAIR_DESCEND_RIGHT;
+					if (nx > 0) ani = SIMON_ANI_IDLE_STAIR_DESCEND_RIGHT;
+					else ani = SIMON_ANI_IDLE_STAIR_DESCEND_LEFT;
 				}
 				else
 				{
@@ -520,9 +617,12 @@ void Simon::Render()
 				}
 				else
 				{
-					if (vx > 0)
+					if (vx > 0) {
 						ani = SIMON_ANI_WALKING_RIGHT;
-					else ani = SIMON_ANI_WALKING_LEFT;
+					}
+					else {
+						ani = SIMON_ANI_WALKING_LEFT;
+					}
 				}
 			}
 		}
@@ -570,6 +670,12 @@ void Simon::ResetAnimationFighting()
 
 	ResetAni(SIMON_ANI_FIGHTING_DESCEND_STAIR_RIGHT);
 	ResetAni(SIMON_ANI_FIGHTING_DESCEND_STAIR_LEFT);
+}
+
+void Simon::ResetAnimationHurt()
+{
+	ResetAni(SIMON_ANI_HURT_LEFT);
+	ResetAni(SIMON_ANI_HURT_RIGHT);
 }
 
 void Simon::SetAnimationSetWhip(LPANIMATION_SET ani_set)
@@ -686,10 +792,12 @@ void Simon::_ParseSection_ANIMATIONS(string line)
 
 	//DebugOut(L"--> %s\n",ToWSTR(line).c_str());
 
-	LPANIMATION ani = new CAnimation();
+	int isLoop = atoi(tokens[1].c_str());
+
+	LPANIMATION ani = new CAnimation(100, isLoop);
 
 	int ani_id = atoi(tokens[0].c_str());
-	for (int i = 1; i < tokens.size(); i += 2)	// why i+=2 ?  sprite_id | frame_time  
+	for (int i = 2; i < tokens.size(); i += 2)	// why i+=2 ?  sprite_id | frame_time  
 	{
 		int sprite_id = atoi(tokens[i].c_str());
 		int frame_time = atoi(tokens[i + 1].c_str());

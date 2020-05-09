@@ -18,6 +18,9 @@
 #include "Define.h"
 #include "BlackKnight.h"
 #include "VampireBat.h"
+#include "Gate.h"
+#include "MovingPlatform.h"
+#include "Enemy.h"
 
 using namespace std;
 
@@ -42,7 +45,9 @@ void CPlayScene::_ParseSection_SETTINGS(string line)
 
 	if (tokens.size() < 2) return;
 
-	if (tokens[0] == "map_width")
+	if (tokens[0] == "stage")
+		stage = atoi(tokens[1].c_str());
+	else if (tokens[0] == "map_width")
 		mapWidth = atoi(tokens[1].c_str());
 	else if (tokens[0] == "map_height")
 		mapHeight = atoi(tokens[1].c_str());
@@ -184,7 +189,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	//DebugOut(L"--> %s\n",ToWSTR(line).c_str());
 
-	if (tokens.size() < 4) return; // skip invalid lines - an object set must have at least id, x, y
+	if (tokens.size() < 5) return; // skip invalid lines - an object set must have at least id, x, y
 
 	int id = atoi(tokens[0].c_str());
 	int object_type = atoi(tokens[1].c_str());
@@ -196,8 +201,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	int width = atoi(tokens[5].c_str());
 	int height = atoi(tokens[6].c_str());
 	int ani_set_id = atoi(tokens[7].c_str());
-
-	CAnimationSets* animation_sets = CAnimationSets::GetInstance();
+	int itemType = atoi(tokens[8].c_str());
 
 	CGameObject* obj = NULL;
 
@@ -218,12 +222,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	break;
 	case OBJECT_TYPE_TORCH: obj = new Torch(); break;
 	case OBJECT_TYPE_CANDLE: obj = new Candle(); break;
-	case OBJECT_TYPE_ITEM_HEART: obj = new Item(ITEM_HEART); break;
+	case OBJECT_TYPE_GATE: obj = new Gate(); break;
+	case OBJECT_TYPE_MOVING_FLATFORM: obj = new MovingPlatform(x, y); break;
+	case OBJECT_TYPE_ITEM_HEART: obj = new Item(ITEM_LARGE_HEART); break;
 	case OBJECT_TYPE_ITEM_SMALL_HEART: obj = new Item(ITEM_SMALL_HEART); break;
-	case OBJECT_TYPE_ITEM_KNIFE: obj = new Item(ITEM_KNIFE); break;
+	case OBJECT_TYPE_ITEM_KNIFE: obj = new Item(ITEM_DAGGER); break;
 	case OBJECT_TYPE_ITEM_AXE: obj = new Item(ITEM_AXE); break;
 	case OBJECT_TYPE_ITEM_BOOMERANG: obj = new Item(ITEM_BOOMERANG); break;
-	case OBJECT_TYPE_ITEM_WHIP: obj = new Item(ITEM_WHIP); break;
+	case OBJECT_TYPE_ITEM_WHIP: obj = new Item(ITEM_MORNING_STAIR); break;
 	case OBJECT_TYPE_VAMPIRE_BAT: obj = new VampireBat(x, y); break;
 	case OBJECT_TYPE_BLACK_KNGHT: obj = new BlackKnight(x, y); break;
 	case OBJECT_TYPE_PORTAL:
@@ -231,6 +237,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		int scene_id = atoi(tokens[7].c_str());
 		obj = new CPortal(x, y, width, height, scene_id);
 		obj->SetID(id);
+		obj->SetTypeItem(-2);
 		objects.push_back(obj);
 		return;
 	}
@@ -246,6 +253,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj->SetWidth(width);
 		obj->SetHeight(height);
 		obj->SetType(object_type);
+		obj->SetTypeItem(-2);
 		objects.push_back(obj);
 		return;
 	}
@@ -257,6 +265,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj->SetWidth(width);
 		obj->SetHeight(height);
 		obj->SetType(object_type);
+		obj->SetTypeItem(-2);
 		objects.push_back(obj);
 		return;
 	}
@@ -271,11 +280,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	obj->SetWidth(width);
 	obj->SetHeight(height);
 	obj->SetType(object_type);
+	obj->SetTypeItem(itemType);
 
 	if (ani_set_id > 0) {
-		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
-
-		obj->SetAnimationSet(ani_set);
+		obj->SetAnimationSet(ani_set_id);
 	}
 
 
@@ -344,10 +352,35 @@ void CPlayScene::Update(DWORD dt)
 
 	grid->GetListOfObjects(&coObjects, SCREEN_WIDTH, SCREEN_HEIGHT);
 
+	for (size_t i = 0; i < listItems.size(); i++)
+	{
+		coObjects.push_back(listItems.at(i));
+	}
+
 	player->Update(dt, &coObjects);
 	for (size_t i = 0; i < coObjects.size(); i++)
 	{
 		coObjects[i]->Update(dt, &coObjects);
+
+		if (coObjects[i]->IsDead()
+			&& !dynamic_cast<Item*>(coObjects[i]))
+		{
+			coObjects[i]->SetDead(false);
+			int typeItem = coObjects[i]->GetTypeItem();
+			if (typeItem == -1) {
+				Item* item = new Item();
+				item->SetEnable(true);
+				item->SetPosition(coObjects[i]->x, coObjects[i]->y);
+				listItems.push_back(item);
+			}
+			else if (typeItem > -1) {
+				Item* item = new Item(typeItem);
+				item->SetEnable(true);
+				item->SetPosition(coObjects[i]->x, coObjects[i]->y);
+				listItems.push_back(item);
+			}
+			coObjects[i]->SetEnable(false);
+		}
 	}
 
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
@@ -355,7 +388,7 @@ void CPlayScene::Update(DWORD dt)
 
 	//update scoreBoard
 	time += dt;
-	scoreBoard->Update(16, 300 - time * 0.001, 3, 1);
+	scoreBoard->Update(16, 300 - time * 0.001, stage);
 
 	// Update camera to follow player
 	D3DXVECTOR3 pos = camera->GetCameraPosition();
@@ -402,6 +435,11 @@ void CPlayScene::Render()
 	tileMap->Render(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	grid->GetListOfObjects(&coObjects, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	for (size_t i = 0; i < listItems.size(); i++)
+	{
+		listItems.at(i)->Render();
+	}
 
 	for (int i = 0; i < coObjects.size(); i++)
 	{

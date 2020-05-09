@@ -33,9 +33,6 @@ ScoreBoard::ScoreBoard(Simon* simon, int bossHP)
 		listDyingHP->push_back(dyingHP);
 	}
 
-	heart = new ItemBoard(ITEM_BOARD_HEART);
-	heart->SetPosition(191, 20);
-
 	font = NULL;
 
 	D3DXFONT_DESC FontDesc = {
@@ -61,6 +58,9 @@ ScoreBoard::ScoreBoard(Simon* simon, int bossHP)
 
 	CSprites* sprites = CSprites::GetInstance();
 	sprite = sprites->Get(90000);
+
+	weaponCollect = new ItemBoard(-1);
+	shotCollect = new ItemBoard(-1);
 }
 
 ScoreBoard::~ScoreBoard()
@@ -68,7 +68,7 @@ ScoreBoard::~ScoreBoard()
 }
 
 
-void ScoreBoard::Update(int bossHP, int time, int life, int stage)
+void ScoreBoard::Update(int bossHP, int time, int stage)
 {
 	this->time = time;
 	this->stage = stage;
@@ -90,12 +90,12 @@ void ScoreBoard::Update(int bossHP, int time, int life, int stage)
 
 
 	lineOne = scoreString + L"              " + timeString + L"             " + stageString + L"\n";
-	if (simon->GetEnergy() < 10)
+	if (simon->GetHeart() < 10)
 	{
-		lineTwo = L"                                    0" + to_wstring(simon->GetEnergy()) + L"\n";
+		lineTwo = L"                                    0" + to_wstring(simon->GetHeart()) + L"\n";
 	}
 	else {
-		lineTwo = L"                                    " + to_wstring(simon->GetEnergy()) + L"\n";
+		lineTwo = L"                                    " + to_wstring(simon->GetHeart()) + L"\n";
 	}
 
 	if (simon->GetLife() < 10)
@@ -105,8 +105,6 @@ void ScoreBoard::Update(int bossHP, int time, int life, int stage)
 	else {
 		lineThree = L"                                    " + to_wstring(simon->GetLife()) + L"\n";
 	}
-
-
 }
 
 void ScoreBoard::Render()
@@ -136,5 +134,52 @@ void ScoreBoard::Render()
 		{
 			listEnemyHP->at(i)->Render();
 		}
+	}
+
+	switch (simon->GetTypeWeaponCollect())
+	{
+	case ITEM_AXE:
+		weaponCollect->SetType(ITEM_BOARD_AXE);
+		weaponCollect->SetPosition(156.0f, 18.0f);
+		weaponCollect->Render();
+		break;
+	case ITEM_HOLY_WATER:
+		weaponCollect->SetType(ITEM_BOARD_HOLLY_WATER);
+		weaponCollect->SetPosition(157.0f, 16.0f);
+		weaponCollect->Render();
+		break;
+	case ITEM_BOOMERANG:
+		weaponCollect->SetType(ITEM_BOARD_BOOMERANG);
+		weaponCollect->SetPosition(156.0f, 17.0f);
+		weaponCollect->Render();
+		break;
+	case ITEM_DAGGER:
+		weaponCollect->SetType(ITEM_BOARD_DAGGER);
+		weaponCollect->SetPosition(155.0f, 19.0f);
+		weaponCollect->Render();
+		break;
+	case ITEM_STOP_WATCH:
+		weaponCollect->SetType(ITEM_BOARD_STOPWATCH);
+		weaponCollect->SetPosition(156.0f, 16.0f);
+		weaponCollect->Render();
+		break;
+	default:
+		break;
+	}
+
+	switch (simon->GetTypeShotCollect())
+	{
+	case ITEM_DOUBLE_SHOT:
+		shotCollect->SetType(ITEM_BOARD_DOUBLE_SHOT);
+		shotCollect->SetPosition(217.0f, 18.0f);
+		shotCollect->Render();
+		break;
+	case ITEM_TRIPLE_SHOT:
+		shotCollect->SetType(ITEM_BOARD_TRIPLE_SHOT);
+		shotCollect->SetPosition(217.0f, 18.0f);
+		shotCollect->Render();
+		break;
+	default:
+		break;
 	}
 }

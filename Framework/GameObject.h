@@ -69,6 +69,8 @@ public:
 	int height;
 
 	int type;
+
+	int typeItem;
 public:
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
@@ -118,6 +120,10 @@ public:
 	void SetType(int type) { this->type = type; }
 	int GetType() { return type; }
 
+	void SetTypeItem(int typeItem) { this->typeItem = typeItem; }
+	int GetTypeItem() { return this->typeItem; }
+
+	void SetAnimationSet(int ani_set_id);
 	~CGameObject();
 };
 

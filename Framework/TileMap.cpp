@@ -71,7 +71,7 @@ void TileMap::LoadListTile(string pathFile)
 			matrix[i][j].SetPosition(position);
 			matrix[i][j].SetSprite(sprite);
 
-			DebugOut(L"[INFO] tile add: %d, %d, %d, %d, %d, %f, %f \n", id, bound.left, bound.top, bound.right, position.x, position.y);
+			//DebugOut(L"[INFO] tile add: %d, %d, %d, %d, %d, %f, %f \n", id, bound.left, bound.top, bound.right, position.x, position.y);
 		}
 	}
 

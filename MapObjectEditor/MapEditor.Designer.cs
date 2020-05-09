@@ -33,6 +33,7 @@
             this.buttonLoad = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBoxBG = new System.Windows.Forms.PictureBox();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxNameOB = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -40,7 +41,6 @@
             this.textBoxWidthOB = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.listViewOB = new System.Windows.Forms.ListView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -64,6 +64,8 @@
             this.btnChangeCellSize = new System.Windows.Forms.Button();
             this.tbCellSize = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.cboItemType = new System.Windows.Forms.ComboBox();
             this.numY = new System.Windows.Forms.NumericUpDown();
             this.numX = new System.Windows.Forms.NumericUpDown();
             this.numHeight = new System.Windows.Forms.NumericUpDown();
@@ -80,8 +82,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBG)).BeginInit();
-            this.groupBox1.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cancelPic)).BeginInit();
@@ -125,6 +127,16 @@
             this.pictureBoxBG.MouseLeave += new System.EventHandler(this.pictureBoxBG_MouseLeave);
             this.pictureBoxBG.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxBG_MouseMove);
             // 
+            // panel3
+            // 
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.groupBox1);
+            this.panel3.Controls.Add(this.listViewOB);
+            this.panel3.Location = new System.Drawing.Point(1012, 4);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(187, 566);
+            this.panel3.TabIndex = 6;
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.textBoxNameOB);
@@ -133,10 +145,11 @@
             this.groupBox1.Controls.Add(this.textBoxWidthOB);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(5, 468);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 415);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(177, 129);
-            this.groupBox1.TabIndex = 5;
+            this.groupBox1.Size = new System.Drawing.Size(185, 149);
+            this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Detail : ";
             // 
@@ -194,22 +207,13 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Width : ";
             // 
-            // panel3
-            // 
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.listViewOB);
-            this.panel3.Controls.Add(this.groupBox1);
-            this.panel3.Location = new System.Drawing.Point(1012, 4);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(187, 602);
-            this.panel3.TabIndex = 6;
-            // 
             // listViewOB
             // 
+            this.listViewOB.Dock = System.Windows.Forms.DockStyle.Top;
             this.listViewOB.HideSelection = false;
-            this.listViewOB.Location = new System.Drawing.Point(3, 3);
+            this.listViewOB.Location = new System.Drawing.Point(0, 0);
             this.listViewOB.Name = "listViewOB";
-            this.listViewOB.Size = new System.Drawing.Size(177, 459);
+            this.listViewOB.Size = new System.Drawing.Size(185, 415);
             this.listViewOB.TabIndex = 1;
             this.listViewOB.UseCompatibleStateImageBehavior = false;
             this.listViewOB.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewOB_MouseClick);
@@ -325,20 +329,12 @@
             this.imageListOB.Images.SetKeyName(6, "BottomStair");
             this.imageListOB.Images.SetKeyName(7, "TopStair");
             this.imageListOB.Images.SetKeyName(8, "Ground");
-            this.imageListOB.Images.SetKeyName(9, "Whip");
-            this.imageListOB.Images.SetKeyName(10, "Money");
-            this.imageListOB.Images.SetKeyName(11, "Ball");
-            this.imageListOB.Images.SetKeyName(12, "SmallHeart");
-            this.imageListOB.Images.SetKeyName(13, "Heart");
-            this.imageListOB.Images.SetKeyName(14, "Knife");
-            this.imageListOB.Images.SetKeyName(15, "Axe");
-            this.imageListOB.Images.SetKeyName(16, "Boomerang");
-            this.imageListOB.Images.SetKeyName(17, "Crown");
-            this.imageListOB.Images.SetKeyName(18, "Zombie");
-            this.imageListOB.Images.SetKeyName(19, "BlackLeopard");
-            this.imageListOB.Images.SetKeyName(20, "VampireBat");
-            this.imageListOB.Images.SetKeyName(21, "FishMan");
-            this.imageListOB.Images.SetKeyName(22, "BlackKnight");
+            this.imageListOB.Images.SetKeyName(9, "MovingPlatform");
+            this.imageListOB.Images.SetKeyName(10, "Zombie");
+            this.imageListOB.Images.SetKeyName(11, "BlackLeopard");
+            this.imageListOB.Images.SetKeyName(12, "VampireBat");
+            this.imageListOB.Images.SetKeyName(13, "FishMan");
+            this.imageListOB.Images.SetKeyName(14, "BlackKnight");
             // 
             // buttonSave
             // 
@@ -433,6 +429,8 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.label15);
+            this.groupBox5.Controls.Add(this.cboItemType);
             this.groupBox5.Controls.Add(this.numY);
             this.groupBox5.Controls.Add(this.numX);
             this.groupBox5.Controls.Add(this.numHeight);
@@ -451,10 +449,51 @@
             this.groupBox5.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox5.Size = new System.Drawing.Size(633, 48);
+            this.groupBox5.Size = new System.Drawing.Size(834, 48);
             this.groupBox5.TabIndex = 19;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "ObjectInfo";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(554, 23);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(30, 13);
+            this.label15.TabIndex = 23;
+            this.label15.Text = "Item:";
+            // 
+            // cboItemType
+            // 
+            this.cboItemType.FormattingEnabled = true;
+            this.cboItemType.Items.AddRange(new object[] {
+            "None",
+            "Random",
+            "ITEM_MORNING_STAIR",
+            "ITEM_SMALL_HEART",
+            "ITEM_LARGE_HEART",
+            "ITEM_MONEY_BAG_RED",
+            "ITEM_MONEY_BAG_PURPLE",
+            "ITEM_MONEY_BAG_YELLOW",
+            "ITEM_DAGGER",
+            "ITEM_AXE",
+            "ITEM_HOLY_WATER",
+            "ITEM_BOOMERANG",
+            "ITEM_STOP_WATCH",
+            "ITEM_CROSS",
+            "ITEM_INVISIBILITY_POTION",
+            "ITEM_PORK_CHOP",
+            "ITEM_DOUBLE_SHOT\t",
+            "ITEM_TRIPLE_SHOT",
+            "ITEM_BONUSES",
+            "ITEM_MAGIC_CRYSTAL",
+            "ITEM_CROWN",
+            "ITEM_CHEST"});
+            this.cboItemType.Location = new System.Drawing.Point(590, 19);
+            this.cboItemType.Name = "cboItemType";
+            this.cboItemType.Size = new System.Drawing.Size(147, 21);
+            this.cboItemType.TabIndex = 22;
+            this.cboItemType.SelectedIndexChanged += new System.EventHandler(this.cboItemType_SelectedIndexChanged);
             // 
             // numY
             // 
@@ -533,7 +572,7 @@
             // 
             // numObjDelay
             // 
-            this.numObjDelay.Location = new System.Drawing.Point(588, 19);
+            this.numObjDelay.Location = new System.Drawing.Point(786, 20);
             this.numObjDelay.Margin = new System.Windows.Forms.Padding(2);
             this.numObjDelay.Maximum = new decimal(new int[] {
             1000,
@@ -548,7 +587,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(544, 23);
+            this.label13.Location = new System.Drawing.Point(742, 24);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(47, 13);
@@ -632,9 +671,9 @@
             this.Text = "Map Editor";
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBG)).EndInit();
+            this.panel3.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.panel3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -658,9 +697,6 @@
         private System.Windows.Forms.Button buttonLoad;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBoxBG;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBoxWidthOB;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label4;
@@ -673,8 +709,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ImageList imageListOB;
-        private System.Windows.Forms.TextBox textBoxNameOB;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ListView listViewOB;
@@ -687,8 +721,6 @@
         private System.Windows.Forms.Button btnChangeCellSize;
         private System.Windows.Forms.TextBox tbCellSize;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.TextBox textBoxHeightOB;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numObjDelay;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label11;
@@ -703,6 +735,15 @@
         private System.Windows.Forms.NumericUpDown numWidth;
         private System.Windows.Forms.NumericUpDown numY;
         private System.Windows.Forms.NumericUpDown numX;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox textBoxNameOB;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBoxHeightOB;
+        private System.Windows.Forms.TextBox textBoxWidthOB;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.ComboBox cboItemType;
     }
 }
 

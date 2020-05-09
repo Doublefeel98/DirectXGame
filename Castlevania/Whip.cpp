@@ -167,11 +167,11 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 					if ((coObjects->at(i))->nx != 0)
 					{
-						enemy->GetCollisionEffect()->SetEnable(true);
+
 						if (enemy->isEnable != false) {
+							enemy->GetCollisionEffect()->SetEnable(true);
 							enemy->SetHP(enemy->GetHP() - this->damage);
 							this->isEnable = false;
-							//Simon::IsFighting = false;
 							ResetAnimation();
 						}
 					}
@@ -279,9 +279,26 @@ void Whip::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 	}
 }
 
+void Whip::SetLevel(int level)
+{
+	this->level = level;
+	switch (level)
+	{
+	case WHIP_LEVEL_1:
+		damage = WHIP_DAMAGE;
+		break;
+	case WHIP_LEVEL_2:
+	case WHIP_LEVEL_3:
+		damage = WHIP_DAMAGE * 1.5;
+		break;
+	default:
+		break;
+	}
+}
+
 Whip::Whip()
 {
-	damage = 1;
+	damage = WHIP_DAMAGE;
 	level = WHIP_LEVEL_1;
 	indexAni = 0;
 }

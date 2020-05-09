@@ -1,7 +1,9 @@
 [SETTINGS]
-start 2
+start 22
 player resources\simon.txt
 #scene list
 [SCENES]
 1 resources\scene1.txt
 2 resources\scene2.txt
+3 resources\scene3.txt
+4 resources\scene4.txt

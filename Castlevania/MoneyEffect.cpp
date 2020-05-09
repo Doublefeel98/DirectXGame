@@ -3,7 +3,7 @@
 void MoneyEffect::Render()
 {
 	if (isEnable)
-		animations[moneyType]->Render(x, y);
+		animations[0]->Render(x, y, 255, rand() % 256, rand() % 256, rand() % 256);
 }
 
 void MoneyEffect::Update(DWORD dt)
@@ -23,7 +23,7 @@ MoneyEffect::MoneyEffect(int _moneyType)
 {
 	moneyType = _moneyType;
 
-	AddAnimation(500);
+	AddAnimation(moneyType);
 	timeDelay = 0.0f;
 	isEnable = false;
 }

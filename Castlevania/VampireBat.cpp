@@ -11,6 +11,8 @@ VampireBat::VampireBat(float startX, float startY)
 	this->hp = VAMPIRE_BAT_HP;
 	isEnable = true;
 
+	damage = VAMPIRE_BAT_DAMAGE;
+
 	Enemy::Enemy();
 
 	SetState(VAMPIRE_BAT_STATE_IDLE);
@@ -23,7 +25,7 @@ VampireBat::~VampireBat()
 void VampireBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 {
 	Enemy::Update(dt, coObject);
-	if (!isDead) {
+	if (!isDead && isEnable) {
 		x += dx;
 		y += dy;
 
@@ -53,7 +55,7 @@ void VampireBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 
 void VampireBat::Render()
 {
-	if (!isDead) {
+	if (!isDead && isEnable) {
 		int posX = x, posY = y;
 		int ani = 0;
 		switch (state)

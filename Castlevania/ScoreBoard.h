@@ -20,7 +20,8 @@ class ScoreBoard
 	vector<HP*>* listSimonHP;
 	vector<HP*>* listEnemyHP;
 	vector<HP*>* listDyingHP;
-	ItemBoard* heart;
+	ItemBoard* weaponCollect;
+	ItemBoard* shotCollect;
 	int bossHP;
 	int score;
 	int time;
@@ -31,7 +32,7 @@ class ScoreBoard
 public:
 	ScoreBoard(Simon* simon, int bossHP);
 	~ScoreBoard();
-	void Update(int bossHP, int time, int life, int stage);
+	void Update(int bossHP, int time, int stage);
 	void Render();
 };
 

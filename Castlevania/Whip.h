@@ -17,7 +17,7 @@ public:
 	void ResetAnimation();
 	int GetCurrentFrame();
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
-	void SetLevel(int level) { this->level = level; }
+	void SetLevel(int level);
 	int GetLevel() { return this->level; }
 	Whip();
 	~Whip();

@@ -12,6 +12,7 @@
 #include "TopStair.h"
 #include "Enemy.h"
 #include "VampireBat.h"
+#include "MovingPlatform.h"
 
 #include <iostream>
 #include <fstream>
@@ -24,7 +25,7 @@ Simon::Simon()
 {
 	level = 0;
 	hp = SIMON_HP;
-	energy = 5;
+	heart = 5;
 	score = 0;
 	life = 3;
 
@@ -69,12 +70,14 @@ void Simon::SetState(int state)
 	{
 		vx = SIMON_WALKING_SPEED;
 		nx = 1;
+		IsRun = true;
 	}
 	break;
 	case SIMON_STATE_WALK_LEFT:
 	{
 		vx = -SIMON_WALKING_SPEED;
 		nx = -1;
+		IsRun = true;
 	}
 	break;
 	case SIMON_STATE_JUMP:
@@ -83,6 +86,7 @@ void Simon::SetState(int state)
 		vy = -SIMON_JUMP_SPEED_Y;
 	case SIMON_STATE_IDLE:
 		IsSit = false;
+		IsRun = false;
 		//vx = 0;
 		break;
 	case SIMON_STATE_DIE:
@@ -299,7 +303,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 								StartHurting();
 								if (dynamic_cast<VampireBat*>(coObjects->at(i)))
 								{
-									enemy->SetDead(true);
+									enemy->SetEnable(false);
 									enemy->GetCollisionEffect()->SetEnable(true);
 								}
 							}
@@ -410,19 +414,61 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					switch (item->GetTypeItem())
 					{
-					case ITEM_WHIP:
+					case ITEM_MORNING_STAIR:
 						if (whip->GetLevel() < WHIP_LEVEL_3)
 						{
 							whip->SetLevel(whip->GetLevel() + 1);
 							IsFreeze = true;
-							timeFreezeStart = now; // thời gian đã đóng băng
+							timeFreezeStart = now;
 						}
 						break;
 					case ITEM_SMALL_HEART:
-						energy += 1;
+						heart += 1;
 						break;
-					case ITEM_HEART:
-						energy += 5;
+					case ITEM_LARGE_HEART:
+						heart += 5;
+						break;
+					case ITEM_MONEY_BAG_RED:
+						score += 100;
+						item->GetMoneyEffect()->SetEnable(true);
+						break;
+					case ITEM_MONEY_BAG_PURPLE:
+						score += 400;
+						item->GetMoneyEffect()->SetEnable(true);
+						break;
+					case ITEM_MONEY_BAG_WHITE:
+						score += 700;
+						item->GetMoneyEffect()->SetEnable(true);
+						break;
+					case ITEM_DAGGER:
+						typeWeaponCollect = ITEM_DAGGER;
+						break;
+					case ITEM_AXE:
+						typeWeaponCollect = ITEM_AXE;
+						break;
+					case ITEM_HOLY_WATER:
+						typeWeaponCollect = ITEM_HOLY_WATER;
+						break;
+					case ITEM_BOOMERANG:
+						typeWeaponCollect = ITEM_BOOMERANG;
+						break;
+					case ITEM_STOP_WATCH:
+						typeWeaponCollect = ITEM_STOP_WATCH;
+						break;
+					case ITEM_BONUSES:
+						score += 1000;
+						item->GetMoneyEffect()->SetEnable(true);
+						break;
+					case ITEM_CROWN:
+					case ITEM_CHEST:
+						score += 2000;
+						item->GetMoneyEffect()->SetEnable(true);
+						break;
+					case ITEM_DOUBLE_SHOT:
+						typeShotCollect = ITEM_DOUBLE_SHOT;
+						break;
+					case ITEM_TRIPLE_SHOT:
+						typeShotCollect = ITEM_TRIPLE_SHOT;
 						break;
 					}
 					item->SetDead(true);
@@ -434,7 +480,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				if (!IsOnStair || IsDownStair) {
 					Ground* ground = dynamic_cast<Ground*>(e->obj);
 					// block 
-					if (e->ny < 0)
+					if (e->ny < 0 || e->nx != 0)
 					{
 						x += min_tx * dx + nx * 0.4f;
 						y += min_ty * dy + ny * 0.4f;
@@ -447,6 +493,11 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							y -= 8;
 							IsJump = false;
 						}
+
+					}
+					else {
+						x += dx;
+						y += dy;
 					}
 
 					if (IsOnStair) {
@@ -476,10 +527,34 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			}
 			else if (dynamic_cast<BoundingMap*>(e->obj)) {
+				/*if (e->nx != 0)
+				{
+
+				}*/
+				x += min_tx * dx + nx * 0.4f;
+				y += min_ty * dy + ny * 0.4f;
+
+				if (nx != 0) vx = 0;
+				if (ny != 0) vy = 0;
+				/*if (IsJump)
+				{
+					y -= 8;
+					IsJump = false;
+				}*/
+			}
+			else if (dynamic_cast<MovingPlatform*>(e->obj)) {
 				if (e->ny < 0)
 				{
 					x += min_tx * dx + nx * 0.4f;
 					y += min_ty * dy + ny * 0.4f;
+
+					if (ny != 0) vy = 0;
+					vx = e->obj->vx;
+				}
+				if (IsJump)
+				{
+					y -= 8;
+					IsJump = false;
 				}
 			}
 			else if (dynamic_cast<BottomStair*>(e->obj))
@@ -610,7 +685,7 @@ void Simon::Render()
 				else ani = SIMON_ANI_FIGHTING_LEFT;
 			}
 			else {
-				if (vx == 0)
+				if (!IsRun)
 				{
 					if (nx > 0) ani = SIMON_ANI_IDLE_RIGHT;
 					else ani = SIMON_ANI_IDLE_LEFT;
@@ -676,11 +751,6 @@ void Simon::ResetAnimationHurt()
 {
 	ResetAni(SIMON_ANI_HURT_LEFT);
 	ResetAni(SIMON_ANI_HURT_RIGHT);
-}
-
-void Simon::SetAnimationSetWhip(LPANIMATION_SET ani_set)
-{
-	whip->SetAnimationSet(ani_set);
 }
 
 void Simon::Load(LPCWSTR simonFile)
@@ -839,16 +909,12 @@ void Simon::_ParseSection_SETTINGS(string line)
 	if (tokens[0] == "animation_set")
 	{
 		int ani_set_id = atoi(tokens[1].c_str());
-		CAnimationSets* animation_sets = CAnimationSets::GetInstance();
-		LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
-		SetAnimationSet(ani_set);
+		SetAnimationSet(ani_set_id);
 	}
 	else if (tokens[0] == "animation_set_whip")
 	{
 		int ani_set_whip_id = atoi(tokens[1].c_str());
-		CAnimationSets* animation_sets = CAnimationSets::GetInstance();
-		LPANIMATION_SET ani_set_whip = animation_sets->Get(ani_set_whip_id);
-		SetAnimationSetWhip(ani_set_whip);
+		whip->SetAnimationSet(ani_set_whip_id);
 	}
 	else
 		DebugOut(L"[ERROR] Unknown scene setting %s\n", ToWSTR(tokens[0]).c_str());

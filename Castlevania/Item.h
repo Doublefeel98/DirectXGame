@@ -1,6 +1,6 @@
 #pragma once
 #include "../Framework/GameObject.h"
-
+#include "MoneyEffect.h"
 class Item;
 typedef Item* LPITEM;
 class Item : public CGameObject
@@ -13,6 +13,7 @@ class Item : public CGameObject
 	DWORD timeStartEnable;
 	bool IsGround;
 	bool IsFirstTime;
+	MoneyEffect* moneyEffect;
 public:
 	Item();
 	Item(int typeItem);
@@ -22,5 +23,6 @@ public:
 	void Render();
 	void TurnOnTimeStartEnable();
 	int GetTypeItem() { return typeItem; }
+	MoneyEffect* GetMoneyEffect() { return moneyEffect; }
 };
 

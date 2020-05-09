@@ -133,6 +133,13 @@ void CGameObject::RenderBoundingBox()
 }
 
 
+void CGameObject::SetAnimationSet(int ani_set_id)
+{
+	CAnimationSets* animation_sets = CAnimationSets::GetInstance();
+	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+	SetAnimationSet(ani_set);
+}
+
 CGameObject::~CGameObject()
 {
 

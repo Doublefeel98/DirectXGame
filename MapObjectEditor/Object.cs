@@ -26,12 +26,12 @@ namespace MapEditor
 
         public PictureBox Pic { get; set; }
 
-        public int delay { get; set; }
+        public int itemType { get; set; }
 
-        public Object(PictureBox Pic, string name, int PosX, int PosY, int Width = 0, int Height = 0, int sceneId = 1)
+        public Object(PictureBox Pic, string name, int PosX, int PosY, int Width = 0, int Height = 0, int sceneId = 1, int itemType = -2)
         {
             this.Pic = Pic;
-            this.delay = delay;
+            this.itemType = itemType;
             this.Name = name;
             if (this.Name == "Simon")
             {
@@ -52,7 +52,7 @@ namespace MapEditor
             else if (this.Name == "Gate")
             {
                 Id = 12;
-                AniSetId = 31;
+                AniSetId = 32;
             }
             else if (this.Name == "BoundingMap")
             {
@@ -78,6 +78,11 @@ namespace MapEditor
             {
                 Id = 17;
                 AniSetId = -1;
+            }
+            else if (this.Name == "MovingPlatform")
+            {
+                Id = 18;
+                AniSetId = 33;
             }
             //item
             else if (this.Name == "Whip")
@@ -149,7 +154,7 @@ namespace MapEditor
 
         public string toObjectStr()
         {
-            string str = Id + " " + Name + " " + PosX + " " + PosY + " " + Width + " " + Height + " " + AniSetId;
+            string str = Id + " " + Name + " " + PosX + " " + PosY + " " + Width + " " + Height + " " + AniSetId + " " + itemType;
             return str;
         }
     }

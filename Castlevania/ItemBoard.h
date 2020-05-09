@@ -6,6 +6,7 @@ class ItemBoard : public Effect
 	int type;
 public:
 	ItemBoard(int type);
+	void SetType(int type);
 	~ItemBoard();
 	void Render();
 };

@@ -5,6 +5,7 @@
 #include "../Framework/BoundingMap.h"
 #include "../Framework/Ground.h"
 #include "../Framework/Utils.h"
+#include "Simon.h"
 
 void Item::RandomType()
 {
@@ -19,15 +20,69 @@ void Item::RandomType()
 
 void Item::RandomItem()
 {
+	Simon* simon = Simon::GetInstance();
 	int percent = rand() % 100;
 
-	if (percent > 60)
+	if (percent < 60)
 	{
-		typeItem = ITEM_WHIP;
+		if (simon->GetLevelWhip() < WHIP_LEVEL_3)
+		{
+			typeItem = ITEM_MORNING_STAIR;
+		}
+		else
+		{
+			typeItem = ITEM_SMALL_HEART;
+		}
 	}
-	else if (percent < 60)
+	else if (percent < 70)
 	{
-		typeItem = ITEM_HEART;
+		typeItem = ITEM_LARGE_HEART;
+	}
+	else if (percent < 74)
+	{
+		typeItem = ITEM_MONEY_BAG_RED;
+	}
+	else if (percent < 78)
+	{
+		typeItem = ITEM_MONEY_BAG_PURPLE;
+	}
+	else if (percent < 82)
+	{
+		typeItem = ITEM_MONEY_BAG_WHITE;
+	}
+
+	else if (percent < 86)
+	{
+		typeItem = ITEM_CROSS;
+	}
+	else if (percent < 90)
+	{
+		typeItem = ITEM_INVISIBILITY_POTION;
+	}
+
+	else if (percent < 92)
+	{
+		typeItem = ITEM_PORK_CHOP;
+	}
+	/*else if (percent < 95)
+	{
+		if (simon->GetNumberOfWeapon() == 1) {
+			typeItem = ITEM_DOUBLE_SHOT;
+		}
+		else if (simon->GetNumberOfWeapon() == 2) {
+			typeItem = ITEM_TRIPLE_SHOT;
+		}
+		else {
+			typeItem = ITEM_LARGE_HEART;
+		}
+	}*/
+	else if (percent < 98)
+	{
+		typeItem = ITEM_BONUSES;
+	}
+	else
+	{
+		typeItem = ITEM_MAGIC_CRYSTAL;
 	}
 }
 
@@ -37,19 +92,19 @@ void Item::RandomWeapon()
 
 	if (percent < 40)
 	{
+		typeItem = ITEM_DAGGER;
+	}
+	else if (percent < 60)
+	{
 		typeItem = ITEM_AXE;
 	}
 	else if (percent < 80)
 	{
-		typeItem = ITEM_CROSS;
+		typeItem = ITEM_HOLY_WATER;
 	}
 	else if (percent < 90)
 	{
-		typeItem = ITEM_HOLY_WATER;
-	}
-	else if (percent < 95)
-	{
-		typeItem = ITEM_DAGGER;
+		typeItem = ITEM_BOOMERANG;
 	}
 	else
 	{
@@ -59,17 +114,26 @@ void Item::RandomWeapon()
 
 void Item::Init()
 {
+	SetAnimationSet(40);
 	IsGround = false;
 	vy = 0;
 	switch (typeItem)
 	{
-	case ITEM_WHIP:
-		this->width = 32;
-		this->height = 32;
+	case ITEM_MONEY_BAG_RED:
+		moneyEffect = new MoneyEffect(MONEY_EFFECT_100);
 		break;
-	case ITEM_HEART:
-		this->width = 24;
-		this->height = 20;
+	case ITEM_MONEY_BAG_PURPLE:
+		moneyEffect = new MoneyEffect(MONEY_EFFECT_400);
+		break;
+	case ITEM_MONEY_BAG_WHITE:
+		moneyEffect = new MoneyEffect(MONEY_EFFECT_700);
+		break;
+	case ITEM_BONUSES:
+		moneyEffect = new MoneyEffect(MONEY_EFFECT_1000);
+		break;
+	case ITEM_CROWN:
+	case ITEM_CHEST:
+		moneyEffect = new MoneyEffect(MONEY_EFFECT_2000);
 		break;
 	}
 }
@@ -108,13 +172,13 @@ void Item::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 		else {
 			switch (typeItem)
 			{
-			case ITEM_WHIP:
+			case ITEM_MORNING_STAIR:
 				left = x;
 				top = y;
 				right = x + 16;
 				bottom = y + 16;
 				break;
-			case ITEM_HEART:
+			case ITEM_LARGE_HEART:
 				left = x;
 				top = y;
 				right = x + 12;
@@ -124,19 +188,77 @@ void Item::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 				left = x;
 				top = y;
 				right = x + 8;
-				bottom = y + 8;
+				bottom = y + 16;
 				break;
-			case ITEM_KNIFE:
+			case ITEM_MONEY_BAG_RED:
+			case ITEM_MONEY_BAG_PURPLE:
+			case ITEM_MONEY_BAG_WHITE:
+			case ITEM_BONUSES:
+				left = x;
+				top = y;
+				right = x + 15;
+				bottom = y + 15;
+				break;
+			case ITEM_DAGGER:
 				left = x;
 				top = y;
 				right = x + 16;
 				bottom = y + 9;
 				break;
-			case ITEM_BOOMERANG:
+			case ITEM_AXE:
 				left = x;
 				top = y;
 				right = x + 15;
 				bottom = y + 14;
+				break;
+			case ITEM_HOLY_WATER:
+				left = x;
+				top = y;
+				right = x + 16;
+				bottom = y + 16;
+				break;
+			case ITEM_BOOMERANG:
+				left = x;
+				top = y;
+				right = x + 15;
+				bottom = y + 16;
+				break;
+			case ITEM_STOP_WATCH:
+				left = x;
+				top = y;
+				right = x + 15;
+				bottom = y + 14;
+				break;
+			case ITEM_CROSS:
+				left = x;
+				top = y;
+				right = x + 16;
+				bottom = y + 16;
+				break;
+			case ITEM_INVISIBILITY_POTION:
+				left = x;
+				top = y;
+				right = x + 13;
+				bottom = y + 16;
+				break;
+			case ITEM_PORK_CHOP:
+				left = x;
+				top = y;
+				right = x + 15;
+				bottom = y + 14;
+				break;
+			case ITEM_DOUBLE_SHOT:
+			case ITEM_TRIPLE_SHOT:
+				left = x;
+				top = y;
+				right = x + 14;
+				bottom = y + 14;
+				break;
+			case ITEM_MAGIC_CRYSTAL:
+				left = x;
+				top = y;
+				right = x + 14;
+				bottom = y + 16;
 				break;
 			default:
 				break;
@@ -241,6 +363,17 @@ void Item::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	}
+	if (moneyEffect != nullptr) {
+		Simon* simon = Simon::GetInstance();
+		if (simon->nx > 0) {
+			moneyEffect->SetPosition(x + 10, y - 10);
+		}
+		else {
+			moneyEffect->SetPosition(x - 10, y - 10);
+		}
+
+		moneyEffect->Update(dt);
+	}
 }
 
 void Item::Render()
@@ -248,6 +381,10 @@ void Item::Render()
 	if (this->isEnable == true) {
 		animation_set->at(typeItem)->Render(x, y);
 		RenderBoundingBox();
+	}
+
+	if (moneyEffect != nullptr) {
+		moneyEffect->Render();
 	}
 }
 

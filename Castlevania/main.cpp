@@ -182,7 +182,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	sceneManager = CSceneManager::GetInstance();
 	sceneManager->SetPlayer(Simon::GetInstance());
-	sceneManager->Load(L"resources\\simon-sample.txt");
+	sceneManager->Load(L"resources\\castlevania-sample.txt");
 
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 

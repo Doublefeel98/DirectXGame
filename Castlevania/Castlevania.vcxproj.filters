@@ -111,6 +111,27 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files\Objects\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="MovingPlatform.cpp">
+      <Filter>Source Files\Objects\maps</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Source Files\Objects\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Dagger.cpp">
+      <Filter>Source Files\Objects\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Axe.cpp">
+      <Filter>Source Files\Objects\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="FireBomb.cpp">
+      <Filter>Source Files\Objects\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Boomerang.cpp">
+      <Filter>Source Files\Objects\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Stopwatch.cpp">
+      <Filter>Source Files\Objects\Weapons</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Simon.h">
@@ -181,6 +202,27 @@
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Source Files\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="MovingPlatform.h">
+      <Filter>Source Files\Objects\maps</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Source Files\Objects\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Dagger.h">
+      <Filter>Source Files\Objects\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Axe.h">
+      <Filter>Source Files\Objects\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="FireBomb.h">
+      <Filter>Source Files\Objects\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Boomerang.h">
+      <Filter>Source Files\Objects\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Stopwatch.h">
+      <Filter>Source Files\Objects\Weapons</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

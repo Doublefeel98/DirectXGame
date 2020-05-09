@@ -9,7 +9,7 @@ class Simon : public CPlayer
 	int hp;
 	int score;
 	int life;
-	int energy;
+	int heart;
 	DWORD untouchable_start;
 	DWORD timeAttackStart;
 	float oldVy;
@@ -20,6 +20,9 @@ class Simon : public CPlayer
 
 	int hurtable;
 	DWORD hurtable_start;
+
+	int typeWeaponCollect;
+	int typeShotCollect;
 
 	void _ParseSection_TEXTURES(string line);
 	void _ParseSection_SPRITES(string line);
@@ -46,8 +49,8 @@ public:
 	bool canClimbDownStair;
 	int directionStair;
 
-	bool IsFreeze; // Trạng thái đóng băng thay đổi màu liên tục
-	DWORD timeFreezeStart; // thời gian đã đóng băng
+	bool IsFreeze;
+	DWORD timeFreezeStart;
 
 	void Reset();
 
@@ -58,9 +61,9 @@ public:
 	void SetHP(int hp) { this->hp = hp; }
 	int GetLife() { return life; }
 	int GetScore() { return score; }
-	int GetEnergy() { return this->energy; }
+	int GetHeart() { return this->heart; }
 	int GetLevelWhip();
-	void SetEnergy(int energy) { this->energy = energy; }
+	void SetEnergy(int energy) { this->heart = energy; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 	void StartHurting() { IsHurt = true; hurtable = 1; hurtable_start = GetTickCount(); }
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
@@ -69,9 +72,10 @@ public:
 	void ResetCheckpoint();
 	void ResetAnimationFighting();
 	void ResetAnimationHurt();
-	void SetAnimationSetWhip(LPANIMATION_SET ani_set);
 
 	void Load(LPCWSTR simonFile);
 	void SetPosition(float x, float y);
+	int GetTypeWeaponCollect() { return typeWeaponCollect; }
+	int GetTypeShotCollect() { return typeShotCollect; }
 };
 

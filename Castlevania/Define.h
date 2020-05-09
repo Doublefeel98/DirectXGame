@@ -52,6 +52,7 @@
 #define	OBJECT_TYPE_BOTTOM_STAIR		15
 #define OBJECT_TYPE_TOP_STAIR			16
 #define OBJECT_TYPE_GROUND				17
+#define OBJECT_TYPE_MOVING_FLATFORM     18
 
 #define OBJECT_TYPE_ITEM_WHIP			100
 #define	OBJECT_TYPE_ITEM_SMALL_HEART	101
@@ -59,7 +60,6 @@
 #define	OBJECT_TYPE_ITEM_KNIFE			103
 #define OBJECT_TYPE_ITEM_AXE			104
 #define	OBJECT_TYPE_ITEM_BOOMERANG		105
-
 #define OBJECT_TYPE_VAMPIRE_BAT         202
 #define OBJECT_TYPE_BLACK_KNGHT         204
 
@@ -136,6 +136,8 @@
 #define SIMON_MAX_HP 8
 
 //whip
+#define WHIP_DAMAGE		2
+
 #define WHIP_LEVEL_1	1
 #define WHIP_LEVEL_2	2
 #define WHIP_LEVEL_3	3
@@ -169,41 +171,55 @@
 #define WHIP_LEVEL_3_BBOX_WIDTH		40
 #define WHIP_LEVEL_3_BBOX_HEIGHT	6
 
-//item
-#define ITEM_WHIP			0
-#define ITEM_SMALL_HEART	1
-#define ITEM_HEART			2
-#define ITEM_KNIFE			3
-#define ITEM_AXE			4
-#define ITEM_BOOMERANG		5
+//Standard Items
+#define ITEM_MORNING_STAIR					0
+#define ITEM_SMALL_HEART					1
+#define ITEM_LARGE_HEART					2
+#define ITEM_MONEY_BAG_RED					3
+#define ITEM_MONEY_BAG_PURPLE				4
+#define ITEM_MONEY_BAG_WHITE				5
 
-#define ITEM_BALL			3
-#define ITEM_MONEY			3
-#define ITEM_ROAST			5
-#define ITEM_HOLY_WATER		8
-#define ITEM_DAGGER			9
-#define ITEM_STOP_WATCH		10
-#define ITEM_INVISIBLE		11
-#define ITEM_UPGRADE_1		12
-#define ITEM_UPGRADE_2		13
-#define ITEM_CROSS			14
-#define ITEM_MONEY_WHITE	15
-#define ITEM_MONEY_RED		16
-#define ITEM_MONEY_PURPLE	17
+//Weapons
+#define ITEM_DAGGER							6
+#define ITEM_AXE							7
+#define ITEM_HOLY_WATER						8
+#define ITEM_BOOMERANG						9
+#define ITEM_STOP_WATCH						10
 
-
-#define ITEM_STATE_UP				9000
-#define ITEM_STATE_IDLE				9001
+//Special Items
+#define ITEM_CROSS							11
+#define ITEM_INVISIBILITY_POTION			12
+#define ITEM_PORK_CHOP						13
+#define ITEM_DOUBLE_SHOT					14
+#define ITEM_TRIPLE_SHOT					15
+#define ITEM_BONUSES						16
+#define ITEM_MAGIC_CRYSTAL					17
+#define ITEM_CROWN							18
+#define ITEM_CHEST							19
 
 
 //item board
-#define ITEM_BOARD_HEART			40001
+#define ITEM_BOARD_DAGGER					40008
+#define ITEM_BOARD_AXE						40009
+#define ITEM_BOARD_HOLLY_WATER				40010
+#define ITEM_BOARD_BOOMERANG				40012
+#define ITEM_BOARD_STOPWATCH				40014
+#define ITEM_BOARD_DOUBLE_SHOT				40015
+#define ITEM_BOARD_TRIPLE_SHOT				40016
 
+
+// money effect
+#define MONEY_EFFECT_100						520
+#define MONEY_EFFECT_400						521
+#define MONEY_EFFECT_700						522
+#define MONEY_EFFECT_1000						523
+#define MONEY_EFFECT_2000						524
 
 //Enemies
 //BLACK_KNIGHT
 #define BLACK_KNIGHT_HP 2
-#define BLACK_KNIGHT_WALKING_SPEED 0.02f
+#define BLACK_KNIGHT_DAMAGE 1
+#define BLACK_KNIGHT_WALKING_SPEED 0.015f
 
 #define BLACK_KNIGHT_BBOX_WIDTH 16
 #define BLACK_KNIGHT_BBOX_HEIGHT 32
@@ -219,10 +235,11 @@
 #define BLACK_KNIGHT_FLYING_SPEED_X 0.05f
 #define BLACK_KNIGHT_FLYING_SPEED_y 0.05f
 
-#define BLACK_KNIGHT_DISTANCE_X 20
+#define BLACK_KNIGHT_DISTANCE_X 16
 
 // VAMPIRE_BAT
 #define VAMPIRE_BAT_HP 1
+#define VAMPIRE_BAT_DAMAGE 1
 
 #define VAMPIRE_BAT_BBOX_WIDTH 12
 #define VAMPIRE_BAT_BBOX_HEIGHT 14

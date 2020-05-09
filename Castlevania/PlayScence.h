@@ -12,6 +12,7 @@ protected:
 
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> coObjects;
+	vector<LPGAMEOBJECT> listItems;
 
 	vector<int> listIdTextures;
 	vector<int> listIdSprites;
@@ -33,6 +34,7 @@ protected:
 	void _ParseSection_ANIMATION_SETS(string line);
 	void _ParseSection_OBJECTS(string line);
 	CCamera* camera;
+	int stage;
 public:
 
 	Simon* GetPlayer() { return player; }

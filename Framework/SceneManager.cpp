@@ -115,10 +115,13 @@ void CSceneManager::SwitchScene(int scene_id)
 {
 	DebugOut(L"[INFO] Switching to scene %d\n", scene_id);
 
+	CPlayScene* oldScene = dynamic_cast<CPlayScene*>(scenes[current_scene]);
 	scenes[current_scene]->Unload();
 
 	current_scene = scene_id;
-	LPSCENE s = scenes[scene_id];
+	CPlayScene* s = dynamic_cast<CPlayScene*>(scenes[scene_id]);
+	s->SetDefaultTime(oldScene->GetRemainTime());
+
 	CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());
 	s->Load();
 }

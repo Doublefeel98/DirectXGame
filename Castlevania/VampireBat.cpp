@@ -1,4 +1,4 @@
-#include "VampireBat.h"
+﻿#include "VampireBat.h"
 #include "Simon.h"
 #include "Define.h"
 #include "../Framework/Utils.h"
@@ -16,6 +16,8 @@ VampireBat::VampireBat(float startX, float startY)
 	Enemy::Enemy();
 
 	SetState(VAMPIRE_BAT_STATE_IDLE);
+
+	point = 200;
 }
 
 VampireBat::~VampireBat()
@@ -26,8 +28,6 @@ void VampireBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 {
 	Enemy::Update(dt, coObject);
 	if (!isDead && isEnable) {
-		x += dx;
-		y += dy;
 
 		float simonX, simonY;
 
@@ -104,20 +104,20 @@ void VampireBat::GetBoundingBox(float& left, float& top, float& right, float& bo
 
 void VampireBat::SetState(int state)
 {
-	CEnemy::SetState(state);
+	Enemy::SetState(state);
 	switch (state)
 	{
 	case VAMPIRE_BAT_STATE_IDLE:
 		break;
 	case VAMPIRE_BAT_STATE_FLYING:
 		if (nx > 0) {
-			vx = BLACK_KNIGHT_FLYING_SPEED_X;
+			vx = VAMPIRE_BAT_FLYING_SPEED_X;
 		}
 		else {
-			vx = -BLACK_KNIGHT_FLYING_SPEED_X;
+			vx = -VAMPIRE_BAT_FLYING_SPEED_X;
 		}
 
-		vy = BLACK_KNIGHT_FLYING_SPEED_y;
+		vy = VAMPIRE_BAT_FLYING_SPEED_y;
 		break;
 	}
 }

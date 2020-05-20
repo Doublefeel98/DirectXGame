@@ -6,7 +6,7 @@ Gate::Gate()
 
 void Gate::Render()
 {
-	animation_set->at(0)->Render(x, y);
+	animation_set->at(state)->Render(x, y);
 }
 
 void Gate::GetBoundingBox(float& l, float& t, float& r, float& b)

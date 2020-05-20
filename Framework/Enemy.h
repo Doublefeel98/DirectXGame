@@ -13,8 +13,6 @@ protected:
 	int damage;
 	int point;
 	bool isGrounded;
-	static int score;
-	void AddScore();
 public:
 	static int timestop;
 	static DWORD timestop_start;
@@ -35,6 +33,4 @@ public:
 	void Reload();
 	void Respawn();
 	DWORD respawnTime;
-	static void SetScore(int score);
-	static int GetScore();
 };

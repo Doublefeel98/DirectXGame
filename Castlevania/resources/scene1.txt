@@ -115,7 +115,8 @@
 
 [SETTINGS]
 stage 1
-map_width 768.0f
+time 300
+map_width 752.0f
 map_height 192.0f
 objects resources\maps\castle_entrance\object.txt
 tile_map resources\maps\castle_entrance\matrix.txt 1000

@@ -335,6 +335,9 @@
             this.imageListOB.Images.SetKeyName(12, "VampireBat");
             this.imageListOB.Images.SetKeyName(13, "FishMan");
             this.imageListOB.Images.SetKeyName(14, "BlackKnight");
+            this.imageListOB.Images.SetKeyName(15, "Ghost");
+            this.imageListOB.Images.SetKeyName(16, "Fleamen");
+            this.imageListOB.Images.SetKeyName(17, "Skeleton");
             // 
             // buttonSave
             // 
@@ -746,4 +749,3 @@
         private System.Windows.Forms.ComboBox cboItemType;
     }
 }
-

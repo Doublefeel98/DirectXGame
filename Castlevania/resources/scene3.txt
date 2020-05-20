@@ -205,6 +205,7 @@
 
 [SETTINGS]
 stage 2
+time -1
 map_width 512.0f
 map_height 192.0f
 objects resources\maps\tower_entrance_b\object.txt

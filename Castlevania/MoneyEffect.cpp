@@ -1,4 +1,4 @@
-#include "MoneyEffect.h"
+﻿#include "MoneyEffect.h"
 
 void MoneyEffect::Render()
 {
@@ -11,12 +11,18 @@ void MoneyEffect::Update(DWORD dt)
 	if (isEnable)
 	{
 		timeDelay += dt;
-		if (timeDelay > 450)
+		if (timeDelay >= 500)
 		{
 			timeDelay = 0.0f;
 			isEnable = false;
 		}
 	}
+}
+
+void MoneyEffect::Enable()
+{
+	isEnable = true;
+	timeDelay = 0;
 }
 
 MoneyEffect::MoneyEffect(int _moneyType)

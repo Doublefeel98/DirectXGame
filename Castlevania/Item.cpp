@@ -1,4 +1,4 @@
-#include "Item.h"
+﻿#include "Item.h"
 #include "Define.h"
 #include <time.h>
 #include "Brick.h"
@@ -80,9 +80,13 @@ void Item::RandomItem()
 	{
 		typeItem = ITEM_BONUSES;
 	}
+	else if (percent < 99)
+	{
+		typeItem = ITEM_CROWN;
+	}
 	else
 	{
-		typeItem = ITEM_MAGIC_CRYSTAL;
+		typeItem = ITEM_CHEST;
 	}
 }
 
@@ -283,7 +287,6 @@ void Item::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				if (IsFirstTime) {
 					//temp = temp / 2;
 				}
-
 				if (now - timeStartEnable >= temp) {
 					if (IsFirstTime) {
 						IsFirstTime = false;
@@ -343,33 +346,38 @@ void Item::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			// TODO: This is a very ugly designed function!!!!
 			FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
+			bool isColisionGround = false;
 			for (UINT i = 0; i < coEventsResult.size(); i++)
 			{
 				LPCOLLISIONEVENT e = coEventsResult[i];
 				if (dynamic_cast<Ground*>(e->obj))
 				{
-					if (e->ny < 0)
-					{
-						x += min_tx * dx + nx * 0.4f;
-						y += min_ty * dy + ny * 0.4f;
+					x += min_tx * dx + nx * 0.4f;
+					y += min_ty * dy + ny * 0.4f;
 
-						if (nx != 0) vx = 0;
-						if (ny != 0) vy = 0;
-						IsGround = true;
-					}
+					if (nx != 0) vx = 0;
+					if (ny != 0) vy = 0;
+					IsGround = true;
+
+					isColisionGround = true;
 				}
-
 			}
+
+			if (!isColisionGround) {
+				x += dx;
+				y += dy;
+			}
+
 		}
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	}
 	if (moneyEffect != nullptr) {
 		Simon* simon = Simon::GetInstance();
 		if (simon->nx > 0) {
-			moneyEffect->SetPosition(x + 10, y - 10);
+			moneyEffect->SetPosition(x + 15, y - 10);
 		}
 		else {
-			moneyEffect->SetPosition(x - 10, y - 10);
+			moneyEffect->SetPosition(x - 15, y - 10);
 		}
 
 		moneyEffect->Update(dt);

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace MapEditor
 {
@@ -146,6 +140,22 @@ namespace MapEditor
                 Id = 204;
                 AniSetId = 74;
             }
+            else if (this.Name == "Ghost")
+            {
+                Id = 205;
+                AniSetId = 75;
+            }
+            else if (this.Name == "Fleamen")
+            {
+                Id = 206;
+                AniSetId = 76;
+            }
+            else if (this.Name == "Skeleton")
+            {
+                Id = 207;
+                AniSetId = 77;
+            }
+
             this.PosX = PosX;
             this.PosY = PosY;
             this.Width = Width;
@@ -155,6 +165,7 @@ namespace MapEditor
         public string toObjectStr()
         {
             string str = Id + " " + Name + " " + PosX + " " + PosY + " " + Width + " " + Height + " " + AniSetId + " " + itemType;
+
             return str;
         }
     }

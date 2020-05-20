@@ -1,11 +1,11 @@
 ﻿#pragma once
 #include "Enemy.h"
-class BlackKnight : public Enemy
+class Ghost : public Enemy
 {
 	float startX, startY;
 public:
-	BlackKnight(float startX, float startY);
-	~BlackKnight();
+	Ghost(float startX, float startY);
+	~Ghost();
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObject = NULL);
 	virtual void Render();

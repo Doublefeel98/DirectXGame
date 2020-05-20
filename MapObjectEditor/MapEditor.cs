@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MapEditor
@@ -32,7 +29,7 @@ namespace MapEditor
 
         private int objectIndexInfo;
 
-        private const int CELL_SIZE = 136;
+        private const int CELL_SIZE = 128;
 
         private const int START_INDEX = 0;
 
@@ -160,6 +157,7 @@ namespace MapEditor
                 case "Zombie":
                 case "FishMan":
                 case "BlackKnight":
+                case "Skeleton":
                     imageCursor = Utilities.ResizeImage(imageCursor, 16, 32);
                     break;
                 case "Candle":
@@ -175,6 +173,8 @@ namespace MapEditor
                 case "Money":
                 case "Ball":
                 case "SmallHeart":
+                case "Ghost":
+                case "Fleamen":
                     imageCursor = Utilities.ResizeImage(imageCursor, 16, 16);
                     break;
                 case "BottomStair":

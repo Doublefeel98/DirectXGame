@@ -40,6 +40,9 @@
     <Filter Include="Source Files\Boads">
       <UniqueIdentifier>{637be088-6f75-4361-ab7f-0fb890f462dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Objects\Enemies\weapons">
+      <UniqueIdentifier>{36d5854a-7ea8-40ba-a6c0-98ce4225e286}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Simon.cpp">
@@ -132,6 +135,18 @@
     <ClCompile Include="Stopwatch.cpp">
       <Filter>Source Files\Objects\Weapons</Filter>
     </ClCompile>
+    <ClCompile Include="Ghost.cpp">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Fleamen.cpp">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Bone.cpp">
+      <Filter>Source Files\Objects\Enemies\weapons</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Simon.h">
@@ -223,6 +238,18 @@
     </ClInclude>
     <ClInclude Include="Stopwatch.h">
       <Filter>Source Files\Objects\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Ghost.h">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Fleamen.h">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Skeleton.h">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Bone.h">
+      <Filter>Source Files\Objects\Enemies\weapons</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

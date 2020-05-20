@@ -35,6 +35,8 @@ protected:
 	void _ParseSection_OBJECTS(string line);
 	CCamera* camera;
 	int stage;
+	int defaultTimeGame;
+	int remainTime;
 public:
 
 	Simon* GetPlayer() { return player; }
@@ -50,6 +52,8 @@ public:
 
 	float GetMapWidth() { return mapWidth; }
 	float GetMapHeight() { return mapHeight; }
+	int GetRemainTime() { return remainTime; }
+	void SetDefaultTime(int time) { this->defaultTimeGame = time; }
 };
 
 class CPlayScenceKeyHandler : public CScenceKeyHandler

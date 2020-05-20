@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <fstream>
 
 #include "PlayScence.h"
@@ -21,6 +21,9 @@
 #include "Gate.h"
 #include "MovingPlatform.h"
 #include "Enemy.h"
+#include "Ghost.h"
+#include "Fleamen.h"
+#include "Skeleton.h"
 
 using namespace std;
 
@@ -47,6 +50,13 @@ void CPlayScene::_ParseSection_SETTINGS(string line)
 
 	if (tokens[0] == "stage")
 		stage = atoi(tokens[1].c_str());
+	else if (tokens[0] == "time") {
+		int timeDefault = atoi(tokens[1].c_str());
+		if (timeDefault > 0) {
+			defaultTimeGame = timeDefault;
+		}
+		remainTime = atoi(tokens[1].c_str());
+	}
 	else if (tokens[0] == "map_width")
 		mapWidth = atoi(tokens[1].c_str());
 	else if (tokens[0] == "map_height")
@@ -232,6 +242,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_ITEM_WHIP: obj = new Item(ITEM_MORNING_STAIR); break;
 	case OBJECT_TYPE_VAMPIRE_BAT: obj = new VampireBat(x, y); break;
 	case OBJECT_TYPE_BLACK_KNGHT: obj = new BlackKnight(x, y); break;
+	case OBJECT_TYPE_GHOST: obj = new Ghost(x, y); break;
+	case OBJECT_TYPE_FLEAMEN: obj = new Fleamen(x, y); break;
+	case OBJECT_TYPE_SKELETON: obj = new Skeleton(x, y); break;
 	case OBJECT_TYPE_PORTAL:
 	{
 		int scene_id = atoi(tokens[7].c_str());
@@ -342,6 +355,8 @@ void CPlayScene::Load()
 
 	scoreBoard = new ScoreBoard(player, 16);
 
+	time = 0;
+
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
 
@@ -370,13 +385,13 @@ void CPlayScene::Update(DWORD dt)
 			if (typeItem == -1) {
 				Item* item = new Item();
 				item->SetEnable(true);
-				item->SetPosition(coObjects[i]->x, coObjects[i]->y);
+				item->SetPosition(coObjects[i]->x, coObjects[i]->y - 3);
 				listItems.push_back(item);
 			}
 			else if (typeItem > -1) {
 				Item* item = new Item(typeItem);
 				item->SetEnable(true);
-				item->SetPosition(coObjects[i]->x, coObjects[i]->y);
+				item->SetPosition(coObjects[i]->x, coObjects[i]->y - 3);
 				listItems.push_back(item);
 			}
 			coObjects[i]->SetEnable(false);
@@ -388,7 +403,8 @@ void CPlayScene::Update(DWORD dt)
 
 	//update scoreBoard
 	time += dt;
-	scoreBoard->Update(16, 300 - time * 0.001, stage);
+	remainTime = defaultTimeGame - time * 0.001;
+	scoreBoard->Update(16, remainTime, stage);
 
 	// Update camera to follow player
 	D3DXVECTOR3 pos = camera->GetCameraPosition();
@@ -396,17 +412,15 @@ void CPlayScene::Update(DWORD dt)
 
 	player->GetPosition(cx, cy);
 
-	boundHeight = mapHeight;
-
-	if (mapWidth > SCREEN_WIDTH) {
-		if (cx + player->GetWidth() + 5 < SCREEN_WIDTH / 2) {
-			cx = pos.x;
+	if (mapWidth > SCREEN_WIDTH - 15) {
+		if (cx < (SCREEN_WIDTH - 15) / 2) {
+			cx = 0;
 		}
-		else if (cx + player->GetWidth() + 5 + SCREEN_WIDTH / 2 > mapWidth - 1) {
-			cx = mapWidth - SCREEN_WIDTH - 1;
+		else if (cx + (SCREEN_WIDTH - 15) / 2 > mapWidth) {
+			cx = mapWidth - (SCREEN_WIDTH - 15);
 		}
 		else {
-			cx = cx + player->GetWidth() + 5 + SCREEN_WIDTH / 2 - SCREEN_WIDTH;
+			cx = cx + (SCREEN_WIDTH - 15) / 2 - (SCREEN_WIDTH - 15);
 		}
 	}
 	else {
@@ -419,7 +433,7 @@ void CPlayScene::Update(DWORD dt)
 			cy = cy + player->GetHeight() / 2 - SCREEN_HEIGHT / 2;
 		}
 		else {
-			cy = boundHeight - SCREEN_HEIGHT;
+			cy = mapHeight - SCREEN_HEIGHT;
 		}
 	}
 	else {
@@ -590,7 +604,7 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 	}
 	else if (game->IsKeyDown(DIK_RIGHT))
 	{
-		if (simon->IsOnStair && !simon->canClimbDownStair && !simon->canClimbUpStair) {
+		if (simon->IsOnStair && (!simon->canClimbDownStair || !simon->canClimbUpStair)) {
 			if (simon->directionStair == 1)
 			{
 				simon->SetState(SIMON_STATE_CLIMB_STAIR_ASCEND);
@@ -606,7 +620,7 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 	}
 	else if (game->IsKeyDown(DIK_LEFT))
 	{
-		if (simon->IsOnStair && !simon->canClimbDownStair && !simon->canClimbUpStair) {
+		if (simon->IsOnStair && (!simon->canClimbDownStair || !simon->canClimbUpStair)) {
 			if (simon->directionStair == 1)
 			{
 				simon->SetState(SIMON_STATE_CLIMB_STAIR_DESCEND);

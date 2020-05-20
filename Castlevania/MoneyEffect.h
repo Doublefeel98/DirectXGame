@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "../Framework/Effect.h"
 class MoneyEffect : public Effect
 {
@@ -6,7 +6,7 @@ class MoneyEffect : public Effect
 public:
 	void Render();
 	void Update(DWORD dt);
+	void Enable();
 	MoneyEffect(int _moneyType);
 	~MoneyEffect();
 };
-

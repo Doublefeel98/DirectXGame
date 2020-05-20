@@ -1,19 +1,9 @@
 #include "Enemy.h"
 
-int CEnemy::score = 0;
 float CEnemy::stopTime = 0;
 int CEnemy::timestop = 0;
 DWORD CEnemy::timestop_start = 0;
 bool CEnemy::IsStop = false;
-void CEnemy::AddScore()
-{
-	CEnemy::score += point;
-}
-
-int CEnemy::GetScore()
-{
-	return score;
-}
 
 
 CEnemy::CEnemy() : CGameObject()
@@ -53,7 +43,6 @@ void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				isDead = true;
 				isEnable = false;
-				AddScore();
 				return;
 			}
 			if (IsStop == true) {
@@ -91,11 +80,6 @@ void CEnemy::Respawn()
 	isDead = false;
 	hp = hpC;
 	e_prevHP = hp;
-}
-
-void CEnemy::SetScore(int score)
-{
-	CEnemy::score += score;
 }
 
 

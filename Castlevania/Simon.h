@@ -1,6 +1,12 @@
 ﻿#pragma once
-#include "Whip.h"
 #include "../Framework/Player.h"
+#include "Whip.h"
+#include "Weapon.h"
+#include "Axe.h"
+#include "Dagger.h"
+#include "Boomerang.h"
+#include "FireBomb.h"
+#include "Stopwatch.h"
 
 class Simon : public CPlayer
 {
@@ -31,8 +37,20 @@ class Simon : public CPlayer
 	void _ParseSection_SETTINGS(string line);
 
 	Simon();
-public:
 
+	float DoCaoDiDuoc = 0;
+
+	bool _IsFirstOnStair;
+
+	Axe* axes[3];
+	Dagger* daggers[3];
+	Boomerang* boomerangs[3];
+	FireBomb* fireBombs[3];
+	Stopwatch* stopwatchs[3];
+
+	void SetTypeOfWeapon(int item);
+public:
+	Weapon* weapons[3];
 	static Simon* GetInstance();
 	bool IsFighting;
 	bool IsSit;
@@ -61,6 +79,7 @@ public:
 	void SetHP(int hp) { this->hp = hp; }
 	int GetLife() { return life; }
 	int GetScore() { return score; }
+	void AddScore(int point);
 	int GetHeart() { return this->heart; }
 	int GetLevelWhip();
 	void SetEnergy(int energy) { this->heart = energy; }
@@ -77,5 +96,5 @@ public:
 	void SetPosition(float x, float y);
 	int GetTypeWeaponCollect() { return typeWeaponCollect; }
 	int GetTypeShotCollect() { return typeShotCollect; }
+	void Hurted(int damage);
 };
-

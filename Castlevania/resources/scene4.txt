@@ -5,7 +5,7 @@
 400 resources\textures\Enemies.png 116 116 116
 700 resources\textures\Gate.png 116 116 116
 900 resources\textures\blackboard.png 116 116 116
-1000 resources\maps\tower_entrance_a\tilesheet.png 255 255 255
+1000 resources\maps\walkway_entrance_a\tilesheet.png 255 255 255
 
 [SPRITES]
 # id	left    top     right   bottom  texture_id  dx      dy
@@ -113,6 +113,37 @@
 70410 533 28 16 32 400 0 0
 70411 516 28 16 32 400 0 0
 70412 499 28 16 32 400 0 0
+
+//Ghost
+70500 1 75 16 16 400 0 0
+70501 18 75 16 16 400 0 0
+
+70510 931 75 16 16 400 0 0
+70511 914 75 16 16 400 0 0
+
+//Fleamen
+70600 200 75 16 16 400 0 0
+70601 217 75 16 16 400 0 0
+
+70610 732 75 16 16 400 0 0
+70611 716 75 16 16 400 0 0
+
+//Skeleton
+70700 349 75 16 32 400 0 0
+70701 366 75 16 32 400 0 0
+
+70710 583 75 16 32 400 0 0
+70711 566 75 16 32 400 0 0
+
+// weapon bone
+70702 384 75 6 16 400 0 0
+70703 392 77 15 13 400 0 0
+70704 410 77 15 13 400 0 0
+
+70712 558 75 6 16 400 0 0
+70713 541 77 15 13 400 0 0
+70714 523 77 15 13 400 0 0
+
 //sprite map
 1000 0 0 160 244 1000 0 0
 # ani_idd    sprite1_id	time1	sprite2_id	time2	...
@@ -171,7 +202,6 @@
 //Item Chest
 419 1 40025 100 40026 100 40027 100 40028 100
 
-
 # --- Enemies ---
 //Vampire Bat
 720 1 70203 100
@@ -183,6 +213,24 @@
 //Black Knight
 740 1 70400 100 70401 100 70402 100
 741 1 70410 100 70411 100 70412 100
+
+//Ghost
+750 1 70500 100 70501 100
+751 1 70510 100 70511 100
+
+//Fleamen
+760 1 70600 100 70601 100
+761 1 70610 100 70611 100
+762 1 70600 100
+763 1 70610 100
+
+//Skeleton
+770 1 70700 100 70701 100
+771 1 70710 100 70711 100
+
+//Skeleton bone
+772 1 70702 100 70703 100 70704 100
+773 1 70712 100 70713 100 70714 100
 
 #
 # id	ani1	ani2	ani3
@@ -203,13 +251,17 @@
 # Enemies
 72 720 721 722 723 724
 74 740 741
+75 750 751
+76 760 761 762 763
+77 770 771
+771 772 773
 
 [SETTINGS]
-stage 2
-time 400
-map_width 256.0f
+stage 3
+time 500
+map_width 768.0f
 map_height 192.0f
-objects resources\maps\tower_entrance_a\object.txt
-tile_map resources\maps\tower_entrance_a\matrix.txt 1000
-grid resources\maps\tower_entrance_a\grid.txt 260
+objects resources\maps\walkway_entrance_a\object.txt
+tile_map resources\maps\walkway_entrance_a\matrix.txt 1000
+grid resources\maps\walkway_entrance_a\grid.txt 260
 

@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include "Simon.h"
 
 Enemy::Enemy()
 {
@@ -32,7 +33,7 @@ void Enemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				isDead = true;
 				isEnable = false;
 				GetDeadEffect()->SetEnable(true);
-				AddScore();
+				Simon::GetInstance()->AddScore(point);
 				return;
 			}
 			if (IsStop == true) {

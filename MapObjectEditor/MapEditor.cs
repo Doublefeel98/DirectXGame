@@ -175,6 +175,7 @@ namespace MapEditor
                 case "SmallHeart":
                 case "Ghost":
                 case "Fleamen":
+                case "PhantomBat":
                     imageCursor = Utilities.ResizeImage(imageCursor, 16, 16);
                     break;
                 case "BottomStair":
@@ -198,6 +199,9 @@ namespace MapEditor
                     break;
                 case "MovingPlatform":
                     imageCursor = Utilities.ResizeImage(imageCursor, 32, 8);
+                    break;
+                case "Raven":
+                    imageCursor = Utilities.ResizeImage(imageCursor, 16, 12);
                     break;
             }
             this.Cursor = new Cursor(((Bitmap)imageCursor).GetHicon());

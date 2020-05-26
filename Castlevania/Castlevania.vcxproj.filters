@@ -43,6 +43,9 @@
     <Filter Include="Source Files\Objects\Enemies\weapons">
       <UniqueIdentifier>{36d5854a-7ea8-40ba-a6c0-98ce4225e286}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Objects\Enemies\boss">
+      <UniqueIdentifier>{6ab5176a-3b71-4048-aa69-2482edae27b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Simon.cpp">
@@ -147,6 +150,15 @@
     <ClCompile Include="Bone.cpp">
       <Filter>Source Files\Objects\Enemies\weapons</Filter>
     </ClCompile>
+    <ClCompile Include="Raven.cpp">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="PhantomBat.cpp">
+      <Filter>Source Files\Objects\Enemies\boss</Filter>
+    </ClCompile>
+    <ClCompile Include="BossDeadEffect.cpp">
+      <Filter>Source Files\Effects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Simon.h">
@@ -250,6 +262,15 @@
     </ClInclude>
     <ClInclude Include="Bone.h">
       <Filter>Source Files\Objects\Enemies\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Raven.h">
+      <Filter>Source Files\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="PhantomBat.h">
+      <Filter>Source Files\Objects\Enemies\boss</Filter>
+    </ClInclude>
+    <ClInclude Include="BossDeadEffect.h">
+      <Filter>Source Files\Effects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-#include "DeadEffect.h"
+﻿#include "DeadEffect.h"
 
 
 void DeadEffect::SetPosition(float x, float y)

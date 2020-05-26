@@ -1,4 +1,4 @@
-#include "BottomStair.h"
+﻿#include "BottomStair.h"
 
 BottomStair::BottomStair(int _nx)
 {

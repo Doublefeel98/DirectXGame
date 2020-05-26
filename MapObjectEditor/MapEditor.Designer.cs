@@ -338,6 +338,8 @@
             this.imageListOB.Images.SetKeyName(15, "Ghost");
             this.imageListOB.Images.SetKeyName(16, "Fleamen");
             this.imageListOB.Images.SetKeyName(17, "Skeleton");
+            this.imageListOB.Images.SetKeyName(18, "Raven");
+            this.imageListOB.Images.SetKeyName(19, "PhantomBat");
             // 
             // buttonSave
             // 

@@ -117,7 +117,7 @@ void VampireBat::SetState(int state)
 			vx = -VAMPIRE_BAT_FLYING_SPEED_X;
 		}
 
-		vy = VAMPIRE_BAT_FLYING_SPEED_y;
+		vy = VAMPIRE_BAT_FLYING_SPEED_Y;
 		break;
 	}
 }

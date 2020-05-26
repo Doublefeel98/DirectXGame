@@ -1,4 +1,4 @@
-#include "Stopwatch.h"
+﻿#include "Stopwatch.h"
 #include "Enemy.h"
 
 void Stopwatch::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

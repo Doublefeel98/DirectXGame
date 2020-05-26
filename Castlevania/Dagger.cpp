@@ -1,10 +1,11 @@
-#include "Dagger.h"
+﻿#include "Dagger.h"
 #include "../Framework/Ground.h"
 #include "../Framework/BoundingMap.h"
 #include "Enemy.h"
 
 void Dagger::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	Weapon::Update(dt, coObjects);
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
 		if (dynamic_cast<Ground*>(coObjects->at(i)) || dynamic_cast<BoundingMap*>(coObjects->at(i)))

@@ -1,4 +1,4 @@
-#include "Grid.h"
+﻿#include "Grid.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -187,4 +187,3 @@ void Grid::Unload()
 		cells = NULL;
 	}
 }
-

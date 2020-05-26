@@ -155,6 +155,16 @@ namespace MapEditor
                 Id = 207;
                 AniSetId = 77;
             }
+            else if (this.Name == "Raven")
+            {
+                Id = 208;
+                AniSetId = 78;
+            }
+            else if (this.Name == "PhantomBat")
+            {
+                Id = 300;
+                AniSetId = 80;
+            }
 
             this.PosX = PosX;
             this.PosY = PosY;

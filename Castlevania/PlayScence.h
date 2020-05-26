@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "../Framework/Scence.h"
 #include "../Framework/Grid.h"
 #include "../Framework/TileMap.h"
@@ -64,4 +64,3 @@ public:
 	virtual void OnKeyUp(int KeyCode);
 	CPlayScenceKeyHandler(CScene* s) :CScenceKeyHandler(s) {};
 };
-

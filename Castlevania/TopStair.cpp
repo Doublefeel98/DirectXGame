@@ -14,8 +14,8 @@ void TopStair::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x;
 	t = y;
-	r = x + 8;
-	b = y + 8;
+	r = x + width;
+	b = y + height;
 }
 
 TopStair::~TopStair()

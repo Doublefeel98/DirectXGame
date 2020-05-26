@@ -24,6 +24,9 @@
 #include "Ghost.h"
 #include "Fleamen.h"
 #include "Skeleton.h"
+#include "Raven.h"
+#include "Zombie.h"
+#include "PhantomBat.h"
 
 using namespace std;
 
@@ -245,6 +248,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_GHOST: obj = new Ghost(x, y); break;
 	case OBJECT_TYPE_FLEAMEN: obj = new Fleamen(x, y); break;
 	case OBJECT_TYPE_SKELETON: obj = new Skeleton(x, y); break;
+	case OBJECT_TYPE_RAVEN: obj = new Raven(x, y); break;
+	case OBJECT_TYPE_PHANTOM_BAT: obj = new PhantomBat(x, y); break;
+	case OBJECT_TYPE_ZOOMBIE: obj = new Zombie(x, y); break;
 	case OBJECT_TYPE_PORTAL:
 	{
 		int scene_id = atoi(tokens[7].c_str());
@@ -568,6 +574,7 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 			simon->vx = 0;
 			simon->vy = 0;
 		}
+		simon->IsKeyState_DIK_UP = false;
 		break;
 	}
 }
@@ -601,6 +608,8 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 		else if (simon->IsOnStair) {
 			simon->SetState(SIMON_STATE_CLIMB_STAIR_ASCEND);
 		}
+
+		simon->IsKeyState_DIK_UP = true;
 	}
 	else if (game->IsKeyDown(DIK_RIGHT))
 	{

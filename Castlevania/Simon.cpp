@@ -49,16 +49,9 @@ Simon::Simon()
 	DoCaoDiDuoc = 0;
 	_IsFirstOnStair = false;
 
-	for (int i = 0; i < 3; i++)
-	{
-		daggers[i] = new Dagger();
-		boomerangs[i] = new Boomerang();
-		axes[i] = new Axe();
-		fireBombs[i] = new FireBomb();
-		stopwatchs[i] = new Stopwatch();
-		weapons[i] = daggers[i];
+	IsUseSubWeapons = false;
 
-	}
+	numberSubWeaponAble = 1;
 }
 
 void Simon::SetTypeOfWeapon(int item)
@@ -69,23 +62,18 @@ void Simon::SetTypeOfWeapon(int item)
 		{
 
 		case ITEM_HOLY_WATER:
-			weapons[i] = fireBombs[i];
 			typeWeaponCollect = item;
 			break;
 		case ITEM_AXE:
-			weapons[i] = axes[i];
 			typeWeaponCollect = item;
 			break;
 		case ITEM_DAGGER:
-			weapons[i] = daggers[i];
 			typeWeaponCollect = item;
 			break;
 		case ITEM_BOOMERANG:
-			weapons[i] = boomerangs[i];
 			typeWeaponCollect = item;
 			break;
 		case ITEM_STOP_WATCH:
-			weapons[i] = stopwatchs[i];
 			typeWeaponCollect = item;
 			break;
 		default:
@@ -183,12 +171,12 @@ void Simon::SetState(int state)
 	case SIMON_STATE_CLIMB_STAIR_DESCEND:
 		if (!IsOnStair) {
 			if (directionStair > 0) {
-				x = posXStair;
+				x = posXStair - 16;
 				y += 8;
 			}
 			else {
-				x = posXStair;
-				y = posYStair;
+				x = posXStair + 16;
+				y += 8;
 			}
 
 			IsOnStair = true;
@@ -218,8 +206,56 @@ void Simon::SetState(int state)
 		vx = 0;
 		IsFighting = true;
 		timeAttackStart = currentTime;
-		whip->SetEnable(true);
-		whip->SetState(WHIP_STATE_PREPARE);
+		if (IsKeyState_DIK_UP && typeWeaponCollect >= ITEM_DAGGER && typeWeaponCollect <= ITEM_STOP_WATCH && heart > 0 && !IsUseSubWeapons) {
+			for (int i = 0; i < numberSubWeaponAble; i++)
+			{
+				if (heart <= 0) {
+					break;
+				}
+
+				Weapon* weapon = nullptr;
+				switch (typeWeaponCollect)
+				{
+
+				case ITEM_HOLY_WATER:
+					weapon = new FireBomb();
+					break;
+				case ITEM_AXE:
+					weapon = new Axe();
+					break;
+				case ITEM_DAGGER:
+					weapon = new Dagger();
+					break;
+				case ITEM_BOOMERANG:
+					weapon = new Boomerang(x);
+					break;
+				case ITEM_STOP_WATCH:
+					weapon = new Stopwatch();
+					break;
+				default:
+					break;
+				}
+				if (weapon != nullptr) {
+					if (heart - weapon->GetUseHeart() >= 0)
+					{
+						IsUseSubWeapons = true;
+						heart -= weapon->GetUseHeart();
+						weapon->SetEnable(true);
+						weapon->SetPosition(this->x, this->y);
+						if (this->nx == -1)
+							weapon->nx = -1;
+						else
+							weapon->nx = 1;
+						weapons.push_back(weapon);
+					}
+				}
+
+			}
+		}
+		if (!IsUseSubWeapons) {
+			whip->SetEnable(true);
+			whip->SetState(WHIP_STATE_PREPARE);
+		}
 		break;
 	case SIMON_STATE_HURT:
 		IsGround = false;
@@ -338,12 +374,16 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (IsFighting)
 	{
-		whip->SetPosition(this->x, this->y, IsSit);
-		whip->Update(dt, coObjects);
-		if (now - timeAttackStart > (SIMON_ATTACK_TIME - 150))
-		{
-			whip->SetState(WHIP_STATE_HIT);
+		if (!IsUseSubWeapons) {
+			whip->SetPosition(this->x, this->y, IsSit);
+			whip->Update(dt, coObjects);
+
+			if (now - timeAttackStart > (SIMON_ATTACK_TIME - 150))
+			{
+				whip->SetState(WHIP_STATE_HIT);
+			}
 		}
+
 		if (now - timeAttackStart > SIMON_ATTACK_TIME)
 		{
 			timeAttackStart = 0;
@@ -351,6 +391,15 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			whip->ResetAnimation();
 			whip->SetEnable(false);
 			ResetAnimationFighting();
+			IsUseSubWeapons = false;
+		}
+	}
+
+	if (typeWeaponCollect >= ITEM_DAGGER && typeWeaponCollect <= ITEM_STOP_WATCH) {
+		for (int i = 0; i < weapons.size(); i++)
+		{
+			if (weapons[i]->IsEnable())
+				weapons[i]->Update(dt, coObjects);
 		}
 	}
 
@@ -426,6 +475,23 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 			}
 		}
+		else if (dynamic_cast<BottomStair*>(coObjects->at(i))) {
+			BottomStair* item = dynamic_cast<BottomStair*>(coObjects->at(i));
+
+			float l1, t1, r1, b1, l2, t2, r2, b2;
+			GetBoundingBox(l1, t1, r1, b1);
+			item->GetBoundingBox(l2, t2, r2, b2);
+
+			if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))
+			{
+				if (b2 > b1) {
+					canClimbUpStair = true;
+					posXStair = item->x;
+					posYStair = item->y;
+					directionStair = item->nx;
+				}
+			}
+		}
 		else if (dynamic_cast<TopStair*>(coObjects->at(i))) {
 			TopStair* item = dynamic_cast<TopStair*>(coObjects->at(i));
 
@@ -441,31 +507,28 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				directionStair = item->nx;
 			}
 		}
-		else if (dynamic_cast<BottomStair*>(coObjects->at(i))) {
-			BottomStair* item = dynamic_cast<BottomStair*>(coObjects->at(i));
-
-			float l1, t1, r1, b1, l2, t2, r2, b2;
-			GetBoundingBox(l1, t1, r1, b1);
-			item->GetBoundingBox(l2, t2, r2, b2);
-
-			if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))
-			{
-				canClimbUpStair = true;
-				posXStair = item->x;
-				posYStair = item->y;
-				directionStair = item->nx;
-			}
-		}
-
 	}
 
-	if (typeWeaponCollect >= ITEM_DAGGER && typeWeaponCollect >= ITEM_STOP_WATCH) {
-		for (int i = 0; i < typeShotCollect; i++)
-		{
-			if (!weapons[i])
-				weapons[i] = weapons[0];
-			if (weapons[i]->IsEnable())
-				weapons[i]->Update(dt, coObjects);
+	for (int i = 0; i < weapons.size(); i++) {
+		if (weapons[i]->IsEnable()) {
+			if (dynamic_cast<Boomerang*>(weapons[i])) {
+
+				Boomerang* weapon = dynamic_cast<Boomerang*>(weapons[i]);
+
+				if (weapon->countReturn == 0) {
+					continue;
+				}
+
+				float l1, t1, r1, b1, l2, t2, r2, b2;
+				GetBoundingBox(l1, t1, r1, b1);
+				weapons[i]->GetBoundingBox(l2, t2, r2, b2);
+
+				if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))
+				{
+					weapons[i]->SetEnable(false);
+					heart++;
+				}
+			}
 		}
 	}
 
@@ -592,16 +655,18 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						break;
 					case ITEM_DOUBLE_SHOT:
 						typeShotCollect = ITEM_DOUBLE_SHOT;
+						numberSubWeaponAble = 2;
 						break;
 					case ITEM_TRIPLE_SHOT:
 						typeShotCollect = ITEM_TRIPLE_SHOT;
+						numberSubWeaponAble = 3;
 						break;
 					}
 					item->SetDead(true);
 					item->SetEnable(false);
 				}
 			}
-			else if (dynamic_cast<Ground*>(e->obj))
+			if (dynamic_cast<Ground*>(e->obj))
 			{
 				if (!IsOnStair || IsDownStair) {
 					Ground* ground = dynamic_cast<Ground*>(e->obj);
@@ -657,20 +722,11 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			}
 			else if (dynamic_cast<BoundingMap*>(e->obj)) {
-				/*if (e->nx != 0)
-				{
-
-				}*/
 				x += min_tx * dx + nx * 0.4f;
 				y += min_ty * dy + ny * 0.4f;
 
 				if (nx != 0) vx = 0;
 				if (ny != 0) vy = 0;
-				/*if (IsJump)
-				{
-					y -= 8;
-					IsJump = false;
-				}*/
 			}
 			else if (dynamic_cast<MovingPlatform*>(e->obj)) {
 				if (e->ny < 0)
@@ -687,22 +743,22 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					IsJump = false;
 				}
 			}
-			else if (dynamic_cast<BottomStair*>(e->obj))
-			{
-				x += dx;
-				if (e->ny < 0)
-				{
-					y += dy + ny * -0.7f;
-				}
-				else if (e->nx != 0)
-				{
-					if (ny < 0)
-						y += dy + ny * 0.7f;
-					else if (ny > 0)
-						y += dy + ny * -0.7f;
-				}
+			//else if (dynamic_cast<BottomStair*>(e->obj))
+			//{
+			//	x += dx;
+			//	if (e->ny < 0)
+			//	{
+			//		y += dy + ny * -0.7f;
+			//	}
+			//	else if (e->nx != 0)
+			//	{
+			//		if (ny < 0)
+			//			y += dy + ny * 0.7f;
+			//		else if (ny > 0)
+			//			y += dy + ny * -0.7f;
+			//	}
 
-			}
+			//}
 			else if (dynamic_cast<CPortal*>(e->obj))
 			{
 				CPortal* p = dynamic_cast<CPortal*>(e->obj);
@@ -840,14 +896,13 @@ void Simon::Render()
 		whip->Render(nx > 0);
 	}
 
-	if (typeWeaponCollect >= ITEM_DAGGER && typeWeaponCollect >= ITEM_STOP_WATCH) {
-		for (int i = 0; i < typeShotCollect; i++)
+	if (typeWeaponCollect >= ITEM_DAGGER && typeWeaponCollect <= ITEM_STOP_WATCH) {
+		for (int i = 0; i < weapons.size(); i++)
 		{
 			if (weapons[i]->IsEnable())
 				weapons[i]->Render();
 		}
 	}
-
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;

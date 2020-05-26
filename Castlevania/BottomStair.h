@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "../Framework/GameObject.h"
 class BottomStair : public CGameObject
 {
@@ -8,4 +8,3 @@ public:
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 	~BottomStair();
 };
-

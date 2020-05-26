@@ -42,15 +42,12 @@ class Simon : public CPlayer
 
 	bool _IsFirstOnStair;
 
-	Axe* axes[3];
-	Dagger* daggers[3];
-	Boomerang* boomerangs[3];
-	FireBomb* fireBombs[3];
-	Stopwatch* stopwatchs[3];
-
 	void SetTypeOfWeapon(int item);
+
+	int numberSubWeaponAble;
+
+	vector<Weapon*> weapons;
 public:
-	Weapon* weapons[3];
 	static Simon* GetInstance();
 	bool IsFighting;
 	bool IsSit;
@@ -66,6 +63,9 @@ public:
 	bool canClimbUpStair;
 	bool canClimbDownStair;
 	int directionStair;
+
+	bool IsKeyState_DIK_UP;
+	bool IsUseSubWeapons;
 
 	bool IsFreeze;
 	DWORD timeFreezeStart;

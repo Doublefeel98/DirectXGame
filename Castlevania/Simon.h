@@ -47,6 +47,8 @@ class Simon : public CPlayer
 	int numberSubWeaponAble;
 
 	vector<Weapon*> weapons;
+
+	bool isKillAllEnemies;
 public:
 	static Simon* GetInstance();
 	bool IsFighting;
@@ -97,4 +99,6 @@ public:
 	int GetTypeWeaponCollect() { return typeWeaponCollect; }
 	int GetTypeShotCollect() { return typeShotCollect; }
 	void Hurted(int damage);
+	void SetKillAllEnemies(bool isKill) { this->isKillAllEnemies = isKill; }
+	bool IsKillAllEnemies() { return isKillAllEnemies; }
 };

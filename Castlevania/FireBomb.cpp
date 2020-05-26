@@ -37,7 +37,7 @@ void FireBomb::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			if (t1 <= b2 && b1 >= t2 && l1 <= r2 && r1 >= l2) {
 				if ((coObjects->at(i))->nx != 0)
 				{
-					if (!enemy->isEnable) {
+					if (enemy->isEnable) {
 						vx = 0;
 						enemy->SetHP(enemy->GetHP() - this->damage);
 						enemy->GetCollisionEffect()->SetEnable(true);

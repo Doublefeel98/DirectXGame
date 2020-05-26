@@ -52,6 +52,8 @@ Simon::Simon()
 	IsUseSubWeapons = false;
 
 	numberSubWeaponAble = 1;
+
+	isKillAllEnemies = false;
 }
 
 void Simon::SetTypeOfWeapon(int item)
@@ -171,12 +173,10 @@ void Simon::SetState(int state)
 	case SIMON_STATE_CLIMB_STAIR_DESCEND:
 		if (!IsOnStair) {
 			if (directionStair > 0) {
-				x = posXStair - 16;
-				y += 8;
+				x = posXStair;
 			}
 			else {
-				x = posXStair + 16;
-				y += 8;
+				x = posXStair + 8;
 			}
 
 			IsOnStair = true;
@@ -661,6 +661,9 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						typeShotCollect = ITEM_TRIPLE_SHOT;
 						numberSubWeaponAble = 3;
 						break;
+					case ITEM_CROSS:
+						SetKillAllEnemies(true);
+						break;
 					}
 					item->SetDead(true);
 					item->SetEnable(false);
@@ -743,22 +746,22 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					IsJump = false;
 				}
 			}
-			//else if (dynamic_cast<BottomStair*>(e->obj))
-			//{
-			//	x += dx;
-			//	if (e->ny < 0)
-			//	{
-			//		y += dy + ny * -0.7f;
-			//	}
-			//	else if (e->nx != 0)
-			//	{
-			//		if (ny < 0)
-			//			y += dy + ny * 0.7f;
-			//		else if (ny > 0)
-			//			y += dy + ny * -0.7f;
-			//	}
+			else if (dynamic_cast<BottomStair*>(e->obj))
+			{
+				x += dx;
+				if (e->ny < 0)
+				{
+					y += dy + ny * -0.7f;
+				}
+				else if (e->nx != 0)
+				{
+					if (ny < 0)
+						y += dy + ny * 0.7f;
+					else if (ny > 0)
+						y += dy + ny * -0.7f;
+				}
 
-			//}
+			}
 			else if (dynamic_cast<CPortal*>(e->obj))
 			{
 				CPortal* p = dynamic_cast<CPortal*>(e->obj);

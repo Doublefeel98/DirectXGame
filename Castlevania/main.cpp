@@ -1,4 +1,4 @@
-/* =============================================================
+﻿/* =============================================================
 	INTRODUCTION TO GAME PROGRAMMING SE102
 
 	SAMPLE 05 - SCENCE MANAGER
@@ -71,7 +71,7 @@ void Render()
 	if (d3ddv->BeginScene())
 	{
 		// Clear back buffer with a color
-		d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
+		d3ddv->ColorFill(bb, NULL, game->GetBackgroundColor());
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
@@ -176,6 +176,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	game = CGame::GetInstance();
+	game->SetBackgroundColor(BACKGROUND_COLOR);
 	game->Init(hWnd);
 	game->InitKeyboard();
 	game->SetDeviationY(45);

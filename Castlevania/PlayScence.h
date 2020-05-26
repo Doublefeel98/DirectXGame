@@ -37,6 +37,7 @@ protected:
 	int stage;
 	int defaultTimeGame;
 	int remainTime;
+	DWORD timeKillAll;
 public:
 
 	Simon* GetPlayer() { return player; }

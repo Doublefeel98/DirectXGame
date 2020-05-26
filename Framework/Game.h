@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <unordered_map>
 
@@ -42,6 +42,8 @@ class CGame
 	CCamera* camera;
 
 	int deviation_y;
+
+	D3DCOLOR backgroundColor;
 public:
 	void InitKeyboard();
 	void SetKeyHandler(LPKEYEVENTHANDLER handler) { keyHandler = handler; }
@@ -79,6 +81,9 @@ public:
 	LPD3DXSPRITE GetSpriteHandler() { return this->spriteHandler; }
 
 	static CGame* GetInstance();
+
+	void SetBackgroundColor(D3DCOLOR color) { backgroundColor = color; }
+	D3DCOLOR GetBackgroundColor() { return backgroundColor; }
 
 	HWND GetHWND() { return hWnd; }
 

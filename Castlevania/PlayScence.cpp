@@ -30,6 +30,9 @@
 
 using namespace std;
 
+#define CROSS_COLOR_BACKGROUND D3DCOLOR_XRGB(188, 188, 188) // Màu xám 188, 188, 188
+#define BACKGROUND_COLOR D3DCOLOR_XRGB(0, 0, 0)
+
 CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 	CScene(id, filePath)
 {
@@ -401,6 +404,32 @@ void CPlayScene::Update(DWORD dt)
 				listItems.push_back(item);
 			}
 			coObjects[i]->SetEnable(false);
+		}
+	}
+
+	if (player->IsKillAllEnemies())
+	{
+		for (int i = 0; i < coObjects.size(); i++)
+		{
+			if (dynamic_cast<Enemy*>(coObjects[i])) {
+				Enemy* enemy = dynamic_cast<Enemy*>(coObjects[i]);
+				enemy->SetHP(0);
+				enemy->SetTypeItem(-2);
+			}
+		}
+		timeKillAll += dt;
+		if (timeKillAll < 400)
+		{
+			if ((int)(timeKillAll) % 2 == 0)
+				CGame::GetInstance()->SetBackgroundColor(CROSS_COLOR_BACKGROUND);
+			else
+				CGame::GetInstance()->SetBackgroundColor(BACKGROUND_COLOR);
+		}
+		else
+		{
+			CGame::GetInstance()->SetBackgroundColor(BACKGROUND_COLOR);
+			player->SetKillAllEnemies(false);
+			timeKillAll = 0;
 		}
 	}
 

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <Windows.h>
 #include <d3dx9.h>
@@ -126,4 +126,3 @@ public:
 	void SetAnimationSet(int ani_set_id);
 	~CGameObject();
 };
-

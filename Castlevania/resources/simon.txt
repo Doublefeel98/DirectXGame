@@ -221,11 +221,11 @@
 //whip level 2 right
 207 1 21012 150
 //whip level 3 prepare left
-208 1 20020 150 20021 150
+208 1 20010 150 20011 150
 //whip level 3 left
 209 1 20022 150
 //whip level 3 prepare right
-210 1 21020 150 21021 150
+210 1 21010 150 21011 150
 //whip level 3 right
 211 1 21022 150
 

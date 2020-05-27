@@ -382,6 +382,10 @@ void CPlayScene::Update(DWORD dt)
 	}
 
 	player->Update(dt, &coObjects);
+
+	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
+	if (player == NULL) return;
+
 	for (size_t i = 0; i < coObjects.size(); i++)
 	{
 		coObjects[i]->Update(dt, &coObjects);
@@ -432,9 +436,6 @@ void CPlayScene::Update(DWORD dt)
 			timeKillAll = 0;
 		}
 	}
-
-	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
-	if (player == NULL) return;
 
 	//update scoreBoard
 	time += dt;

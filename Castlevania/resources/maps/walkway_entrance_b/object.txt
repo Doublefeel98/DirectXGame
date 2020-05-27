@@ -1,13 +1,14 @@
 #id	type	name	x	y	width	height	ani_set_id
 0 1 Simon 88 160 16 32 1 -2
-1 16 TopStair 128 58 16 8 1 -2
+1 16 TopStair 120 60 16 8 1 -2
 2 15 BottomStair 64 152 8 8 1 -2
-3 16 TopStair 48 124 16 8 -1 -2
+//3 16 TopStair 56 124 16 8 -1 -2
+3 16 TopStair 0 0 16 8 -1 -2
 4 15 BottomStair 384 152 8 8 1 -2
-5 16 TopStair 416 92 16 8 1 -2
-6 16 TopStair 480 28 16 8 1 -2
+5 16 TopStair 408 92 16 8 1 -2
+6 16 TopStair 472 28 16 8 1 -2
 7 15 BottomStair 448 88 8 8 1 -2
-8 16 TopStair 574 60 16 8 -1 -2
+8 16 TopStair 568 60 16 8 -1 -2
 9 15 BottomStair 632 152 8 8 -1 -2
 10 17 Ground 32 160 32 32 -1 -2
 11 17 Ground 80 160 16 16 -1 -2

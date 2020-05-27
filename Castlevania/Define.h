@@ -389,3 +389,14 @@
 #define PHANTOM_BAT_HURT_TIME	10
 #define PHANTOM_BAT_WAIT_TIME	750
 #define PHANTOM_BAT_CHASE_TIME	50
+
+
+#ifndef SAFE_DELETE
+#define SAFE_DELETE(ptr) \
+if(ptr) \
+{\
+	delete (ptr); \
+	ptr = nullptr; \
+} \
+
+#endif

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "../Framework/GameObject.h"
 #include "MoneyEffect.h"
 class Item;
@@ -14,6 +14,8 @@ class Item : public CGameObject
 	bool IsGround;
 	bool IsFirstTime;
 	MoneyEffect* moneyEffect;
+	DWORD timeDisplay;
+	int timeDisplayMax;
 public:
 	Item();
 	Item(int typeItem);
@@ -24,5 +26,5 @@ public:
 	void TurnOnTimeStartEnable();
 	int GetTypeItem() { return typeItem; }
 	MoneyEffect* GetMoneyEffect() { return moneyEffect; }
+	void Enable();
 };
-

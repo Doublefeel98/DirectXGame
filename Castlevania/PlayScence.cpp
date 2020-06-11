@@ -230,8 +230,21 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			DebugOut(L"[ERROR] MARIO object was created before! ");
 			return;
 		}
+
+		int direction = atoi(tokens[9].c_str());
+		int state = atoi(tokens[10].c_str());
+
 		player = Simon::GetInstance();
 		player->SetPosition(x, y);
+		player->nx = direction;
+
+		if (state == 0) {
+			player->SetState(SIMON_STATE_IDLE);
+		}
+		else {
+			player->IsOnStair = true;
+		}
+
 		objects.push_back(obj);
 		return;
 	}
@@ -257,9 +270,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_PORTAL:
 	{
 		int scene_id = atoi(tokens[7].c_str());
-		obj = new CPortal(x, y, width, height, scene_id);
+		int position = atoi(tokens[9].c_str());
+
+		obj = new CPortal(x, y, width, height, scene_id, position);
 		obj->SetID(id);
 		obj->SetTypeItem(-2);
+
 		objects.push_back(obj);
 		return;
 	}
@@ -395,15 +411,15 @@ void CPlayScene::Update(DWORD dt)
 		{
 			coObjects[i]->SetDead(false);
 			int typeItem = coObjects[i]->GetTypeItem();
-			if (typeItem == -1) {
-				Item* item = new Item();
-				item->SetEnable(true);
-				item->SetPosition(coObjects[i]->x, coObjects[i]->y - 3);
-				listItems.push_back(item);
-			}
-			else if (typeItem > -1) {
-				Item* item = new Item(typeItem);
-				item->SetEnable(true);
+			if (typeItem >= -1) {
+				Item* item;
+				if (typeItem == -1) {
+					item = new Item();
+				}
+				else {
+					item = new Item(typeItem);
+				}
+				item->Enable();
 				item->SetPosition(coObjects[i]->x, coObjects[i]->y - 3);
 				listItems.push_back(item);
 			}

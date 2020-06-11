@@ -22,7 +22,8 @@ namespace MapEditor
 
         public int itemType { get; set; }
 
-        public Object(PictureBox Pic, string name, int PosX, int PosY, int Width = 0, int Height = 0, int sceneId = 1, int itemType = -2)
+        public Object(PictureBox Pic, string name, int PosX, int PosY, int Width = 0,
+            int Height = 0, int sceneId = 1, int itemType = -2)
         {
             this.Pic = Pic;
             this.itemType = itemType;
@@ -172,7 +173,7 @@ namespace MapEditor
             this.Height = Height;
         }
 
-        public string toObjectStr()
+        public virtual string toObjectStr()
         {
             string str = Id + " " + Name + " " + PosX + " " + PosY + " " + Width + " " + Height + " " + AniSetId + " " + itemType;
 

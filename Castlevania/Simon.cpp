@@ -1,7 +1,6 @@
 ﻿#include "Simon.h"
 #include "Define.h"
 #include "Torch.h"
-#include "Item.h"
 #include "../Framework/SceneManager.h"
 #include "Candle.h"
 #include "../Framework/Utils.h"
@@ -10,7 +9,6 @@
 #include "../Framework/Ground.h"
 #include "BottomStair.h"
 #include "TopStair.h"
-#include "Enemy.h"
 #include "VampireBat.h"
 #include "MovingPlatform.h"
 
@@ -21,40 +19,7 @@ Simon* Simon::__instance = NULL;
 
 using namespace std;
 
-Simon::Simon()
-{
-	level = 0;
-	hp = SIMON_HP;
-	heart = 5;
-	score = 0;
-	life = 3;
-
-	untouchable = 0;
-	untouchable_start = 0;
-
-	IsFighting = false;
-	IsJump = false;
-	IsSit = false;
-	IsRun = false;
-
-	timeAttackStart = 0;
-
-	IsFreeze = false;
-	timeFreezeStart = 0;
-
-	whip = new Whip();
-
-	state = SIMON_STATE_IDLE;
-
-	DoCaoDiDuoc = 0;
-	_IsFirstOnStair = false;
-
-	IsUseSubWeapons = false;
-
-	numberSubWeaponAble = 1;
-
-	isKillAllEnemies = false;
-}
+#pragma region public methods
 
 void Simon::SetTypeOfWeapon(int item)
 {
@@ -396,13 +361,9 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 
-	if (typeWeaponCollect >= ITEM_DAGGER && typeWeaponCollect <= ITEM_STOP_WATCH) {
-		for (int i = 0; i < weapons.size(); i++)
-		{
-			if (weapons[i]->IsEnable())
-				weapons[i]->Update(dt, coObjects);
-		}
-	}
+
+	_updateSubWeapon(dt, coObjects);
+
 
 	if (IsFreeze) {
 		if (now - timeFreezeStart > TIME_FREEZE_MAX)
@@ -424,207 +385,6 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		canClimbDownStair = false;
 	}
 
-	for (UINT i = 0; i < coObjects->size(); i++)
-	{
-		/*if (dynamic_cast<Item*>(coObjects->at(i))) {
-			Item* item = dynamic_cast<Item*>(coObjects->at(i));
-
-			float l1, t1, r1, b1, l2, t2, r2, b2;
-			GetBoundingBox(l1, t1, r1, b1);
-			item->GetBoundingBox(l2, t2, r2, b2);
-
-			if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))
-			{
-				if (!item->IsDead() && item->IsEnable()) {
-					item->SetDead(true);
-					item->SetEnable(false);
-				}
-			}
-		}
-		else*/
-		if (dynamic_cast<Enemy*>(coObjects->at(i)))
-		{
-			Enemy* enemy = dynamic_cast<Enemy*>(coObjects->at(i));
-			float l1, t1, r1, b1, l2, t2, r2, b2;
-			GetBoundingBox(l1, t1, r1, b1);
-			enemy->GetBoundingBox(l2, t2, r2, b2);
-			if ((CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))) {
-				if ((coObjects->at(i))->vx != 0)
-				{
-					if (untouchable == 0)
-					{
-						if (enemy->isEnable != false)
-						{
-							if (hp > 0)
-							{
-								hp -= enemy->GetDamage();
-								StartUntouchable();
-								SetState(SIMON_STATE_HURT);
-								StartHurting();
-								if (dynamic_cast<VampireBat*>(coObjects->at(i)))
-								{
-									enemy->SetEnable(false);
-									enemy->GetCollisionEffect()->SetEnable(true);
-								}
-							}
-							else
-								SetState(SIMON_STATE_DIE);
-						}
-					}
-
-
-				}
-			}
-		}
-		else if (dynamic_cast<BottomStair*>(coObjects->at(i))) {
-			BottomStair* bottomStair = dynamic_cast<BottomStair*>(coObjects->at(i));
-
-			float l1, t1, r1, b1, l2, t2, r2, b2;
-			GetBoundingBox(l1, t1, r1, b1);
-			bottomStair->GetBoundingBox(l2, t2, r2, b2);
-
-			if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))
-			{
-				if (b2 > b1) {
-					canClimbUpStair = true;
-					posXStair = bottomStair->x;
-					posYStair = bottomStair->y;
-					directionStair = bottomStair->nx;
-				}
-			}
-		}
-		else if (dynamic_cast<TopStair*>(coObjects->at(i))) {
-			TopStair* topStair = dynamic_cast<TopStair*>(coObjects->at(i));
-
-			float l1, t1, r1, b1, l2, t2, r2, b2;
-			GetBoundingBox(l1, t1, r1, b1);
-			topStair->GetBoundingBox(l2, t2, r2, b2);
-
-			if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))
-			{
-				canClimbDownStair = true;
-				posXStair = topStair->x;
-				posYStair = topStair->y;
-				directionStair = topStair->nx;
-			}
-		}
-		else if (dynamic_cast<Item*>(coObjects->at(i))) {
-			Item* item = dynamic_cast<Item*>(coObjects->at(i));
-
-			float l1, t1, r1, b1, l2, t2, r2, b2;
-			GetBoundingBox(l1, t1, r1, b1);
-			item->GetBoundingBox(l2, t2, r2, b2);
-
-			if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))
-			{
-				if (!item->IsDead() && item->IsEnable())
-				{
-					switch (item->GetTypeItem())
-					{
-					case ITEM_MORNING_STAIR:
-						if (whip->GetLevel() < WHIP_LEVEL_3)
-						{
-							whip->SetLevel(whip->GetLevel() + 1);
-							IsFreeze = true;
-							timeFreezeStart = now;
-						}
-						break;
-					case ITEM_SMALL_HEART:
-						heart += 1;
-						break;
-					case ITEM_LARGE_HEART:
-						heart += 5;
-						break;
-					case ITEM_MONEY_BAG_RED:
-						score += 100;
-						item->GetMoneyEffect()->Enable();
-						break;
-					case ITEM_MONEY_BAG_PURPLE:
-						score += 400;
-						item->GetMoneyEffect()->Enable();
-						break;
-					case ITEM_MONEY_BAG_WHITE:
-						score += 700;
-						item->GetMoneyEffect()->Enable();
-						break;
-					case ITEM_DAGGER:
-						SetTypeOfWeapon(ITEM_DAGGER);
-						break;
-					case ITEM_AXE:
-						SetTypeOfWeapon(ITEM_AXE);
-						break;
-					case ITEM_HOLY_WATER:
-						SetTypeOfWeapon(ITEM_HOLY_WATER);
-						break;
-					case ITEM_BOOMERANG:
-						SetTypeOfWeapon(ITEM_BOOMERANG);
-						break;
-					case ITEM_STOP_WATCH:
-						SetTypeOfWeapon(ITEM_STOP_WATCH);
-						break;
-					case ITEM_BONUSES:
-						score += 1000;
-						item->GetMoneyEffect()->Enable();
-						break;
-					case ITEM_CROWN:
-					case ITEM_CHEST:
-						score += 2000;
-						item->GetMoneyEffect()->Enable();
-						break;
-					case ITEM_DOUBLE_SHOT:
-						typeShotCollect = ITEM_DOUBLE_SHOT;
-						numberSubWeaponAble = 2;
-						break;
-					case ITEM_TRIPLE_SHOT:
-						typeShotCollect = ITEM_TRIPLE_SHOT;
-						numberSubWeaponAble = 3;
-						break;
-					case ITEM_CROSS:
-						SetKillAllEnemies(true);
-						break;
-					case ITEM_INVISIBILITY_POTION:
-						StartUntouchable();
-						break;
-					}
-					item->SetDead(true);
-					item->SetEnable(false);
-				}
-			}
-		}
-	}
-
-	for (int i = 0; i < weapons.size(); i++) {
-		if (weapons[i]->IsEnable()) {
-			if (dynamic_cast<Boomerang*>(weapons[i])) {
-
-				Boomerang* weapon = dynamic_cast<Boomerang*>(weapons[i]);
-
-				if (weapon->countReturn == 0) {
-					continue;
-				}
-
-				float l1, t1, r1, b1, l2, t2, r2, b2;
-				GetBoundingBox(l1, t1, r1, b1);
-				weapons[i]->GetBoundingBox(l2, t2, r2, b2);
-
-				if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))
-				{
-					weapons[i]->SetEnable(false);
-					heart++;
-				}
-			}
-		}
-	}
-
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
-	coEvents.clear();
-
-	// turn off collision when die 
-	if (state != SIMON_STATE_DIE)
-		CalcPotentialCollisions(coObjects, coEvents);
-
 	// reset untouchable timer if untouchable time has passed
 	if (GetTickCount() - untouchable_start > SIMON_UNTOUCHABLE_TIME)
 	{
@@ -645,260 +405,8 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (this->GetState() != SIMON_STATE_SIT_DOWN)
 		IsSit = false;
 
-	for (UINT i = 0; i < coEvents.size(); i++)
-	{
-		LPCOLLISIONEVENT e = coEvents[i];
-		if (dynamic_cast<Torch*>(e->obj) || dynamic_cast<Candle*>(e->obj))
-		{
-			coEvents.erase(coEvents.begin() + i);
-		}
-	}
-
-	// No collision occured, proceed normally
-	if (coEvents.size() == 0)
-	{
-		if (!_IsFirstOnStair) {
-			x += dx;
-			y += dy;
-		}
-		else {
-			_IsFirstOnStair = false;
-		}
-
-	}
-	else
-	{
-		float min_tx, min_ty, nx = 0, ny;
-		float rdx = 0;
-		float rdy = 0;
-
-		// TODO: This is a very ugly designed function!!!!
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
-
-
-		for (UINT i = 0; i < coEventsResult.size(); i++)
-		{
-			LPCOLLISIONEVENT e = coEventsResult[i];
-
-			if (dynamic_cast<Item*>(e->obj))
-			{
-				Item* item = dynamic_cast<Item*>(e->obj);
-				if (!item->IsDead() && item->IsEnable())
-				{
-					switch (item->GetTypeItem())
-					{
-					case ITEM_MORNING_STAIR:
-						if (whip->GetLevel() < WHIP_LEVEL_3)
-						{
-							whip->SetLevel(whip->GetLevel() + 1);
-							IsFreeze = true;
-							timeFreezeStart = now;
-						}
-						break;
-					case ITEM_SMALL_HEART:
-						heart += 1;
-						break;
-					case ITEM_LARGE_HEART:
-						heart += 5;
-						break;
-					case ITEM_MONEY_BAG_RED:
-						score += 100;
-						item->GetMoneyEffect()->Enable();
-						break;
-					case ITEM_MONEY_BAG_PURPLE:
-						score += 400;
-						item->GetMoneyEffect()->Enable();
-						break;
-					case ITEM_MONEY_BAG_WHITE:
-						score += 700;
-						item->GetMoneyEffect()->Enable();
-						break;
-					case ITEM_DAGGER:
-						SetTypeOfWeapon(ITEM_DAGGER);
-						break;
-					case ITEM_AXE:
-						SetTypeOfWeapon(ITEM_AXE);
-						break;
-					case ITEM_HOLY_WATER:
-						SetTypeOfWeapon(ITEM_HOLY_WATER);
-						break;
-					case ITEM_BOOMERANG:
-						SetTypeOfWeapon(ITEM_BOOMERANG);
-						break;
-					case ITEM_STOP_WATCH:
-						SetTypeOfWeapon(ITEM_STOP_WATCH);
-						break;
-					case ITEM_BONUSES:
-						score += 1000;
-						item->GetMoneyEffect()->Enable();
-						break;
-					case ITEM_CROWN:
-					case ITEM_CHEST:
-						score += 2000;
-						item->GetMoneyEffect()->Enable();
-						break;
-					case ITEM_DOUBLE_SHOT:
-						typeShotCollect = ITEM_DOUBLE_SHOT;
-						numberSubWeaponAble = 2;
-						break;
-					case ITEM_TRIPLE_SHOT:
-						typeShotCollect = ITEM_TRIPLE_SHOT;
-						numberSubWeaponAble = 3;
-						break;
-					case ITEM_CROSS:
-						SetKillAllEnemies(true);
-						break;
-					case ITEM_INVISIBILITY_POTION:
-						StartUntouchable();
-						break;
-					}
-					item->SetDead(true);
-					item->SetEnable(false);
-				}
-			}
-			if ((dynamic_cast<Enemy*>(e->obj))) {
-				Enemy* enemy = dynamic_cast<Enemy*>(e->obj);
-				if (enemy->vx != 0)
-				{
-					if (untouchable == 0)
-					{
-						if (enemy->isEnable != false)
-						{
-							if (hp > 0)
-							{
-								hp -= enemy->GetDamage();
-								StartUntouchable();
-								SetState(SIMON_STATE_HURT);
-								StartHurting();
-								if (dynamic_cast<VampireBat*>(coObjects->at(i)))
-								{
-									enemy->SetEnable(false);
-									enemy->GetCollisionEffect()->SetEnable(true);
-								}
-							}
-							else
-								SetState(SIMON_STATE_DIE);
-						}
-					}
-
-
-				}
-			}
-
-			if (dynamic_cast<Ground*>(e->obj))
-			{
-				if (IsOnStair) {
-					if (IsDownStair) {
-						if (canClimbUpStair) {
-							IsOnStair = false;
-							IsUpStair = false;
-							IsDownStair = false;
-							vx = 0;
-							y -= 2;
-							if (directionStair > 0) {
-								x = posXStair - 8;
-							}
-							else {
-								x = posXStair;
-							}
-						}
-						else {
-							x += dx;
-							y += dy;
-						}
-					}
-					else {
-						x += dx;
-						y += dy;
-					}
-				}
-				else {
-					Ground* ground = dynamic_cast<Ground*>(e->obj);
-					// block 
-					if (e->ny < 0 || e->nx != 0)
-					{
-						x += min_tx * dx + nx * 0.4f;
-						y += min_ty * dy + ny * 0.4f;
-
-						if (nx != 0) vx = 0;
-						if (ny != 0) vy = 0;
-
-						if (IsJump)
-						{
-							y -= 8;
-							IsJump = false;
-						}
-						if (IsHurt) {
-							hurtable_start = 0;
-							hurtable = 0;
-							IsHurt = false;
-							vx = 0;
-							ResetAnimationHurt();
-						}
-					}
-					else {
-						x += dx;
-						y += dy;
-					}
-				}
-			}
-			else if (dynamic_cast<BoundingMap*>(e->obj)) {
-				x += min_tx * dx + nx * 0.4f;
-				y += min_ty * dy + ny * 0.4f;
-
-				if (nx != 0) vx = 0;
-				if (ny != 0) vy = 0;
-			}
-			else if (dynamic_cast<MovingPlatform*>(e->obj)) {
-				if (e->ny < 0)
-				{
-					x += min_tx * dx + nx * 0.4f;
-					y += min_ty * dy + ny * 0.4f;
-
-					if (ny != 0) vy = 0;
-					vx = e->obj->vx;
-				}
-				if (IsJump)
-				{
-					y -= 8;
-					IsJump = false;
-				}
-			}
-			else if (dynamic_cast<BottomStair*>(e->obj))
-			{
-				x += dx;
-				if (e->ny < 0)
-				{
-					y += dy + ny * -0.7f;
-				}
-				else if (e->nx != 0)
-				{
-					if (ny < 0)
-						y += dy + ny * 0.7f;
-					else if (ny > 0)
-						y += dy + ny * -0.7f;
-				}
-
-			}
-			else if (dynamic_cast<CPortal*>(e->obj))
-			{
-				CPortal* p = dynamic_cast<CPortal*>(e->obj);
-				CSceneManager::GetInstance()->SwitchScene(p->GetSceneId());
-				return;
-			}
-			else {
-				x += dx;
-				if (ny < 0)
-					y += dy + ny * 0.7f;
-				else if (ny > 0)
-					y += dy + ny * -0.7f;
-
-			}
-		}
-	}
-
-	// clean up collision events
-	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	_checkAABB(coObjects);
+	_checkSweptAABB(coObjects);
 }
 
 void Simon::Render()
@@ -1141,6 +649,45 @@ void Simon::Hurted(int damage)
 	else
 		SetState(SIMON_STATE_DIE);
 }
+#pragma endregion
+
+#pragma region private methods
+Simon::Simon()
+{
+	level = 0;
+	hp = SIMON_HP;
+	heart = 5;
+	score = 0;
+	life = 3;
+
+	untouchable = 0;
+	untouchable_start = 0;
+
+	IsFighting = false;
+	IsJump = false;
+	IsSit = false;
+	IsRun = false;
+
+	timeAttackStart = 0;
+
+	IsFreeze = false;
+	timeFreezeStart = 0;
+
+	whip = new Whip();
+
+	state = SIMON_STATE_IDLE;
+
+	DoCaoDiDuoc = 0;
+	_IsFirstOnStair = false;
+
+	IsUseSubWeapons = false;
+
+	numberSubWeaponAble = 1;
+
+	isKillAllEnemies = false;
+}
+
+#pragma region load data
 
 void Simon::_ParseSection_TEXTURES(string line)
 {
@@ -1247,3 +794,380 @@ void Simon::_ParseSection_SETTINGS(string line)
 	else
 		DebugOut(L"[ERROR] Unknown scene setting %s\n", ToWSTR(tokens[0]).c_str());
 }
+
+#pragma endregion
+
+void Simon::_checkAABB(vector<LPGAMEOBJECT>* coObjects)
+{
+	for (UINT i = 0; i < coObjects->size(); i++)
+	{
+		if (dynamic_cast<Enemy*>(coObjects->at(i)))
+		{
+			Enemy* enemy = dynamic_cast<Enemy*>(coObjects->at(i));
+			float l1, t1, r1, b1, l2, t2, r2, b2;
+			GetBoundingBox(l1, t1, r1, b1);
+			enemy->GetBoundingBox(l2, t2, r2, b2);
+			if ((CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))) {
+				_handleLogicCollisionEnemy(enemy);
+			}
+		}
+		else if (dynamic_cast<BottomStair*>(coObjects->at(i))) {
+			BottomStair* bottomStair = dynamic_cast<BottomStair*>(coObjects->at(i));
+
+			float l1, t1, r1, b1, l2, t2, r2, b2;
+			GetBoundingBox(l1, t1, r1, b1);
+			bottomStair->GetBoundingBox(l2, t2, r2, b2);
+
+			if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))
+			{
+				if (b2 > b1) {
+					canClimbUpStair = true;
+					posXStair = bottomStair->x;
+					posYStair = bottomStair->y;
+					directionStair = bottomStair->nx;
+				}
+			}
+		}
+		else if (dynamic_cast<TopStair*>(coObjects->at(i))) {
+			TopStair* topStair = dynamic_cast<TopStair*>(coObjects->at(i));
+
+			float l1, t1, r1, b1, l2, t2, r2, b2;
+			GetBoundingBox(l1, t1, r1, b1);
+			topStair->GetBoundingBox(l2, t2, r2, b2);
+
+			if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))
+			{
+				canClimbDownStair = true;
+				posXStair = topStair->x;
+				posYStair = topStair->y;
+				directionStair = topStair->nx;
+			}
+		}
+		else if (dynamic_cast<Item*>(coObjects->at(i))) {
+			Item* item = dynamic_cast<Item*>(coObjects->at(i));
+
+			float l1, t1, r1, b1, l2, t2, r2, b2;
+			GetBoundingBox(l1, t1, r1, b1);
+			item->GetBoundingBox(l2, t2, r2, b2);
+
+			if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))
+			{
+				_handleLogicCollisionItem(item);
+			}
+		}
+	}
+}
+
+void Simon::_checkSweptAABB(vector<LPGAMEOBJECT>* coObjects)
+{
+	DWORD now = GetTickCount();
+
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+
+	// turn off collision when die 
+	if (state != SIMON_STATE_DIE)
+		CalcPotentialCollisions(coObjects, coEvents);
+
+	for (UINT i = 0; i < coEvents.size(); i++)
+	{
+		LPCOLLISIONEVENT e = coEvents[i];
+		if (dynamic_cast<Torch*>(e->obj) || dynamic_cast<Candle*>(e->obj))
+		{
+			coEvents.erase(coEvents.begin() + i);
+		}
+	}
+
+	// No collision occured, proceed normally
+	if (coEvents.size() == 0)
+	{
+		if (!_IsFirstOnStair) {
+			x += dx;
+			y += dy;
+		}
+		else {
+			_IsFirstOnStair = false;
+		}
+
+	}
+	else
+	{
+		float min_tx, min_ty, nx = 0, ny;
+		float rdx = 0;
+		float rdy = 0;
+
+		// TODO: This is a very ugly designed function!!!!
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+
+
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			LPCOLLISIONEVENT e = coEventsResult[i];
+
+			if (dynamic_cast<Item*>(e->obj))
+			{
+				Item* item = dynamic_cast<Item*>(e->obj);
+				_handleLogicCollisionItem(item);
+			}
+			if ((dynamic_cast<Enemy*>(e->obj))) {
+				Enemy* enemy = dynamic_cast<Enemy*>(e->obj);
+				_handleLogicCollisionEnemy(enemy);
+			}
+
+			if (dynamic_cast<Ground*>(e->obj))
+			{
+				if (IsOnStair) {
+					if (IsDownStair) {
+						if (canClimbUpStair) {
+							IsOnStair = false;
+							IsUpStair = false;
+							IsDownStair = false;
+							vx = 0;
+							y -= 2;
+							if (directionStair > 0) {
+								x = posXStair - 8;
+							}
+							else {
+								x = posXStair;
+							}
+						}
+						else {
+							x += dx;
+							y += dy;
+						}
+					}
+					else {
+						x += dx;
+						y += dy;
+					}
+				}
+				else {
+					Ground* ground = dynamic_cast<Ground*>(e->obj);
+					// block 
+					if (e->ny < 0 || e->nx != 0)
+					{
+						x += min_tx * dx + nx * 0.4f;
+						y += min_ty * dy + ny * 0.4f;
+
+						if (nx != 0) vx = 0;
+						if (ny != 0) vy = 0;
+
+						if (IsJump)
+						{
+							y -= 8;
+							IsJump = false;
+						}
+						if (IsHurt) {
+							hurtable_start = 0;
+							hurtable = 0;
+							IsHurt = false;
+							vx = 0;
+							ResetAnimationHurt();
+						}
+					}
+					else {
+						x += dx;
+						y += dy;
+					}
+				}
+			}
+			else if (dynamic_cast<BoundingMap*>(e->obj)) {
+				x += min_tx * dx + nx * 0.4f;
+				y += min_ty * dy + ny * 0.4f;
+
+				if (nx != 0) vx = 0;
+				if (ny != 0) vy = 0;
+			}
+			else if (dynamic_cast<MovingPlatform*>(e->obj)) {
+				if (e->ny < 0)
+				{
+					x += min_tx * dx + nx * 0.4f;
+					y += min_ty * dy + ny * 0.4f;
+
+					if (ny != 0) vy = 0;
+					vx = e->obj->vx;
+				}
+				if (IsJump)
+				{
+					y -= 8;
+					IsJump = false;
+				}
+			}
+			else if (dynamic_cast<BottomStair*>(e->obj))
+			{
+				x += dx;
+				if (e->ny < 0)
+				{
+					y += dy + ny * -0.7f;
+				}
+				else if (e->nx != 0)
+				{
+					if (ny < 0)
+						y += dy + ny * 0.7f;
+					else if (ny > 0)
+						y += dy + ny * -0.7f;
+				}
+
+			}
+			else if (dynamic_cast<CPortal*>(e->obj))
+			{
+				CPortal* p = dynamic_cast<CPortal*>(e->obj);
+				CSceneManager::GetInstance()->SwitchScene(p->GetSceneId());
+				return;
+			}
+			else {
+				x += dx;
+				if (ny < 0)
+					y += dy + ny * 0.7f;
+				else if (ny > 0)
+					y += dy + ny * -0.7f;
+
+			}
+		}
+	}
+
+	// clean up collision events
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+}
+
+void Simon::_handleLogicCollisionItem(Item* item)
+{
+	DWORD now = GetTickCount();
+	if (!item->IsDead() && item->IsEnable())
+	{
+		switch (item->GetTypeItem())
+		{
+		case ITEM_MORNING_STAIR:
+			if (whip->GetLevel() < WHIP_LEVEL_3)
+			{
+				whip->SetLevel(whip->GetLevel() + 1);
+				IsFreeze = true;
+				timeFreezeStart = now;
+			}
+			break;
+		case ITEM_SMALL_HEART:
+			heart += 1;
+			break;
+		case ITEM_LARGE_HEART:
+			heart += 5;
+			break;
+		case ITEM_MONEY_BAG_RED:
+			score += 100;
+			item->GetMoneyEffect()->Enable();
+			break;
+		case ITEM_MONEY_BAG_PURPLE:
+			score += 400;
+			item->GetMoneyEffect()->Enable();
+			break;
+		case ITEM_MONEY_BAG_WHITE:
+			score += 700;
+			item->GetMoneyEffect()->Enable();
+			break;
+		case ITEM_DAGGER:
+			SetTypeOfWeapon(ITEM_DAGGER);
+			break;
+		case ITEM_AXE:
+			SetTypeOfWeapon(ITEM_AXE);
+			break;
+		case ITEM_HOLY_WATER:
+			SetTypeOfWeapon(ITEM_HOLY_WATER);
+			break;
+		case ITEM_BOOMERANG:
+			SetTypeOfWeapon(ITEM_BOOMERANG);
+			break;
+		case ITEM_STOP_WATCH:
+			SetTypeOfWeapon(ITEM_STOP_WATCH);
+			break;
+		case ITEM_BONUSES:
+			score += 1000;
+			item->GetMoneyEffect()->Enable();
+			break;
+		case ITEM_CROWN:
+		case ITEM_CHEST:
+			score += 2000;
+			item->GetMoneyEffect()->Enable();
+			break;
+		case ITEM_DOUBLE_SHOT:
+			typeShotCollect = ITEM_DOUBLE_SHOT;
+			numberSubWeaponAble = 2;
+			break;
+		case ITEM_TRIPLE_SHOT:
+			typeShotCollect = ITEM_TRIPLE_SHOT;
+			numberSubWeaponAble = 3;
+			break;
+		case ITEM_CROSS:
+			SetKillAllEnemies(true);
+			break;
+		case ITEM_INVISIBILITY_POTION:
+			StartUntouchable();
+			break;
+		}
+		item->SetDead(true);
+		item->SetEnable(false);
+	}
+}
+
+void Simon::_handleLogicCollisionEnemy(Enemy* enemy)
+{
+	if (enemy->vx != 0)
+	{
+		if (untouchable == 0)
+		{
+			if (enemy->isEnable != false)
+			{
+				if (hp > 0)
+				{
+					hp -= enemy->GetDamage();
+					StartUntouchable();
+					SetState(SIMON_STATE_HURT);
+					StartHurting();
+					if (dynamic_cast<VampireBat*>(enemy))
+					{
+						enemy->SetEnable(false);
+						enemy->GetCollisionEffect()->SetEnable(true);
+					}
+				}
+				else
+					SetState(SIMON_STATE_DIE);
+			}
+		}
+	}
+}
+
+void Simon::_updateSubWeapon(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+{
+	if (typeWeaponCollect >= ITEM_DAGGER && typeWeaponCollect <= ITEM_STOP_WATCH) {
+		for (int i = 0; i < weapons.size(); i++)
+		{
+			if (weapons[i]->IsEnable())
+				weapons[i]->Update(dt, coObjects);
+		}
+	}
+
+	for (int i = 0; i < weapons.size(); i++) {
+		if (weapons[i]->IsEnable()) {
+			if (dynamic_cast<Boomerang*>(weapons[i])) {
+
+				Boomerang* weapon = dynamic_cast<Boomerang*>(weapons[i]);
+
+				if (weapon->countReturn == 0) {
+					continue;
+				}
+
+				float l1, t1, r1, b1, l2, t2, r2, b2;
+				GetBoundingBox(l1, t1, r1, b1);
+				weapons[i]->GetBoundingBox(l2, t2, r2, b2);
+
+				if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))
+				{
+					weapons[i]->SetEnable(false);
+					heart++;
+				}
+			}
+		}
+	}
+}
+
+#pragma endregion

@@ -7,6 +7,8 @@
 #include "Boomerang.h"
 #include "FireBomb.h"
 #include "Stopwatch.h"
+#include "Item.h"
+#include "Enemy.h"
 
 class Simon : public CPlayer
 {
@@ -35,6 +37,14 @@ class Simon : public CPlayer
 	void _ParseSection_ANIMATIONS(string line);
 	void _ParseSection_ANIMATION_SETS(string line);
 	void _ParseSection_SETTINGS(string line);
+
+	void _checkAABB(vector<LPGAMEOBJECT>* coObjects);
+	void _checkSweptAABB(vector<LPGAMEOBJECT>* coObjects);
+
+	void _handleLogicCollisionItem(Item* item);
+	void _handleLogicCollisionEnemy(Enemy* enemy);
+
+	void _updateSubWeapon(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 
 	Simon();
 

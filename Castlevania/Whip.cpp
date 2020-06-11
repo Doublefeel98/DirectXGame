@@ -1,4 +1,4 @@
-#include "Whip.h"
+﻿#include "Whip.h"
 #include "Define.h"
 #include "Torch.h"
 #include "Candle.h"
@@ -175,16 +175,6 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						}
 					}
 
-				}
-				else if (dynamic_cast<Item*>(coObjects->at(i))) {
-					Item* item = dynamic_cast<Item*>(coObjects->at(i));
-
-					if (!item->IsDead() && !item->IsEnable()) {
-						item->SetEnable(true);
-						if (item->GetTypeItem() == ITEM_SMALL_HEART) {
-							item->TurnOnTimeStartEnable();
-						}
-					}
 				}
 				else if (dynamic_cast<Torch*>(coObjects->at(i))) {
 					Torch* torch = dynamic_cast<Torch*>(coObjects->at(i));

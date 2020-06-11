@@ -64,6 +64,12 @@
             this.btnChangeCellSize = new System.Windows.Forms.Button();
             this.tbCellSize = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.cboDirection = new System.Windows.Forms.ComboBox();
+            this.numPosition = new System.Windows.Forms.NumericUpDown();
+            this.cboState = new System.Windows.Forms.ComboBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.cboItemType = new System.Windows.Forms.ComboBox();
             this.numY = new System.Windows.Forms.NumericUpDown();
@@ -90,6 +96,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.removePic)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numPosition)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHeight)).BeginInit();
@@ -118,9 +125,10 @@
             // 
             // pictureBoxBG
             // 
-            this.pictureBoxBG.Location = new System.Drawing.Point(-1, 3);
+            this.pictureBoxBG.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxBG.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxBG.Name = "pictureBoxBG";
-            this.pictureBoxBG.Size = new System.Drawing.Size(970, 506);
+            this.pictureBoxBG.Size = new System.Drawing.Size(983, 512);
             this.pictureBoxBG.TabIndex = 0;
             this.pictureBoxBG.TabStop = false;
             this.pictureBoxBG.Click += new System.EventHandler(this.pictureBoxBG_Click);
@@ -434,6 +442,12 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.cboDirection);
+            this.groupBox5.Controls.Add(this.numPosition);
+            this.groupBox5.Controls.Add(this.cboState);
+            this.groupBox5.Controls.Add(this.label18);
+            this.groupBox5.Controls.Add(this.label17);
+            this.groupBox5.Controls.Add(this.label16);
             this.groupBox5.Controls.Add(this.label15);
             this.groupBox5.Controls.Add(this.cboItemType);
             this.groupBox5.Controls.Add(this.numY);
@@ -454,10 +468,74 @@
             this.groupBox5.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox5.Size = new System.Drawing.Size(834, 48);
+            this.groupBox5.Size = new System.Drawing.Size(838, 98);
             this.groupBox5.TabIndex = 19;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "ObjectInfo";
+            // 
+            // cboDirection
+            // 
+            this.cboDirection.FormattingEnabled = true;
+            this.cboDirection.Items.AddRange(new object[] {
+            "Left",
+            "Right"});
+            this.cboDirection.Location = new System.Drawing.Point(275, 66);
+            this.cboDirection.Name = "cboDirection";
+            this.cboDirection.Size = new System.Drawing.Size(134, 21);
+            this.cboDirection.TabIndex = 30;
+            this.cboDirection.SelectedIndexChanged += new System.EventHandler(this.cboDirection_SelectedIndexChanged);
+            // 
+            // numPosition
+            // 
+            this.numPosition.Location = new System.Drawing.Point(160, 67);
+            this.numPosition.Margin = new System.Windows.Forms.Padding(2);
+            this.numPosition.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numPosition.Name = "numPosition";
+            this.numPosition.Size = new System.Drawing.Size(41, 20);
+            this.numPosition.TabIndex = 29;
+            this.numPosition.ValueChanged += new System.EventHandler(this.numPosition_ValueChanged);
+            // 
+            // cboState
+            // 
+            this.cboState.FormattingEnabled = true;
+            this.cboState.Items.AddRange(new object[] {
+            "SIMON_STATE_IDLE",
+            "SIMON_STATE_CLIMB_STAIR"});
+            this.cboState.Location = new System.Drawing.Point(479, 66);
+            this.cboState.Name = "cboState";
+            this.cboState.Size = new System.Drawing.Size(134, 21);
+            this.cboState.TabIndex = 28;
+            this.cboState.SelectedIndexChanged += new System.EventHandler(this.cboState_SelectedIndexChanged);
+            // 
+            // label18
+            // 
+            this.label18.Location = new System.Drawing.Point(104, 71);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(51, 13);
+            this.label18.TabIndex = 0;
+            this.label18.Text = "Position";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(422, 69);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(35, 13);
+            this.label17.TabIndex = 26;
+            this.label17.Text = "State:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(217, 69);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(52, 13);
+            this.label16.TabIndex = 24;
+            this.label16.Text = "Direction:";
             // 
             // label15
             // 
@@ -577,7 +655,7 @@
             // 
             // numObjDelay
             // 
-            this.numObjDelay.Location = new System.Drawing.Point(786, 20);
+            this.numObjDelay.Location = new System.Drawing.Point(65, 67);
             this.numObjDelay.Margin = new System.Windows.Forms.Padding(2);
             this.numObjDelay.Maximum = new decimal(new int[] {
             1000,
@@ -592,7 +670,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(742, 24);
+            this.label13.Location = new System.Drawing.Point(14, 71);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(47, 13);
@@ -658,7 +736,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1201, 637);
+            this.ClientSize = new System.Drawing.Size(1213, 689);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.btnLoadObject);
@@ -689,6 +767,7 @@
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numPosition)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHeight)).EndInit();
@@ -749,5 +828,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.ComboBox cboItemType;
+        private System.Windows.Forms.ComboBox cboDirection;
+        private System.Windows.Forms.NumericUpDown numPosition;
+        private System.Windows.Forms.ComboBox cboState;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
     }
 }

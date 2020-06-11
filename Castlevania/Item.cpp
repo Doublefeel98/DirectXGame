@@ -121,6 +121,7 @@ void Item::Init()
 	SetAnimationSet(40);
 	IsGround = false;
 	vy = 0;
+	timeDisplayMax = 3000;
 	switch (typeItem)
 	{
 	case ITEM_MONEY_BAG_RED:
@@ -133,11 +134,18 @@ void Item::Init()
 		moneyEffect = new MoneyEffect(MONEY_EFFECT_700);
 		break;
 	case ITEM_BONUSES:
+		timeDisplayMax = 5000;
 		moneyEffect = new MoneyEffect(MONEY_EFFECT_1000);
 		break;
 	case ITEM_CROWN:
 	case ITEM_CHEST:
 		moneyEffect = new MoneyEffect(MONEY_EFFECT_2000);
+		break;
+	case ITEM_DOUBLE_SHOT:
+		timeDisplayMax = 5000;
+		break;
+	case ITEM_SMALL_HEART:
+		timeDisplayMax = 6000;
 		break;
 	}
 }
@@ -166,10 +174,10 @@ void Item::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	if (!isDead)
 	{
+		left = x;
+		top = y;
 		if (!isEnable)
 		{
-			left = x;
-			top = y;
 			right = x + width;
 			bottom = y + height;
 		}
@@ -177,20 +185,14 @@ void Item::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 			switch (typeItem)
 			{
 			case ITEM_MORNING_STAIR:
-				left = x;
-				top = y;
 				right = x + 16;
 				bottom = y + 16;
 				break;
 			case ITEM_LARGE_HEART:
-				left = x;
-				top = y;
 				right = x + 12;
 				bottom = y + 10;
 				break;
 			case ITEM_SMALL_HEART:
-				left = x;
-				top = y;
 				right = x + 8;
 				bottom = y + 16;
 				break;
@@ -198,69 +200,47 @@ void Item::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 			case ITEM_MONEY_BAG_PURPLE:
 			case ITEM_MONEY_BAG_WHITE:
 			case ITEM_BONUSES:
-				left = x;
-				top = y;
 				right = x + 15;
 				bottom = y + 15;
 				break;
 			case ITEM_DAGGER:
-				left = x;
-				top = y;
 				right = x + 16;
 				bottom = y + 9;
 				break;
 			case ITEM_AXE:
-				left = x;
-				top = y;
 				right = x + 15;
 				bottom = y + 14;
 				break;
 			case ITEM_HOLY_WATER:
-				left = x;
-				top = y;
 				right = x + 16;
 				bottom = y + 16;
 				break;
 			case ITEM_BOOMERANG:
-				left = x;
-				top = y;
 				right = x + 15;
 				bottom = y + 16;
 				break;
 			case ITEM_STOP_WATCH:
-				left = x;
-				top = y;
 				right = x + 15;
 				bottom = y + 14;
 				break;
 			case ITEM_CROSS:
-				left = x;
-				top = y;
 				right = x + 16;
 				bottom = y + 16;
 				break;
 			case ITEM_INVISIBILITY_POTION:
-				left = x;
-				top = y;
 				right = x + 13;
 				bottom = y + 16;
 				break;
 			case ITEM_PORK_CHOP:
-				left = x;
-				top = y;
 				right = x + 15;
 				bottom = y + 14;
 				break;
 			case ITEM_DOUBLE_SHOT:
 			case ITEM_TRIPLE_SHOT:
-				left = x;
-				top = y;
 				right = x + 14;
 				bottom = y + 14;
 				break;
 			case ITEM_MAGIC_CRYSTAL:
-				left = x;
-				top = y;
 				right = x + 14;
 				bottom = y + 16;
 				break;
@@ -275,6 +255,12 @@ void Item::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (!isDead && isEnable)
 	{
+		if (GetTickCount() - timeDisplay >= timeDisplayMax) {
+			isEnable = false;
+			isDead = true;
+			return;
+		}
+
 		CGameObject::Update(dt, coObjects);
 		if (typeItem != ITEM_SMALL_HEART) {
 			vy += SIMON_GRAVITY * dt;
@@ -403,4 +389,10 @@ void Item::TurnOnTimeStartEnable()
 	vx = SIMON_WALKING_SPEED;
 	vy = SIMON_GRAVITY * dt * 2;
 	IsFirstTime = true;
+}
+
+void Item::Enable()
+{
+	SetEnable(true);
+	timeDisplay = GetTickCount();
 }

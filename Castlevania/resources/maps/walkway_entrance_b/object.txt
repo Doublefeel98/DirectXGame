@@ -1,8 +1,7 @@
 #id	type	name	x	y	width	height	ani_set_id
-0 1 Simon 88 160 16 32 1 -2
+0 1 Simon 88 160 16 32 1 -2 0 1
 1 16 TopStair 120 60 16 8 1 -2
 2 15 BottomStair 64 152 8 8 1 -2
-//3 16 TopStair 56 124 16 8 -1 -2
 3 16 TopStair 0 0 16 8 -1 -2
 4 15 BottomStair 384 152 8 8 1 -2
 5 16 TopStair 408 92 16 8 1 -2
@@ -42,5 +41,6 @@
 39 208 Raven 416 80 16 12 78 -2
 40 208 Raven 482 51 16 12 78 -2
 41 208 Raven 518 163 16 12 78 -2
-42 14 Portal 751 113 16 16 1 -2
+42 14 Portal 751 113 16 16 6 -2 0
 43 205 Ghost 83 42 16 16 75 -2
+44 14 Portal 106 174 16 16 4 -2 1

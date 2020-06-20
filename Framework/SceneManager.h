@@ -11,10 +11,12 @@ private:
 	static CSceneManager* __instance;
 	unordered_map<int, LPSCENE> scenes;
 	int current_scene;
+	int next_scene;
 
 	void _ParseSection_SETTINGS(string line);
 	void _ParseSection_SCENES(string line);
 	CPlayer* player;
+	bool _isSwitchScene;
 public:
 	void SetPlayer(CPlayer* player);
 	static CSceneManager* GetInstance();
@@ -22,7 +24,9 @@ public:
 
 	void Load(LPCWSTR gameFile);
 	LPSCENE GetCurrentScene();
-	void SwitchScene(int scene_id);
+	void SwitchScene();
+	void BeforeSwitchScene(int scene_id);
+	bool IsSwitchScene() { return _isSwitchScene; };
 };
 
 

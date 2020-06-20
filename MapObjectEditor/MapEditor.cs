@@ -369,6 +369,8 @@ namespace MapEditor
                             sceneId = listObject.ElementAt(i).AniSetId;
                             numObjDelay.Enabled = true;
                             numPosition.Enabled = true;
+                            Portal portal = (Portal)listObject.ElementAt(i);
+                            setObjectPortal(portal.Position);
                         }
                         else
                         {
@@ -380,11 +382,16 @@ namespace MapEditor
                         {
                             cboDirection.Enabled = true;
                             cboState.Enabled = true;
+
+                            Simon simon = (Simon)listObject.ElementAt(i);
+
+                            setObjectSimon(simon.Direction, simon.State);
                         }
                         else
                         {
                             cboDirection.Enabled = false;
                             cboState.Enabled = false;
+                            setObjectSimon(-1, -1);
                         }
 
                         setOjectInfo(id, name, posX, posY, w, h, sceneId, itemType);
@@ -399,6 +406,17 @@ namespace MapEditor
         {
             objectIndexInfo = -1;
             setOjectInfo("", "", 0, 0, 0, 0, 0, -2);
+        }
+
+        public void setObjectSimon(int direction, int state)
+        {
+            cboDirection.SelectedIndex = direction;
+            cboState.SelectedIndex = state;
+        }
+
+        public void setObjectPortal(int position)
+        {
+            numPosition.Value = position;
         }
 
         private void setOjectInfo(string id, string name, int posX, int posY, int w, int h, int sceneId, int itemType)

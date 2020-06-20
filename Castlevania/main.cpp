@@ -57,6 +57,9 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 void Update(DWORD dt)
 {
 	sceneManager->GetCurrentScene()->Update(dt);
+	if (sceneManager->IsSwitchScene()) {
+		sceneManager->SwitchScene();
+	}
 }
 
 /*

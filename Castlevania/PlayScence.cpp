@@ -28,6 +28,8 @@
 #include "Zombie.h"
 #include "PhantomBat.h"
 
+#include "../Framework/SceneManager.h"
+
 using namespace std;
 
 #define CROSS_COLOR_BACKGROUND D3DCOLOR_XRGB(188, 188, 188) // Màu xám 188, 188, 188
@@ -40,6 +42,8 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 	camera = CCamera::GetInstance();
 	mapHeight = 0.0f;
 	mapWidth = 0.0f;
+
+	position = -1;
 }
 
 /*
@@ -225,27 +229,43 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	{
 	case OBJECT_TYPE_SIMON:
 	{
-		if (player != NULL)
-		{
-			DebugOut(L"[ERROR] MARIO object was created before! ");
+		player = Simon::GetInstance();
+
+		position++;
+
+		//player = Simon::GetInstance();
+		if (player->Position != position) {
 			return;
 		}
 
-		int direction = atoi(tokens[9].c_str());
-		int state = atoi(tokens[10].c_str());
-
-		player = Simon::GetInstance();
 		player->SetPosition(x, y);
-		player->nx = direction;
+		if (tokens.size() > 10) {
+			int direction = atoi(tokens[9].c_str());
+			int state = atoi(tokens[10].c_str());
 
-		if (state == 0) {
-			player->SetState(SIMON_STATE_IDLE);
-		}
-		else {
-			player->IsOnStair = true;
+			if (direction == 0) {
+				player->nx = -1;
+			}
+			else {
+				player->nx = 1;
+			}
+
+			if (state == 0) {
+				player->SetState(SIMON_STATE_IDLE);
+			}
+			else {
+				player->IsOnStair = true;
+				if (direction == 0) {
+					player->directionStair = -1;
+				}
+				else {
+					player->directionStair = 1;
+				}
+			}
 		}
 
-		objects.push_back(obj);
+
+		objects.insert(objects.begin(), player);
 		return;
 	}
 	break;
@@ -397,6 +417,42 @@ void CPlayScene::Update(DWORD dt)
 		coObjects.push_back(listItems.at(i));
 	}
 
+	for (size_t i = 0; i < coObjects.size(); i++)
+	{
+		if (dynamic_cast<Enemy*>(coObjects.at(i))) {
+			if (coObjects.at(i)->IsEnable() && !coObjects.at(i)->IsDead()) {
+				bool isContain = false;
+				for (int j = 0; j < listEnemies.size(); j++)
+				{
+					if (coObjects.at(i)->GetID() == listEnemies.at(j)->GetID()) {
+						isContain = true;
+						break;
+					}
+				}
+				if (!isContain) {
+					listEnemies.push_back(dynamic_cast<Enemy*>(coObjects.at(i)));
+				}
+			}
+		}
+	}
+
+	for (size_t i = 0; i < listEnemies.size(); i++)
+	{
+		if (listEnemies.at(i)->IsEnable() && !listEnemies.at(i)->IsDead()) {
+			bool isContain = false;
+			for (size_t j = 0; j < coObjects.size(); j++)
+			{
+				if (listEnemies.at(i)->GetID() == coObjects.at(j)->GetID()) {
+					isContain = true;
+					break;
+				}
+			}
+			if (!isContain) {
+				coObjects.push_back(listEnemies.at(i));
+			}
+		}
+	}
+
 	player->Update(dt, &coObjects);
 
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
@@ -527,17 +583,17 @@ void CPlayScene::Unload()
 
 	objects.clear();
 	coObjects.clear();
-	player = NULL;
+	player = nullptr;
 
 	if (tileMap) {
 		tileMap->Unload();
 		delete tileMap;
-		tileMap = NULL;
+		tileMap = nullptr;
 	}
 	if (grid) {
 		grid->Unload();
 		delete grid;
-		grid = NULL;
+		grid = nullptr;
 	}
 	//delete tileMap;
 	//delete grid;
@@ -561,6 +617,24 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	if (simon->IsFreeze) return;
 	switch (KeyCode)
 	{
+	case DIK_1:
+		CSceneManager::GetInstance()->BeforeSwitchScene(1);
+		break;
+	case DIK_2:
+		CSceneManager::GetInstance()->BeforeSwitchScene(2);
+		break;
+	case DIK_3:
+		CSceneManager::GetInstance()->BeforeSwitchScene(3);
+		break;
+	case DIK_4:
+		CSceneManager::GetInstance()->BeforeSwitchScene(4);
+		break;
+	case DIK_5:
+		CSceneManager::GetInstance()->BeforeSwitchScene(5);
+		break;
+	case DIK_6:
+		CSceneManager::GetInstance()->BeforeSwitchScene(6);
+		break;
 	case DIK_Z:
 		if (!simon->IsFighting)
 		{

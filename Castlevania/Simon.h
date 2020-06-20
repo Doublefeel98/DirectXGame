@@ -82,6 +82,8 @@ public:
 	bool IsFreeze;
 	DWORD timeFreezeStart;
 
+	int Position;
+
 	void Reset();
 
 	int untouchable;

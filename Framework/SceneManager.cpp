@@ -101,7 +101,8 @@ void CSceneManager::Load(LPCWSTR gameFile)
 
 	DebugOut(L"[INFO] Loading game file : %s has been loaded successfully\n", gameFile);
 
-	SwitchScene(current_scene);
+	BeforeSwitchScene(current_scene);
+	SwitchScene();
 }
 
 LPSCENE CSceneManager::GetCurrentScene()
@@ -111,15 +112,22 @@ LPSCENE CSceneManager::GetCurrentScene()
 	return scenes[current_scene];
 }
 
-void CSceneManager::SwitchScene(int scene_id)
+void CSceneManager::BeforeSwitchScene(int scene_id)
 {
-	DebugOut(L"[INFO] Switching to scene %d\n", scene_id);
+	next_scene = scene_id;
+	_isSwitchScene = true;
+}
+
+void CSceneManager::SwitchScene()
+{
+	DebugOut(L"[INFO] Switching to scene %d\n", next_scene);
 
 	CPlayScene* oldScene = dynamic_cast<CPlayScene*>(scenes[current_scene]);
 	scenes[current_scene]->Unload();
 
-	current_scene = scene_id;
-	CPlayScene* s = dynamic_cast<CPlayScene*>(scenes[scene_id]);
+	current_scene = next_scene;
+	_isSwitchScene = false;
+	CPlayScene* s = dynamic_cast<CPlayScene*>(scenes[next_scene]);
 	s->SetDefaultTime(oldScene->GetRemainTime());
 
 	CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());

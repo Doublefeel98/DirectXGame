@@ -3,6 +3,7 @@
 #include "../Framework/Grid.h"
 #include "../Framework/TileMap.h"
 #include "ScoreBoard.h"
+#include "Enemy.h"
 
 #include "Simon.h"
 class CPlayScene : public CScene
@@ -13,6 +14,7 @@ protected:
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> coObjects;
 	vector<LPGAMEOBJECT> listItems;
+	vector<Enemy*> listEnemies;
 
 	vector<int> listIdTextures;
 	vector<int> listIdSprites;
@@ -38,6 +40,7 @@ protected:
 	int defaultTimeGame;
 	int remainTime;
 	DWORD timeKillAll;
+	int position;
 public:
 
 	Simon* GetPlayer() { return player; }

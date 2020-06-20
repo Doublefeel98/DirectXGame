@@ -1,10 +1,10 @@
 #id	type	name	x	y	width	height	ani_set_id
-0 1 Simon 40 120 16 30 1 -2
+0 1 Simon 40 120 16 30 1 -2 1 0
 1 10 Torch 89 127 32 32 30 2
 2 10 Torch 224 127 32 32 30 0
 3 10 Torch 321 127 32 32 30 0
 4 10 Torch 480 127 32 32 30 2
 5 10 Torch 600 127 32 32 30 6
-6 14 Portal 689 71 19 88 2 -2
+6 14 Portal 689 71 19 88 2 -2 0
 7 17 Ground 0 159 768 15 -1 -2
 8 13 BoundingMap -16 0 16 192 -1 -2

@@ -685,6 +685,8 @@ Simon::Simon()
 	numberSubWeaponAble = 1;
 
 	isKillAllEnemies = false;
+
+	Position = 0;
 }
 
 #pragma region load data
@@ -1014,7 +1016,8 @@ void Simon::_checkSweptAABB(vector<LPGAMEOBJECT>* coObjects)
 			else if (dynamic_cast<CPortal*>(e->obj))
 			{
 				CPortal* p = dynamic_cast<CPortal*>(e->obj);
-				CSceneManager::GetInstance()->SwitchScene(p->GetSceneId());
+				this->Position = p->GetPosistionSimon();
+				CSceneManager::GetInstance()->BeforeSwitchScene(p->GetSceneId());
 				return;
 			}
 			else {

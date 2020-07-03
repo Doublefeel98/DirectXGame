@@ -176,6 +176,8 @@ void Item::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 	{
 		left = x;
 		top = y;
+		right = x + 0;
+		bottom = y + 0;
 		if (!isEnable)
 		{
 			right = x + width;

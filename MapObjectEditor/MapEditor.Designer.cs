@@ -504,7 +504,8 @@
             this.cboState.FormattingEnabled = true;
             this.cboState.Items.AddRange(new object[] {
             "SIMON_STATE_IDLE",
-            "SIMON_STATE_CLIMB_STAIR"});
+            "SIMON_STATE_CLIMB_UP_STAIR",
+            "SIMON_STATE_CLIMB_DOWN_STAIR"});
             this.cboState.Location = new System.Drawing.Point(479, 66);
             this.cboState.Name = "cboState";
             this.cboState.Size = new System.Drawing.Size(134, 21);

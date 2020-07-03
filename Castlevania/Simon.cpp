@@ -57,9 +57,41 @@ Simon* Simon::GetInstance()
 
 void Simon::Reset()
 {
-	SetState(SIMON_STATE_IDLE);
+	/*SetState(SIMON_STATE_IDLE);
 	SetPosition(checkPointX, checkPointY);
-	SetSpeed(0, 0);
+	SetSpeed(0, 0);*/
+
+	level = 0;
+	hp = SIMON_HP;
+	heart = 5;
+	score = 0;
+	life = life - 1;
+
+	untouchable = 0;
+	untouchable_start = 0;
+
+	IsFighting = false;
+	IsJump = false;
+	IsSit = false;
+	IsRun = false;
+
+	timeAttackStart = 0;
+
+	IsFreeze = false;
+	timeFreezeStart = 0;
+
+	state = SIMON_STATE_IDLE;
+
+	DoCaoDiDuoc = 0;
+	_IsFirstOnStair = false;
+
+	IsUseSubWeapons = false;
+
+	numberSubWeaponAble = 1;
+
+	isKillAllEnemies = false;
+
+	Position = 0;
 }
 
 void Simon::SetState(int state)
@@ -507,7 +539,7 @@ void Simon::Render()
 				}
 				else
 				{
-					if (vx > 0) {
+					if (nx > 0) {
 						ani = SIMON_ANI_WALKING_RIGHT;
 					}
 					else {
@@ -814,36 +846,41 @@ void Simon::_checkAABB(vector<LPGAMEOBJECT>* coObjects)
 			}
 		}
 		else if (dynamic_cast<BottomStair*>(coObjects->at(i))) {
-			BottomStair* bottomStair = dynamic_cast<BottomStair*>(coObjects->at(i));
+			if (!IsJump) {
+				BottomStair* bottomStair = dynamic_cast<BottomStair*>(coObjects->at(i));
 
-			float l1, t1, r1, b1, l2, t2, r2, b2;
-			GetBoundingBox(l1, t1, r1, b1);
-			bottomStair->GetBoundingBox(l2, t2, r2, b2);
+				float l1, t1, r1, b1, l2, t2, r2, b2;
+				GetBoundingBox(l1, t1, r1, b1);
+				bottomStair->GetBoundingBox(l2, t2, r2, b2);
 
-			if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))
-			{
-				if (b2 > b1) {
-					canClimbUpStair = true;
-					posXStair = bottomStair->x;
-					posYStair = bottomStair->y;
-					directionStair = bottomStair->nx;
+				if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))
+				{
+					if (b2 > b1) {
+						canClimbUpStair = true;
+						posXStair = bottomStair->x;
+						posYStair = bottomStair->y;
+						directionStair = bottomStair->nx;
+					}
 				}
 			}
 		}
 		else if (dynamic_cast<TopStair*>(coObjects->at(i))) {
-			TopStair* topStair = dynamic_cast<TopStair*>(coObjects->at(i));
+			if (!IsJump) {
+				TopStair* topStair = dynamic_cast<TopStair*>(coObjects->at(i));
 
-			float l1, t1, r1, b1, l2, t2, r2, b2;
-			GetBoundingBox(l1, t1, r1, b1);
-			topStair->GetBoundingBox(l2, t2, r2, b2);
+				float l1, t1, r1, b1, l2, t2, r2, b2;
+				GetBoundingBox(l1, t1, r1, b1);
+				topStair->GetBoundingBox(l2, t2, r2, b2);
 
-			if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))
-			{
-				canClimbDownStair = true;
-				posXStair = topStair->x;
-				posYStair = topStair->y;
-				directionStair = topStair->nx;
+				if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))
+				{
+					canClimbDownStair = true;
+					posXStair = topStair->x;
+					posYStair = topStair->y;
+					directionStair = topStair->nx;
+				}
 			}
+
 		}
 		else if (dynamic_cast<Item*>(coObjects->at(i))) {
 			Item* item = dynamic_cast<Item*>(coObjects->at(i));
@@ -948,7 +985,29 @@ void Simon::_checkSweptAABB(vector<LPGAMEOBJECT>* coObjects)
 				else {
 					Ground* ground = dynamic_cast<Ground*>(e->obj);
 					// block 
-					if (e->ny < 0 || e->nx != 0)
+
+					x += min_tx * dx + nx * 0.4f;
+					y += min_ty * dy + ny * 0.4f;
+
+					if (nx != 0) vx = 0;
+					if (ny != 0) vy = 0;
+
+					if (IsJump)
+					{
+						if (e->ny < 0) {
+							y -= 10;
+							IsJump = false;
+						}
+
+					}
+					if (IsHurt) {
+						hurtable_start = 0;
+						hurtable = 0;
+						IsHurt = false;
+						vx = 0;
+						ResetAnimationHurt();
+					}
+					/*if (e->ny < 0 || e->nx != 0)
 					{
 						x += min_tx * dx + nx * 0.4f;
 						y += min_ty * dy + ny * 0.4f;
@@ -972,7 +1031,7 @@ void Simon::_checkSweptAABB(vector<LPGAMEOBJECT>* coObjects)
 					else {
 						x += dx;
 						y += dy;
-					}
+					}*/
 				}
 			}
 			else if (dynamic_cast<BoundingMap*>(e->obj)) {

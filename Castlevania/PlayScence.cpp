@@ -233,7 +233,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 		position++;
 
-		//player = Simon::GetInstance();
 		if (player->Position != position) {
 			return;
 		}
@@ -251,10 +250,22 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			}
 
 			if (state == 0) {
+				player->IsOnStair = false;
+				player->IsOnStair = false;
+				player->IsUpStair = false;
+
 				player->SetState(SIMON_STATE_IDLE);
 			}
 			else {
 				player->IsOnStair = true;
+				if (state == 1) {
+					player->IsUpStair = true;
+					player->IsDownStair = false;
+				}
+				else {
+					player->IsUpStair = false;
+					player->IsDownStair = true;
+				}
 				if (direction == 0) {
 					player->directionStair = -1;
 				}
@@ -348,6 +359,13 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	objects.push_back(obj);
 }
 
+bool CPlayScene::_checkInBoundMap()
+{
+	float l1 = 0, t1 = 0, r1 = mapWidth, b1 = mapWidth, l2, t2, r2, b2;
+	player->GetBoundingBox(l2, t2, r2, b2);
+	return CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2);
+}
+
 void CPlayScene::Load()
 {
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
@@ -412,12 +430,7 @@ void CPlayScene::Update(DWORD dt)
 
 	grid->GetListOfObjects(&coObjects, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	for (size_t i = 0; i < listItems.size(); i++)
-	{
-		coObjects.push_back(listItems.at(i));
-	}
-
-	for (size_t i = 0; i < coObjects.size(); i++)
+	/*for (size_t i = 0; i < coObjects.size(); i++)
 	{
 		if (dynamic_cast<Enemy*>(coObjects.at(i))) {
 			if (coObjects.at(i)->IsEnable() && !coObjects.at(i)->IsDead()) {
@@ -451,7 +464,14 @@ void CPlayScene::Update(DWORD dt)
 				coObjects.push_back(listEnemies.at(i));
 			}
 		}
+	}*/
+
+	for (size_t i = 0; i < listItems.size(); i++)
+	{
+		coObjects.push_back(listItems.at(i));
 	}
+
+
 
 	player->Update(dt, &coObjects);
 
@@ -550,6 +570,13 @@ void CPlayScene::Update(DWORD dt)
 
 
 	camera->SetCameraPosition((int)cx, (int)cy);
+
+	if (!_checkInBoundMap()) {
+		player->Reset();
+		position = -1;
+		this->Unload();
+		this->Load();
+	}
 }
 
 void CPlayScene::Render()
@@ -557,6 +584,42 @@ void CPlayScene::Render()
 	tileMap->Render(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	grid->GetListOfObjects(&coObjects, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	/*for (size_t i = 0; i < coObjects.size(); i++)
+	{
+		if (dynamic_cast<Enemy*>(coObjects.at(i))) {
+			if (coObjects.at(i)->IsEnable() && !coObjects.at(i)->IsDead()) {
+				bool isContain = false;
+				for (int j = 0; j < listEnemies.size(); j++)
+				{
+					if (coObjects.at(i)->GetID() == listEnemies.at(j)->GetID()) {
+						isContain = true;
+						break;
+					}
+				}
+				if (!isContain) {
+					listEnemies.push_back(dynamic_cast<Enemy*>(coObjects.at(i)));
+				}
+			}
+		}
+	}
+
+	for (size_t i = 0; i < listEnemies.size(); i++)
+	{
+		if (listEnemies.at(i)->IsEnable() && !listEnemies.at(i)->IsDead()) {
+			bool isContain = false;
+			for (size_t j = 0; j < coObjects.size(); j++)
+			{
+				if (listEnemies.at(i)->GetID() == coObjects.at(j)->GetID()) {
+					isContain = true;
+					break;
+				}
+			}
+			if (!isContain) {
+				coObjects.push_back(listEnemies.at(i));
+			}
+		}
+	}*/
 
 	for (size_t i = 0; i < listItems.size(); i++)
 	{
@@ -578,7 +641,7 @@ void CPlayScene::Render()
 */
 void CPlayScene::Unload()
 {
-	for (int i = 0; i < objects.size(); i++)
+	for (int i = 1; i < objects.size(); i++)
 		delete objects[i];
 
 	objects.clear();
@@ -618,21 +681,27 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_1:
+		Simon::GetInstance()->Position = 0;
 		CSceneManager::GetInstance()->BeforeSwitchScene(1);
 		break;
 	case DIK_2:
+		Simon::GetInstance()->Position = 0;
 		CSceneManager::GetInstance()->BeforeSwitchScene(2);
 		break;
 	case DIK_3:
+		Simon::GetInstance()->Position = 0;
 		CSceneManager::GetInstance()->BeforeSwitchScene(3);
 		break;
 	case DIK_4:
+		Simon::GetInstance()->Position = 0;
 		CSceneManager::GetInstance()->BeforeSwitchScene(4);
 		break;
 	case DIK_5:
+		Simon::GetInstance()->Position = 0;
 		CSceneManager::GetInstance()->BeforeSwitchScene(5);
 		break;
 	case DIK_6:
+		Simon::GetInstance()->Position = 0;
 		CSceneManager::GetInstance()->BeforeSwitchScene(6);
 		break;
 	case DIK_Z:
@@ -642,7 +711,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 		}
 		break;
 	case DIK_X:
-		if (!simon->IsJump && !simon->IsFighting && !simon->IsSit)
+		if (!simon->IsJump && !simon->IsFighting && !simon->IsSit && !simon->IsOnStair)
 		{
 			simon->SetState(SIMON_STATE_JUMP);
 		}

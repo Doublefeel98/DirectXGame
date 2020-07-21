@@ -329,6 +329,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vy += SIMON_GRAVITY * dt;
 	}
 	else {
+		vy = 0;
 		if (IsUpStair) {
 			nx = directionStair;
 		}
@@ -958,26 +959,28 @@ void Simon::_checkSweptAABB(vector<LPGAMEOBJECT>* coObjects)
 			if (dynamic_cast<Ground*>(e->obj))
 			{
 				if (IsOnStair) {
+					bool isHandleLogic = false;
 					if (IsDownStair) {
-						if (canClimbUpStair) {
-							IsOnStair = false;
-							IsUpStair = false;
-							IsDownStair = false;
-							vx = 0;
-							y -= 2;
-							if (directionStair > 0) {
-								x = posXStair - 8;
+						
+						if (e->ny < 0)
+						{
+							if (canClimbUpStair) {
+								IsOnStair = false;
+								IsUpStair = false;
+								IsDownStair = false;
+								vx = 0;
+								y -= 2;
+								if (directionStair > 0) {
+									x = posXStair - 8;
+								}
+								else {
+									x = posXStair;
+								}
+								isHandleLogic = true;
 							}
-							else {
-								x = posXStair;
-							}
-						}
-						else {
-							x += dx;
-							y += dy;
 						}
 					}
-					else {
+					if (!isHandleLogic) {
 						x += dx;
 						y += dy;
 					}
@@ -1070,7 +1073,9 @@ void Simon::_checkSweptAABB(vector<LPGAMEOBJECT>* coObjects)
 					else if (ny > 0)
 						y += dy + ny * -0.7f;
 				}
-
+				else {
+					y += dy;
+				}
 			}
 			else if (dynamic_cast<CPortal*>(e->obj))
 			{

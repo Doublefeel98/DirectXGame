@@ -4,6 +4,7 @@ class Raven : public Enemy
 {
 	float startX, startY;
 	int ny;
+	DWORD time_wait;
 public:
 	Raven(float startX, float startY);
 	~Raven();

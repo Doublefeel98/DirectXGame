@@ -38,29 +38,63 @@ void Raven::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		if (state == RAVEN_STATE_FLY)
 		{
-			x += dx;
-			y += dy;
-			if (this->y - simonY >= SIMON_BBOX_HEIGHT / 2 - 5)
-			{
-				vy = 0;
-				y = simonY + SIMON_BBOX_HEIGHT / 2 - 5;
+			if (abs(this->x - simonX) >= SIMON_BBOX_WIDTH / 2) {
+				x += dx;
 			}
+			if (!(simonY <= this->y && this->y - simonY <= GHOST_BBOX_HEIGHT / 2 - 5)) {
+				y += dy;
+			}
+			//if (this->y - simonY >= SIMON_BBOX_HEIGHT / 2 - 5)
+			//{
+			//	vy = 0;
+			//	y = simonY + SIMON_BBOX_HEIGHT / 2 - 5;
+			//}
 
 			if (nx > 0) {
-				if (abs(this->x - simonX) <= RAVEN_DISTANCE_WAITING_X + SIMON_BBOX_WIDTH && abs(this->y - simonY) < SIMON_BBOX_HEIGHT / 2) {
+				vx = RAVEN_FLYING_SPEED_X;
+			}
+			else {
+				vx = -RAVEN_FLYING_SPEED_X;
+			}
+
+			if (ny > 0) {
+				vy = RAVEN_FLYING_SPEED_Y;
+			}
+			else {
+				vy = -RAVEN_FLYING_SPEED_Y;
+			}
+
+			/*if (nx > 0) {
+				if (abs(this->x - simonX) <= RAVEN_DISTANCE_WAITING_X + SIMON_BBOX_WIDTH 
+					&& abs(this->y - simonY) < SIMON_BBOX_HEIGHT / 2) {
 					SetState(RAVEN_STATE_WAIT);
 				}
 			}
 			else {
-				if (abs(this->x - simonX) <= RAVEN_DISTANCE_WAITING_X && abs(this->y - simonY) < SIMON_BBOX_HEIGHT / 2) {
+				if (abs(this->x - simonX) <= RAVEN_DISTANCE_WAITING_X 
+					&& abs(this->y - simonY) < SIMON_BBOX_HEIGHT / 2) {
 					SetState(RAVEN_STATE_WAIT);
 				}
+			}*/
+
+			DWORD now = GetTickCount();
+			if (now - time_wait >= 1500) {
+				SetState(RAVEN_STATE_WAIT);
 			}
 		}
 		else if (state == RAVEN_STATE_IDLE) {
 			if (abs(this->x - simonX) < RAVEN_DISTANCE_ATTACK_X) {
 				SetState(RAVEN_STATE_FLY);
 			}
+		}
+		else if (state == RAVEN_STATE_WAIT) {
+			DWORD now = GetTickCount();
+			if (now - time_wait >= 500) {
+				if (abs(this->x - simonX) < RAVEN_DISTANCE_ATTACK_X) {
+					SetState(RAVEN_STATE_FLY);
+				}
+			}
+			
 		}
 	}
 }
@@ -164,6 +198,7 @@ void Raven::SetState(int state)
 
 		break;
 	case RAVEN_STATE_WAIT:
+		time_wait = GetTickCount();
 		vx = 0;
 		vy = 0;
 		break;

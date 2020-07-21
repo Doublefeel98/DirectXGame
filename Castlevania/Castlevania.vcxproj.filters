@@ -273,4 +273,7 @@
       <Filter>Source Files\Effects</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
+  </ItemGroup>
 </Project>

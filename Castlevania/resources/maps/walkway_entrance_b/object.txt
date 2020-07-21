@@ -6,7 +6,7 @@
 4 15 BottomStair 384 152 8 8 1 -2
 5 16 TopStair 408 92 16 8 1 -2
 6 16 TopStair 472 28 16 8 1 -2
-7 15 BottomStair 448 88 8 8 1 -2
+7 15 BottomStair 448 88 0 0 1 -2
 8 16 TopStair 568 60 16 8 -1 -2
 9 15 BottomStair 632 152 8 8 -1 -2
 10 17 Ground 32 160 32 32 -1 -2

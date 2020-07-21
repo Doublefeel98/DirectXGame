@@ -129,7 +129,7 @@ void CSceneManager::SwitchScene()
 	_isSwitchScene = false;
 	CPlayScene* s = dynamic_cast<CPlayScene*>(scenes[next_scene]);
 	s->SetDefaultTime(oldScene->GetRemainTime());
-
+	s->position = -1;
 	CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());
 	s->Load();
 }

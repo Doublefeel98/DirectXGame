@@ -152,6 +152,14 @@ void Skeleton::Render()
 		switch (state)
 		{
 		case SKELETON_STATE_IDLE:
+		{
+			if (nx > 0) {
+				ani = SKELETON_ANI_ATTACK_RIGHT;
+			}
+			else {
+				ani = SKELETON_ANI_ATTACK_LEFT;
+			}
+		}
 		case SKELETON_STATE_ATTACK:
 		{
 			if (nx > 0) {

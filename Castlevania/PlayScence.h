@@ -41,9 +41,9 @@ protected:
 	int defaultTimeGame;
 	int remainTime;
 	DWORD timeKillAll;
-	int position;
-public:
 
+public:
+	int position;
 	Simon* GetPlayer() { return player; }
 
 	CPlayScene(int id, LPCWSTR filePath);

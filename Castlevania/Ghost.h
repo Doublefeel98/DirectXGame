@@ -3,6 +3,7 @@
 class Ghost : public Enemy
 {
 	float startX, startY;
+	int ny;
 public:
 	Ghost(float startX, float startY);
 	~Ghost();

@@ -361,9 +361,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 bool CPlayScene::_checkInBoundMap()
 {
-	float l1 = 0, t1 = 0, r1 = mapWidth, b1 = mapWidth, l2, t2, r2, b2;
+	float l1 = 0, t1 = 0, r1 = mapWidth, b1 = mapHeight, l2, t2, r2, b2;
 	player->GetBoundingBox(l2, t2, r2, b2);
-	return CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2);
+	return CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2) && t2 < b1;
 }
 
 void CPlayScene::Load()
@@ -430,41 +430,41 @@ void CPlayScene::Update(DWORD dt)
 
 	grid->GetListOfObjects(&coObjects, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	/*for (size_t i = 0; i < coObjects.size(); i++)
-	{
-		if (dynamic_cast<Enemy*>(coObjects.at(i))) {
-			if (coObjects.at(i)->IsEnable() && !coObjects.at(i)->IsDead()) {
-				bool isContain = false;
-				for (int j = 0; j < listEnemies.size(); j++)
-				{
-					if (coObjects.at(i)->GetID() == listEnemies.at(j)->GetID()) {
-						isContain = true;
-						break;
-					}
-				}
-				if (!isContain) {
-					listEnemies.push_back(dynamic_cast<Enemy*>(coObjects.at(i)));
-				}
-			}
-		}
-	}
+	//for (size_t i = 0; i < coObjects.size(); i++)
+	//{
+	//	if (dynamic_cast<Enemy*>(coObjects.at(i))) {
+	//		if (coObjects.at(i)->IsEnable() && !coObjects.at(i)->IsDead()) {
+	//			bool isContain = false;
+	//			for (int j = 0; j < listEnemies.size(); j++)
+	//			{
+	//				if (coObjects.at(i)->GetID() == listEnemies.at(j)->GetID()) {
+	//					isContain = true;
+	//					break;
+	//				}
+	//			}
+	//			if (!isContain) {
+	//				listEnemies.push_back(dynamic_cast<Enemy*>(coObjects.at(i)));
+	//			}
+	//		}
+	//	}
+	//}
 
-	for (size_t i = 0; i < listEnemies.size(); i++)
-	{
-		if (listEnemies.at(i)->IsEnable() && !listEnemies.at(i)->IsDead()) {
-			bool isContain = false;
-			for (size_t j = 0; j < coObjects.size(); j++)
-			{
-				if (listEnemies.at(i)->GetID() == coObjects.at(j)->GetID()) {
-					isContain = true;
-					break;
-				}
-			}
-			if (!isContain) {
-				coObjects.push_back(listEnemies.at(i));
-			}
-		}
-	}*/
+	//for (size_t i = 0; i < listEnemies.size(); i++)
+	//{
+	//	if (listEnemies.at(i)->IsEnable() && !listEnemies.at(i)->IsDead()) {
+	//		bool isContain = false;
+	//		for (size_t j = 0; j < coObjects.size(); j++)
+	//		{
+	//			if (listEnemies.at(i)->GetID() == coObjects.at(j)->GetID()) {
+	//				isContain = true;
+	//				break;
+	//			}
+	//		}
+	//		if (!isContain) {
+	//			coObjects.push_back(listEnemies.at(i));
+	//		}
+	//	}
+	//}
 
 	for (size_t i = 0; i < listItems.size(); i++)
 	{
@@ -585,41 +585,41 @@ void CPlayScene::Render()
 
 	grid->GetListOfObjects(&coObjects, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	/*for (size_t i = 0; i < coObjects.size(); i++)
-	{
-		if (dynamic_cast<Enemy*>(coObjects.at(i))) {
-			if (coObjects.at(i)->IsEnable() && !coObjects.at(i)->IsDead()) {
-				bool isContain = false;
-				for (int j = 0; j < listEnemies.size(); j++)
-				{
-					if (coObjects.at(i)->GetID() == listEnemies.at(j)->GetID()) {
-						isContain = true;
-						break;
-					}
-				}
-				if (!isContain) {
-					listEnemies.push_back(dynamic_cast<Enemy*>(coObjects.at(i)));
-				}
-			}
-		}
-	}
+	//for (size_t i = 0; i < coObjects.size(); i++)
+	//{
+	//	if (dynamic_cast<Enemy*>(coObjects.at(i))) {
+	//		if (coObjects.at(i)->IsEnable() && !coObjects.at(i)->IsDead()) {
+	//			bool isContain = false;
+	//			for (int j = 0; j < listEnemies.size(); j++)
+	//			{
+	//				if (coObjects.at(i)->GetID() == listEnemies.at(j)->GetID()) {
+	//					isContain = true;
+	//					break;
+	//				}
+	//			}
+	//			if (!isContain) {
+	//				listEnemies.push_back(dynamic_cast<Enemy*>(coObjects.at(i)));
+	//			}
+	//		}
+	//	}
+	//}
 
-	for (size_t i = 0; i < listEnemies.size(); i++)
-	{
-		if (listEnemies.at(i)->IsEnable() && !listEnemies.at(i)->IsDead()) {
-			bool isContain = false;
-			for (size_t j = 0; j < coObjects.size(); j++)
-			{
-				if (listEnemies.at(i)->GetID() == coObjects.at(j)->GetID()) {
-					isContain = true;
-					break;
-				}
-			}
-			if (!isContain) {
-				coObjects.push_back(listEnemies.at(i));
-			}
-		}
-	}*/
+	//for (size_t i = 0; i < listEnemies.size(); i++)
+	//{
+	//	if (listEnemies.at(i)->IsEnable() && !listEnemies.at(i)->IsDead()) {
+	//		bool isContain = false;
+	//		for (size_t j = 0; j < coObjects.size(); j++)
+	//		{
+	//			if (listEnemies.at(i)->GetID() == coObjects.at(j)->GetID()) {
+	//				isContain = true;
+	//				break;
+	//			}
+	//		}
+	//		if (!isContain) {
+	//			coObjects.push_back(listEnemies.at(i));
+	//		}
+	//	}
+	//}
 
 	for (size_t i = 0; i < listItems.size(); i++)
 	{

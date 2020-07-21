@@ -278,7 +278,6 @@ void Item::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				if (now - timeStartEnable >= temp) {
 					if (IsFirstTime) {
 						IsFirstTime = false;
-						DebugOut(L"[INFO] item vx1 %d\n", nx);
 					}
 					if (nx == 1) {
 						vx = -SIMON_WALKING_SPEED;
@@ -288,7 +287,6 @@ void Item::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						vx = SIMON_WALKING_SPEED;
 						nx = 1;
 					}
-					DebugOut(L"[INFO] item vx2 %d\n", nx);
 
 					timeStartEnable = now;
 				}
@@ -374,7 +372,7 @@ void Item::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void Item::Render()
 {
-	if (this->isEnable == true) {
+	if (this->isEnable == true && animation_set->size()) {
 		animation_set->at(typeItem)->Render(x, y);
 		RenderBoundingBox();
 	}

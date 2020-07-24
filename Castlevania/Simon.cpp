@@ -229,7 +229,11 @@ void Simon::SetState(int state)
 					weapon = new Boomerang(x);
 					break;
 				case ITEM_STOP_WATCH:
-					weapon = new Stopwatch();
+					if (!Enemy::IsStop) {
+						weapon = new Stopwatch();
+						Enemy::IsStop = true;
+						Enemy::StartTimeStop();
+					}
 					break;
 				default:
 					break;
@@ -251,7 +255,7 @@ void Simon::SetState(int state)
 
 			}
 		}
-		if (!IsUseSubWeapons) {
+		if (!IsUseSubWeapons || typeWeaponCollect == ITEM_STOP_WATCH) {
 			whip->SetEnable(true);
 			whip->SetState(WHIP_STATE_PREPARE);
 		}
@@ -272,9 +276,8 @@ void Simon::SetState(int state)
 			{
 				vx = 0.03;
 			}
-			if (dy <= 0 || vy >= 0 || dy > 0)
-				vy = -0.2;
-
+			vy = -0.2;
+			/*if (dy <= 0 || vy >= 0 || dy > 0)*/
 		}
 		break;
 	}
@@ -373,7 +376,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (IsFighting)
 	{
-		if (!IsUseSubWeapons) {
+		if (!IsUseSubWeapons || (IsUseSubWeapons && typeWeaponCollect == ITEM_STOP_WATCH)) {
 			whip->SetPosition(this->x, this->y, IsSit);
 			whip->Update(dt, coObjects);
 
@@ -570,10 +573,10 @@ void Simon::Render()
 	if (untouchable) alpha = 128;
 	if (IsFreeze)
 	{
-		animation_set->at(ani)->Render(posX, posY, alpha, rand() % 256, rand() % 256, rand() % 256);
+		animation_set->at(ani)->Render(posX, posY, IsFreeze, alpha, rand() % 256, rand() % 256, rand() % 256);
 	}
 	else {
-		animation_set->at(ani)->Render(posX, posY, alpha);
+		animation_set->at(ani)->Render(posX, posY, IsFreeze, alpha);
 	}
 
 
@@ -993,7 +996,7 @@ void Simon::_checkSweptAABB(vector<LPGAMEOBJECT>* coObjects)
 				if (IsOnStair) {
 					bool isHandleLogic = false;
 					if (IsDownStair) {
-						
+
 						if (e->ny < 0)
 						{
 							if (canClimbUpStair) {

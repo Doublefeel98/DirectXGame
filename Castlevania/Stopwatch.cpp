@@ -3,10 +3,6 @@
 
 void Stopwatch::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	Enemy::IsStop = true;
-	Enemy::StartTimeStop();
-	if (Enemy::timestop_start > 5000)
-		isEnable = false;
 }
 
 void Stopwatch::Render()

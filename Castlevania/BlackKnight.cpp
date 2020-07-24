@@ -2,13 +2,11 @@
 #include "Define.h"
 #include "../Framework/Ground.h"
 
-BlackKnight::BlackKnight()
+BlackKnight::BlackKnight() :Enemy()
 {
 	this->hp = BLACK_KNIGHT_HP;
 	isEnable = true;
 	damage = BLACK_KNIGHT_DAMAGE;
-
-	Enemy::Enemy();
 
 	SetState(BLACK_KNIGHT_STATE_WALKING);
 
@@ -29,7 +27,7 @@ BlackKnight::~BlackKnight()
 void BlackKnight::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	Enemy::Update(dt, coObjects);
-	if (!isDead && isEnable) {
+	if (!isDead && isEnable && !Enemy::IsStop) {
 
 		if (vx > 0 && abs(x - startX) > BLACK_KNIGHT_DISTANCE_X) {
 			x = startX + BLACK_KNIGHT_DISTANCE_X;
@@ -116,7 +114,7 @@ void BlackKnight::Render()
 			break;
 		}
 
-		animation_set->at(ani)->Render(posX, posY);
+		animation_set->at(ani)->Render(posX, posY, Enemy::IsStop);
 		RenderBoundingBox();
 	}
 

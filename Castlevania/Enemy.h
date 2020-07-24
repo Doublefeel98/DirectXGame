@@ -7,7 +7,12 @@ class Enemy : public CEnemy
 protected:
 	CollisionEffect* collisionEffect;
 	DeadEffect* deadEffect;
+	bool isGrounded;
+
 public:
+	static void StartTimeStop() { timestop_start = GetTickCount(); }
+	static DWORD timestop_start;
+	static bool IsStop;
 	Enemy();
 	CollisionEffect* GetCollisionEffect() { return collisionEffect; }
 	DeadEffect* GetDeadEffect() { return deadEffect; }

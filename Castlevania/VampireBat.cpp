@@ -29,7 +29,7 @@ VampireBat::~VampireBat()
 void VampireBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 {
 	Enemy::Update(dt, coObject);
-	if (!isDead && isEnable) {
+	if (!isDead && isEnable && !Enemy::IsStop) {
 
 		float simonX, simonY;
 
@@ -88,7 +88,7 @@ void VampireBat::Render()
 			break;
 		}
 
-		animation_set->at(ani)->Render(posX, posY);
+		animation_set->at(ani)->Render(posX, posY, Enemy::IsStop);
 		RenderBoundingBox();
 	}
 

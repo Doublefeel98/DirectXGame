@@ -8,20 +8,12 @@ class CEnemy :public CGameObject
 {
 protected:
 	int hp;
-	int e_prevHP;
-	int hpC;
 	int damage;
 	int point;
-	bool isGrounded;
 public:
-	static int timestop;
-	static DWORD timestop_start;
-	static float stopTime;
-	static bool IsStop;
 	CEnemy();
 	CEnemy(int hp);
 	~CEnemy();
-	static void StartTimeStop() { timestop = 1; timestop_start = GetTickCount(); }
 	virtual void Render() = 0;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
@@ -30,7 +22,4 @@ public:
 	int GetDamage() { return this->damage; }
 	void SetDamage(int damage) { this->damage = damage; }
 	int GetPoint() { return point; }
-	void Reload();
-	void Respawn();
-	DWORD respawnTime;
 };

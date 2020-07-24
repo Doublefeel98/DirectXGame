@@ -29,7 +29,7 @@ Raven::~Raven()
 void Raven::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	Enemy::Update(dt, coObjects);
-	if (!isDead && isEnable) {
+	if (!isDead && isEnable && !Enemy::IsStop) {
 
 		float simonX, simonY;
 
@@ -67,13 +67,13 @@ void Raven::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 
 			/*if (nx > 0) {
-				if (abs(this->x - simonX) <= RAVEN_DISTANCE_WAITING_X + SIMON_BBOX_WIDTH 
+				if (abs(this->x - simonX) <= RAVEN_DISTANCE_WAITING_X + SIMON_BBOX_WIDTH
 					&& abs(this->y - simonY) < SIMON_BBOX_HEIGHT / 2) {
 					SetState(RAVEN_STATE_WAIT);
 				}
 			}
 			else {
-				if (abs(this->x - simonX) <= RAVEN_DISTANCE_WAITING_X 
+				if (abs(this->x - simonX) <= RAVEN_DISTANCE_WAITING_X
 					&& abs(this->y - simonY) < SIMON_BBOX_HEIGHT / 2) {
 					SetState(RAVEN_STATE_WAIT);
 				}
@@ -96,7 +96,7 @@ void Raven::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					SetState(RAVEN_STATE_FLY);
 				}
 			}
-			
+
 		}
 	}
 }
@@ -133,7 +133,7 @@ void Raven::Render()
 			break;
 		}
 
-		animation_set->at(ani)->Render(x, y);
+		animation_set->at(ani)->Render(x, y, Enemy::IsStop);
 		RenderBoundingBox();
 	}
 

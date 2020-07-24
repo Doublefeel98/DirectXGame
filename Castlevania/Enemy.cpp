@@ -1,6 +1,9 @@
 ﻿#include "Enemy.h"
 #include "Simon.h"
 
+DWORD Enemy::timestop_start = 0;
+bool Enemy::IsStop = false;
+
 Enemy::Enemy()
 {
 	collisionEffect = new CollisionEffect();
@@ -17,17 +20,18 @@ void Enemy::Render()
 
 void Enemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (!IsStop)
+	if (IsStop)
+	{
+		dx = 0;
+		dy = 0;
+	}
+	else {
 		CGameObject::Update(dt, coObjects);
+	}
 	if (!isDead)
 	{
 		if (isEnable)
 		{
-			respawnTime = 0;
-			if (hp < e_prevHP) {
-				e_prevHP = hp;
-			}
-
 			if (hp <= 0)
 			{
 				isDead = true;
@@ -36,22 +40,11 @@ void Enemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				Simon::GetInstance()->AddScore(point);
 				return;
 			}
-			if (IsStop == true) {
 
-				if (GetTickCount() - timestop_start > 5000)
-				{
-					IsStop = false;
-					timestop = 0;
-					timestop_start = 0;
-				}
-			}
 			collisionEffect->SetPosition(x, y + 10);
 			deadEffect->SetPosition(x + 3, y - 3);
 		}
-
 	}
-	if (!isEnable)
-		respawnTime += dt;
 
 	collisionEffect->Update(dt);
 	deadEffect->Update(dt);

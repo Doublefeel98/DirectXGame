@@ -2,7 +2,8 @@
 #include "../Framework/GameObject.h"
 #include "Define.h"
 #include "Simon.h"
-class Bone : public CGameObject
+#include "Enemy.h"
+class Bone : public Enemy
 {
 private:
 	int damage;

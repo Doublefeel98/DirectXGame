@@ -217,6 +217,7 @@ void Item::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 				right = x + 16;
 				bottom = y + 16;
 				break;
+			case ITEM_CROWN:
 			case ITEM_BOOMERANG:
 				right = x + 15;
 				bottom = y + 16;
@@ -246,6 +247,9 @@ void Item::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 				right = x + 14;
 				bottom = y + 16;
 				break;
+			case ITEM_CHEST:
+				right = x + 16;
+				bottom = y + 12;
 			default:
 				break;
 			}

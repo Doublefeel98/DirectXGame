@@ -27,7 +27,7 @@ Ghost::~Ghost()
 void Ghost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 {
 	Enemy::Update(dt, coObject);
-	if (!isDead && isEnable) {
+	if (!isDead && isEnable && !Enemy::IsStop) {
 		float simonX, simonY;
 
 		Simon::GetInstance()->GetPosition(simonX, simonY);
@@ -55,10 +55,10 @@ void Ghost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 			if (abs(this->x - simonX) >= SIMON_BBOX_WIDTH / 2) {
 				x += dx;
 			}
-			if (!(simonY <= this->y && this->y - simonY <= GHOST_BBOX_HEIGHT/2)) {
+			if (!(simonY <= this->y && this->y - simonY <= GHOST_BBOX_HEIGHT / 2)) {
 				y += dy;
 			}
-		
+
 
 			//if (nx > 0) {
 			//	if (abs(this->x - simonX) <= GHOST_DISTANCE_WAITING_X + SIMON_BBOX_WIDTH && abs(this->y - simonY) < SIMON_BBOX_HEIGHT) {
@@ -108,7 +108,7 @@ void Ghost::Render()
 			break;
 		}
 
-		animation_set->at(ani)->Render(x, y);
+		animation_set->at(ani)->Render(x, y, Enemy::IsStop);
 		RenderBoundingBox();
 	}
 

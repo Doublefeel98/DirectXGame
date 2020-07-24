@@ -487,6 +487,15 @@ void CPlayScene::Update(DWORD dt)
 		this->Unload();
 		this->Load();
 	}
+
+	if (Enemy::IsStop == true) {
+
+		if (GetTickCount() - Enemy::timestop_start > 5000)
+		{
+			Enemy::IsStop = false;
+			Enemy::timestop_start = 0;
+		}
+	}
 }
 
 void CPlayScene::Render()

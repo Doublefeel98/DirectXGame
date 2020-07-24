@@ -385,14 +385,6 @@
 #define PHANTOM_BAT_WAIT_TIME	750
 #define PHANTOM_BAT_CHASE_TIME	50
 
-enum DIRECTION
-{
-	LEFT,
-	RIGHT,
-	TOP,
-	BOTTOM
-};
-
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(ptr) \
 if(ptr) \

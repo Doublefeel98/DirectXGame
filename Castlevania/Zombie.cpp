@@ -34,7 +34,7 @@ Zombie::~Zombie()
 void Zombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	Enemy::Update(dt, coObjects);
-	if (!isDead && isEnable) {
+	if (!isDead && isEnable && !Enemy::IsStop) {
 
 		float simonX, simonY;
 
@@ -154,7 +154,8 @@ void Zombie::Render()
 			break;
 		}
 
-		animation_set->at(ani)->Render(posX, posY);
+		animation_set->at(ani)->Render(posX, posY, Enemy::IsStop);
+
 		RenderBoundingBox();
 	}
 

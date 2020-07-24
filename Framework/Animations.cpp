@@ -58,6 +58,40 @@ void CAnimation::Render(float x, float y, int alpha, int r, int g, int b, bool i
 	}
 }
 
+void CAnimation::Render(float x, float y, bool isStop, int alpha, int r, int g, int b)
+{
+	DWORD now = GetTickCount();
+	if (currentFrame == -1)
+	{
+		currentFrame = 0;
+		lastFrameTime = now;
+	}
+	else
+	{
+		if (!isStop) {
+			DWORD t = frames[currentFrame]->GetTime();
+			if (now - lastFrameTime > t)
+			{
+				currentFrame++;
+				lastFrameTime = now;
+				if (currentFrame == frames.size())
+					if (currentFrame == frames.size())
+					{
+						if (isLoop) {
+							currentFrame = 0;
+						}
+						else
+						{
+							currentFrame = frames.size() - 1;
+						}
+					}
+			}
+		}
+	}
+
+	frames[currentFrame]->GetSprite()->Draw(x, y, alpha, r, g, b);
+}
+
 CAnimations* CAnimations::__instance = NULL;
 
 CAnimations* CAnimations::GetInstance()

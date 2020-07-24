@@ -169,7 +169,7 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					{
 						if (enemy->isEnable != false) {
 							enemy->GetCollisionEffect()->SetEnable(true);
-							enemy->SetHP(enemy->GetHP() - this->damage);
+							enemy->Hurted(this->damage);
 							this->isEnable = false;
 							ResetAnimation();
 						}

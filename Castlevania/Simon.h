@@ -41,7 +41,7 @@ class Simon : public CPlayer
 	void _checkAABB(vector<LPGAMEOBJECT>* coObjects);
 	void _checkSweptAABB(vector<LPGAMEOBJECT>* coObjects);
 
-	void _handleLogicCollisionItem(Item* item);
+
 	void _handleLogicCollisionEnemy(Enemy* enemy);
 
 	void _updateSubWeapon(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
@@ -60,6 +60,7 @@ class Simon : public CPlayer
 
 	bool isKillAllEnemies;
 public:
+	void handleLogicCollisionItem(Item* item);
 	static Simon* GetInstance();
 	bool IsFighting;
 	bool IsSit;

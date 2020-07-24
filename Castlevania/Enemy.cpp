@@ -12,6 +12,14 @@ Enemy::Enemy()
 	isDead = false;
 }
 
+void Enemy::Hurted(int damage)
+{
+	SetHP(this->hp - damage);
+	if (isDead) {
+		Simon::GetInstance()->AddScore(this->point);
+	}
+}
+
 void Enemy::Render()
 {
 	collisionEffect->Render();

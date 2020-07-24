@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "GameObject.h"
 
 #define E_INVINCIBLE_TIME 0.4
@@ -18,7 +18,7 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	int GetHP() { return this->hp; }
-	void SetHP(int hp) { this->hp = hp; }
+	void SetHP(int hp);
 	int GetDamage() { return this->damage; }
 	void SetDamage(int damage) { this->damage = damage; }
 	int GetPoint() { return point; }

@@ -1,4 +1,4 @@
-#include "Enemy.h"
+﻿#include "Enemy.h"
 
 
 CEnemy::CEnemy() : CGameObject()
@@ -16,6 +16,15 @@ CEnemy::CEnemy(int hp) : CGameObject()
 
 CEnemy::~CEnemy()
 {
+}
+
+void CEnemy::SetHP(int _hp) {
+	this->hp = _hp;
+	if (hp <= 0)
+	{
+		isDead = true;
+		isEnable = false;
+	}
 }
 
 void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -39,5 +48,3 @@ void CEnemy::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CEnemy::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 }
-
-

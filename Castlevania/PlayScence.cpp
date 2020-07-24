@@ -569,7 +569,7 @@ void CPlayScene::Unload()
 
 	if (tileMap) {
 		tileMap->Unload();
-		SAFE_DELETE(tileMap);
+		SAFE_DELETE(grid);
 	}
 	if (grid) {
 		grid->Unload();

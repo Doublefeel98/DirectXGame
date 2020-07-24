@@ -1,11 +1,16 @@
-#pragma once
+﻿#pragma once
 #include "../Framework/GameObject.h"
+#include "Item.h"
+#include "Enemy.h"
 class Weapon : public CGameObject
 {
 protected:
 	int useHeart;
 	int damage;
 	int count;
+	void _handleLogicCollisionEnemy(Enemy* enemy);
+	virtual void _checkAABB(vector<LPGAMEOBJECT>* coObjects);
+	virtual void _checkSweptAABB(vector<LPGAMEOBJECT>* coObjects);
 public:
 	Weapon();
 	~Weapon();
@@ -17,4 +22,3 @@ public:
 	int GetDamage() { return damage; }
 	void SetDamage(int damage) { this->damage = damage; }
 };
-

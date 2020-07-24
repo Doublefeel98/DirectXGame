@@ -276,8 +276,8 @@ void Simon::SetState(int state)
 			{
 				vx = 0.03;
 			}
+
 			vy = -0.2;
-			/*if (dy <= 0 || vy >= 0 || dy > 0)*/
 		}
 		break;
 	}
@@ -429,7 +429,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 
 	if (IsHurt) {
-		if (GetTickCount() - hurtable_start > 1000)
+		if (GetTickCount() - hurtable_start > SIMON_UNTOUCHABLE_TIME)
 		{
 			hurtable_start = 0;
 			hurtable = 0;
@@ -675,7 +675,7 @@ void Simon::SetPosition(float x, float y)
 
 void Simon::Hurted(int damage)
 {
-	if (hp > 0)
+	if (hp > 0 && !IsHurt)
 	{
 		hp -= damage;
 		StartUntouchable();
@@ -927,7 +927,7 @@ void Simon::_checkAABB(vector<LPGAMEOBJECT>* coObjects)
 
 			if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))
 			{
-				_handleLogicCollisionItem(item);
+				handleLogicCollisionItem(item);
 			}
 		}
 	}
@@ -984,7 +984,7 @@ void Simon::_checkSweptAABB(vector<LPGAMEOBJECT>* coObjects)
 			if (dynamic_cast<Item*>(e->obj))
 			{
 				Item* item = dynamic_cast<Item*>(e->obj);
-				_handleLogicCollisionItem(item);
+				handleLogicCollisionItem(item);
 			}
 			if ((dynamic_cast<Enemy*>(e->obj))) {
 				Enemy* enemy = dynamic_cast<Enemy*>(e->obj);
@@ -1134,7 +1134,7 @@ void Simon::_checkSweptAABB(vector<LPGAMEOBJECT>* coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
-void Simon::_handleLogicCollisionItem(Item* item)
+void Simon::handleLogicCollisionItem(Item* item)
 {
 	DWORD now = GetTickCount();
 	if (!item->IsDead() && item->IsEnable())

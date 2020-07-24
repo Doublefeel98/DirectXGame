@@ -478,8 +478,9 @@ void CPlayScene::Update(DWORD dt)
 		cy = mapHeight > SCREEN_HEIGHT;
 	}
 
-
-	camera->SetCameraPosition((int)cx, (int)cy);
+	if (!camera->IsLock()) {
+		camera->SetCameraPosition((int)cx, (int)cy);
+	}
 
 	if (!_checkInBoundMap()) {
 		player->Reset();

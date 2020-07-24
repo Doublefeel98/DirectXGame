@@ -41,7 +41,6 @@ protected:
 	int defaultTimeGame;
 	int remainTime;
 	DWORD timeKillAll;
-
 public:
 	int position;
 	Simon* GetPlayer() { return player; }

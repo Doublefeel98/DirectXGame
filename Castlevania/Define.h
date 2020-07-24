@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #define WINDOW_CLASS_NAME L"Simon"
 #define MAIN_WINDOW_TITLE L"Simon"
 

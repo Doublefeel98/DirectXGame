@@ -1,4 +1,4 @@
-#include "Camera.h"
+﻿#include "Camera.h"
 
 CCamera* CCamera::__instance = NULL;
 
@@ -14,6 +14,7 @@ CCamera::CCamera(float x, float y)
 	this->cameraPosition.x = x;
 	this->cameraPosition.y = y;
 	this->cameraPosition.z = 0;
+	is_lock = false;
 }
 
 

@@ -1,4 +1,4 @@
-#include "Effect.h"
+﻿#include "Effect.h"
 
 
 void Effect::AddAnimation(int aniId)
@@ -16,4 +16,11 @@ Effect::Effect()
 
 Effect::~Effect()
 {
+}
+
+void Effect::SetAnimationSet(int ani_set_id)
+{
+	CAnimationSets* animation_sets = CAnimationSets::GetInstance();
+	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
+	SetAnimationSet(ani_set);
 }

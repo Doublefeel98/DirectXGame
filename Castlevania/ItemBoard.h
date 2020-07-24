@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include"../Framework/Effect.h"
 class ItemBoard : public Effect
 {
@@ -10,4 +10,3 @@ public:
 	~ItemBoard();
 	void Render();
 };
-

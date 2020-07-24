@@ -182,7 +182,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	game->SetBackgroundColor(BACKGROUND_COLOR);
 	game->Init(hWnd);
 	game->InitKeyboard();
-	game->SetDeviationY(45);
 
 	sceneManager = CSceneManager::GetInstance();
 	sceneManager->SetPlayer(Simon::GetInstance());

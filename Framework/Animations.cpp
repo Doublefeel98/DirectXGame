@@ -1,4 +1,4 @@
-#include "Animations.h"
+﻿#include "Animations.h"
 #include "Utils.h"
 
 CAnimationSets* CAnimationSets::__instance = NULL;
@@ -17,45 +17,6 @@ void CAnimation::Add(int spriteId, DWORD time)
 
 	LPANIMATION_FRAME frame = new CAnimationFrame(sprite, t);
 	frames.push_back(frame);
-}
-
-// NOTE: sometimes Animation object is NULL ??? HOW ??? 
-void CAnimation::Render(float x, float y, int alpha, int r, int g, int b, bool isFollowCamera)
-{
-	DWORD now = GetTickCount();
-	if (currentFrame == -1)
-	{
-		currentFrame = 0;
-		lastFrameTime = now;
-	}
-	else
-	{
-		DWORD t = frames[currentFrame]->GetTime();
-		if (now - lastFrameTime > t)
-		{
-			currentFrame++;
-			lastFrameTime = now;
-			if (currentFrame == frames.size())
-				if (currentFrame == frames.size())
-				{
-					if (isLoop) {
-						currentFrame = 0;
-					}
-					else
-					{
-						currentFrame = frames.size() - 1;
-					}
-				}
-		}
-	}
-
-	if (isFollowCamera)
-	{
-		frames[currentFrame]->GetSprite()->Draw(x, y, alpha, r, g, b);
-	}
-	else {
-		frames[currentFrame]->GetSprite()->DrawWithoutCamera(x, y, alpha, r, g, b);
-	}
 }
 
 void CAnimation::Render(float x, float y, bool isStop, int alpha, int r, int g, int b)
@@ -90,6 +51,40 @@ void CAnimation::Render(float x, float y, bool isStop, int alpha, int r, int g, 
 	}
 
 	frames[currentFrame]->GetSprite()->Draw(x, y, alpha, r, g, b);
+}
+
+void CAnimation::RenderWithoutCamera(float x, float y, bool isStop, int alpha, int r, int g, int b)
+{
+	DWORD now = GetTickCount();
+	if (currentFrame == -1)
+	{
+		currentFrame = 0;
+		lastFrameTime = now;
+	}
+	else
+	{
+		if (!isStop) {
+			DWORD t = frames[currentFrame]->GetTime();
+			if (now - lastFrameTime > t)
+			{
+				currentFrame++;
+				lastFrameTime = now;
+				if (currentFrame == frames.size())
+					if (currentFrame == frames.size())
+					{
+						if (isLoop) {
+							currentFrame = 0;
+						}
+						else
+						{
+							currentFrame = frames.size() - 1;
+						}
+					}
+			}
+		}
+	}
+
+	frames[currentFrame]->GetSprite()->DrawWithoutCamera(x, y, alpha, r, g, b);
 }
 
 CAnimations* CAnimations::__instance = NULL;

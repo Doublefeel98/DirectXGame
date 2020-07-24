@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Textures.h"
 #include "Sprites.h"
 #include  "Animations.h"
@@ -9,6 +9,7 @@ protected:
 	DWORD timeDelay;
 	bool isEnable;
 	vector<LPANIMATION> animations;
+	LPANIMATION_SET animation_set;
 public:
 	virtual void Render() {}
 	virtual void Update(DWORD dt) {}
@@ -17,5 +18,6 @@ public:
 	virtual void AddAnimation(int aniId);
 	Effect();
 	~Effect();
+	void SetAnimationSet(int ani_set_id);
+	void SetAnimationSet(LPANIMATION_SET ani_set) { animation_set = ani_set; }
 };
-

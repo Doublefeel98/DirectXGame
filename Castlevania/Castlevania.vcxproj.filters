@@ -153,11 +153,14 @@
     <ClCompile Include="BossDeadEffect.cpp">
       <Filter>Source Files\Effects</Filter>
     </ClCompile>
-    <ClCompile Include="SceneIntro.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="BatStartGame.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="TextTitleScreen.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -266,11 +269,14 @@
     <ClInclude Include="BossDeadEffect.h">
       <Filter>Source Files\Effects</Filter>
     </ClInclude>
-    <ClInclude Include="SceneIntro.h">
-      <Filter>Source Files\Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="BatStartGame.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="TextTitleScreen.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Source Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

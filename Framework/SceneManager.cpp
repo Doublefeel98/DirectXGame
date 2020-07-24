@@ -1,10 +1,11 @@
-#include "SceneManager.h"
+﻿#include "SceneManager.h"
 #include "Utils.h"
 #include "Textures.h"
 #include "Sprites.h"
 #include "Animations.h"
 
-#include "../Castlevania/PlayScence.h";
+#include "../Castlevania/PlayScence.h"
+#include "../Castlevania/TitleScene.h"
 
 CSceneManager* CSceneManager::__instance = NULL;
 
@@ -51,8 +52,14 @@ void CSceneManager::_ParseSection_SCENES(string line)
 	if (tokens.size() < 2) return;
 	int id = atoi(tokens[0].c_str());
 	LPCWSTR path = ToLPCWSTR(tokens[1]);
+	LPSCENE scene;
 
-	LPSCENE scene = new CPlayScene(id, path);
+	if (id == -1) {
+		scene = new TitleScene(id, path);
+	}
+	else {
+		scene = new CPlayScene(id, path);
+	}
 	scenes[id] = scene;
 }
 
@@ -122,14 +129,26 @@ void CSceneManager::SwitchScene()
 {
 	DebugOut(L"[INFO] Switching to scene %d\n", next_scene);
 
-	CPlayScene* oldScene = dynamic_cast<CPlayScene*>(scenes[current_scene]);
+
 	scenes[current_scene]->Unload();
 
-	current_scene = next_scene;
+
 	_isSwitchScene = false;
-	CPlayScene* s = dynamic_cast<CPlayScene*>(scenes[next_scene]);
-	s->SetDefaultTime(oldScene->GetRemainTime());
-	s->position = -1;
-	CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());
-	s->Load();
+	if (next_scene > 0) {
+		CGame::GetInstance()->SetDeviationY(45);
+		CPlayScene* s = dynamic_cast<CPlayScene*>(scenes[next_scene]);
+		if (current_scene > 0) {
+			CPlayScene* oldScene = dynamic_cast<CPlayScene*>(scenes[current_scene]);
+			s->SetDefaultTime(oldScene->GetRemainTime());
+		}
+		s->position = -1;
+	}
+	else if (next_scene == -1) {
+		CGame::GetInstance()->SetDeviationY(0);
+	}
+
+	CGame::GetInstance()->SetKeyHandler(scenes[next_scene]->GetKeyEventHandler());
+	current_scene = next_scene;
+	scenes[next_scene]->Load();
+
 }

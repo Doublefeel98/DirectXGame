@@ -3,21 +3,23 @@
 #include "Simon.h"
 #include "../Framework/Ground.h"
 
-Skeleton::Skeleton(float startX, float startY)
+Skeleton::Skeleton() : Enemy()
 {
-	this->startX = startX;
-	this->startY = startY;
-
 	this->hp = 1;
 	isEnable = true;
 	damage = 1;
-
-	Enemy::Enemy();
 
 	SetState(SKELETON_STATE_IDLE);
 
 	point = 300;
 	vy = 0;
+}
+
+void Skeleton::FromVector(vector<string> tokens)
+{
+	CGameObject::FromVector(tokens);
+	startX = x;
+	startY = y;
 }
 
 Skeleton::~Skeleton()

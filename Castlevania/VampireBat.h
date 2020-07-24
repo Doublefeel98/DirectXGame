@@ -4,7 +4,8 @@ class VampireBat : public Enemy
 {
 	float startX, startY;
 public:
-	VampireBat(float startX, float startY);
+	VampireBat();
+	virtual void FromVector(vector<string> tokens);
 	~VampireBat();
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObject = NULL);

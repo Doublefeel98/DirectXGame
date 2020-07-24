@@ -113,4 +113,5 @@ public:
 	void Hurted(int damage);
 	void SetKillAllEnemies(bool isKill) { this->isKillAllEnemies = isKill; }
 	bool IsKillAllEnemies() { return isKillAllEnemies; }
+	virtual void FromVector(vector<string> tokens);
 };

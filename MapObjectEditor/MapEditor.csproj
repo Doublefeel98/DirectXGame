@@ -45,8 +45,54 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Objects\Portal.cs" />
-    <Compile Include="Objects\Simon.cs" />
+    <Compile Include="Objects\BlackKnight\BlackKnight.cs" />
+    <Compile Include="Objects\BottomStair\BottomStair.cs" />
+    <Compile Include="Objects\BottomStair\BottomStairUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Objects\BottomStair\BottomStairUC.Designer.cs">
+      <DependentUpon>BottomStairUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Objects\BoundingMap\BoundingMap.cs" />
+    <Compile Include="Objects\Candle\Candle.cs" />
+    <Compile Include="Objects\Fleamen\Fleamen.cs" />
+    <Compile Include="Objects\Gate\Gate.cs" />
+    <Compile Include="Objects\Ghost\Ghost.cs" />
+    <Compile Include="Objects\Ground\Ground.cs" />
+    <Compile Include="Objects\MovingPlatform\MovingPlatform.cs" />
+    <Compile Include="Objects\PhantomBat\PhantomBat.cs" />
+    <Compile Include="Objects\Portal\Portal.cs" />
+    <Compile Include="Objects\Portal\PortalUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Objects\Portal\PortalUC.Designer.cs">
+      <DependentUpon>PortalUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Objects\Raven\Raven.cs" />
+    <Compile Include="Objects\Simon\Simon.cs" />
+    <Compile Include="Objects\Simon\SimonUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Objects\Simon\SimonUC.Designer.cs">
+      <DependentUpon>SimonUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Objects\Skeleton\Skeleton.cs" />
+    <Compile Include="Objects\TopStair\TopStair.cs" />
+    <Compile Include="Objects\TopStair\TopStairUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Objects\TopStair\TopStairUC.Designer.cs">
+      <DependentUpon>TopStairUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Objects\Torch\Torch.cs" />
+    <Compile Include="Objects\VampireBat\VampireBat.cs" />
+    <Compile Include="Objects\Zombie\Zombie.cs" />
+    <Compile Include="Objects\Zombie\ZombieUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Objects\Zombie\ZombieUC.Designer.cs">
+      <DependentUpon>ZombieUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utilities.cs" />
     <Compile Include="Grid.cs" />
     <Compile Include="MapEditor.cs">
@@ -55,12 +101,27 @@
     <Compile Include="MapEditor.Designer.cs">
       <DependentUpon>MapEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Object.cs" />
+    <Compile Include="Objects\Obj.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MapEditor.resx">
       <DependentUpon>MapEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Objects\BottomStair\BottomStairUC.resx">
+      <DependentUpon>BottomStairUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Objects\Portal\PortalUC.resx">
+      <DependentUpon>PortalUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Objects\Simon\SimonUC.resx">
+      <DependentUpon>SimonUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Objects\TopStair\TopStairUC.resx">
+      <DependentUpon>TopStairUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Objects\Zombie\ZombieUC.resx">
+      <DependentUpon>ZombieUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

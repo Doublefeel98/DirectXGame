@@ -2,20 +2,29 @@
 #include "Define.h"
 #include "../Framework/Ground.h"
 #include "../Framework/BoundingMap.h"
+#include "Simon.h"
+#include <time.h>
+#include <stdlib.h>
 
-Zombie::Zombie(float startX, float startY)
+Zombie::Zombie() : Enemy()
 {
-	this->startX = startX;
-	this->startY = startY;
-
 	hp = 1;
 
 	damage = 2;
 	point = 100;
 
-	Enemy::Enemy();
+	srand(time(NULL));
+	direction = rand() % 100 + 1 > 50 ? -1 : 1;
 
-	SetState(ZOOMBIE_STATE_IDLE);
+	SetState(ZOOMBIE_STATE_HIDE);
+}
+
+void Zombie::FromVector(vector<string> tokens)
+{
+	CGameObject::FromVector(tokens);
+	startX = x;
+	startY = y;
+	direction = atoi(tokens[9].c_str());
 }
 
 Zombie::~Zombie()
@@ -26,6 +35,33 @@ void Zombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	Enemy::Update(dt, coObjects);
 	if (!isDead && isEnable) {
+
+		float simonX, simonY;
+
+		Simon::GetInstance()->GetPosition(simonX, simonY);
+
+		int t_nx = this->x >= simonX ? -1 : 1;
+
+		if (state == ZOOMBIE_STATE_HIDE) {
+			if (t_nx == direction) {
+				if (t_nx > 0) {
+					float d_x = simonX - this->x;
+					if (d_x >= ZOOMBIE_DISTANCE_ATTACK_X) {
+						nx = direction;
+						SetState(ZOOMBIE_STATE_WALKING);
+					}
+				}
+				else {
+					float d_x = this->x - simonX;
+					if (d_x <= ZOOMBIE_DISTANCE_ATTACK_X && d_x > 0) {
+						nx = direction;
+						SetState(ZOOMBIE_STATE_WALKING);
+					}
+				}
+
+			}
+		}
+
 
 		vector<LPCOLLISIONEVENT> coEvents;
 		vector<LPCOLLISIONEVENT> coEventsResult;
@@ -99,7 +135,7 @@ void Zombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void Zombie::Render()
 {
-	if (!isDead && isEnable) {
+	if (!isDead && isEnable && state != ZOOMBIE_STATE_HIDE) {
 		int posX = x, posY = y;
 		int ani = 0;
 		switch (state)
@@ -148,8 +184,12 @@ void Zombie::SetState(int state)
 	{
 	case ZOOMBIE_STATE_WALKING:
 		vx = nx * ZOOMBIE_WALKING_SPEED;
-	case ZOOMBIE_STATE_IDLE:
-		vx = 0;
 		break;
+	case ZOOMBIE_STATE_DEAD:
+	{
+		isDead = true;
+		isEnable = false;
+	}
+	break;
 	}
 }

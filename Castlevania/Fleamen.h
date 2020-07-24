@@ -5,7 +5,8 @@ class Fleamen : public Enemy
 	float startX, startY;
 	DWORD timeJump;
 public:
-	Fleamen(float startX, float startY);
+	Fleamen();
+	virtual void FromVector(vector<string> tokens);
 	~Fleamen();
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);

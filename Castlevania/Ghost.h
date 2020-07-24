@@ -5,7 +5,8 @@ class Ghost : public Enemy
 	float startX, startY;
 	int ny;
 public:
-	Ghost(float startX, float startY);
+	Ghost();
+	virtual void FromVector(vector<string> tokens);
 	~Ghost();
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObject = NULL);

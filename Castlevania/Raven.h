@@ -6,7 +6,8 @@ class Raven : public Enemy
 	int ny;
 	DWORD time_wait;
 public:
-	Raven(float startX, float startY);
+	Raven();
+	virtual void FromVector(vector<string> tokens);
 	~Raven();
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);

@@ -22,7 +22,8 @@ class PhantomBat : public Enemy
 	DWORD chaseTime;
 	bool isHurted;
 public:
-	PhantomBat(float startX, float startY);
+	PhantomBat();
+	virtual void FromVector(vector<string> tokens);
 	~PhantomBat();
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);

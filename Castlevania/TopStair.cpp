@@ -1,8 +1,13 @@
 #include "TopStair.h"
 
-TopStair::TopStair(int _nx)
+TopStair::TopStair()
 {
-	nx = _nx;
+}
+
+void TopStair::FromVector(vector<string> tokens)
+{
+	CGameObject::FromVector(tokens);
+	nx = atoi(tokens[9].c_str());
 }
 
 void TopStair::Render()

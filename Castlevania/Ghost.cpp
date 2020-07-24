@@ -2,20 +2,22 @@
 #include "Define.h"
 #include "Simon.h"
 
-Ghost::Ghost(float startX, float startY)
+Ghost::Ghost() :Enemy()
 {
-	this->startX = startX;
-	this->startY = startY;
-
 	this->hp = GHOST_HP;
 	isEnable = true;
 	damage = GHOST_DAMAGE;
 
-	Enemy::Enemy();
-
 	SetState(GHOST_STATE_HIDE);
 
 	point = 300;
+}
+
+void Ghost::FromVector(vector<string> tokens)
+{
+	CGameObject::FromVector(tokens);
+	startX = x;
+	startY = y;
 }
 
 Ghost::~Ghost()

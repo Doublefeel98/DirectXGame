@@ -1,4 +1,8 @@
 ﻿using MapEditor.Objects;
+using MapEditor.Objects.BottomStair;
+using MapEditor.Objects.Portal;
+using MapEditor.Objects.Simon;
+using MapEditor.Objects.TopStair;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,7 +25,7 @@ namespace MapEditor
     {
         Image imageCursor = null;
         CursorCur CurrentCursor;
-        private List<Object> listObject;
+        private List<Obj> listObject;
         private Grid grid;
 
         Bitmap bmpMap;
@@ -30,9 +34,9 @@ namespace MapEditor
 
         private int objectIndexInfo;
 
-        private const int CELL_SIZE = 128;
+        public const int CELL_SIZE = 128;
 
-        private const int START_INDEX = 0;
+        public const int START_INDEX = 0;
 
         int widthBackground, heightBackground;
 
@@ -44,7 +48,7 @@ namespace MapEditor
             panel1.HorizontalScroll.Enabled = true;
             panel1.HorizontalScroll.Visible = true;
 
-            // List Object
+            // List Obj
             listViewOB.LargeImageList = imageListOB;
             listViewOB.View = View.LargeIcon;
 
@@ -53,18 +57,9 @@ namespace MapEditor
                 listViewOB.Items.Add(imageListOB.Images.Keys[i], i);
             }
 
-            //listViewOB.Items.Add("BrickOutCastle", 0);
-            //listViewOB.Items.Add("BrickOutCastle", 0);
-            //listViewOB.Items.Add("Torch", 1);
-            //listViewOB.Items.Add("BrickSceneOne", 2);
-            //listViewOB.Items.Add("Candle", 3);
-
-            //imageListOB.TransparentColor = Color.Transparent;
-
-            // other
             CurrentCursor = CursorCur.NONE;
 
-            listObject = new List<Object>();
+            listObject = new List<Obj>();
             if (listObject != null)
             {
                 listObject.Clear();
@@ -98,6 +93,7 @@ namespace MapEditor
                 //MessageBox.Show(grid.NumXCells.ToString());
 
                 bmpMap = new Bitmap(pictureBoxBG.Image);
+                btnLoadObject.Enabled = true;
             }
         }
 
@@ -106,47 +102,6 @@ namespace MapEditor
             textBoxNameOB.Visible = true;
             CurrentCursor = CursorCur.OBJECT;
             resetObjInfo();
-
-            // Lay image khi click + doi cursor          
-            //foreach (ListViewItem itm in listViewOB.SelectedItems)
-            //{
-            //    int imgIndex = itm.ImageIndex;
-            //    if (imgIndex >= 0 && imgIndex < this.imageListOB.Images.Count)
-            //    {
-            //        imageCursor = this.imageListOB.Images[imgIndex];
-            //        switch (imgIndex)
-            //        {
-            //            case 0:
-            //            case 1:
-            //                imageCursor = Utilities.ResizeImage(imageCursor, 16, 32);
-            //                break;
-            //            case 2:
-            //                imageCursor = Utilities.ResizeImage(imageCursor, 8, 16);
-            //                break;
-            //            case 3:
-            //                imageCursor = Utilities.ResizeImage(imageCursor, 24, 48);
-            //                break;
-            //            case 4:
-            //            case 5:
-            //            case 8:
-            //            case 9:
-            //            case 10:
-            //            case 11:
-            //            case 12:
-            //                imageCursor = Utilities.ResizeImage(imageCursor, 16, 16);
-            //                break;
-            //            case 6:
-            //            case 7:
-            //            case 13:
-            //                imageCursor = Utilities.ResizeImage(imageCursor, 8, 8);
-            //                break;
-            //            case 14:
-            //                imageCursor = Utilities.ResizeImage(imageCursor, 15, 14);
-            //                break;
-
-            //        }
-            //    }
-            //}
             int imgIndex = listViewOB.SelectedItems[0].ImageIndex;
             string name = listViewOB.SelectedItems[0].Text;
             imageCursor = this.imageListOB.Images[imgIndex];
@@ -245,6 +200,7 @@ namespace MapEditor
         {
             if (CurrentCursor == CursorCur.OBJECT)
             {
+                gbDetail.Controls.Clear();
                 if (textBoxX.Text.Trim() != "x" && textBoxY.Text.Trim() != "y")
                 {
                     // them hinh anh vao pictureBox           
@@ -259,20 +215,7 @@ namespace MapEditor
                     // them vao list  
                     string nameOb = textBoxNameOB.Text.Trim();
 
-                    Object ob;
-
-                    if (nameOb.Equals("Simon"))
-                    {
-                        ob = new Simon(0, 0, p, nameOb, Convert.ToInt32(textBoxX.Text.Trim()), Convert.ToInt32(textBoxY.Text.Trim()), p.Width, p.Height);
-                    }
-                    else if (nameOb.Equals("Portal"))
-                    {
-                        ob = new Portal(0, p, nameOb, Convert.ToInt32(textBoxX.Text.Trim()), Convert.ToInt32(textBoxY.Text.Trim()), p.Width, p.Height);
-                    }
-                    else
-                    {
-                        ob = new Object(p, nameOb, Convert.ToInt32(textBoxX.Text.Trim()), Convert.ToInt32(textBoxY.Text.Trim()), p.Width, p.Height);
-                    }
+                    Obj ob = GetInstanceObject(nameOb, new object[] { p, Convert.ToInt32(textBoxX.Text.Trim()), Convert.ToInt32(textBoxY.Text.Trim()), p.Width, p.Height });
 
                     listObject.Add(ob);
                     listObject.ElementAt(listObject.Count - 1).Pic.Click += new System.EventHandler(PictureBoxes_Click);
@@ -288,6 +231,32 @@ namespace MapEditor
                     MessageBox.Show("Don't have background!");
                 }
             }
+        }
+
+        private Obj GetInstanceObject(string name, object[] args)
+        {
+            string strFullyQualifiedName = " MapEditor.Objects." + name + "." + name;
+            return (Obj)GetInstance(strFullyQualifiedName, args);
+        }
+
+        private UserControl GetInstanceObjectUC(string name, Obj obj)
+        {
+            string strFullyQualifiedName = " MapEditor.Objects." + name + "." + name + "UC";
+            return (UserControl)GetInstance(strFullyQualifiedName, new object[] { obj });
+        }
+
+        private object GetInstance(string name, object[] args)
+        {
+            Type type = Type.GetType(name);
+            if (type != null)
+                return Activator.CreateInstance(type, args);
+            foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                type = asm.GetType(name);
+                if (type != null)
+                    return Activator.CreateInstance(type);
+            }
+            return null;
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -324,12 +293,12 @@ namespace MapEditor
         {
             textBoxX.Text = "x";
             textBoxY.Text = "y";
-
         }
 
         // click vo picbox new tren background
         private void PictureBoxes_Click(object sender, EventArgs e)
         {
+            gbDetail.Controls.Clear();
             if (CurrentCursor == CursorCur.ICON)
             {
                 // xoa pic tren background va list
@@ -355,46 +324,33 @@ namespace MapEditor
                     {
                         objectIndexInfo = i;
 
-                        string id = listObject.ElementAt(i).Id.ToString();
-                        string name = listObject.ElementAt(i).Name;
+                        int id = listObject.ElementAt(i).Type;
+                        string name = listObject.ElementAt(i).GetType().Name;
                         int posX = (int)listObject.ElementAt(i).PosX;
                         int posY = (int)listObject.ElementAt(i).PosY;
                         int w = listObject.ElementAt(i).Width;
                         int h = listObject.ElementAt(i).Height;
-                        int sceneId = 0;
-                        int itemType = listObject.ElementAt(i).itemType;
+                        int itemType = listObject.ElementAt(i).ItemType;
 
-                        if (listObject.ElementAt(i).Id == 14)
+
+                        UserControl userControl = GetInstanceObjectUC(name, listObject.ElementAt(i));
+                        if (userControl != null)
                         {
-                            sceneId = listObject.ElementAt(i).AniSetId;
-                            numObjDelay.Enabled = true;
-                            numPosition.Enabled = true;
-                            Portal portal = (Portal)listObject.ElementAt(i);
-                            setObjectPortal(portal.Position);
-                        }
-                        else
-                        {
-                            numObjDelay.Enabled = false;
-                            numPosition.Enabled = false;
+                            userControl.Dock = DockStyle.Fill;
+                            gbDetail.Controls.Add(userControl);
                         }
 
-                        if (listObject.ElementAt(i).Id == 1)
+                        switch (listObject.ElementAt(i).Type)
                         {
-                            cboDirection.Enabled = true;
-                            cboState.Enabled = true;
-
-                            Simon simon = (Simon)listObject.ElementAt(i);
-
-                            setObjectSimon(simon.Direction, simon.State);
-                        }
-                        else
-                        {
-                            cboDirection.Enabled = false;
-                            cboState.Enabled = false;
-                            setObjectSimon(-1, -1);
+                            case Portal.TYPE:
+                                Portal portal = (Portal)listObject.ElementAt(i);
+                                break;
+                            case Simon.TYPE:
+                                Simon simon = (Simon)listObject.ElementAt(i);
+                                break;
                         }
 
-                        setOjectInfo(id, name, posX, posY, w, h, sceneId, itemType);
+                        setOjectInfo(id, name, posX, posY, w, h, itemType);
 
                         break;
                     }
@@ -405,41 +361,32 @@ namespace MapEditor
         private void resetObjInfo()
         {
             objectIndexInfo = -1;
-            setOjectInfo("", "", 0, 0, 0, 0, 0, -2);
+            setOjectInfo(-1, "", 0, 0, 0, 0, -2);
         }
 
-        public void setObjectSimon(int direction, int state)
+        private void setOjectInfo(int type, string name, int posX, int posY, int w, int h, int itemType)
         {
-            cboDirection.SelectedIndex = direction;
-            cboState.SelectedIndex = state;
-        }
-
-        public void setObjectPortal(int position)
-        {
-            numPosition.Value = position;
-        }
-
-        private void setOjectInfo(string id, string name, int posX, int posY, int w, int h, int sceneId, int itemType)
-        {
-            tbObjId.Text = id;
+            tbObjId.Text = type == -1 ? "" : type.ToString();
             tbObjName.Text = name;
             numX.Value = posX;
             numY.Value = posY;
             numWidth.Value = w;
             numHeight.Value = h;
-            numObjDelay.Value = sceneId;
-            cboItemType.SelectedIndex = itemType + 2;
-        }
 
-        private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-            //grid.clearObject();
-            //for (int i = 0; i < listObject.Count; i++)
-            //    grid.AddObjToCell(listObject[i], i);
-
-            //Utilities.WriteFileTxTObj(saveFileDialog1, listObject);
-            //Utilities.WriteFileTxtGrid(saveFileDialog1, grid);
-            //MessageBox.Show("Save successfully!");
+            switch (type)
+            {
+                case Portal.TYPE:
+                case TopStair.TYPE:
+                case BottomStair.TYPE:
+                case Simon.TYPE:
+                    cboItemType.SelectedIndex = 0;
+                    cboItemType.Enabled = false;
+                    break;
+                default:
+                    cboItemType.SelectedIndex = itemType + 2;
+                    cboItemType.Enabled = true;
+                    break;
+            }
         }
 
         private void PictureBoxes_MouseMove(object sender, EventArgs e)
@@ -460,6 +407,7 @@ namespace MapEditor
 
         private void cancelPic_Click(object sender, EventArgs e)
         {
+            gbDetail.Controls.Clear();
             this.Cursor = Cursors.Default;
             CurrentCursor = CursorCur.NONE;
             imageCursor = null;
@@ -468,6 +416,7 @@ namespace MapEditor
 
         private void removePic_Click(object sender, EventArgs e)
         {
+            gbDetail.Controls.Clear();
             imageCursor = this.removePic.Image;
             imageCursor = Utilities.ResizeImage(imageCursor, 8, 8);
             CurrentCursor = CursorCur.ICON;
@@ -519,22 +468,6 @@ namespace MapEditor
         {
             int imgIndex = getImageIndexByName(name);
             Image image = this.imageListOB.Images[imgIndex];
-            //if (imgIndex == 0)
-            //{
-            //    image = Utilities.ResizeImage(image, 32, 64);
-            //}
-            //else if (imgIndex == 1)
-            //{
-            //    image = Utilities.ResizeImage(image, 32, 32);
-            //}
-            //else if (imgIndex == 2)
-            //{
-            //    image = Utilities.ResizeImage(image, 32, 32);
-            //}
-            //else if (imgIndex == 3)
-            //{
-            //    image = Utilities.ResizeImage(image, 32, 64);
-            //}
             return image;
         }
 
@@ -597,9 +530,9 @@ namespace MapEditor
             {
                 string[] lines = System.IO.File.ReadAllLines(openFile.FileName);
                 string[] infos;
-                Object obj;
-                PictureBox p;
-                int posX, posY, width, height, sceneId, itemType;
+                Obj obj;
+                PictureBox pic;
+                int posX, posY, width, height;
                 int id;
                 string name;
 
@@ -609,84 +542,21 @@ namespace MapEditor
                     if (line.StartsWith("#") || line.StartsWith("//")) continue;
                     infos = line.Split(' ');
 
-                    if (infos.Length == 1)
-                    {
-                        infos = line.Split('\t');
-                    }
-
                     name = infos[2];
                     posX = int.Parse(infos[3]);
                     posY = int.Parse(infos[4]);
                     width = int.Parse(infos[5]);
                     height = int.Parse(infos[6]);
 
-                    if (infos.Length > 6)
-                    {
-                        sceneId = int.Parse(infos[7]);
-                    }
-                    else
-                    {
-                        sceneId = 0;
-                    }
-
-                    if (infos.Length > 8)
-                    {
-                        itemType = int.Parse(infos[8]);
-                    }
-                    else
-                    {
-                        itemType = -2;
-                    }
-
                     if (int.TryParse(infos[1], out id))
                     {
-                        p = new PictureBox();
-                        p.Image = Utilities.ResizeImage(getImageByName(name), width, height);
-                        p.Location = new Point(posX, posY);
-                        p.SizeMode = PictureBoxSizeMode.AutoSize;
-                        p.BackColor = Color.Transparent;
+                        pic = new PictureBox();
+                        pic.Image = Utilities.ResizeImage(getImageByName(name), width, height);
+                        pic.Location = new Point(posX, posY);
+                        pic.SizeMode = PictureBoxSizeMode.AutoSize;
+                        pic.BackColor = Color.Transparent;
 
-                        if (name.Equals("Simon"))
-                        {
-                            int direction;
-                            int state;
-                            if (infos.Length > 9)
-                            {
-                                direction = int.Parse(infos[9]);
-                                if (infos.Length > 10)
-                                {
-                                    state = int.Parse(infos[10]);
-                                }
-                                else
-                                {
-                                    state = 0;
-                                }
-                            }
-                            else
-                            {
-                                direction = 0;
-                                state = 0;
-                            }
-
-                            obj = new Simon(direction, state, p, name, posX, posY, width, height, sceneId, itemType);
-                        }
-                        else if (name.Equals("Portal"))
-                        {
-                            int position;
-                            if (infos.Length > 9)
-                            {
-                                position = int.Parse(infos[9]);
-                            }
-                            else
-                            {
-                                position = 0;
-                            }
-                            obj = new Portal(position, p, name, posX, posY, width, height, sceneId, itemType);
-                        }
-                        else
-                        {
-                            obj = new Object(p, name, posX, posY, width, height, sceneId, itemType);
-                        }
+                        obj = GetInstanceObject(name, new object[] { pic, infos });
 
                         listObject.Add(obj);
                         listObject.ElementAt(listObject.Count - 1).Pic.Click += new System.EventHandler(PictureBoxes_Click);
@@ -697,17 +567,6 @@ namespace MapEditor
 
                 }
                 renderListImage();
-            }
-        }
-
-        private void numObjDelay_ValueChanged(object sender, EventArgs e)
-        {
-            if (objectIndexInfo != -1)
-            {
-                if (listObject.ElementAt(objectIndexInfo).Id == 14)
-                {
-                    listObject.ElementAt(objectIndexInfo).AniSetId = (int)numObjDelay.Value;
-                }
             }
         }
 
@@ -747,43 +606,7 @@ namespace MapEditor
         {
             if (objectIndexInfo != -1)
             {
-                listObject.ElementAt(objectIndexInfo).itemType = (int)cboItemType.SelectedIndex - 2;
-            }
-        }
-
-        private void numPosition_ValueChanged(object sender, EventArgs e)
-        {
-            if (objectIndexInfo != -1)
-            {
-                if (listObject.ElementAt(objectIndexInfo).Id == 14)
-                {
-                    ((Portal)(listObject.ElementAt(objectIndexInfo))).Position = (int)numPosition.Value;
-                }
-
-            }
-        }
-
-        private void cboDirection_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (objectIndexInfo != -1)
-            {
-                if (listObject.ElementAt(objectIndexInfo).Id == 1)
-                {
-                    ((Simon)(listObject.ElementAt(objectIndexInfo))).Direction = (int)cboDirection.SelectedIndex;
-                }
-
-            }
-        }
-
-        private void cboState_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (objectIndexInfo != -1)
-            {
-                if (listObject.ElementAt(objectIndexInfo).Id == 1)
-                {
-                    ((Simon)(listObject.ElementAt(objectIndexInfo))).State = (int)cboState.SelectedIndex;
-                }
-
+                listObject.ElementAt(objectIndexInfo).ItemType = (int)cboItemType.SelectedIndex - 2;
             }
         }
 
@@ -797,21 +620,5 @@ namespace MapEditor
                 }
             }
         }
-
-        //private void buttonRest_Click(object sender, EventArgs e)
-        //{
-        //    imageCursor = null;
-        //    CurrentCursor = CursorCur.NONE;
-        //    if (listObject.Count > 0)
-        //    {
-        //        for (int i = 0; i < listObject.Count; i++)
-        //        {
-        //            pictureBoxBG.Controls.Remove(listObject.ElementAt(i).Pic);
-        //        }
-        //    }
-        //    listObject.Clear();
-
-        //    pictureBoxBG.Image = null;
-        //}
     }
 }

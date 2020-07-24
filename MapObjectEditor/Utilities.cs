@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MapEditor.Objects;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -12,7 +13,7 @@ namespace MapEditor
     class Utilities
     {
         // ghi file txt toa do obj trong map
-        public static void WriteFileTxTObj(string SelectedPath, List<Object> listObj)
+        public static void WriteFileTxTObj(string SelectedPath, List<Obj> listObj)
         {
             string path = SelectedPath + "/object.txt";
             System.IO.StreamWriter sWriter = new System.IO.StreamWriter(path);

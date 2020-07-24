@@ -1,14 +1,16 @@
 ﻿#include "Portal.h"
 
 
-CPortal::CPortal(float _x, float _y, int _with, int _height, int scene_id, int position)
+CPortal::CPortal()
 {
-	this->scene_id = scene_id;
-	x = _x;
-	y = _y;
-	width = _with;
-	height = _height;
-	this->position = position;
+	
+}
+
+void CPortal::FromVector(vector<string> tokens)
+{
+	CGameObject::FromVector(tokens);
+	this->scene_id = atoi(tokens[9].c_str());
+	this->position = atoi(tokens[10].c_str());
 }
 
 void CPortal::Render()

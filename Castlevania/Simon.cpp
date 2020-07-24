@@ -682,6 +682,38 @@ void Simon::Hurted(int damage)
 	else
 		SetState(SIMON_STATE_DIE);
 }
+void Simon::FromVector(vector<string> tokens)
+{
+	CGameObject::FromVector(tokens);
+	checkPointX = x;
+	checkPointY = y;
+	if (tokens.size() > 10) {
+		this->nx = atoi(tokens[9].c_str());
+		int state = atoi(tokens[10].c_str());
+
+		if (state == 0) {
+			this->IsOnStair = false;
+			this->IsOnStair = false;
+			this->IsUpStair = false;
+
+			this->SetState(SIMON_STATE_IDLE);
+		}
+		else {
+			this->IsOnStair = true;
+			if (state == 1) {
+				this->IsUpStair = true;
+				this->IsDownStair = false;
+			}
+			else {
+				this->IsUpStair = false;
+				this->IsDownStair = true;
+			}
+			this->directionStair = this->nx;
+			this->vx = 0;
+			this->vy = 0;
+		}
+	}
+}
 #pragma endregion
 
 #pragma region private methods

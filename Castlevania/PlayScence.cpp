@@ -209,7 +209,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	//DebugOut(L"--> %s\n",ToWSTR(line).c_str());
 
-	if (tokens.size() < 5) return; // skip invalid lines - an object set must have at least id, x, y
+	if (tokens.size() < 9) return; // skip invalid lines - an object set must have at least id, x, y
 
 	int id = atoi(tokens[0].c_str());
 	int object_type = atoi(tokens[1].c_str());
@@ -237,44 +237,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			return;
 		}
 
-		player->SetPosition(x, y);
-		if (tokens.size() > 10) {
-			int direction = atoi(tokens[9].c_str());
-			int state = atoi(tokens[10].c_str());
-
-			if (direction == 0) {
-				player->nx = -1;
-			}
-			else {
-				player->nx = 1;
-			}
-
-			if (state == 0) {
-				player->IsOnStair = false;
-				player->IsOnStair = false;
-				player->IsUpStair = false;
-
-				player->SetState(SIMON_STATE_IDLE);
-			}
-			else {
-				player->IsOnStair = true;
-				if (state == 1) {
-					player->IsUpStair = true;
-					player->IsDownStair = false;
-				}
-				else {
-					player->IsUpStair = false;
-					player->IsDownStair = true;
-				}
-				if (direction == 0) {
-					player->directionStair = -1;
-				}
-				else {
-					player->directionStair = 1;
-				}
-			}
-		}
-
+		player->FromVector(tokens);
 
 		objects.insert(objects.begin(), player);
 		return;
@@ -283,79 +246,26 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_TORCH: obj = new Torch(); break;
 	case OBJECT_TYPE_CANDLE: obj = new Candle(); break;
 	case OBJECT_TYPE_GATE: obj = new Gate(); break;
-	case OBJECT_TYPE_MOVING_FLATFORM: obj = new MovingPlatform(x, y); break;
-	case OBJECT_TYPE_ITEM_HEART: obj = new Item(ITEM_LARGE_HEART); break;
-	case OBJECT_TYPE_ITEM_SMALL_HEART: obj = new Item(ITEM_SMALL_HEART); break;
-	case OBJECT_TYPE_ITEM_KNIFE: obj = new Item(ITEM_DAGGER); break;
-	case OBJECT_TYPE_ITEM_AXE: obj = new Item(ITEM_AXE); break;
-	case OBJECT_TYPE_ITEM_BOOMERANG: obj = new Item(ITEM_BOOMERANG); break;
-	case OBJECT_TYPE_ITEM_WHIP: obj = new Item(ITEM_MORNING_STAIR); break;
-	case OBJECT_TYPE_VAMPIRE_BAT: obj = new VampireBat(x, y); break;
-	case OBJECT_TYPE_BLACK_KNGHT: obj = new BlackKnight(x, y); break;
-	case OBJECT_TYPE_GHOST: obj = new Ghost(x, y); break;
-	case OBJECT_TYPE_FLEAMEN: obj = new Fleamen(x, y); break;
-	case OBJECT_TYPE_SKELETON: obj = new Skeleton(x, y); break;
-	case OBJECT_TYPE_RAVEN: obj = new Raven(x, y); break;
-	case OBJECT_TYPE_PHANTOM_BAT: obj = new PhantomBat(x, y); break;
-	case OBJECT_TYPE_ZOOMBIE: obj = new Zombie(x, y); break;
-	case OBJECT_TYPE_PORTAL:
-	{
-		int scene_id = atoi(tokens[7].c_str());
-		int position = atoi(tokens[9].c_str());
-
-		obj = new CPortal(x, y, width, height, scene_id, position);
-		obj->SetID(id);
-		obj->SetTypeItem(-2);
-
-		objects.push_back(obj);
-		return;
-	}
-	break;
+	case OBJECT_TYPE_MOVING_FLATFORM: obj = new MovingPlatform(); break;
+	case OBJECT_TYPE_VAMPIRE_BAT: obj = new VampireBat(); break;
+	case OBJECT_TYPE_BLACK_KNGHT: obj = new BlackKnight(); break;
+	case OBJECT_TYPE_GHOST: obj = new Ghost(); break;
+	case OBJECT_TYPE_FLEAMEN: obj = new Fleamen(); break;
+	case OBJECT_TYPE_SKELETON: obj = new Skeleton(); break;
+	case OBJECT_TYPE_RAVEN: obj = new Raven(); break;
+	case OBJECT_TYPE_PHANTOM_BAT: obj = new PhantomBat(); break;
+	case OBJECT_TYPE_ZOOMBIE: obj = new Zombie(); break;
+	case OBJECT_TYPE_PORTAL:obj = new CPortal(); break;
 	case OBJECT_TYPE_BOUNGDING_MAP: obj = new BoundingMap(); break;
-		break;
 	case OBJECT_TYPE_GROUND: obj = new Ground(); break;
-		break;
-	case OBJECT_TYPE_BOTTOM_STAIR: {
-		obj = new BottomStair(ani_set_id);
-		obj->SetID(id);
-		obj->SetPosition(x, y);
-		obj->SetWidth(width);
-		obj->SetHeight(height);
-		obj->SetType(object_type);
-		obj->SetTypeItem(-2);
-		objects.push_back(obj);
-		return;
-	}
-	case OBJECT_TYPE_TOP_STAIR:
-	{
-		obj = new TopStair(ani_set_id);
-		obj->SetID(id);
-		obj->SetPosition(x, y);
-		obj->SetWidth(width);
-		obj->SetHeight(height);
-		obj->SetType(object_type);
-		obj->SetTypeItem(-2);
-		objects.push_back(obj);
-		return;
-	}
+	case OBJECT_TYPE_BOTTOM_STAIR: obj = new  BottomStair(); break;
+	case OBJECT_TYPE_TOP_STAIR:obj = new  TopStair(); break;
 	default:
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
 		return;
 	}
 
-	// General object setup
-	obj->SetID(id);
-	obj->SetPosition(x, y);
-	obj->SetWidth(width);
-	obj->SetHeight(height);
-	obj->SetType(object_type);
-	obj->SetTypeItem(itemType);
-
-	if (ani_set_id > 0) {
-		obj->SetAnimationSet(ani_set_id);
-	}
-
-
+	obj->FromVector(tokens);
 	objects.push_back(obj);
 }
 

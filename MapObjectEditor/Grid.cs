@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MapEditor.Objects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -78,10 +79,10 @@ namespace MapEditor
             }
         }
 
-        public void AddObjToCell(Object obj, int index)
+        public void AddObjToCell(Obj obj, int index)
         {
             //remove player to grid
-            if (obj.Id == 1)
+            if (obj.Type == 1)
             {
                 return;
             }

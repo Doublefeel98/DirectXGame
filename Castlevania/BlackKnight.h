@@ -4,7 +4,8 @@ class BlackKnight : public Enemy
 {
 	float startX, startY;
 public:
-	BlackKnight(float startX, float startY);
+	BlackKnight();
+	virtual void FromVector(vector<string> tokens);
 	~BlackKnight();
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObject = NULL);

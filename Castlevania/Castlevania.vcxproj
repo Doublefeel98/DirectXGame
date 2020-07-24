@@ -78,6 +78,10 @@
     <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -94,6 +98,9 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>d3dx9.lib;d3d9.lib;dxguid.lib;dxerr.lib;dinput8.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -125,7 +132,6 @@
   <ItemGroup>
     <ClCompile Include="Axe.cpp" />
     <ClCompile Include="BlackKnight.cpp" />
-    <ClCompile Include="BlackLeopard.cpp" />
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Boomerang.cpp" />
     <ClCompile Include="BossDeadEffect.cpp" />
@@ -137,7 +143,6 @@
     <ClCompile Include="DeadEffect.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FireBomb.cpp" />
-    <ClCompile Include="FishMan.cpp" />
     <ClCompile Include="Fleamen.cpp" />
     <ClCompile Include="Gate.cpp" />
     <ClCompile Include="Ghost.cpp" />
@@ -164,7 +169,6 @@
   <ItemGroup>
     <ClInclude Include="Axe.h" />
     <ClInclude Include="BlackKnight.h" />
-    <ClInclude Include="BlackLeopard.h" />
     <ClInclude Include="Bone.h" />
     <ClInclude Include="Boomerang.h" />
     <ClInclude Include="BossDeadEffect.h" />
@@ -177,7 +181,6 @@
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FireBomb.h" />
-    <ClInclude Include="FishMan.h" />
     <ClInclude Include="Fleamen.h" />
     <ClInclude Include="Gate.h" />
     <ClInclude Include="Ghost.h" />
@@ -204,9 +207,6 @@
     <ProjectReference Include="..\Framework\Framework.vcxproj">
       <Project>{b63d03e5-1dbf-43ab-8afc-2cba830bb4e2}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,15 +1,19 @@
 #include "MovingPlatform.h"
 
 
-MovingPlatform::MovingPlatform(float startX, float startY)
+MovingPlatform::MovingPlatform()
 {
 	vx = 0.025f;
 
-	this->startX = startX;
-	this->startY = startY;
-
 	vx = 0.02;
 	nx = 1;
+}
+
+void MovingPlatform::FromVector(vector<string> tokens)
+{
+	CGameObject::FromVector(tokens);
+	startX = x;
+	startY = y;
 }
 
 void MovingPlatform::Render()

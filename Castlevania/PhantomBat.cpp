@@ -3,7 +3,7 @@
 #include "Simon.h"
 #include <time.h>
 
-PhantomBat::PhantomBat(float startX, float startY)
+PhantomBat::PhantomBat() :Enemy()
 {
 	this->startX = startX;
 	this->startY = startY;
@@ -12,8 +12,6 @@ PhantomBat::PhantomBat(float startX, float startY)
 	isEnable = true;
 
 	damage = PHANTOM_BAT_DAMAGE;
-
-	Enemy::Enemy();
 
 	SetState(PHANTOM_BAT_STATE_IDLE);
 
@@ -38,6 +36,13 @@ PhantomBat::PhantomBat(float startX, float startY)
 	introTime = 2000;
 	simonPos.x = -1;
 	distance = -1;
+}
+
+void PhantomBat::FromVector(vector<string> tokens)
+{
+	CGameObject::FromVector(tokens);
+	startX = x;
+	startY = y;
 }
 
 PhantomBat::~PhantomBat()

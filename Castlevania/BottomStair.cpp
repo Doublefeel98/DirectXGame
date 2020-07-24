@@ -1,8 +1,13 @@
 ﻿#include "BottomStair.h"
 
-BottomStair::BottomStair(int _nx)
+BottomStair::BottomStair()
 {
-	nx = _nx;
+}
+
+void BottomStair::FromVector(vector<string> tokens)
+{
+	CGameObject::FromVector(tokens);
+	nx = atoi(tokens[9].c_str());
 }
 
 void BottomStair::Render()

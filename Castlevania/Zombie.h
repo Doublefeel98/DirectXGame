@@ -3,8 +3,10 @@
 class Zombie : public Enemy
 {
 	float startX, startY;
+	int direction;
 public:
-	Zombie(float startX, float startY);
+	Zombie();
+	virtual void FromVector(vector<string> tokens);
 	~Zombie();
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);

@@ -2,21 +2,23 @@
 #include "Define.h"
 #include "Simon.h"
 
-Raven::Raven(float startX, float startY)
+Raven::Raven() : Enemy()
 {
-	this->startX = startX;
-	this->startY = startY;
-
 	this->hp = 1;
 	isEnable = true;
 	damage = 1;
-
-	Enemy::Enemy();
 
 	SetState(RAVEN_STATE_IDLE);
 
 	point = 200;
 	vy = 0;
+}
+
+void Raven::FromVector(vector<string> tokens)
+{
+	CGameObject::FromVector(tokens);
+	startX = x;
+	startY = y;
 }
 
 Raven::~Raven()

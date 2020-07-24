@@ -8,9 +8,9 @@ class Skeleton : public Enemy
 	DWORD timeAttack;
 	vector<Bone*> bones;
 public:
-	Skeleton(float startX, float startY);
+	Skeleton();
+	virtual void FromVector(vector<string> tokens);
 	~Skeleton();
-
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL);
 	virtual void Render();
 

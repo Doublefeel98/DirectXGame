@@ -2,11 +2,8 @@
 #include "Define.h"
 #include "../Framework/Ground.h"
 
-BlackKnight::BlackKnight(float startX, float startY)
+BlackKnight::BlackKnight()
 {
-	this->startX = startX;
-	this->startY = startY;
-
 	this->hp = BLACK_KNIGHT_HP;
 	isEnable = true;
 	damage = BLACK_KNIGHT_DAMAGE;
@@ -16,6 +13,13 @@ BlackKnight::BlackKnight(float startX, float startY)
 	SetState(BLACK_KNIGHT_STATE_WALKING);
 
 	point = 400;
+}
+
+void BlackKnight::FromVector(vector<string> tokens)
+{
+	CGameObject::FromVector(tokens);
+	startX = x;
+	startY = y;
 }
 
 BlackKnight::~BlackKnight()

@@ -99,16 +99,10 @@
     <ClCompile Include="BlackKnight.cpp">
       <Filter>Source Files\Objects\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="BlackLeopard.cpp">
-      <Filter>Source Files\Objects\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="VampireBat.cpp">
       <Filter>Source Files\Objects\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="Zombie.cpp">
-      <Filter>Source Files\Objects\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="FishMan.cpp">
       <Filter>Source Files\Objects\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="MoneyEffect.cpp">
@@ -212,12 +206,6 @@
     <ClInclude Include="BlackKnight.h">
       <Filter>Source Files\Objects\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="BlackLeopard.h">
-      <Filter>Source Files\Objects\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="FishMan.h">
-      <Filter>Source Files\Objects\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="VampireBat.h">
       <Filter>Source Files\Objects\Enemies</Filter>
     </ClInclude>
@@ -272,8 +260,5 @@
     <ClInclude Include="BossDeadEffect.h">
       <Filter>Source Files\Effects</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

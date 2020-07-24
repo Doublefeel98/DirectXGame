@@ -3,21 +3,23 @@
 #include "Define.h"
 #include "../Framework/Utils.h"
 
-VampireBat::VampireBat(float startX, float startY)
+VampireBat::VampireBat() :Enemy()
 {
-	this->startX = startX;
-	this->startY = startY;
-
 	this->hp = VAMPIRE_BAT_HP;
 	isEnable = true;
 
 	damage = VAMPIRE_BAT_DAMAGE;
 
-	Enemy::Enemy();
-
 	SetState(VAMPIRE_BAT_STATE_IDLE);
 
 	point = 200;
+}
+
+void VampireBat::FromVector(vector<string> tokens)
+{
+	CGameObject::FromVector(tokens);
+	startX = x;
+	startY = y;
 }
 
 VampireBat::~VampireBat()

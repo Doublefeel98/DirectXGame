@@ -3,22 +3,24 @@
 #include "Simon.h"
 #include "../Framework/Ground.h"
 
-Fleamen::Fleamen(float startX, float startY)
+Fleamen::Fleamen() :Enemy()
 {
-	this->startX = startX;
-	this->startY = startY;
-
 	this->hp = FLEAMEN_HP;
 	isEnable = true;
 	damage = FLEAMEN_DAMAGE;
-
-	Enemy::Enemy();
 
 	SetState(FLEAMEN_STATE_IDLE);
 
 	point = 500;
 
 	timeJump = 0;
+}
+
+void Fleamen::FromVector(vector<string> tokens)
+{
+	CGameObject::FromVector(tokens);
+	startX = x;
+	startY = y;
 }
 
 Fleamen::~Fleamen()

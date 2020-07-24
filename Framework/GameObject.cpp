@@ -15,6 +15,22 @@ CGameObject::CGameObject()
 	nx = 1;
 }
 
+void CGameObject::FromVector(vector<string> tokens)
+{
+	id = atoi(tokens[0].c_str());
+	type = atoi(tokens[1].c_str());
+	x = atof(tokens[3].c_str());
+	y = atof(tokens[4].c_str());
+	width = atoi(tokens[5].c_str());
+	height = atoi(tokens[6].c_str());
+
+	int ani_set_id = atoi(tokens[7].c_str());
+	if (ani_set_id > 0) {
+		SetAnimationSet(ani_set_id);
+	}
+	typeItem = atoi(tokens[8].c_str());
+}
+
 void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	this->dt = dt;

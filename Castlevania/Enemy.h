@@ -8,6 +8,7 @@ protected:
 	CollisionEffect* collisionEffect;
 	DeadEffect* deadEffect;
 	bool isGrounded;
+	bool is_boss;
 public:
 	static void StartTimeStop() { timestop_start = GetTickCount(); }
 	static DWORD timestop_start;
@@ -19,4 +20,5 @@ public:
 	virtual void Render();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	bool IsBoss() { return is_boss; }
 };

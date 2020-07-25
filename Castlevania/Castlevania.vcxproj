@@ -148,11 +148,13 @@
     <ClCompile Include="Gate.cpp" />
     <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="HP.cpp" />
+    <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemBoard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoneyEffect.cpp" />
     <ClCompile Include="MovingPlatform.cpp" />
+    <ClCompile Include="OverScene.cpp" />
     <ClCompile Include="PhantomBat.cpp" />
     <ClCompile Include="PlayScence.cpp" />
     <ClCompile Include="Raven.cpp" />
@@ -189,10 +191,12 @@
     <ClInclude Include="Gate.h" />
     <ClInclude Include="Ghost.h" />
     <ClInclude Include="HP.h" />
+    <ClInclude Include="IntroScene.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemBoard.h" />
     <ClInclude Include="MoneyEffect.h" />
     <ClInclude Include="MovingPlatform.h" />
+    <ClInclude Include="OverScene.h" />
     <ClInclude Include="PhantomBat.h" />
     <ClInclude Include="PlayScence.h" />
     <ClInclude Include="Raven.h" />

@@ -266,6 +266,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	}
 
 	obj->FromVector(tokens);
+
+	if (dynamic_cast<Enemy*>(obj)) {
+		Enemy* enemy = dynamic_cast<Enemy*>(obj);
+		if (enemy->IsBoss()) {
+			boss = enemy;
+		}
+	}
+
 	objects.push_back(obj);
 }
 
@@ -419,8 +427,10 @@ void CPlayScene::Update(DWORD dt)
 		{
 			if (dynamic_cast<Enemy*>(coObjects[i])) {
 				Enemy* enemy = dynamic_cast<Enemy*>(coObjects[i]);
-				enemy->SetHP(0);
-				enemy->SetTypeItem(-2);
+				if (!enemy->IsBoss()) {
+					enemy->SetHP(0);
+					enemy->SetTypeItem(-2);
+				}
 			}
 		}
 		timeKillAll += dt;
@@ -442,7 +452,8 @@ void CPlayScene::Update(DWORD dt)
 	//update scoreBoard
 	time += dt;
 	remainTime = defaultTimeGame - time * 0.001;
-	scoreBoard->Update(16, remainTime, stage);
+	int hp_boss = boss ? boss->GetHP() : 16;
+	scoreBoard->Update(hp_boss, remainTime, stage);
 
 	// Update camera to follow player
 	D3DXVECTOR3 pos = camera->GetCameraPosition();
@@ -480,6 +491,14 @@ void CPlayScene::Update(DWORD dt)
 
 	if (!camera->IsLock()) {
 		camera->SetCameraPosition((int)cx, (int)cy);
+	}
+	else {
+		if (player->x <= camera->GetCameraPosition().x) {
+			player->x = camera->GetCameraPosition().x;
+		}
+		if (player->x >= camera->GetCameraPosition().x + SCREEN_WIDTH - player->GetWidth() - 1) {
+			player->x = camera->GetCameraPosition().x + SCREEN_WIDTH - player->GetWidth() - 1;
+		}
 	}
 
 	if (!_checkInBoundMap()) {

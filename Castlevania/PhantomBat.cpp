@@ -37,6 +37,7 @@ PhantomBat::PhantomBat() :Enemy()
 	introTime = 2000;
 	simonPos.x = -1;
 	distance = -1;
+	is_boss = true;
 }
 
 void PhantomBat::FromVector(vector<string> tokens)
@@ -83,8 +84,9 @@ void PhantomBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	else {
 		float simonX, simonY;
 		Simon::GetInstance()->GetPosition(simonX, simonY);
-		if (simonX > 600) {
+		if (simonX >= 600) {
 			isEnable = true;
+			CCamera::GetInstance()->SetLock(true);
 		}
 	}
 	if (!isEnable)

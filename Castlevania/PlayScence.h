@@ -9,7 +9,8 @@
 class CPlayScene : public CScene
 {
 protected:
-	Simon* player;					// A play scene has to have player, right? 
+	Simon* player;					// A play scene has to have player, right?
+	Enemy* boss;
 
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> coObjects;

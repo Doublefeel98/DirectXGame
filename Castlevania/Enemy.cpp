@@ -10,6 +10,7 @@ Enemy::Enemy()
 	deadEffect = new DeadEffect();
 	isEnable = true;
 	isDead = false;
+	is_boss = false;
 }
 
 void Enemy::Hurted(int damage)

@@ -32,8 +32,6 @@
 
 using namespace std;
 
-#define CROSS_COLOR_BACKGROUND D3DCOLOR_XRGB(188, 188, 188) // Màu xám 188, 188, 188
-#define BACKGROUND_COLOR D3DCOLOR_XRGB(0, 0, 0)
 
 CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 	CScene(id, filePath)
@@ -257,7 +255,7 @@ void CPlayScene::Update(DWORD dt)
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way
 
-	grid->GetListOfObjects(&coObjects, SCREEN_WIDTH, SCREEN_HEIGHT);
+	grid->GetListOfObjects(&coObjects, CAMERA_WIDTH, CAMERA_HEIGHT);
 
 	//for (size_t i = 0; i < coObjects.size(); i++)
 	//{
@@ -367,50 +365,7 @@ void CPlayScene::Update(DWORD dt)
 	scoreBoard->Update(hp_boss, remainTime, stage);
 
 	// Update camera to follow player
-	D3DXVECTOR3 pos = camera->GetCameraPosition();
-	float cx, cy, boundHeight;
-
-	player->GetPosition(cx, cy);
-
-	if (mapWidth > SCREEN_WIDTH - 15) {
-		if (cx < (SCREEN_WIDTH - 15) / 2) {
-			cx = 0;
-		}
-		else if (cx + (SCREEN_WIDTH - 15) / 2 > mapWidth) {
-			cx = mapWidth - (SCREEN_WIDTH - 15);
-		}
-		else {
-			cx = cx + (SCREEN_WIDTH - 15) / 2 - (SCREEN_WIDTH - 15);
-		}
-	}
-	else {
-		cx = 0;
-	}
-
-	if (mapHeight > SCREEN_HEIGHT)
-	{
-		if (cy + player->GetHeight() / 2 < mapHeight - SCREEN_HEIGHT / 2) {
-			cy = cy + player->GetHeight() / 2 - SCREEN_HEIGHT / 2;
-		}
-		else {
-			cy = mapHeight - SCREEN_HEIGHT;
-		}
-	}
-	else {
-		cy = mapHeight > SCREEN_HEIGHT;
-	}
-
-	if (!camera->IsLock()) {
-		camera->SetCameraPosition((int)cx, (int)cy);
-	}
-	else {
-		if (player->x <= camera->GetCameraPosition().x) {
-			player->x = camera->GetCameraPosition().x;
-		}
-		if (player->x >= camera->GetCameraPosition().x + SCREEN_WIDTH - player->GetWidth() - 1) {
-			player->x = camera->GetCameraPosition().x + SCREEN_WIDTH - player->GetWidth() - 1;
-		}
-	}
+	camera->HandleUpdateFollowPlayer(mapWidth, mapHeight);
 
 	if (!_checkInBoundMap()) {
 		player->Reset();
@@ -431,9 +386,9 @@ void CPlayScene::Update(DWORD dt)
 
 void CPlayScene::Render()
 {
-	tileMap->Render(SCREEN_WIDTH, SCREEN_HEIGHT);
+	tileMap->Render(CAMERA_WIDTH, CAMERA_HEIGHT);
 
-	grid->GetListOfObjects(&coObjects, SCREEN_WIDTH, SCREEN_HEIGHT);
+	grid->GetListOfObjects(&coObjects, CAMERA_WIDTH, CAMERA_HEIGHT);
 
 	//for (size_t i = 0; i < coObjects.size(); i++)
 	//{

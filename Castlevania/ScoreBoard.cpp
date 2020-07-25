@@ -1,4 +1,4 @@
-#include "ScoreBoard.h"
+﻿#include "ScoreBoard.h"
 #include "Define.h"
 #include "../Framework/Game.h"
 
@@ -49,9 +49,9 @@ ScoreBoard::ScoreBoard(Simon* simon, int bossHP)
 
 	D3DXCreateFontIndirect(d3ddv, &FontDesc, &font);
 
-	SetRect(&rectLineOne, 53, 5, SCREEN_WIDTH, 85);
-	SetRect(&rectLineTwo, 53, 15, SCREEN_WIDTH, 85);
-	SetRect(&rectLineThree, 53, 25, SCREEN_WIDTH, 85);
+	SetRect(&rectLineOne, 53, 5, CAMERA_WIDTH, 85);
+	SetRect(&rectLineTwo, 53, 15, CAMERA_WIDTH, 85);
+	SetRect(&rectLineThree, 53, 25, CAMERA_WIDTH, 85);
 	lineOne = L"SCORE_000000 TIME 0000 STAGE 00\n";
 	lineTwo = L"PLAYER                                         -5";
 	lineThree = L"ENEMY                                         P-3";

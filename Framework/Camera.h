@@ -4,16 +4,25 @@
 class CCamera
 {
 private:
-	D3DXVECTOR3 cameraPosition;
+	D3DXVECTOR3 position;
 	static CCamera* __instance;
 	CCamera(float x, float y);
-	bool is_lock;
+	bool is_follow_player;
+	int width, height;
 public:
 	static CCamera* GetInstance();
 	~CCamera();
 	D3DXVECTOR3 GetPositionInCamera(D3DXVECTOR3 position);
 	void SetCameraPosition(float x, float y);
-	D3DXVECTOR3 GetCameraPosition();
-	void SetLock(bool isLock) { is_lock = isLock; }
-	bool IsLock() { return is_lock; }
+	D3DXVECTOR3 GetPosition();
+	void SetFollowPlayer(bool isLock) { is_follow_player = isLock; }
+	bool IsFollowPlayer() { return is_follow_player; }
+	float GetX() { return this->position.x; }
+	float GetY() { return this->position.y; }
+	virtual void HandleUpdateFollowPlayer(int mapWidth, int mapHeight);
+	void SetWidth(int _width) { this->width = _width; }
+	void SetHeight(int _height) { this->height = _height; }
+	int GetWidth() { this->width; }
+	int GetHeight() { this->height; }
+	void SetSize(int _width, int _height);
 };

@@ -111,14 +111,14 @@ void Grid::GetListOfObjects(vector<LPGAMEOBJECT>* list_object, int screenWidth, 
 	int left, top, right, bottom;
 	int i, j, k;
 
-	left = (int)camera->GetCameraPosition().x / cellSize;
-	top = (int)camera->GetCameraPosition().y / cellSize;
+	left = (int)camera->GetPosition().x / cellSize;
+	top = (int)camera->GetPosition().y / cellSize;
 
-	right = (int)(camera->GetCameraPosition().x + screenWidth) / cellSize
-		+ ((int)(camera->GetCameraPosition().x + screenWidth) % cellSize ? 1 : 0);
+	right = (int)(camera->GetPosition().x + screenWidth) / cellSize
+		+ ((int)(camera->GetPosition().x + screenWidth) % cellSize ? 1 : 0);
 
-	bottom = (int)(camera->GetCameraPosition().y + screenHeight) / cellSize
-		+ ((int)(camera->GetCameraPosition().y + screenHeight) % cellSize ? 1 : 0);
+	bottom = (int)(camera->GetPosition().y + screenHeight) / cellSize
+		+ ((int)(camera->GetPosition().y + screenHeight) % cellSize ? 1 : 0);
 
 	LPGAMEOBJECT e;
 

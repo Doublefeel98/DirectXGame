@@ -1,4 +1,4 @@
-#include "Tile.h"
+﻿#include "Tile.h"
 
 Tile::Tile()
 {
@@ -43,7 +43,7 @@ void Tile::Render()
 
 bool Tile::CheckInBoundCamera(int screenWidth, int screenHeight)
 {
-	D3DXVECTOR3 cameraPosition = camera->GetCameraPosition();
+	D3DXVECTOR3 cameraPosition = camera->GetPosition();
 
 	/*return (left >= cameraPosition.x && top >= cameraPosition.y
 		&& right <= cameraPosition.x + screenWidth && bottom <= cameraPosition.y + screenHeight);*/

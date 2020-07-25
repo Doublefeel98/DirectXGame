@@ -4,6 +4,13 @@
 #include <time.h>
 #include "../Framework/Utils.h"
 
+float PhantomBat::getPt(float n1, float n2, float perc)
+{
+	float diff = n2 - n1;
+
+	return n1 + (diff * perc);
+}
+
 PhantomBat::PhantomBat() :Enemy()
 {
 	this->startX = startX;
@@ -86,7 +93,7 @@ void PhantomBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		Simon::GetInstance()->GetPosition(simonX, simonY);
 		if (simonX >= 600) {
 			isEnable = true;
-			CCamera::GetInstance()->SetLock(true);
+			CCamera::GetInstance()->SetFollowPlayer(true);
 		}
 	}
 	if (!isEnable)

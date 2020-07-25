@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <fstream>
 
 #include "IntroScene.h"
@@ -117,13 +117,13 @@ void IntroScene::Update(DWORD dt)
 	helicopter->Update(dt);
 	scoreBoard->Update(16, 1000, 0);
 
-	if (player->x > SCREEN_WIDTH / 2 - SIMON_BBOX_WIDTH / 2)
+	if (player->x > CAMERA_WIDTH / 2 - SIMON_BBOX_WIDTH / 2)
 	{
 		player->SetState(SIMON_STATE_WALK_LEFT);
 	}
 	player->Update(dt, &objects);
 	DebugOut(L"player position: %f, %f\n", player->x, player->y);
-	if (player->x < SCREEN_WIDTH / 2 - SIMON_BBOX_WIDTH / 2)
+	if (player->x < CAMERA_WIDTH / 2 - SIMON_BBOX_WIDTH)
 	{
 		player->SetPosition(player->x, player->y);
 		player->SetState(SIMON_STATE_INTRO);

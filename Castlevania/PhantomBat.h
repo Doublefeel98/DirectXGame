@@ -21,6 +21,8 @@ class PhantomBat : public Enemy
 	float introTime;
 	DWORD chaseTime;
 	bool isHurted;
+
+	float getPt(float n1, float n2, float perc);
 public:
 	PhantomBat();
 	virtual void FromVector(vector<string> tokens);

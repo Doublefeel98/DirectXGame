@@ -20,17 +20,14 @@
 #include "../Framework/GameObject.h"
 #include "../Framework/Textures.h"
 #include "../Framework/SceneManager.h"
+#include "../Framework/Camera.h"
 #include "PlayScence.h"
 #include "Simon.h"
+#include "Define.h"
 
-#define WINDOW_CLASS_NAME L"SampleWindow"
-#define MAIN_WINDOW_TITLE L"SAMPLE 05 - SCENCE MANAGER"
-
-#define BACKGROUND_COLOR D3DCOLOR_XRGB(0, 0, 0)
-#define SCREEN_WIDTH 272
-#define SCREEN_HEIGHT 280
-
-#define MAX_FRAME_RATE 120
+#include "PlayScence.h"
+#include "TitleScene.h"
+#include "IntroScene.h"
 
 CGame* game;
 CSceneManager* sceneManager;
@@ -174,6 +171,44 @@ int Run()
 	return 1;
 }
 
+void handleSwitchScene(CSceneManager* manager)
+{
+	int current_scene_id = manager->GetCurrentSceneId();
+	int next_scene_id = manager->GetNextSceneId();
+
+	LPSCENE current_scene = manager->GetScene(current_scene_id);
+	LPSCENE next_scene = manager->GetScene(next_scene_id);
+
+	if (next_scene_id < 1) {
+		CGame::GetInstance()->SetDeviationY(0);
+	}
+	else {
+		CCamera::GetInstance()->SetFollowPlayer(true);
+		CGame::GetInstance()->SetDeviationY(45);
+		CPlayScene* s = dynamic_cast<CPlayScene*>(next_scene);
+		if (current_scene_id > 0) {
+			CPlayScene* oldScene = dynamic_cast<CPlayScene*>(current_scene);
+			s->SetDefaultTime(oldScene->GetRemainTime());
+		}
+		s->position = -1;
+	}
+}
+
+LPSCENE getSceneById(int id, LPCWSTR path)
+{
+	LPSCENE scene;
+	if (id == -1) {
+		scene = new TitleScene(id, path);
+	}
+	else if (id == 0) {
+		scene = new IntroScene(id, path);
+	}
+	else {
+		scene = new CPlayScene(id, path);
+	}
+	return scene;
+}
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -184,8 +219,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	game->InitKeyboard();
 
 	sceneManager = CSceneManager::GetInstance();
+	//require set getSceneById
+	sceneManager->SetFunctionGetSceneByID(getSceneById);
+	//require set handleSwitchScene
+	sceneManager->SetFunctionHandleSwitchScene(handleSwitchScene);
+	//require set player
 	sceneManager->SetPlayer(Simon::GetInstance());
 	sceneManager->Load(L"resources\\castlevania-sample.txt");
+
+	CCamera::GetInstance()->SetSize(CAMERA_WIDTH, CAMERA_HEIGHT);
 
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 

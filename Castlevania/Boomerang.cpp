@@ -8,15 +8,15 @@ void Boomerang::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	Weapon::Update(dt, coObjects);
 
-	if (vx > 0 && abs(x - startX) >= SCREEN_WIDTH / 2 - DELTA_X) {
-		x = startX + SCREEN_WIDTH / 2 - DELTA_X;
+	if (vx > 0 && abs(x - startX) >= CAMERA_WIDTH / 2 - DELTA_X) {
+		x = startX + CAMERA_WIDTH / 2 - DELTA_X;
 		vx = -vx;
 		nx = -1;
 		countReturn++;
 	}
 
-	if (vx < 0 && x <= startX - SCREEN_WIDTH / 2 + DELTA_X) {
-		x = startX - SCREEN_WIDTH / 2 + DELTA_X;
+	if (vx < 0 && x <= startX - CAMERA_WIDTH / 2 + DELTA_X) {
+		x = startX - CAMERA_WIDTH / 2 + DELTA_X;
 		vx = -vx;
 		nx = 1;
 		countReturn++;

@@ -1,4 +1,4 @@
-#include "TileMap.h"
+﻿#include "TileMap.h"
 #include "Camera.h"
 #include "Utils.h"
 
@@ -81,7 +81,7 @@ void TileMap::LoadListTile(string pathFile)
 
 void TileMap::Render(int screenWidth, int screenHeight)
 {
-	D3DXVECTOR3 cameraPosition = CCamera::GetInstance()->GetCameraPosition();
+	D3DXVECTOR3 cameraPosition = CCamera::GetInstance()->GetPosition();
 	int rowStart;
 	int rowEnd;
 	int colStart;

@@ -1,10 +1,16 @@
-#pragma once
-#define WINDOW_CLASS_NAME L"Simon"
-#define MAIN_WINDOW_TITLE L"Simon"
+﻿#pragma once
+
+#define WINDOW_CLASS_NAME L"Castlevania"
+#define MAIN_WINDOW_TITLE L"Castlevania"
 
 #define BACKGROUND_COLOR D3DCOLOR_XRGB(0, 0, 0)
+#define CROSS_COLOR_BACKGROUND D3DCOLOR_XRGB(188, 188, 188) // Màu xám 188, 188, 188
+
 #define SCREEN_WIDTH 272
-#define SCREEN_HEIGHT 240
+#define SCREEN_HEIGHT 280
+
+#define CAMERA_WIDTH 272
+#define CAMERA_HEIGHT 240
 
 #define MAX_FRAME_RATE 120
 

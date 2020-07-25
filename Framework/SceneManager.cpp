@@ -3,10 +3,10 @@
 #include "Textures.h"
 #include "Sprites.h"
 #include "Animations.h"
+#include <iostream>
+#include <fstream>
 
-#include "../Castlevania/PlayScence.h"
-#include "../Castlevania/TitleScene.h"
-#include "../Castlevania/IntroScene.h"
+using namespace std;
 
 CSceneManager* CSceneManager::__instance = NULL;
 
@@ -53,18 +53,8 @@ void CSceneManager::_ParseSection_SCENES(string line)
 	if (tokens.size() < 2) return;
 	int id = atoi(tokens[0].c_str());
 	LPCWSTR path = ToLPCWSTR(tokens[1]);
-	LPSCENE scene;
 
-	if (id == -1) {
-		scene = new TitleScene(id, path);
-	}
-	else if (id == 0) {
-		scene = new IntroScene(id, path);
-	}
-	else {
-		scene = new CPlayScene(id, path);
-	}
-	scenes[id] = scene;
+	scenes[id] = this->getSceneById(id, path);
 }
 
 
@@ -129,8 +119,19 @@ void CSceneManager::BeforeSwitchScene(int scene_id)
 	_isSwitchScene = true;
 }
 
+void CSceneManager::SetFunctionGetSceneByID(function<LPSCENE(int, LPCWSTR)> getSceneById)
+{
+	this->getSceneById = getSceneById;
+}
+
+void CSceneManager::SetFunctionHandleSwitchScene(function<void(CSceneManager*)> handleSwitchScene)
+{
+	this->handleSwitchScene = handleSwitchScene;
+}
+
 void CSceneManager::SwitchScene()
 {
+
 	DebugOut(L"[INFO] Switching to scene %d\n", next_scene);
 
 
@@ -139,22 +140,23 @@ void CSceneManager::SwitchScene()
 
 	_isSwitchScene = false;
 
-	if (next_scene < 1) {
-		CGame::GetInstance()->SetDeviationY(0);
-	}
-	else {
+	this->handleSwitchScene(this);
 
-		CGame::GetInstance()->SetDeviationY(45);
-		CPlayScene* s = dynamic_cast<CPlayScene*>(scenes[next_scene]);
-		if (current_scene > 0) {
-			CPlayScene* oldScene = dynamic_cast<CPlayScene*>(scenes[current_scene]);
-			s->SetDefaultTime(oldScene->GetRemainTime());
-		}
-		s->position = -1;
-	}
+	//if (next_scene < 1) {
+	//	CGame::GetInstance()->SetDeviationY(0);
+	//}
+	//else {
+
+	//	CGame::GetInstance()->SetDeviationY(45);
+	//	CPlayScene* s = dynamic_cast<CPlayScene*>(scenes[next_scene]);
+	//	if (current_scene > 0) {
+	//		CPlayScene* oldScene = dynamic_cast<CPlayScene*>(scenes[current_scene]);
+	//		s->SetDefaultTime(oldScene->GetRemainTime());
+	//	}
+	//	s->position = -1;
+	//}
 
 	CGame::GetInstance()->SetKeyHandler(scenes[next_scene]->GetKeyEventHandler());
 	current_scene = next_scene;
 	scenes[next_scene]->Load();
-
 }

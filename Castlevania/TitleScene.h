@@ -13,21 +13,12 @@ protected:
 	TextTitleScreen* textTitle;
 	BatStartGame* batStartGame;
 
-	vector<int> listIdTextures;
-	vector<int> listIdSprites;
-	vector<int> listIdAnimations;
-	vector<int> listIdAnimationSets;
-
-	void _ParseSection_TEXTURES(string line);
-	void _ParseSection_SPRITES(string line);
-	void _ParseSection_ANIMATIONS(string line);
 	void _ParseSection_SETTINGS(string line);
-	void _ParseSection_ANIMATION_SETS(string line);
 
 	bool is_switch_scene;
 	DWORD time_switch_scene;
 public:
-	friend class CPlayScenceKeyHandler;
+	friend class TitleSceneKeyHandler;
 	TitleScene(int id, LPCWSTR filePath);
 	void SwitchScene();
 

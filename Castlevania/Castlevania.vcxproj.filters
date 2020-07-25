@@ -46,6 +46,9 @@
     <Filter Include="Source Files\Objects\Enemies\boss">
       <UniqueIdentifier>{6ab5176a-3b71-4048-aa69-2482edae27b3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Scenes\Effects">
+      <UniqueIdentifier>{fae9c562-f5ed-4414-8eb5-112e2be03dca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Simon.cpp">
@@ -153,12 +156,6 @@
     <ClCompile Include="BossDeadEffect.cpp">
       <Filter>Source Files\Effects</Filter>
     </ClCompile>
-    <ClCompile Include="BatStartGame.cpp">
-      <Filter>Source Files\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="TextTitleScreen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TitleScene.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
@@ -167,6 +164,18 @@
     </ClCompile>
     <ClCompile Include="OverScene.cpp">
       <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="BatStartGame.cpp">
+      <Filter>Source Files\Scenes\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="TextTitleScreen.cpp">
+      <Filter>Source Files\Scenes\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Helicopter.cpp">
+      <Filter>Source Files\Scenes\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="BatIntro.cpp">
+      <Filter>Source Files\Scenes\Effects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -275,12 +284,6 @@
     <ClInclude Include="BossDeadEffect.h">
       <Filter>Source Files\Effects</Filter>
     </ClInclude>
-    <ClInclude Include="BatStartGame.h">
-      <Filter>Source Files\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="TextTitleScreen.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="TitleScene.h">
       <Filter>Source Files\Scenes</Filter>
     </ClInclude>
@@ -289,6 +292,18 @@
     </ClInclude>
     <ClInclude Include="OverScene.h">
       <Filter>Source Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="BatStartGame.h">
+      <Filter>Source Files\Scenes\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="TextTitleScreen.h">
+      <Filter>Source Files\Scenes\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Helicopter.h">
+      <Filter>Source Files\Scenes\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="BatIntro.h">
+      <Filter>Source Files\Scenes\Effects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

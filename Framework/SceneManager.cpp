@@ -6,6 +6,7 @@
 
 #include "../Castlevania/PlayScence.h"
 #include "../Castlevania/TitleScene.h"
+#include "../Castlevania/IntroScene.h"
 
 CSceneManager* CSceneManager::__instance = NULL;
 
@@ -56,6 +57,9 @@ void CSceneManager::_ParseSection_SCENES(string line)
 
 	if (id == -1) {
 		scene = new TitleScene(id, path);
+	}
+	else if (id == 0) {
+		scene = new IntroScene(id, path);
 	}
 	else {
 		scene = new CPlayScene(id, path);
@@ -134,7 +138,12 @@ void CSceneManager::SwitchScene()
 
 
 	_isSwitchScene = false;
-	if (next_scene > 0) {
+
+	if (next_scene < 1) {
+		CGame::GetInstance()->SetDeviationY(0);
+	}
+	else {
+
 		CGame::GetInstance()->SetDeviationY(45);
 		CPlayScene* s = dynamic_cast<CPlayScene*>(scenes[next_scene]);
 		if (current_scene > 0) {
@@ -142,9 +151,6 @@ void CSceneManager::SwitchScene()
 			s->SetDefaultTime(oldScene->GetRemainTime());
 		}
 		s->position = -1;
-	}
-	else if (next_scene == -1) {
-		CGame::GetInstance()->SetDeviationY(0);
 	}
 
 	CGame::GetInstance()->SetKeyHandler(scenes[next_scene]->GetKeyEventHandler());

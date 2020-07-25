@@ -114,6 +114,9 @@ void Simon::SetState(int state)
 		IsRun = true;
 	}
 	break;
+	case SIMON_STATE_INTRO:
+		vx = 0;
+		break;
 	case SIMON_STATE_JUMP:
 		IsJump = true;
 		IsGround = false;
@@ -453,6 +456,9 @@ void Simon::Render()
 	{
 		if (nx > 0) ani = SIMON_ANI_DEATH_RIGHT;
 		else ani = SIMON_ANI_DEATH_LEFT;
+	}
+	else if (state == SIMON_STATE_INTRO) {
+		ani = SIMON_ANI_INTRO;
 	}
 	else
 	{

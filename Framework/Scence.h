@@ -2,7 +2,11 @@
 
 #include <d3dx9.h>
 #include "KeyEventHandler.h"
+#include <Windows.h>
+#include <unordered_map>
 
+#include <stdlib.h>
+using namespace std;
 class CScene
 {
 protected:
@@ -10,12 +14,21 @@ protected:
 	int id;
 	LPCWSTR sceneFilePath;
 
+	vector<int> listIdTextures;
+	vector<int> listIdSprites;
+	vector<int> listIdAnimations;
+	vector<int> listIdAnimationSets;
+
+	void _ParseSection_TEXTURES(string line);
+	void _ParseSection_SPRITES(string line);
+	void _ParseSection_ANIMATIONS(string line);
+	void _ParseSection_ANIMATION_SETS(string line);
 public:
 	CScene(int id, LPCWSTR filePath);
 
 	CKeyEventHandler* GetKeyEventHandler() { return key_handler; }
 	virtual void Load() = 0;
-	virtual void Unload() = 0;
+	virtual void Unload();
 	virtual void Update(DWORD dt) = 0;
 	virtual void Render() = 0;
 };

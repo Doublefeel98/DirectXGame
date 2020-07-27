@@ -44,7 +44,7 @@ D3DXVECTOR3 CCamera::GetPosition()
 
 void CCamera::HandleUpdateFollowPlayer(int mapWidth, int mapHeight)
 {
-	float player_x, player_y;
+	float player_x, player_y, cx, cy;
 
 	CPlayer* player = CSceneManager::GetInstance()->GetPlayer();
 
@@ -52,34 +52,34 @@ void CCamera::HandleUpdateFollowPlayer(int mapWidth, int mapHeight)
 
 	if (mapWidth > width - 15) {
 		if (player_x < (width - 15) / 2) {
-			player_x = 0;
+			cx = 0;
 		}
 		else if (player_x + (width - 15) / 2 > mapWidth) {
-			player_x = mapWidth - (width - 15);
+			cx = mapWidth - (width - 15);
 		}
 		else {
-			player_x = player_x + (width - 15) / 2 - (width - 15);
+			cx = player_x + (width - 15) / 2 - (width - 15);
 		}
 	}
 	else {
-		player_x = 0;
+		cx = 0;
 	}
 
 	if (mapHeight > height)
 	{
 		if (player_y + player->GetHeight() / 2 < mapHeight - height / 2) {
-			player_y = player_y + player->GetHeight() / 2 - height / 2;
+			cy = player_y + player->GetHeight() / 2 - height / 2;
 		}
 		else {
-			player_y = mapHeight - height;
+			cy = mapHeight - height;
 		}
 	}
 	else {
-		player_y = mapHeight > height;
+		cy = mapHeight > height;
 	}
 
 	if (is_follow_player) {
-		this->SetCameraPosition((int)player_x, (int)player_y);
+		this->SetCameraPosition((int)cx, (int)cy);
 	}
 	else {
 		if (player->x <= this->GetX()) {

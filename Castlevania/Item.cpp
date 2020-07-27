@@ -53,40 +53,41 @@ void Item::RandomItem()
 
 	else if (percent < 86)
 	{
-		typeItem = ITEM_CROSS;
+		typeItem = ITEM_CHEST;
 	}
 	else if (percent < 90)
 	{
-		typeItem = ITEM_INVISIBILITY_POTION;
+		typeItem = ITEM_CROWN;
 	}
 
 	else if (percent < 92)
 	{
 		typeItem = ITEM_PORK_CHOP;
 	}
-	/*else if (percent < 95)
+	else if (percent < 95)
 	{
-		if (simon->GetNumberOfWeapon() == 1) {
+		if (simon->GetTypeShotCollect() == 1) {
 			typeItem = ITEM_DOUBLE_SHOT;
 		}
-		else if (simon->GetNumberOfWeapon() == 2) {
+		else if (simon->GetTypeShotCollect() == 2) {
 			typeItem = ITEM_TRIPLE_SHOT;
 		}
 		else {
 			typeItem = ITEM_LARGE_HEART;
 		}
-	}*/
+	}
 	else if (percent < 98)
 	{
 		typeItem = ITEM_BONUSES;
 	}
 	else if (percent < 99)
 	{
-		typeItem = ITEM_CROWN;
+		typeItem = ITEM_INVISIBILITY_POTION;
 	}
 	else
 	{
-		typeItem = ITEM_CHEST;
+		typeItem = ITEM_CROSS;
+
 	}
 }
 

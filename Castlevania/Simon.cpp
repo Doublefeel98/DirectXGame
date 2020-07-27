@@ -57,15 +57,9 @@ Simon* Simon::GetInstance()
 
 void Simon::Reset()
 {
-	/*SetState(SIMON_STATE_IDLE);
-	SetPosition(checkPointX, checkPointY);
-	SetSpeed(0, 0);*/
-
 	level = 0;
 	hp = SIMON_HP;
 	heart = 5;
-	score = 0;
-	life = life - 1;
 
 	untouchable = 0;
 	untouchable_start = 0;
@@ -80,8 +74,6 @@ void Simon::Reset()
 	IsFreeze = false;
 	timeFreezeStart = 0;
 
-	state = SIMON_STATE_IDLE;
-
 	DoCaoDiDuoc = 0;
 	_IsFirstOnStair = false;
 
@@ -92,6 +84,18 @@ void Simon::Reset()
 	isKillAllEnemies = false;
 
 	Position = 0;
+
+	beAttackBack = false;
+	timeDie = 0;
+
+	SetState(SIMON_STATE_IDLE);
+}
+
+void Simon::ResetDefault()
+{
+	this->Reset();
+	life = 3;
+	score = 0;
 }
 
 void Simon::SetState(int state)
@@ -128,6 +132,15 @@ void Simon::SetState(int state)
 		break;
 	case SIMON_STATE_DIE:
 		vy = -SIMON_DIE_DEFLECT_SPEED;
+		IsSit = false;
+		IsRun = false;
+		IsJump = false;
+		IsOnStair = false;
+		IsUpStair = false;
+		IsDownStair = false;
+		_IsFirstOnStair = false;
+		timeDie = 0;
+		life -= 1;
 		break;
 	case SIMON_STATE_SIT_DOWN:
 		vx = 0;
@@ -271,6 +284,9 @@ void Simon::SetState(int state)
 		}
 		else
 		{
+			if (beAttackBack) {
+				nx = -nx;
+			}
 			if (nx > 0)
 			{
 				vx = -0.03;
@@ -307,21 +323,28 @@ void Simon::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 	}
 	else
 	{
-		int boxWidth = SIMON_BBOX_WIDTH;
-		int boxHeight = SIMON_BBOX_HEIGHT;
-		if (IsJump && !IsFighting) {
-			boxHeight -= 8;
-		}
-
 		left = x;
 		top = y;
+		if (state != SIMON_STATE_DIE) {
+			int boxWidth = SIMON_BBOX_WIDTH;
+			int boxHeight = SIMON_BBOX_HEIGHT;
+			if (IsJump && !IsFighting) {
+				boxHeight -= 8;
+			}
 
-		if (IsSit) {
-			boxHeight -= 8;
-			top = y + 8;
+			if (IsSit) {
+				boxHeight -= 8;
+				top = y + 8;
+			}
+			right = left + boxWidth;
+			bottom = top + boxHeight;
 		}
-		right = left + boxWidth;
-		bottom = top + boxHeight;
+		else {
+			left = x;
+			top = y;
+			right = left + 32;
+			bottom = top + 15;
+		}
 	}
 }
 
@@ -400,9 +423,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 
-
 	_updateSubWeapon(dt, coObjects);
-
 
 	if (IsFreeze) {
 		if (now - timeFreezeStart > TIME_FREEZE_MAX)
@@ -429,16 +450,6 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		untouchable_start = 0;
 		untouchable = 0;
-	}
-
-	if (IsHurt) {
-		if (GetTickCount() - hurtable_start > SIMON_UNTOUCHABLE_TIME)
-		{
-			hurtable_start = 0;
-			hurtable = 0;
-			IsHurt = false;
-			ResetAnimationHurt();
-		}
 	}
 
 	if (this->GetState() != SIMON_STATE_SIT_DOWN)
@@ -679,17 +690,26 @@ void Simon::SetPosition(float x, float y)
 	this->y = y;
 }
 
-void Simon::Hurted(int damage)
+void Simon::Hurted(int damage, int direction)
 {
-	if (hp > 0 && !IsHurt)
+	if (hp > 0 && !IsHurt && !untouchable && state != SIMON_STATE_DIE)
 	{
 		hp -= damage;
-		StartUntouchable();
-		SetState(SIMON_STATE_HURT);
-		StartHurting();
+		if (hp <= 0) {
+			SetState(SIMON_STATE_DIE);
+		}
+		else {
+			if (direction == nx) {
+				beAttackBack = true;
+			}
+			else {
+				beAttackBack = false;
+			}
+			StartUntouchable();
+			SetState(SIMON_STATE_HURT);
+			StartHurting();
+		}
 	}
-	else
-		SetState(SIMON_STATE_DIE);
 }
 void Simon::FromVector(vector<string> tokens)
 {
@@ -728,39 +748,8 @@ void Simon::FromVector(vector<string> tokens)
 #pragma region private methods
 Simon::Simon()
 {
-	level = 0;
-	hp = SIMON_HP;
-	heart = 5;
-	score = 0;
-	life = 3;
-
-	untouchable = 0;
-	untouchable_start = 0;
-
-	IsFighting = false;
-	IsJump = false;
-	IsSit = false;
-	IsRun = false;
-
-	timeAttackStart = 0;
-
-	IsFreeze = false;
-	timeFreezeStart = 0;
-
+	this->ResetDefault();
 	whip = new Whip();
-
-	state = SIMON_STATE_IDLE;
-
-	DoCaoDiDuoc = 0;
-	_IsFirstOnStair = false;
-
-	IsUseSubWeapons = false;
-
-	numberSubWeaponAble = 1;
-
-	isKillAllEnemies = false;
-
-	Position = 0;
 }
 
 #pragma region load data
@@ -948,9 +937,7 @@ void Simon::_checkSweptAABB(vector<LPGAMEOBJECT>* coObjects)
 
 	coEvents.clear();
 
-	// turn off collision when die 
-	if (state != SIMON_STATE_DIE)
-		CalcPotentialCollisions(coObjects, coEvents);
+	CalcPotentialCollisions(coObjects, coEvents);
 
 	for (UINT i = 0; i < coEvents.size(); i++)
 	{
@@ -971,7 +958,6 @@ void Simon::_checkSweptAABB(vector<LPGAMEOBJECT>* coObjects)
 		else {
 			_IsFirstOnStair = false;
 		}
-
 	}
 	else
 	{
@@ -987,72 +973,50 @@ void Simon::_checkSweptAABB(vector<LPGAMEOBJECT>* coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
-			if (dynamic_cast<Item*>(e->obj))
-			{
-				Item* item = dynamic_cast<Item*>(e->obj);
-				handleLogicCollisionItem(item);
-			}
-			if ((dynamic_cast<Enemy*>(e->obj))) {
-				Enemy* enemy = dynamic_cast<Enemy*>(e->obj);
-				_handleLogicCollisionEnemy(enemy);
-			}
+			if (state != SIMON_STATE_DIE) {
+				if (dynamic_cast<Item*>(e->obj))
+				{
+					Item* item = dynamic_cast<Item*>(e->obj);
+					handleLogicCollisionItem(item);
+				}
+				if ((dynamic_cast<Enemy*>(e->obj))) {
+					Enemy* enemy = dynamic_cast<Enemy*>(e->obj);
+					_handleLogicCollisionEnemy(enemy);
+				}
 
-			if (dynamic_cast<Ground*>(e->obj))
-			{
-				if (IsOnStair) {
-					bool isHandleLogic = false;
-					if (IsDownStair) {
+				if (dynamic_cast<Ground*>(e->obj))
+				{
+					if (IsOnStair) {
+						bool isHandleLogic = false;
+						if (IsDownStair) {
 
-						if (e->ny < 0)
-						{
-							if (canClimbUpStair) {
-								IsOnStair = false;
-								IsUpStair = false;
-								IsDownStair = false;
-								vx = 0;
-								y -= 2;
-								if (directionStair > 0) {
-									x = posXStair - 8;
+							if (e->ny < 0)
+							{
+								if (canClimbUpStair) {
+									IsOnStair = false;
+									IsUpStair = false;
+									IsDownStair = false;
+									vx = 0;
+									y -= 2;
+									if (directionStair > 0) {
+										x = posXStair - 8;
+									}
+									else {
+										x = posXStair;
+									}
+									isHandleLogic = true;
 								}
-								else {
-									x = posXStair;
-								}
-								isHandleLogic = true;
 							}
 						}
-					}
-					if (!isHandleLogic) {
-						x += dx;
-						y += dy;
-					}
-				}
-				else {
-					Ground* ground = dynamic_cast<Ground*>(e->obj);
-					// block 
-
-					x += min_tx * dx + nx * 0.4f;
-					y += min_ty * dy + ny * 0.4f;
-
-					if (nx != 0) vx = 0;
-					if (ny != 0) vy = 0;
-
-					if (IsJump)
-					{
-						if (e->ny < 0) {
-							y -= 10;
-							IsJump = false;
+						if (!isHandleLogic) {
+							x += dx;
+							y += dy;
 						}
+					}
+					else {
+						Ground* ground = dynamic_cast<Ground*>(e->obj);
+						// block 
 
-					}
-					if (IsHurt) {
-						hurtable_start = 0;
-						hurtable = 0;
-						IsHurt = false;
-						vx = 0;
-						ResetAnimationHurt();
-					}
-					/*if (e->ny < 0 || e->nx != 0)
-					{
 						x += min_tx * dx + nx * 0.4f;
 						y += min_ty * dy + ny * 0.4f;
 
@@ -1061,8 +1025,11 @@ void Simon::_checkSweptAABB(vector<LPGAMEOBJECT>* coObjects)
 
 						if (IsJump)
 						{
-							y -= 8;
-							IsJump = false;
+							if (e->ny < 0) {
+								y -= 10;
+								IsJump = false;
+							}
+
 						}
 						if (IsHurt) {
 							hurtable_start = 0;
@@ -1071,67 +1038,105 @@ void Simon::_checkSweptAABB(vector<LPGAMEOBJECT>* coObjects)
 							vx = 0;
 							ResetAnimationHurt();
 						}
-					}
-					else {
-						x += dx;
-						y += dy;
-					}*/
-				}
-			}
-			else if (dynamic_cast<BoundingMap*>(e->obj)) {
-				x += min_tx * dx + nx * 0.4f;
-				y += min_ty * dy + ny * 0.4f;
+						/*if (e->ny < 0 || e->nx != 0)
+						{
+							x += min_tx * dx + nx * 0.4f;
+							y += min_ty * dy + ny * 0.4f;
 
-				if (nx != 0) vx = 0;
-				if (ny != 0) vy = 0;
-			}
-			else if (dynamic_cast<MovingPlatform*>(e->obj)) {
-				if (e->ny < 0)
-				{
+							if (nx != 0) vx = 0;
+							if (ny != 0) vy = 0;
+
+							if (IsJump)
+							{
+								y -= 8;
+								IsJump = false;
+							}
+							if (IsHurt) {
+								hurtable_start = 0;
+								hurtable = 0;
+								IsHurt = false;
+								vx = 0;
+								ResetAnimationHurt();
+							}
+						}
+						else {
+							x += dx;
+							y += dy;
+						}*/
+					}
+				}
+				else if (dynamic_cast<BoundingMap*>(e->obj)) {
 					x += min_tx * dx + nx * 0.4f;
 					y += min_ty * dy + ny * 0.4f;
 
+					if (nx != 0) vx = 0;
 					if (ny != 0) vy = 0;
-					vx = e->obj->vx;
 				}
-				if (IsJump)
-				{
-					y -= 8;
-					IsJump = false;
+				else if (dynamic_cast<MovingPlatform*>(e->obj)) {
+					if (e->ny < 0)
+					{
+						x += min_tx * dx + nx * 0.4f;
+						y += min_ty * dy + ny * 0.4f;
+
+						if (ny != 0) vy = 0;
+						vx = e->obj->vx;
+					}
+					if (IsJump)
+					{
+						y -= 8;
+						IsJump = false;
+					}
 				}
-			}
-			else if (dynamic_cast<BottomStair*>(e->obj))
-			{
-				x += dx;
-				if (e->ny < 0)
+				else if (dynamic_cast<BottomStair*>(e->obj))
 				{
-					y += dy + ny * -0.7f;
+					x += dx;
+					if (e->ny < 0)
+					{
+						y += dy + ny * -0.7f;
+					}
+					else if (e->nx != 0)
+					{
+						if (ny < 0)
+							y += dy + ny * 0.7f;
+						else if (ny > 0)
+							y += dy + ny * -0.7f;
+					}
+					else {
+						y += dy;
+					}
 				}
-				else if (e->nx != 0)
+				else if (dynamic_cast<CPortal*>(e->obj))
 				{
+					CPortal* p = dynamic_cast<CPortal*>(e->obj);
+					this->Position = p->GetPosistionSimon();
+					CSceneManager::GetInstance()->BeforeSwitchScene(p->GetSceneId());
+					return;
+				}
+				else {
+					x += dx;
 					if (ny < 0)
 						y += dy + ny * 0.7f;
 					else if (ny > 0)
 						y += dy + ny * -0.7f;
+
 				}
-				else {
-					y += dy;
-				}
-			}
-			else if (dynamic_cast<CPortal*>(e->obj))
-			{
-				CPortal* p = dynamic_cast<CPortal*>(e->obj);
-				this->Position = p->GetPosistionSimon();
-				CSceneManager::GetInstance()->BeforeSwitchScene(p->GetSceneId());
-				return;
 			}
 			else {
-				x += dx;
-				if (ny < 0)
-					y += dy + ny * 0.7f;
-				else if (ny > 0)
-					y += dy + ny * -0.7f;
+				if (dynamic_cast<Ground*>(e->obj) || dynamic_cast<BottomStair*>(e->obj))
+				{
+					x += min_tx * dx + nx * 0.4f;
+					y += min_ty * dy + ny * 0.4f;
 
+					if (nx != 0) vx = 0;
+					if (ny != 0) vy = 0;
+					if (timeDie == 0) {
+						timeDie = GetTickCount();
+					}
+				}
+				else {
+					x += dx;
+					y += dy;
+				}
 			}
 		}
 	}
@@ -1221,24 +1226,13 @@ void Simon::_handleLogicCollisionEnemy(Enemy* enemy)
 {
 	if (enemy->vx != 0)
 	{
-		if (untouchable == 0)
+		if (enemy->isEnable != false)
 		{
-			if (enemy->isEnable != false)
+			Hurted(enemy->GetDamage(), enemy->nx);
+			if (dynamic_cast<VampireBat*>(enemy))
 			{
-				if (hp > 0)
-				{
-					hp -= enemy->GetDamage();
-					StartUntouchable();
-					SetState(SIMON_STATE_HURT);
-					StartHurting();
-					if (dynamic_cast<VampireBat*>(enemy))
-					{
-						enemy->SetEnable(false);
-						enemy->GetCollisionEffect()->SetEnable(true);
-					}
-				}
-				else
-					SetState(SIMON_STATE_DIE);
+				enemy->SetEnable(false);
+				enemy->GetCollisionEffect()->SetEnable(true);
 			}
 		}
 	}

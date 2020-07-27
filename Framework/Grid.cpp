@@ -104,21 +104,21 @@ bool checkContainId(vector<LPGAMEOBJECT>* list_object, LPGAMEOBJECT e)
 	return false;
 }
 
-void Grid::GetListOfObjects(vector<LPGAMEOBJECT>* list_object, int screenWidth, int screenHeight)
+void Grid::GetListOfObjects(vector<LPGAMEOBJECT>* list_object)
 {
 	CCamera* camera = CCamera::GetInstance();
 	list_object->clear();
 	int left, top, right, bottom;
 	int i, j, k;
 
-	left = (int)camera->GetPosition().x / cellSize;
-	top = (int)camera->GetPosition().y / cellSize;
+	left = (int)camera->GetX() / cellSize;
+	top = (int)camera->GetY() / cellSize;
 
-	right = (int)(camera->GetPosition().x + screenWidth) / cellSize
-		+ ((int)(camera->GetPosition().x + screenWidth) % cellSize ? 1 : 0);
+	right = (int)(camera->GetX() + camera->GetWidth()) / cellSize
+		+ ((int)(camera->GetX() + camera->GetWidth()) % cellSize ? 1 : 0);
 
-	bottom = (int)(camera->GetPosition().y + screenHeight) / cellSize
-		+ ((int)(camera->GetPosition().y + screenHeight) % cellSize ? 1 : 0);
+	bottom = (int)(camera->GetY() + camera->GetHeight()) / cellSize
+		+ ((int)(camera->GetY() + camera->GetHeight()) % cellSize ? 1 : 0);
 
 	LPGAMEOBJECT e;
 

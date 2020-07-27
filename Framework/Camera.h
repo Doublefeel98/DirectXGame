@@ -22,7 +22,7 @@ public:
 	virtual void HandleUpdateFollowPlayer(int mapWidth, int mapHeight);
 	void SetWidth(int _width) { this->width = _width; }
 	void SetHeight(int _height) { this->height = _height; }
-	int GetWidth() { this->width; }
-	int GetHeight() { this->height; }
+	int GetWidth() { return this->width; }
+	int GetHeight() { return this->height; }
 	void SetSize(int _width, int _height);
 };

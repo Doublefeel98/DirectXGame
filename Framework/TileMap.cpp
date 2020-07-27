@@ -79,33 +79,33 @@ void TileMap::LoadListTile(string pathFile)
 }
 
 
-void TileMap::Render(int screenWidth, int screenHeight)
+void TileMap::Render()
 {
-	D3DXVECTOR3 cameraPosition = CCamera::GetInstance()->GetPosition();
+	CCamera* camera = CCamera::GetInstance();
 	int rowStart;
 	int rowEnd;
 	int colStart;
 	int colEnd;
 
-	if ((cameraPosition.y / tileHeight) < 0)
+	if ((camera->GetY() / tileHeight) < 0)
 		rowStart = 0;
 	else
-		rowStart = (cameraPosition.y / tileHeight);
+		rowStart = (camera->GetY() / tileHeight);
 
-	if (((cameraPosition.y / tileHeight + screenHeight / tileHeight) + 1) > rows)
+	if (((camera->GetY() / tileHeight + camera->GetHeight() / tileHeight) + 1) > rows)
 		rowEnd = rows;
 	else
-		rowEnd = ((cameraPosition.y / tileHeight + screenHeight / tileHeight) + 1);
+		rowEnd = ((camera->GetY() / tileHeight + camera->GetHeight() / tileHeight) + 1);
 
-	if ((cameraPosition.x / tileWidth) < 0)
+	if ((camera->GetX() / tileWidth) < 0)
 		colStart = 0;
 	else
-		colStart = (cameraPosition.x / tileWidth);
+		colStart = (camera->GetX() / tileWidth);
 
-	if (((cameraPosition.x / tileWidth + screenWidth / tileWidth) + 1) > cols)
+	if (((camera->GetX() / tileWidth + camera->GetWidth() / tileWidth) + 1) > cols)
 		colEnd = cols;
 	else
-		colEnd = ((cameraPosition.x / tileWidth + screenWidth / tileWidth) + 1);
+		colEnd = ((camera->GetX() / tileWidth + camera->GetWidth() / tileWidth) + 1);
 
 	for (int i = rowStart; i < rowEnd; i++)
 	{
@@ -119,7 +119,7 @@ void TileMap::Render(int screenWidth, int screenHeight)
 	{
 		for (int j = 0; j < cols; j++)
 		{
-			if (matrix[i][j].CheckInBoundCamera(screenWidth, screenHeight))
+			if (matrix[i][j].CheckInBoundCamera(camera->GetWidth(), camera->GetHeight()))
 			{
 				matrix[i][j].Render();
 			}

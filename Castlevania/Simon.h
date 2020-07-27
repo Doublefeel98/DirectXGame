@@ -59,6 +59,7 @@ class Simon : public CPlayer
 	vector<Weapon*> weapons;
 
 	bool isKillAllEnemies;
+	bool beAttackBack;
 public:
 	void handleLogicCollisionItem(Item* item);
 	static Simon* GetInstance();
@@ -82,10 +83,12 @@ public:
 
 	bool IsFreeze;
 	DWORD timeFreezeStart;
+	DWORD timeDie;
 
 	int Position;
 
 	void Reset();
+	void ResetDefault();
 
 	int untouchable;
 	void SetState(int state);
@@ -111,7 +114,7 @@ public:
 	void SetPosition(float x, float y);
 	int GetTypeWeaponCollect() { return typeWeaponCollect; }
 	int GetTypeShotCollect() { return typeShotCollect; }
-	void Hurted(int damage);
+	void Hurted(int damage, int direction);
 	void SetKillAllEnemies(bool isKill) { this->isKillAllEnemies = isKill; }
 	bool IsKillAllEnemies() { return isKillAllEnemies; }
 	virtual void FromVector(vector<string> tokens);

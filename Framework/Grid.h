@@ -18,7 +18,7 @@ class Grid
 public:
 	Grid(string file, vector <LPGAMEOBJECT>* listObject);
 	~Grid();
-	void GetListOfObjects(vector<LPGAMEOBJECT>* list_object, int screenWidth, int screenHeight);
+	void GetListOfObjects(vector<LPGAMEOBJECT>* list_object);
 	void Unload();
 };
 

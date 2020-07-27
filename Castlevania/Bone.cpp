@@ -70,7 +70,7 @@ void Bone::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					if (nx != 0) vx = 0;
 					if (ny != 0) vy = 0;
 
-					simon->Hurted(damage);
+					simon->Hurted(damage, this->nx);
 					isEnable = false;
 					isCollisionWithSimon = true;
 				}

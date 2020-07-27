@@ -23,7 +23,7 @@ private:
 public:
 	TileMap(float _width, float _height, LPSPRITE _sprite, string pathFile);
 	~TileMap();
-	void Render(int screenWidth, int screenHeight);
+	void Render();
 	void Unload();
 };
 

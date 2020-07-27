@@ -6,6 +6,7 @@
 #include "Enemy.h"
 
 #include "Simon.h"
+#include "OverScene.h"
 class CPlayScene : public CScene
 {
 protected:
@@ -38,6 +39,8 @@ protected:
 	int defaultTimeGame;
 	int remainTime;
 	DWORD timeKillAll;
+	OverScene* overScene;
+	bool isGameOver;
 public:
 	int position;
 	Simon* GetPlayer() { return player; }

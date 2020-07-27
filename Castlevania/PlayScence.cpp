@@ -147,8 +147,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		}
 
 		player->FromVector(tokens);
-
 		objects.insert(objects.begin(), player);
+		// Update camera to follow player
+		camera->HandleUpdateFollowPlayer(mapWidth, mapHeight);
 		return;
 	}
 	break;
@@ -246,64 +247,95 @@ void CPlayScene::Load()
 	scoreBoard = new ScoreBoard(player, 16);
 
 	time = 0;
-
+	isGameOver = false;
+	overScene = OverScene::GetInstance();
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
 
 void CPlayScene::Update(DWORD dt)
 {
+	if (isGameOver)
+	{
+		return;
+	}
+
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way
 
-	grid->GetListOfObjects(&coObjects, CAMERA_WIDTH, CAMERA_HEIGHT);
+	if (player->GetState() == SIMON_STATE_DIE) {
+		DWORD now = GetTickCount();
+		if (player->timeDie > 0 && now - player->timeDie >= 500) {
+			if (player->GetLife() == 0) {
+				isGameOver = true;
+				return;
+			}
+			else {
+				player->Reset();
+				position = -1;
+				this->Unload();
+				this->Load();
+				return;
+			}
+		}
 
-	//for (size_t i = 0; i < coObjects.size(); i++)
-	//{
-	//	if (dynamic_cast<Enemy*>(coObjects.at(i))) {
-	//		if (coObjects.at(i)->IsEnable() && !coObjects.at(i)->IsDead()) {
-	//			bool isContain = false;
-	//			for (int j = 0; j < listEnemies.size(); j++)
-	//			{
-	//				if (coObjects.at(i)->GetID() == listEnemies.at(j)->GetID()) {
-	//					isContain = true;
-	//					break;
-	//				}
-	//			}
-	//			if (!isContain) {
-	//				listEnemies.push_back(dynamic_cast<Enemy*>(coObjects.at(i)));
-	//			}
-	//		}
-	//	}
-	//}
 
-	//for (size_t i = 0; i < listEnemies.size(); i++)
-	//{
-	//	if (listEnemies.at(i)->IsEnable() && !listEnemies.at(i)->IsDead()) {
-	//		bool isContain = false;
-	//		for (size_t j = 0; j < coObjects.size(); j++)
-	//		{
-	//			if (listEnemies.at(i)->GetID() == coObjects.at(j)->GetID()) {
-	//				isContain = true;
-	//				break;
-	//			}
-	//		}
-	//		if (!isContain) {
-	//			coObjects.push_back(listEnemies.at(i));
-	//		}
-	//	}
-	//}
+	}
+
+	//update scoreBoard
+	time += dt;
+	remainTime = defaultTimeGame - time * 0.001;
+	int hp_boss = boss ? boss->GetHP() : 16;
+	scoreBoard->Update(hp_boss, remainTime, stage);
+
+	grid->GetListOfObjects(&coObjects);
+
+	for (size_t i = 0; i < coObjects.size(); i++)
+	{
+		if (dynamic_cast<Enemy*>(coObjects.at(i))) {
+			if (coObjects.at(i)->IsEnable() && !coObjects.at(i)->IsDead()) {
+				bool isContain = false;
+				for (int j = 0; j < listEnemies.size(); j++)
+				{
+					if (coObjects.at(i)->GetID() == listEnemies.at(j)->GetID()) {
+						isContain = true;
+						break;
+					}
+				}
+				if (!isContain) {
+					listEnemies.push_back(dynamic_cast<Enemy*>(coObjects.at(i)));
+				}
+			}
+		}
+	}
+
+	for (size_t i = 0; i < listEnemies.size(); i++)
+	{
+		if (listEnemies.at(i)->IsEnable() && !listEnemies.at(i)->IsDead()) {
+			bool isContain = false;
+			for (size_t j = 0; j < coObjects.size(); j++)
+			{
+				if (listEnemies.at(i)->GetID() == coObjects.at(j)->GetID()) {
+					isContain = true;
+					break;
+				}
+			}
+			if (!isContain) {
+				coObjects.push_back(listEnemies.at(i));
+			}
+		}
+	}
 
 	for (size_t i = 0; i < listItems.size(); i++)
 	{
 		coObjects.push_back(listItems.at(i));
 	}
 
-
-
 	player->Update(dt, &coObjects);
 
+	DebugOut(L"Simon State: %d\n", player->GetState());
+
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
-	if (player == NULL) return;
+	if (player == NULL || player->GetState() == SIMON_STATE_DIE) return;
 
 	for (size_t i = 0; i < coObjects.size(); i++)
 	{
@@ -358,12 +390,6 @@ void CPlayScene::Update(DWORD dt)
 		}
 	}
 
-	//update scoreBoard
-	time += dt;
-	remainTime = defaultTimeGame - time * 0.001;
-	int hp_boss = boss ? boss->GetHP() : 16;
-	scoreBoard->Update(hp_boss, remainTime, stage);
-
 	// Update camera to follow player
 	camera->HandleUpdateFollowPlayer(mapWidth, mapHeight);
 
@@ -386,45 +412,50 @@ void CPlayScene::Update(DWORD dt)
 
 void CPlayScene::Render()
 {
-	tileMap->Render(CAMERA_WIDTH, CAMERA_HEIGHT);
+	if (isGameOver) {
+		overScene->Render();
+		return;
+	}
 
-	grid->GetListOfObjects(&coObjects, CAMERA_WIDTH, CAMERA_HEIGHT);
+	tileMap->Render();
 
-	//for (size_t i = 0; i < coObjects.size(); i++)
-	//{
-	//	if (dynamic_cast<Enemy*>(coObjects.at(i))) {
-	//		if (coObjects.at(i)->IsEnable() && !coObjects.at(i)->IsDead()) {
-	//			bool isContain = false;
-	//			for (int j = 0; j < listEnemies.size(); j++)
-	//			{
-	//				if (coObjects.at(i)->GetID() == listEnemies.at(j)->GetID()) {
-	//					isContain = true;
-	//					break;
-	//				}
-	//			}
-	//			if (!isContain) {
-	//				listEnemies.push_back(dynamic_cast<Enemy*>(coObjects.at(i)));
-	//			}
-	//		}
-	//	}
-	//}
+	grid->GetListOfObjects(&coObjects);
 
-	//for (size_t i = 0; i < listEnemies.size(); i++)
-	//{
-	//	if (listEnemies.at(i)->IsEnable() && !listEnemies.at(i)->IsDead()) {
-	//		bool isContain = false;
-	//		for (size_t j = 0; j < coObjects.size(); j++)
-	//		{
-	//			if (listEnemies.at(i)->GetID() == coObjects.at(j)->GetID()) {
-	//				isContain = true;
-	//				break;
-	//			}
-	//		}
-	//		if (!isContain) {
-	//			coObjects.push_back(listEnemies.at(i));
-	//		}
-	//	}
-	//}
+	for (size_t i = 0; i < coObjects.size(); i++)
+	{
+		if (dynamic_cast<Enemy*>(coObjects.at(i))) {
+			if (coObjects.at(i)->IsEnable() && !coObjects.at(i)->IsDead()) {
+				bool isContain = false;
+				for (int j = 0; j < listEnemies.size(); j++)
+				{
+					if (coObjects.at(i)->GetID() == listEnemies.at(j)->GetID()) {
+						isContain = true;
+						break;
+					}
+				}
+				if (!isContain) {
+					listEnemies.push_back(dynamic_cast<Enemy*>(coObjects.at(i)));
+				}
+			}
+		}
+	}
+
+	for (size_t i = 0; i < listEnemies.size(); i++)
+	{
+		if (listEnemies.at(i)->IsEnable() && !listEnemies.at(i)->IsDead()) {
+			bool isContain = false;
+			for (size_t j = 0; j < coObjects.size(); j++)
+			{
+				if (listEnemies.at(i)->GetID() == coObjects.at(j)->GetID()) {
+					isContain = true;
+					break;
+				}
+			}
+			if (!isContain) {
+				coObjects.push_back(listEnemies.at(i));
+			}
+		}
+	}
 
 	for (size_t i = 0; i < listItems.size(); i++)
 	{
@@ -451,6 +482,8 @@ void CPlayScene::Unload()
 
 	objects.clear();
 	coObjects.clear();
+	listItems.clear();
+	listEnemies.clear();
 	player = nullptr;
 
 	if (tileMap) {
@@ -469,9 +502,42 @@ void CPlayScene::Unload()
 void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 {
 	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-
+	bool isGameOver = ((CPlayScene*)scence)->isGameOver;
+	OverScene* overScene = ((CPlayScene*)scence)->overScene;
 	Simon* simon = ((CPlayScene*)scence)->GetPlayer();
+	if (isGameOver) {
+		switch (KeyCode)
+		{
+		case DIK_DOWN:
+		{
+			overScene->SetSelected(GAMEOVER_SELECT_END);
+			break;
+		}
+		case DIK_UP:
+		{
+			overScene->SetSelected(GAMEOVER_SELECT_CONTINUE);
+			break;
+
+		}
+		case DIK_RETURN:
+		{
+			if (overScene->GetSelected() == GAMEOVER_SELECT_CONTINUE) {
+				((CPlayScene*)scence)->isGameOver = false;
+				simon->ResetDefault();
+				CSceneManager::GetInstance()->BeforeSwitchScene(1);
+			}
+			else {
+				DestroyWindow(CGame::GetInstance()->GetHWND());
+			}
+			break;
+		}
+		default:
+			break;
+		}
+		return;
+	}
 	if (simon->IsFreeze) return;
+	if (simon->GetState() == SIMON_STATE_DIE) return;
 	switch (KeyCode)
 	{
 	case DIK_1:
@@ -524,6 +590,7 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 	Simon* simon = ((CPlayScene*)scence)->GetPlayer();
 	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
 	if (simon->IsFreeze) return;
+	if (simon->GetState() == SIMON_STATE_DIE) return;
 	switch (KeyCode)
 	{
 	case DIK_LEFT:

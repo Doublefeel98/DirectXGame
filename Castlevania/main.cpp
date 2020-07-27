@@ -217,6 +217,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	game->SetBackgroundColor(BACKGROUND_COLOR);
 	game->Init(hWnd);
 	game->InitKeyboard();
+	CCamera::GetInstance()->SetSize(CAMERA_WIDTH, CAMERA_HEIGHT);
 
 	sceneManager = CSceneManager::GetInstance();
 	//require set getSceneById
@@ -226,8 +227,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//require set player
 	sceneManager->SetPlayer(Simon::GetInstance());
 	sceneManager->Load(L"resources\\castlevania-sample.txt");
-
-	CCamera::GetInstance()->SetSize(CAMERA_WIDTH, CAMERA_HEIGHT);
 
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 

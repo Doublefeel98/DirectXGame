@@ -139,6 +139,7 @@
     <ClCompile Include="BossDeadEffect.cpp" />
     <ClCompile Include="BottomStair.cpp" />
     <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="BrokenBrickEffect.cpp" />
     <ClCompile Include="Candle.cpp" />
     <ClCompile Include="CollisionEffect.cpp" />
     <ClCompile Include="Dagger.cpp" />
@@ -168,6 +169,7 @@
     <ClCompile Include="TextTitleScreen.cpp" />
     <ClCompile Include="TopStair.cpp" />
     <ClCompile Include="Torch.cpp" />
+    <ClCompile Include="TransparentObject.cpp" />
     <ClCompile Include="VampireBat.cpp" />
     <ClCompile Include="Weapon.cpp" />
     <ClCompile Include="Whip.cpp" />
@@ -183,6 +185,7 @@
     <ClInclude Include="BossDeadEffect.h" />
     <ClInclude Include="BottomStair.h" />
     <ClInclude Include="Brick.h" />
+    <ClInclude Include="BrokenBrickEffect.h" />
     <ClInclude Include="Candle.h" />
     <ClInclude Include="CollisionEffect.h" />
     <ClInclude Include="Dagger.h" />
@@ -212,6 +215,7 @@
     <ClInclude Include="TextTitleScreen.h" />
     <ClInclude Include="TopStair.h" />
     <ClInclude Include="Torch.h" />
+    <ClInclude Include="TransparentObject.h" />
     <ClInclude Include="VampireBat.h" />
     <ClInclude Include="Weapon.h" />
     <ClInclude Include="Whip.h" />

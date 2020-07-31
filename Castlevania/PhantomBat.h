@@ -37,7 +37,6 @@ public:
 	void CalculateSimonPos(DWORD dt);
 	void Fly(DWORD dt);
 	void RandomPos();
-	bool Intro(DWORD dt);
 	void CheckHPChange();
 	void CheckHurtTime(DWORD dt);
 	void FlyToRandomPos(DWORD dt);

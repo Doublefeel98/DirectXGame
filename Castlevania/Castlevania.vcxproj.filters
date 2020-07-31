@@ -28,9 +28,6 @@
     <Filter Include="Source Files\Objects\Items">
       <UniqueIdentifier>{ca945ff3-07f7-47e9-8cad-5c557aa81b5a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Objects\Weapons">
-      <UniqueIdentifier>{0913c425-25bb-4f75-ac8b-0a47fa7b4333}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Objects\maps">
       <UniqueIdentifier>{47565672-b2e3-477a-af14-2d8ee42c4af7}</UniqueIdentifier>
     </Filter>
@@ -49,6 +46,9 @@
     <Filter Include="Source Files\Scenes\Effects">
       <UniqueIdentifier>{fae9c562-f5ed-4414-8eb5-112e2be03dca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Objects\Player\Weapons">
+      <UniqueIdentifier>{0913c425-25bb-4f75-ac8b-0a47fa7b4333}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Simon.cpp">
@@ -58,7 +58,7 @@
       <Filter>Source Files\Objects\maps</Filter>
     </ClCompile>
     <ClCompile Include="Whip.cpp">
-      <Filter>Source Files\Objects\Weapons</Filter>
+      <Filter>Source Files\Objects\Player\Weapons</Filter>
     </ClCompile>
     <ClCompile Include="CollisionEffect.cpp">
       <Filter>Source Files\Effects</Filter>
@@ -118,22 +118,22 @@
       <Filter>Source Files\Objects\maps</Filter>
     </ClCompile>
     <ClCompile Include="Weapon.cpp">
-      <Filter>Source Files\Objects\Weapons</Filter>
+      <Filter>Source Files\Objects\Player\Weapons</Filter>
     </ClCompile>
     <ClCompile Include="Dagger.cpp">
-      <Filter>Source Files\Objects\Weapons</Filter>
+      <Filter>Source Files\Objects\Player\Weapons</Filter>
     </ClCompile>
     <ClCompile Include="Axe.cpp">
-      <Filter>Source Files\Objects\Weapons</Filter>
+      <Filter>Source Files\Objects\Player\Weapons</Filter>
     </ClCompile>
     <ClCompile Include="FireBomb.cpp">
-      <Filter>Source Files\Objects\Weapons</Filter>
+      <Filter>Source Files\Objects\Player\Weapons</Filter>
     </ClCompile>
     <ClCompile Include="Boomerang.cpp">
-      <Filter>Source Files\Objects\Weapons</Filter>
+      <Filter>Source Files\Objects\Player\Weapons</Filter>
     </ClCompile>
     <ClCompile Include="Stopwatch.cpp">
-      <Filter>Source Files\Objects\Weapons</Filter>
+      <Filter>Source Files\Objects\Player\Weapons</Filter>
     </ClCompile>
     <ClCompile Include="Ghost.cpp">
       <Filter>Source Files\Objects\Enemies</Filter>
@@ -177,6 +177,12 @@
     <ClCompile Include="BatIntro.cpp">
       <Filter>Source Files\Scenes\Effects</Filter>
     </ClCompile>
+    <ClCompile Include="BrokenBrickEffect.cpp">
+      <Filter>Source Files\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="TransparentObject.cpp">
+      <Filter>Source Files\Objects\maps</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Simon.h">
@@ -189,7 +195,7 @@
       <Filter>Source Files\Objects\maps</Filter>
     </ClInclude>
     <ClInclude Include="Whip.h">
-      <Filter>Source Files\Objects\Weapons</Filter>
+      <Filter>Source Files\Objects\Player\Weapons</Filter>
     </ClInclude>
     <ClInclude Include="CollisionEffect.h">
       <Filter>Source Files\Effects</Filter>
@@ -246,22 +252,22 @@
       <Filter>Source Files\Objects\maps</Filter>
     </ClInclude>
     <ClInclude Include="Weapon.h">
-      <Filter>Source Files\Objects\Weapons</Filter>
+      <Filter>Source Files\Objects\Player\Weapons</Filter>
     </ClInclude>
     <ClInclude Include="Dagger.h">
-      <Filter>Source Files\Objects\Weapons</Filter>
+      <Filter>Source Files\Objects\Player\Weapons</Filter>
     </ClInclude>
     <ClInclude Include="Axe.h">
-      <Filter>Source Files\Objects\Weapons</Filter>
+      <Filter>Source Files\Objects\Player\Weapons</Filter>
     </ClInclude>
     <ClInclude Include="FireBomb.h">
-      <Filter>Source Files\Objects\Weapons</Filter>
+      <Filter>Source Files\Objects\Player\Weapons</Filter>
     </ClInclude>
     <ClInclude Include="Boomerang.h">
-      <Filter>Source Files\Objects\Weapons</Filter>
+      <Filter>Source Files\Objects\Player\Weapons</Filter>
     </ClInclude>
     <ClInclude Include="Stopwatch.h">
-      <Filter>Source Files\Objects\Weapons</Filter>
+      <Filter>Source Files\Objects\Player\Weapons</Filter>
     </ClInclude>
     <ClInclude Include="Ghost.h">
       <Filter>Source Files\Objects\Enemies</Filter>
@@ -304,6 +310,12 @@
     </ClInclude>
     <ClInclude Include="BatIntro.h">
       <Filter>Source Files\Scenes\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="BrokenBrickEffect.h">
+      <Filter>Source Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="TransparentObject.h">
+      <Filter>Source Files\Objects\maps</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

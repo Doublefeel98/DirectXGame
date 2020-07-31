@@ -20,6 +20,12 @@ void VampireBat::FromVector(vector<string> tokens)
 	CGameObject::FromVector(tokens);
 	startX = x;
 	startY = y;
+	if (tokens.size() > 9) {
+		distanceX = atoi(tokens[9].c_str());
+	}
+	else {
+		distanceX = VAMPIRE_BAT_DISTANCE_ATTACK_X;
+	}
 }
 
 VampireBat::~VampireBat()
@@ -55,7 +61,7 @@ void VampireBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 			}
 		}
 		else if (state == VAMPIRE_BAT_STATE_IDLE) {
-			if (abs(this->x - simonX) < VAMPIRE_BAT_DISTANCE_ATTACK_X && abs(this->y - simonY) < SIMON_BBOX_HEIGHT) {
+			if (abs(this->x - simonX) < distanceX && abs(this->y - simonY) < SIMON_BBOX_HEIGHT) {
 				SetState(VAMPIRE_BAT_STATE_FLYING);
 			}
 		}

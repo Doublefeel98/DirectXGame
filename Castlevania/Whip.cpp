@@ -6,6 +6,7 @@
 #include "../Framework/Game.h"
 #include "../Framework/Utils.h"
 #include "Enemy.h"
+#include "Brick.h"
 
 
 void Whip::Render()
@@ -142,7 +143,7 @@ void Whip::SetPosition(float x, float y, bool Issit)
 {
 	if (Issit)
 	{
-		y += WHIP_DELTA_POSITION_Y;
+		y += WHIP_DELTA_POSITION_Y + 1;
 	}
 	CGameObject::SetPosition(x, y);
 }
@@ -196,6 +197,14 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						candle->isDead = true;
 					}
 				}
+				else if (dynamic_cast<Brick*>(coObjects->at(i))) {
+					Brick* brick = dynamic_cast<Brick*>(coObjects->at(i));
+
+					if (brick->isEnable) {
+						brick->SetState(BRICK_STATE_BROKEN);
+						brick->isEnable = false;
+					}
+				}
 			}
 		}
 	}
@@ -229,13 +238,13 @@ void Whip::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 	{
 	case WHIP_LEVEL_1_ANI_LEFT:
 		left = x - WHIP_DELTA_X_LEFT - WHIP_LEVEL_1_BBOX_WIDTH;
-		top = y + WHIP_DELTA_POSITION_BOX_HEIGHT;
+		top = y + WHIP_DELTA_POSITION_BOX_HEIGHT - 2;
 		right = left + WHIP_LEVEL_1_BBOX_WIDTH;
 		bottom = top + WHIP_LEVEL_1_BBOX_HEIGHT;
 		break;
 	case WHIP_LEVEL_1_ANI_RIGHT:
 		left = x + SIMON_BBOX_WIDTH + WHIP_DELTA_X_RIGHT;
-		top = y + WHIP_DELTA_POSITION_BOX_HEIGHT;
+		top = y + WHIP_DELTA_POSITION_BOX_HEIGHT - 3;
 		right = left + WHIP_LEVEL_1_BBOX_WIDTH;
 		bottom = top + WHIP_LEVEL_1_BBOX_HEIGHT;
 		break;

@@ -159,6 +159,10 @@ namespace MapEditor
                 case "Raven":
                     imageCursor = Utilities.ResizeImage(imageCursor, 16, 12);
                     break;
+                case "Brick":
+                case "TransparentObject":
+                    imageCursor = Utilities.ResizeImage(imageCursor, 16, 16);
+                    break;
             }
             this.Cursor = new Cursor(((Bitmap)imageCursor).GetHicon());
             textBoxHeightOB.Text = imageCursor.Height.ToString();
@@ -541,6 +545,10 @@ namespace MapEditor
                 {
                     if (line.StartsWith("#") || line.StartsWith("//")) continue;
                     infos = line.Split(' ');
+                    if (infos.Length < 8)
+                    {
+                        return;
+                    }
 
                     name = infos[2];
                     posX = int.Parse(infos[3]);
@@ -608,6 +616,11 @@ namespace MapEditor
             {
                 listObject.ElementAt(objectIndexInfo).ItemType = (int)cboItemType.SelectedIndex - 2;
             }
+        }
+
+        private void groupBox5_Enter(object sender, EventArgs e)
+        {
+
         }
 
         private void clearAllPictureBox()

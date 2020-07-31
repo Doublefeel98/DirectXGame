@@ -123,6 +123,7 @@ void Item::Init()
 	IsGround = false;
 	vy = 0;
 	timeDisplayMax = 3000;
+	is_grow_up = false;
 	switch (typeItem)
 	{
 	case ITEM_MONEY_BAG_RED:
@@ -141,6 +142,7 @@ void Item::Init()
 	case ITEM_CROWN:
 	case ITEM_CHEST:
 		moneyEffect = new MoneyEffect(MONEY_EFFECT_2000);
+		timeDisplayMax = 5000;
 		break;
 	case ITEM_DOUBLE_SHOT:
 		timeDisplayMax = 5000;
@@ -270,7 +272,12 @@ void Item::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		CGameObject::Update(dt, coObjects);
 		if (typeItem != ITEM_SMALL_HEART) {
-			vy += SIMON_GRAVITY * dt;
+			if (is_grow_up) {
+				vy -= ITEM_GROW_UP * dt;
+			}
+			else {
+				vy += ITEM_GRAVITY * dt;
+			}
 		}
 		else {
 			vy = SIMON_GRAVITY * dt * 2;
@@ -323,44 +330,54 @@ void Item::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				this->SetState(ITEM_STATE_IDLE);
 		}*/
 
-		if (coEvents.size() == 0)
-		{
+		if (is_grow_up) {
 			x += dx;
 			y += dy;
-		}
-		else
-		{
-			float min_tx, min_ty, nx = 0, ny;
-			float rdx = 0;
-			float rdy = 0;
-
-			// TODO: This is a very ugly designed function!!!!
-			FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
-
-			bool isColisionGround = false;
-			for (UINT i = 0; i < coEventsResult.size(); i++)
-			{
-				LPCOLLISIONEVENT e = coEventsResult[i];
-				if (dynamic_cast<Ground*>(e->obj))
-				{
-					x += min_tx * dx + nx * 0.4f;
-					y += min_ty * dy + ny * 0.4f;
-
-					if (nx != 0) vx = 0;
-					if (ny != 0) vy = 0;
-					IsGround = true;
-
-					isColisionGround = true;
-				}
+			if (y <= start_y) {
+				is_grow_up = false;
 			}
-
-			if (!isColisionGround) {
+		}
+		else {
+			if (coEvents.size() == 0)
+			{
 				x += dx;
 				y += dy;
 			}
+			else
+			{
+				float min_tx, min_ty, nx = 0, ny;
+				float rdx = 0;
+				float rdy = 0;
 
+				// TODO: This is a very ugly designed function!!!!
+				FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+
+				bool isColisionGround = false;
+				for (UINT i = 0; i < coEventsResult.size(); i++)
+				{
+					LPCOLLISIONEVENT e = coEventsResult[i];
+					if (dynamic_cast<Ground*>(e->obj))
+					{
+						x += min_tx * dx + nx * 0.4f;
+						y += min_ty * dy + ny * 0.4f;
+
+						if (nx != 0) vx = 0;
+						if (ny != 0) vy = 0;
+						IsGround = true;
+
+						isColisionGround = true;
+					}
+				}
+
+				if (!isColisionGround) {
+					x += dx;
+					y += dy;
+				}
+
+			}
+			for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 		}
-		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+
 	}
 	if (moneyEffect != nullptr) {
 		Simon* simon = Simon::GetInstance();
@@ -400,4 +417,12 @@ void Item::Enable()
 {
 	SetEnable(true);
 	timeDisplay = GetTickCount();
+}
+
+void Item::SetIsGrowUp(bool is_grow_up)
+{
+	this->is_grow_up = is_grow_up;
+	float l, r, t, b;
+	GetBoundingBox(l, t, r, b);
+	start_y = y - (b - t) - 1;
 }

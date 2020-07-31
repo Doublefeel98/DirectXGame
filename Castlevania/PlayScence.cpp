@@ -27,6 +27,8 @@
 #include "Raven.h"
 #include "Zombie.h"
 #include "PhantomBat.h"
+#include "Brick.h"
+#include "TransparentObject.h"
 
 #include "../Framework/SceneManager.h"
 
@@ -170,6 +172,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_GROUND: obj = new Ground(); break;
 	case OBJECT_TYPE_BOTTOM_STAIR: obj = new  BottomStair(); break;
 	case OBJECT_TYPE_TOP_STAIR:obj = new  TopStair(); break;
+	case OBJECT_TYPE_BRICK:obj = new  Brick(); break;
+	case OBJECT_TYPE_TRANSPARENT_OBJECT:obj = new  TransparentObject(); break;
 	default:
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
 		return;
@@ -355,8 +359,16 @@ void CPlayScene::Update(DWORD dt)
 					item = new Item(typeItem);
 				}
 				item->Enable();
-				item->SetPosition(coObjects[i]->x, coObjects[i]->y - 3);
+				if (dynamic_cast<TransparentObject*>(coObjects[i])) {
+					TransparentObject* obj = dynamic_cast<TransparentObject*>(coObjects[i]);
+					item->SetPosition(obj->item_x, obj->item_y);
+					item->SetIsGrowUp(true);
+				}
+				else {
+					item->SetPosition(coObjects[i]->x, coObjects[i]->y - 3);
+				}
 				listItems.push_back(item);
+
 			}
 			coObjects[i]->SetEnable(false);
 		}
@@ -395,6 +407,7 @@ void CPlayScene::Update(DWORD dt)
 
 	if (!_checkInBoundMap()) {
 		player->Reset();
+		player->SetState(SIMON_STATE_DIE);
 		position = -1;
 		this->Unload();
 		this->Load();

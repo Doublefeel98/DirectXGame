@@ -329,16 +329,18 @@
             this.imageListOB.Images.SetKeyName(7, "TopStair");
             this.imageListOB.Images.SetKeyName(8, "Ground");
             this.imageListOB.Images.SetKeyName(9, "MovingPlatform");
-            this.imageListOB.Images.SetKeyName(10, "Zombie");
-            this.imageListOB.Images.SetKeyName(11, "BlackLeopard");
-            this.imageListOB.Images.SetKeyName(12, "VampireBat");
-            this.imageListOB.Images.SetKeyName(13, "FishMan");
-            this.imageListOB.Images.SetKeyName(14, "BlackKnight");
-            this.imageListOB.Images.SetKeyName(15, "Ghost");
-            this.imageListOB.Images.SetKeyName(16, "Fleamen");
-            this.imageListOB.Images.SetKeyName(17, "Skeleton");
-            this.imageListOB.Images.SetKeyName(18, "Raven");
-            this.imageListOB.Images.SetKeyName(19, "PhantomBat");
+            this.imageListOB.Images.SetKeyName(10, "Brick");
+            this.imageListOB.Images.SetKeyName(11, "TransparentObject");
+            this.imageListOB.Images.SetKeyName(12, "Zombie");
+            this.imageListOB.Images.SetKeyName(13, "BlackLeopard");
+            this.imageListOB.Images.SetKeyName(14, "VampireBat");
+            this.imageListOB.Images.SetKeyName(15, "FishMan");
+            this.imageListOB.Images.SetKeyName(16, "BlackKnight");
+            this.imageListOB.Images.SetKeyName(17, "Ghost");
+            this.imageListOB.Images.SetKeyName(18, "Fleamen");
+            this.imageListOB.Images.SetKeyName(19, "Skeleton");
+            this.imageListOB.Images.SetKeyName(20, "Raven");
+            this.imageListOB.Images.SetKeyName(21, "PhantomBat");
             // 
             // buttonSave
             // 
@@ -452,6 +454,7 @@
             this.groupBox5.TabIndex = 19;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "ObjectInfo";
+            this.groupBox5.Enter += new System.EventHandler(this.groupBox5_Enter);
             // 
             // label15
             // 

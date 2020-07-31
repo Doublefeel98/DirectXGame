@@ -3,6 +3,7 @@
 class VampireBat : public Enemy
 {
 	float startX, startY;
+	int distanceX;
 public:
 	VampireBat();
 	virtual void FromVector(vector<string> tokens);

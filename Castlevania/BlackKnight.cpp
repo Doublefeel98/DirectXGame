@@ -18,6 +18,12 @@ void BlackKnight::FromVector(vector<string> tokens)
 	CGameObject::FromVector(tokens);
 	startX = x;
 	startY = y;
+	if (tokens.size() > 9) {
+		distanceX = atoi(tokens[9].c_str());
+	}
+	else {
+		distanceX = BLACK_KNIGHT_DISTANCE_X;
+	}
 }
 
 BlackKnight::~BlackKnight()
@@ -29,8 +35,8 @@ void BlackKnight::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	Enemy::Update(dt, coObjects);
 	if (!isDead && isEnable && !Enemy::IsStop) {
 
-		if (vx > 0 && abs(x - startX) > BLACK_KNIGHT_DISTANCE_X) {
-			x = startX + BLACK_KNIGHT_DISTANCE_X;
+		if (vx > 0 && abs(x - startX) > distanceX) {
+			x = startX + distanceX;
 			vx = -vx;
 			nx = -1;
 		}

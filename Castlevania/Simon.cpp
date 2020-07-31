@@ -11,6 +11,8 @@
 #include "TopStair.h"
 #include "VampireBat.h"
 #include "MovingPlatform.h"
+#include "Brick.h"
+#include "TransparentObject.h"
 
 #include <iostream>
 #include <fstream>
@@ -166,7 +168,7 @@ void Simon::SetState(int state)
 				IsOnStair = false;
 				IsUpStair = false;
 				IsDownStair = false;
-				y -= 2;
+				y -= 3;
 				x = posXStair;
 				vx = 0;
 			}
@@ -337,7 +339,7 @@ void Simon::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 				top = y + 8;
 			}
 			right = left + boxWidth;
-			bottom = top + boxHeight;
+			bottom = top + boxHeight - 1;
 		}
 		else {
 			left = x;
@@ -362,7 +364,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (IsUpStair) {
 			nx = directionStair;
 		}
-		else {
+		if (IsDownStair) {
 			nx = -directionStair;
 		}
 
@@ -473,7 +475,7 @@ void Simon::Render()
 	}
 	else
 	{
-		if (IsHurt) {
+		if (IsHurt && !IsOnStair) {
 			if (nx > 0) {
 				ani = SIMON_ANI_HURT_RIGHT;
 			}
@@ -520,7 +522,7 @@ void Simon::Render()
 				}
 				else
 				{
-					if (vx > 0)
+					if (nx > 0)
 						ani = SIMON_ANI_CIMB_STAIR_ASCEND_RIGHT;
 					else ani = SIMON_ANI_CIMB_STAIR_ASCEND_LEFT;
 				}
@@ -540,7 +542,7 @@ void Simon::Render()
 				}
 				else
 				{
-					if (vx > 0)
+					if (nx > 0)
 						ani = SIMON_ANI_CIMB_STAIR_DESCEND_RIGHT;
 					else ani = SIMON_ANI_CIMB_STAIR_DESCEND_LEFT;
 				}
@@ -611,14 +613,10 @@ void Simon::ResetAnimationFighting()
 {
 	ResetAni(SIMON_ANI_FIGHTING_RIGHT);
 	ResetAni(SIMON_ANI_FIGHTING_LEFT);
-
 	ResetAni(SIMON_ANI_FIGHTING_SIT_RIGHT);
 	ResetAni(SIMON_ANI_FIGHTING_SIT_LEFT);
-
 	ResetAni(SIMON_ANI_FIGHTING_ASCEND_STAIR_RIGHT);
 	ResetAni(SIMON_ANI_FIGHTING_ASCEND_STAIR_LEFT);
-
-
 	ResetAni(SIMON_ANI_FIGHTING_DESCEND_STAIR_RIGHT);
 	ResetAni(SIMON_ANI_FIGHTING_DESCEND_STAIR_LEFT);
 }
@@ -677,7 +675,7 @@ void Simon::Load(LPCWSTR simonFile)
 
 	f.close();
 
-	CTextures::GetInstance()->Add(ID_TEX_BBOX, L"resources\\textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
+	CTextures::GetInstance()->Add(ID_TEX_BBOX, L"resources\\textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 0));
 
 	DebugOut(L"[INFO] Done loading simon resources %s\n", simonFile);
 }
@@ -732,12 +730,14 @@ void Simon::FromVector(vector<string> tokens)
 			if (state == 1) {
 				this->IsUpStair = true;
 				this->IsDownStair = false;
+				this->directionStair = this->nx;
 			}
 			else {
 				this->IsUpStair = false;
 				this->IsDownStair = true;
+				this->directionStair = -this->nx;
 			}
-			this->directionStair = this->nx;
+
 			this->vx = 0;
 			this->vy = 0;
 		}
@@ -884,14 +884,12 @@ void Simon::_checkAABB(vector<LPGAMEOBJECT>* coObjects)
 				GetBoundingBox(l1, t1, r1, b1);
 				bottomStair->GetBoundingBox(l2, t2, r2, b2);
 
-				if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))
+				if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2) && b2 >= b1)
 				{
-					if (b2 > b1) {
-						canClimbUpStair = true;
-						posXStair = bottomStair->x;
-						posYStair = bottomStair->y;
-						directionStair = bottomStair->nx;
-					}
+					canClimbUpStair = true;
+					posXStair = bottomStair->x;
+					posYStair = bottomStair->y;
+					directionStair = bottomStair->nx;
 				}
 			}
 		}
@@ -903,10 +901,10 @@ void Simon::_checkAABB(vector<LPGAMEOBJECT>* coObjects)
 				GetBoundingBox(l1, t1, r1, b1);
 				topStair->GetBoundingBox(l2, t2, r2, b2);
 
-				if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2))
+				if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2) && t2 <= t1)
 				{
 					canClimbDownStair = true;
-					posXStair = topStair->x;
+					posXStair = topStair->nx > 0 ? topStair->x + 2 : topStair->x - 2;
 					posYStair = topStair->y;
 					directionStair = topStair->nx;
 				}
@@ -984,7 +982,31 @@ void Simon::_checkSweptAABB(vector<LPGAMEOBJECT>* coObjects)
 					_handleLogicCollisionEnemy(enemy);
 				}
 
-				if (dynamic_cast<Ground*>(e->obj))
+				if (dynamic_cast<TransparentObject*>(e->obj))
+				{
+					TransparentObject* trans = dynamic_cast<TransparentObject*>(e->obj);
+					if (trans->isEnable) {
+						trans->SetEnable(false);
+						trans->SetDead(true);
+					}
+				}
+
+				if (dynamic_cast<Brick*>(e->obj))
+				{
+					Brick* brick = dynamic_cast<Brick*>(e->obj);
+					if (brick->GetState() == BRICK_STATE_BROKEN) {
+						x += dx;
+						y += dy;
+					}
+					else {
+						x += min_tx * dx + nx * 0.4f;
+						y += min_ty * dy + ny * 0.4f;
+
+						if (nx != 0) vx = 0;
+						if (ny != 0) vy = 0;
+					}
+				}
+				else if (dynamic_cast<Ground*>(e->obj))
 				{
 					if (IsOnStair) {
 						bool isHandleLogic = false;
@@ -1114,10 +1136,11 @@ void Simon::_checkSweptAABB(vector<LPGAMEOBJECT>* coObjects)
 				}
 				else {
 					x += dx;
-					if (ny < 0)
-						y += dy + ny * 0.7f;
-					else if (ny > 0)
-						y += dy + ny * -0.7f;
+					y += dy;
+					//if (ny < 0)
+					//	y += dy + ny * 0.7f;
+					//else if (ny > 0)
+					//	y += dy + ny * -0.7f;
 
 				}
 			}

@@ -3,6 +3,7 @@
 class BlackKnight : public Enemy
 {
 	float startX, startY;
+	int distanceX;
 public:
 	BlackKnight();
 	virtual void FromVector(vector<string> tokens);

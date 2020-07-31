@@ -46,6 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Objects\BlackKnight\BlackKnight.cs" />
+    <Compile Include="Objects\BlackKnight\BlackKnightUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Objects\BlackKnight\BlackKnightUC.Designer.cs">
+      <DependentUpon>BlackKnightUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Objects\BottomStair\BottomStair.cs" />
     <Compile Include="Objects\BottomStair\BottomStairUC.cs">
       <SubType>UserControl</SubType>
@@ -54,6 +60,7 @@
       <DependentUpon>BottomStairUC.cs</DependentUpon>
     </Compile>
     <Compile Include="Objects\BoundingMap\BoundingMap.cs" />
+    <Compile Include="Objects\Brick\Brick.cs" />
     <Compile Include="Objects\Candle\Candle.cs" />
     <Compile Include="Objects\Fleamen\Fleamen.cs" />
     <Compile Include="Objects\Gate\Gate.cs" />
@@ -85,7 +92,20 @@
       <DependentUpon>TopStairUC.cs</DependentUpon>
     </Compile>
     <Compile Include="Objects\Torch\Torch.cs" />
+    <Compile Include="Objects\TransparentObject\TransparentObject.cs" />
+    <Compile Include="Objects\TransparentObject\TransparentObjectUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Objects\TransparentObject\TransparentObjectUC.Designer.cs">
+      <DependentUpon>TransparentObjectUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Objects\VampireBat\VampireBat.cs" />
+    <Compile Include="Objects\VampireBat\VampireBatUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Objects\VampireBat\VampireBatUC.Designer.cs">
+      <DependentUpon>VampireBatUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Objects\Zombie\Zombie.cs" />
     <Compile Include="Objects\Zombie\ZombieUC.cs">
       <SubType>UserControl</SubType>
@@ -108,6 +128,9 @@
       <DependentUpon>MapEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Objects\BlackKnight\BlackKnightUC.resx">
+      <DependentUpon>BlackKnightUC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Objects\BottomStair\BottomStairUC.resx">
       <DependentUpon>BottomStairUC.cs</DependentUpon>
     </EmbeddedResource>
@@ -119,6 +142,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Objects\TopStair\TopStairUC.resx">
       <DependentUpon>TopStairUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Objects\TransparentObject\TransparentObjectUC.resx">
+      <DependentUpon>TransparentObjectUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Objects\VampireBat\VampireBatUC.resx">
+      <DependentUpon>VampireBatUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Objects\Zombie\ZombieUC.resx">
       <DependentUpon>ZombieUC.cs</DependentUpon>

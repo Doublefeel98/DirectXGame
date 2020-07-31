@@ -16,6 +16,8 @@ class Item : public CGameObject
 	MoneyEffect* moneyEffect;
 	DWORD timeDisplay;
 	int timeDisplayMax;
+	bool is_grow_up;
+	float start_y;
 public:
 	Item();
 	Item(int typeItem);
@@ -27,4 +29,5 @@ public:
 	int GetTypeItem() { return typeItem; }
 	MoneyEffect* GetMoneyEffect() { return moneyEffect; }
 	void Enable();
+	void SetIsGrowUp(bool is_grow_up);
 };

@@ -16,9 +16,9 @@ void Weapon::_handleLogicCollisionEnemy(Enemy* enemy)
 			vx = 0;
 			enemy->Hurted(this->damage);
 			enemy->GetCollisionEffect()->SetEnable(true);
-		}
-		if (dynamic_cast<Axe*>(this) || dynamic_cast<Dagger*>(this)) {
-			this->isEnable = false;
+			if (dynamic_cast<Dagger*>(this)) {
+				this->isEnable = false;
+			}
 		}
 	}
 }
@@ -26,21 +26,6 @@ void Weapon::_checkAABB(vector<LPGAMEOBJECT>* coObjects)
 {
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
-		if (dynamic_cast<Axe*>(this) || dynamic_cast<Dagger*>(this)) {
-			if ((dynamic_cast<Ground*>(coObjects->at(i)) || dynamic_cast<BoundingMap*>(coObjects->at(i))))
-			{
-				float l1, t1, r1, b1, l2, t2, r2, b2;
-				GetBoundingBox(l1, t1, r1, b1);
-				coObjects->at(i)->GetBoundingBox(l2, t2, r2, b2);
-				if (CGame::IsColliding(l1, t1, r1, b1, l2, t2, r2, b2)) {
-					if (dynamic_cast<Axe*>(this)) {
-						vy = -0.2;
-					}
-					isEnable = false;
-				}
-			}
-
-		}
 		if (dynamic_cast<Enemy*>(coObjects->at(i))) {
 
 			Enemy* enemy = dynamic_cast<Enemy*>(coObjects->at(i));
@@ -117,17 +102,6 @@ void Weapon::_checkSweptAABB(vector<LPGAMEOBJECT>* coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
-			if (dynamic_cast<Axe*>(this) || dynamic_cast<Dagger*>(this)) {
-				if ((dynamic_cast<Ground*>(e->obj) || dynamic_cast<BoundingMap*>(e->obj)))
-				{
-					if (dynamic_cast<Axe*>(this)) {
-						vy = -0.2;
-					}
-					isEnable = false;
-				}
-
-			}
-
 			if ((dynamic_cast<Enemy*>(e->obj))) {
 				Enemy* enemy = dynamic_cast<Enemy*>(e->obj);
 				_handleLogicCollisionEnemy(enemy);
@@ -197,8 +171,8 @@ void Weapon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	x += dx;
 	y += dy;
 
-	_checkAABB(coObjects);
-	_checkSweptAABB(coObjects);
+	Weapon::_checkAABB(coObjects);
+	Weapon::_checkSweptAABB(coObjects);
 }
 
 void Weapon::ResetAnimation()

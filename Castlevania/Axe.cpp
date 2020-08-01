@@ -8,6 +8,11 @@ void Axe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	Weapon::Update(dt, coObjects);
 	if (isEnable)
 		vy += 0.0007 * dt;
+	Weapon::_checkAABB(coObjects);
+	Weapon::_checkSweptAABB(coObjects);
+	if (!CCamera::GetInstance()->CheckPositionInboundCamera(x, y)) {
+		isEnable = false;
+	}
 }
 
 void Axe::Render()

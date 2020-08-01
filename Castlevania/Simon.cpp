@@ -61,7 +61,7 @@ void Simon::Reset()
 {
 	level = 0;
 	hp = SIMON_HP;
-	heart = 5;
+	heart = 50;
 
 	untouchable = 0;
 	untouchable_start = 0;
@@ -966,6 +966,7 @@ void Simon::_checkSweptAABB(vector<LPGAMEOBJECT>* coObjects)
 		// TODO: This is a very ugly designed function!!!!
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
+		bool isColisionGround = false;
 
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
@@ -994,16 +995,8 @@ void Simon::_checkSweptAABB(vector<LPGAMEOBJECT>* coObjects)
 				if (dynamic_cast<Brick*>(e->obj))
 				{
 					Brick* brick = dynamic_cast<Brick*>(e->obj);
-					if (brick->GetState() == BRICK_STATE_BROKEN) {
-						x += dx;
-						y += dy;
-					}
-					else {
-						x += min_tx * dx + nx * 0.4f;
-						y += min_ty * dy + ny * 0.4f;
-
-						if (nx != 0) vx = 0;
-						if (ny != 0) vy = 0;
+					if (brick->GetState() == BRICK_STATE_NORMAL) {
+						isColisionGround = true;
 					}
 				}
 				else if (dynamic_cast<Ground*>(e->obj))
@@ -1030,25 +1023,17 @@ void Simon::_checkSweptAABB(vector<LPGAMEOBJECT>* coObjects)
 								}
 							}
 						}
-						if (!isHandleLogic) {
-							x += dx;
-							y += dy;
-						}
 					}
 					else {
 						Ground* ground = dynamic_cast<Ground*>(e->obj);
 						// block 
 
-						x += min_tx * dx + nx * 0.4f;
-						y += min_ty * dy + ny * 0.4f;
-
-						if (nx != 0) vx = 0;
-						if (ny != 0) vy = 0;
+						isColisionGround = true;
 
 						if (IsJump)
 						{
 							if (e->ny < 0) {
-								y -= 10;
+								y -= 8;
 								IsJump = false;
 							}
 
@@ -1060,72 +1045,28 @@ void Simon::_checkSweptAABB(vector<LPGAMEOBJECT>* coObjects)
 							vx = 0;
 							ResetAnimationHurt();
 						}
-						/*if (e->ny < 0 || e->nx != 0)
-						{
-							x += min_tx * dx + nx * 0.4f;
-							y += min_ty * dy + ny * 0.4f;
-
-							if (nx != 0) vx = 0;
-							if (ny != 0) vy = 0;
-
-							if (IsJump)
-							{
-								y -= 8;
-								IsJump = false;
-							}
-							if (IsHurt) {
-								hurtable_start = 0;
-								hurtable = 0;
-								IsHurt = false;
-								vx = 0;
-								ResetAnimationHurt();
-							}
-						}
-						else {
-							x += dx;
-							y += dy;
-						}*/
 					}
 				}
 				else if (dynamic_cast<BoundingMap*>(e->obj)) {
-					x += min_tx * dx + nx * 0.4f;
-					y += min_ty * dy + ny * 0.4f;
-
-					if (nx != 0) vx = 0;
-					if (ny != 0) vy = 0;
+					isColisionGround = true;
 				}
 				else if (dynamic_cast<MovingPlatform*>(e->obj)) {
+					isColisionGround = true;
+
 					if (e->ny < 0)
 					{
-						x += min_tx * dx + nx * 0.4f;
-						y += min_ty * dy + ny * 0.4f;
-
-						if (ny != 0) vy = 0;
 						vx = e->obj->vx;
+						if (IsJump)
+						{
+							y -= 8;
+							IsJump = false;
+						}
 					}
-					if (IsJump)
-					{
-						y -= 8;
-						IsJump = false;
-					}
+
 				}
 				else if (dynamic_cast<BottomStair*>(e->obj))
 				{
-					x += dx;
-					if (e->ny < 0)
-					{
-						y += dy + ny * -0.7f;
-					}
-					else if (e->nx != 0)
-					{
-						if (ny < 0)
-							y += dy + ny * 0.7f;
-						else if (ny > 0)
-							y += dy + ny * -0.7f;
-					}
-					else {
-						y += dy;
-					}
+
 				}
 				else if (dynamic_cast<CPortal*>(e->obj))
 				{
@@ -1134,33 +1075,26 @@ void Simon::_checkSweptAABB(vector<LPGAMEOBJECT>* coObjects)
 					CSceneManager::GetInstance()->BeforeSwitchScene(p->GetSceneId());
 					return;
 				}
-				else {
-					x += dx;
-					y += dy;
-					//if (ny < 0)
-					//	y += dy + ny * 0.7f;
-					//else if (ny > 0)
-					//	y += dy + ny * -0.7f;
-
-				}
 			}
 			else {
-				if (dynamic_cast<Ground*>(e->obj) || dynamic_cast<BottomStair*>(e->obj))
+				if (dynamic_cast<Ground*>(e->obj))
 				{
-					x += min_tx * dx + nx * 0.4f;
-					y += min_ty * dy + ny * 0.4f;
-
-					if (nx != 0) vx = 0;
-					if (ny != 0) vy = 0;
-					if (timeDie == 0) {
-						timeDie = GetTickCount();
-					}
-				}
-				else {
-					x += dx;
-					y += dy;
+					timeDie = GetTickCount();
+					isColisionGround = true;
 				}
 			}
+		}
+
+		if (!isColisionGround) {
+			x += dx;
+			y += dy;
+		}
+		else {
+			x += min_tx * dx + nx * 0.4f;
+			y += min_ty * dy + ny * 0.4f;
+
+			if (nx != 0) vx = 0;
+			if (ny != 0) vy = 0;
 		}
 	}
 

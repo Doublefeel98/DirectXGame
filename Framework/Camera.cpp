@@ -95,3 +95,12 @@ void CCamera::SetSize(int _width, int _height)
 {
 	this->width = _width; this->height = _height;
 }
+
+bool CCamera::CheckPositionInboundCamera(float x, float y)
+{
+	if (x > position.x + width || x < position.x)
+		return false;
+	if (y > position.y + height || y < position.y)
+		return false;
+	return true;
+}

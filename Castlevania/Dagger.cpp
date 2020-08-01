@@ -2,10 +2,16 @@
 #include "../Framework/Ground.h"
 #include "../Framework/BoundingMap.h"
 #include "Enemy.h"
+#include "Define.h"
+#include "../Framework/Camera.h"
 
 void Dagger::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	Weapon::Update(dt, coObjects);
+	if (!CCamera::GetInstance()->CheckPositionInboundCamera(x, y))
+	{
+		isEnable = false;
+	}
 }
 
 void Dagger::Render()

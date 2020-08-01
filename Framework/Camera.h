@@ -25,4 +25,5 @@ public:
 	int GetWidth() { return this->width; }
 	int GetHeight() { return this->height; }
 	void SetSize(int _width, int _height);
+	bool CheckPositionInboundCamera(float x, float y);
 };

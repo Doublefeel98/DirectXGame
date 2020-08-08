@@ -13,6 +13,8 @@
 #include "MovingPlatform.h"
 #include "Brick.h"
 #include "TransparentObject.h"
+#include "Ghost.h"
+#include "Fleamen.h"
 
 #include <iostream>
 #include <fstream>
@@ -67,9 +69,13 @@ void Simon::Reset()
 	untouchable_start = 0;
 
 	IsFighting = false;
-	IsJump = false;
 	IsSit = false;
 	IsRun = false;
+	IsJump = false;
+	IsOnStair = false;
+	IsUpStair = false;
+	IsDownStair = false;
+	_IsFirstOnStair = false;
 
 	timeAttackStart = 0;
 
@@ -134,6 +140,17 @@ void Simon::SetState(int state)
 		break;
 	case SIMON_STATE_DIE:
 		vy = -SIMON_DIE_DEFLECT_SPEED;
+		IsSit = false;
+		IsRun = false;
+		IsJump = false;
+		IsOnStair = false;
+		IsUpStair = false;
+		IsDownStair = false;
+		_IsFirstOnStair = false;
+		timeDie = 0;
+		life -= 1;
+		break;
+	case SIMON_STATE_DIE_OUT_MAP:
 		IsSit = false;
 		IsRun = false;
 		IsJump = false;
@@ -1173,6 +1190,9 @@ void Simon::handleLogicCollisionItem(Item* item)
 		case ITEM_INVISIBILITY_POTION:
 			StartUntouchable();
 			break;
+		case ITEM_PORK_CHOP:
+			hp = SIMON_HP;
+			break;
 		}
 		item->SetDead(true);
 		item->SetEnable(false);
@@ -1190,6 +1210,14 @@ void Simon::_handleLogicCollisionEnemy(Enemy* enemy)
 			{
 				enemy->SetEnable(false);
 				enemy->GetCollisionEffect()->SetEnable(true);
+			}
+			else if (dynamic_cast<Ghost*>(enemy))
+			{
+				enemy->SetState(GHOST_STATE_COMEBACK);
+			}
+			else if (dynamic_cast<Fleamen*>(enemy))
+			{
+				enemy->SetState(FLEAMEN_STATE_COMEBACK);
 			}
 		}
 	}

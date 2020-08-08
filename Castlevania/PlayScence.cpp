@@ -271,12 +271,14 @@ void CPlayScene::Update(DWORD dt)
 		if (player->timeDie > 0 && now - player->timeDie >= 500) {
 			if (player->GetLife() == 0) {
 				isGameOver = true;
+				camera->SetFollowPlayer(true);
 				return;
 			}
 			else {
 				player->Reset();
 				position = -1;
 				this->Unload();
+				camera->SetFollowPlayer(true);
 				this->Load();
 				return;
 			}
@@ -407,8 +409,9 @@ void CPlayScene::Update(DWORD dt)
 
 	if (!_checkInBoundMap()) {
 		player->Reset();
-		player->SetState(SIMON_STATE_DIE);
+		player->SetState(SIMON_STATE_DIE_OUT_MAP);
 		position = -1;
+		camera->SetFollowPlayer(true);
 		this->Unload();
 		this->Load();
 	}

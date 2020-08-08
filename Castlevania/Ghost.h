@@ -4,6 +4,9 @@ class Ghost : public Enemy
 {
 	float startX, startY;
 	int ny;
+	float x_back;
+	DWORD time_waiting;
+	int old_nx;
 public:
 	Ghost();
 	virtual void FromVector(vector<string> tokens);

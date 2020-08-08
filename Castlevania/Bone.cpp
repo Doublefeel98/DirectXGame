@@ -130,7 +130,7 @@ void Bone::SetState(int state)
 	{
 	case BONE_STATE_FLY:
 		vx = nx * 0.06;
-		vy = -0.2;
+		vy = -0.21;
 		break;
 	}
 }

@@ -4,7 +4,10 @@ class BlackKnight : public Enemy
 {
 	float startX, startY;
 	int distanceX;
+	int prev_hp;
+	DWORD time_hurt;
 public:
+	void Hurted(int damage);
 	BlackKnight();
 	virtual void FromVector(vector<string> tokens);
 	~BlackKnight();

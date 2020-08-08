@@ -31,13 +31,19 @@ void Ghost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 		float simonX, simonY;
 
 		Simon::GetInstance()->GetPosition(simonX, simonY);
-
 		nx = this->x >= simonX ? -1 : 1;
 		ny = this->y >= simonY ? -1 : 1;
-
-
 		if (state == GHOST_STATE_FLYING)
 		{
+			nx = this->x >= simonX ? -1 : 1;
+
+			if (abs(this->x - simonX) >= SIMON_BBOX_WIDTH / 2) {
+				x += dx;
+			}
+			if (!(simonY <= this->y && this->y - simonY <= GHOST_BBOX_HEIGHT / 2)) {
+				y += dy;
+			}
+
 			if (nx > 0) {
 				vx = GHOST_FLYING_SPEED_X;
 			}
@@ -52,14 +58,6 @@ void Ghost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 				vy = -GHOST_FLYING_SPEED_X;
 			}
 
-			if (abs(this->x - simonX) >= SIMON_BBOX_WIDTH / 2) {
-				x += dx;
-			}
-			if (!(simonY <= this->y && this->y - simonY <= GHOST_BBOX_HEIGHT / 2)) {
-				y += dy;
-			}
-
-
 			//if (nx > 0) {
 			//	if (abs(this->x - simonX) <= GHOST_DISTANCE_WAITING_X + SIMON_BBOX_WIDTH && abs(this->y - simonY) < SIMON_BBOX_HEIGHT) {
 			//		SetState(GHOST_STATE_WAITTING);
@@ -70,7 +68,37 @@ void Ghost::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 			//		SetState(GHOST_STATE_WAITTING);
 			//	}
 			//}
+		}
+		else if (state == GHOST_STATE_WAITTING) {
+			if (GetTickCount() - time_waiting > 500) {
+				SetState(GHOST_STATE_FLYING);
+			}
+		}
+		else if (state == GHOST_STATE_COMEBACK) {
+			nx = old_nx;
 
+			x += dx;
+			if (!(simonY <= this->y && this->y - simonY <= GHOST_BBOX_HEIGHT / 2)) {
+				y += dy;
+			}
+
+			if (nx > 0) {
+				vx = GHOST_FLYING_SPEED_X;
+			}
+			else {
+				vx = -GHOST_FLYING_SPEED_X;
+			}
+
+			if (ny > 0) {
+				vy = GHOST_FLYING_SPEED_X;
+			}
+			else {
+				vy = -GHOST_FLYING_SPEED_X;
+			}
+
+			if ((nx > 0 && x_back <= x) || (nx < 0 && x_back >= x)) {
+				SetState(GHOST_STATE_WAITTING);
+			}
 		}
 		else if (state == GHOST_STATE_HIDE) {
 			if (nx < 0) {
@@ -91,21 +119,12 @@ void Ghost::Render()
 {
 	if (!isDead && isEnable && state != GHOST_STATE_HIDE) {
 		int ani = 0;
-		switch (state)
-		{
-		case GHOST_STATE_WAITTING:
-		case GHOST_STATE_FLYING:
-		{
-			if (nx > 0) {
-				ani = GHOST_ANI_FLYING_RIGHT;
-			}
-			else {
-				ani = GHOST_ANI_FLYING_LEFT;
-			}
+
+		if (nx > 0) {
+			ani = GHOST_ANI_FLYING_RIGHT;
 		}
-		break;
-		default:
-			break;
+		else {
+			ani = GHOST_ANI_FLYING_LEFT;
 		}
 
 		animation_set->at(ani)->Render(x, y, Enemy::IsStop);
@@ -117,7 +136,7 @@ void Ghost::Render()
 
 void Ghost::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (isDead || state == GHOST_STATE_HIDE) {
+	if (isDead || state == GHOST_STATE_HIDE || state == GHOST_STATE_COMEBACK) {
 		left = 0;
 		top = 0;
 		right = left + 0;
@@ -158,8 +177,18 @@ void Ghost::SetState(int state)
 			vy = -GHOST_FLYING_SPEED_X;
 		}
 		break;
+	case GHOST_STATE_COMEBACK:
+		old_nx = nx;
+		if (nx > 0) {
+			x_back = x + GHOST_DISTANCE_WAITING_X + GHOST_BBOX_WIDTH;
+		}
+		else {
+			x_back = x - SIMON_BBOX_WIDTH - GHOST_DISTANCE_WAITING_X;
+		}
 	case GHOST_STATE_WAITTING:
 		vx = 0;
+		vy = 0;
+		time_waiting = GetTickCount();
 		break;
 	}
 

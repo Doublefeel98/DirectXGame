@@ -1,13 +1,20 @@
 ﻿#include "BlackKnight.h"
 #include "Define.h"
 #include "../Framework/Ground.h"
+#include "../Framework/BoundingMap.h"
+
+void BlackKnight::Hurted(int damage)
+{
+	this->prev_hp = hp;
+	Enemy::Hurted(damage);
+}
 
 BlackKnight::BlackKnight() :Enemy()
 {
 	this->hp = BLACK_KNIGHT_HP;
 	isEnable = true;
 	damage = BLACK_KNIGHT_DAMAGE;
-
+	nx = -1;
 	SetState(BLACK_KNIGHT_STATE_WALKING);
 
 	point = 400;
@@ -19,7 +26,7 @@ void BlackKnight::FromVector(vector<string> tokens)
 	startX = x;
 	startY = y;
 	if (tokens.size() > 9) {
-		distanceX = atoi(tokens[9].c_str());
+		distanceX = atof(tokens[9].c_str());
 	}
 	else {
 		distanceX = BLACK_KNIGHT_DISTANCE_X;
@@ -47,6 +54,22 @@ void BlackKnight::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			nx = 1;
 		}
 
+		vy += SIMON_GRAVITY * dt;
+
+		// check hurted
+		if (this->prev_hp > hp) {
+			SetState(BLACK_KNIGHT_STATE_HURT);
+			this->prev_hp = hp;
+		}
+
+		if (state == BLACK_KNIGHT_STATE_HURT)
+		{
+			if (GetTickCount() - time_hurt >= 500)
+			{
+				SetState(BLACK_KNIGHT_STATE_WALKING);
+			}
+		}
+
 		vector<LPCOLLISIONEVENT> coEvents;
 		vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -55,7 +78,9 @@ void BlackKnight::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		CalcPotentialCollisions(coObjects, coEvents);
 
 		if (coEvents.size() == 0) {
-			x += dx;
+			if (state != BLACK_KNIGHT_STATE_HURT) {
+				x += dx;
+			}
 			y += dy;
 		}
 		else {
@@ -80,12 +105,6 @@ void BlackKnight::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 				if (dynamic_cast<Ground*>(e->obj))
 				{
-					x += min_tx * dx + nx * 0.4f;
-					y += min_ty * dy + ny * 0.4f;
-
-					if (nx != 0) vx = 0;
-					if (ny != 0) vy = 0;
-
 					isColisionGround = true;
 				}
 			}
@@ -94,6 +113,13 @@ void BlackKnight::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				x += dx;
 				y += dy;
+			}
+			else {
+				x += min_tx * dx + nx * 0.4f;
+				y += min_ty * dy + ny * 0.4f;
+
+				if (nx != 0) vx = 0;
+				if (ny != 0) vy = 0;
 			}
 		}
 	}
@@ -104,23 +130,22 @@ void BlackKnight::Render()
 	if (!isDead && isEnable) {
 		int posX = x, posY = y;
 		int ani = 0;
-		switch (state)
-		{
-		case BLACK_KNIGHT_STATE_WALKING:
-		{
-			if (nx > 0) {
-				ani = BLACK_KNIGHT_ANI_WALKING_RIGHT;
-			}
-			else {
-				ani = BLACK_KNIGHT_ANI_WALKING_LEFT;
-			}
+
+		if (nx > 0) {
+			ani = BLACK_KNIGHT_ANI_WALKING_RIGHT;
 		}
-		break;
-		default:
-			break;
+		else {
+			ani = BLACK_KNIGHT_ANI_WALKING_LEFT;
 		}
 
-		animation_set->at(ani)->Render(posX, posY, Enemy::IsStop);
+		if (state == BLACK_KNIGHT_STATE_HURT)
+		{
+			animation_set->at(ani)->Render(posX, posY, true);
+		}
+		else {
+			animation_set->at(ani)->Render(posX, posY, Enemy::IsStop);
+		}
+
 		RenderBoundingBox();
 	}
 
@@ -152,8 +177,11 @@ void BlackKnight::SetState(int state)
 		isDead = true;
 		isEnable = false;
 		break;
+	case BLACK_KNIGHT_STATE_HURT:
+		time_hurt = GetTickCount();
+		break;
 	case BLACK_KNIGHT_STATE_WALKING:
-		vx = -BLACK_KNIGHT_WALKING_SPEED;
-		nx = -1;
+		vx = nx * BLACK_KNIGHT_WALKING_SPEED;
+		break;
 	}
 }

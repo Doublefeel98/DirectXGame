@@ -356,11 +356,9 @@ void Item::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				for (UINT i = 0; i < coEventsResult.size(); i++)
 				{
 					LPCOLLISIONEVENT e = coEventsResult[i];
-					if (dynamic_cast<Ground*>(e->obj))
+					if (dynamic_cast<Ground*>(e->obj) || dynamic_cast<BoundingMap*>(e->obj))
 					{
-
 						IsGround = true;
-
 						isColisionGround = true;
 					}
 				}

@@ -21,7 +21,7 @@ void VampireBat::FromVector(vector<string> tokens)
 	startX = x;
 	startY = y;
 	if (tokens.size() > 9) {
-		distanceX = atoi(tokens[9].c_str());
+		distanceX = atof(tokens[9].c_str());
 	}
 	else {
 		distanceX = VAMPIRE_BAT_DISTANCE_ATTACK_X;
@@ -40,8 +40,6 @@ void VampireBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 		float simonX, simonY;
 
 		Simon::GetInstance()->GetPosition(simonX, simonY);
-
-		nx = this->x >= simonX ? -1 : 1;
 
 		if (state == VAMPIRE_BAT_STATE_FLYING)
 		{
@@ -62,6 +60,7 @@ void VampireBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject)
 		}
 		else if (state == VAMPIRE_BAT_STATE_IDLE) {
 			if (abs(this->x - simonX) < distanceX && abs(this->y - simonY) < SIMON_BBOX_HEIGHT) {
+				nx = this->x >= simonX ? -1 : 1;
 				SetState(VAMPIRE_BAT_STATE_FLYING);
 			}
 		}

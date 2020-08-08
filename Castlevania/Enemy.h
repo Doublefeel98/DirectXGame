@@ -16,7 +16,7 @@ public:
 	Enemy();
 	CollisionEffect* GetCollisionEffect() { return collisionEffect; }
 	DeadEffect* GetDeadEffect() { return deadEffect; }
-	void Hurted(int damage);
+	virtual void Hurted(int damage);
 	virtual void Render();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);

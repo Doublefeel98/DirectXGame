@@ -4,6 +4,9 @@ class Fleamen : public Enemy
 {
 	float startX, startY;
 	DWORD timeJump;
+	float x_back;
+	DWORD time_waiting;
+	int old_nx;
 public:
 	Fleamen();
 	virtual void FromVector(vector<string> tokens);

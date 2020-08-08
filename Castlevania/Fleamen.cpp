@@ -38,13 +38,25 @@ void Fleamen::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		nx = this->x >= simonX ? -1 : 1;
 
-
 		if (state != FLEAMEN_STATE_IDLE) {
 			vy += FLEAMEN_GRAVITY * dt;
 		}
-		else if (state == FLEAMEN_STATE_IDLE) {
+
+
+		if (state == FLEAMEN_STATE_IDLE) {
 			if (abs(this->x - simonX) <= FLEAMEN_DISTANCE_ATTACK_X) {
 				SetState(FLEAMEN_STATE_JUMP);
+			}
+		}
+		else if (state == FLEAMEN_STATE_COMEBACK) {
+			nx = old_nx;
+			if ((nx > 0 && x_back <= x) || (nx < 0 && x_back >= x)) {
+				SetState(FLEAMEN_STATE_WAITTING);
+			}
+		}
+		else if (state == FLEAMEN_STATE_WAITTING) {
+			if (GetTickCount() - time_waiting > 500) {
+				SetState(FLEAMEN_STATE_ATTACK);
 			}
 		}
 
@@ -75,23 +87,16 @@ void Fleamen::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			// block every object first!
 
+			bool is_colision_top = false;
+
 			for (UINT i = 0; i < coEventsResult.size(); i++)
 			{
 				LPCOLLISIONEVENT e = coEventsResult[i];
 
 				if (dynamic_cast<Ground*>(e->obj)) // if e->obj is Goomba 
 				{
-					x += min_tx * dx + nx * 0.4f;
-					y += min_ty * dy + ny * 0.4f;
-
-					if (nx != 0) vx = 0;
-					if (ny != 0) vy = 0;
-
-					if (state != FLEAMEN_STATE_IDLE) {
-						SetState(FLEAMEN_STATE_ATTACK);
-					}
-
 					isCollision = true;
+					is_colision_top = e->ny > 0;
 				}
 			}
 
@@ -99,6 +104,56 @@ void Fleamen::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				x += dx;
 				y += dy;
+			}
+			else {
+				x += min_tx * dx + nx * 0.4f;
+				y += min_ty * dy + ny * 0.4f;
+
+				if (nx != 0) vx = 0;
+				if (ny != 0) vy = 0;
+
+				if (state == FLEAMEN_STATE_ATTACK) {
+
+					DWORD now = GetTickCount();
+					if (!is_colision_top) {
+						if (timeJump == 0) {
+							timeJump = now;
+							vy = -FLEAMEN_SPEED_Y;
+						}
+						else if (now - timeJump >= 1000) {
+							timeJump = now;
+							vy = -FLEAMEN_SPEED_Y * 2;
+						}
+						else {
+							vy = -FLEAMEN_SPEED_Y;
+						}
+					}
+
+
+					if (this->nx > 0) {
+						vx = FLEAMEN_SPEED_X;
+					}
+					else {
+						vx = -FLEAMEN_SPEED_X;
+					}
+				}
+				else if (state == FLEAMEN_STATE_COMEBACK) {
+					if (this->nx > 0) {
+						vx = FLEAMEN_SPEED_X;
+					}
+					else {
+						vx = -FLEAMEN_SPEED_X;
+					}
+
+					vy = -FLEAMEN_SPEED_Y;
+				}
+				else if (state == FLEAMEN_STATE_WAITTING) {
+					vy = -FLEAMEN_SPEED_Y;
+					vx = 0;
+				}
+				else if (state == FLEAMEN_STATE_JUMP) {
+					SetState(FLEAMEN_STATE_ATTACK);
+				}
 			}
 		}
 	}
@@ -121,6 +176,8 @@ void Fleamen::Render()
 			}
 		}
 		break;
+		case FLEAMEN_STATE_WAITTING:
+		case FLEAMEN_STATE_COMEBACK:
 		case FLEAMEN_STATE_JUMP:
 		case FLEAMEN_STATE_ATTACK:
 		{
@@ -173,31 +230,24 @@ void Fleamen::SetState(int state)
 		else {
 			vx = -FLEAMEN_JUMP_SPEED_X;
 		}
-
 		vy = -FLEAMEN_JUMP_SPEED_Y;
 		break;
+	case FLEAMEN_STATE_WAITTING:
+		vx = 0;
+		time_waiting = GetTickCount();
+	case FLEAMEN_STATE_COMEBACK:
+	{
+		old_nx = nx;
+		if (nx > 0) {
+			x_back = x + FLEAMEN_DISTANCE_WAITING_X + FLEAMEN_BBOX_WIDTH;
+		}
+		else {
+			x_back = x - SIMON_BBOX_WIDTH - FLEAMEN_DISTANCE_WAITING_X;
+		}
+	}
+	break;
 	case FLEAMEN_STATE_ATTACK:
 	{
-		if (nx > 0) {
-			vx = FLEAMEN_SPEED_X;
-		}
-		else {
-			vx = -FLEAMEN_SPEED_X;
-		}
-
-		DWORD now = GetTickCount();
-
-		if (timeJump == 0) {
-			timeJump = now;
-			vy = -FLEAMEN_SPEED_Y;
-		}
-		else if (now - timeJump >= 2000) {
-			timeJump = now;
-			vy = -FLEAMEN_SPEED_Y * 2;
-		}
-		else {
-			vy = -FLEAMEN_SPEED_Y;
-		}
 	}
 	break;
 	}

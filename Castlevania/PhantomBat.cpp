@@ -16,7 +16,7 @@ PhantomBat::PhantomBat() :Enemy()
 	this->startX = startX;
 	this->startY = startY;
 
-	this->hp = PHANTOM_BAT_HP - 15;
+	this->hp = PHANTOM_BAT_HP;
 	isEnable = true;
 
 	damage = PHANTOM_BAT_DAMAGE;
